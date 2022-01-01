@@ -73,7 +73,6 @@ URxvt*keysym.M-s: perl:keyboard-select:search
 URxvt*keysym*Control-Shift-V:     perl:pasta:paste
 URxvt*keysym*Control-Shift-C:     perl:clipboard:copy
 
-
 ! addons: tabbed
 ! shift+down arrow opens new tab
 ! shift+left/right navigates tabs

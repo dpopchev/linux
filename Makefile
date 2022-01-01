@@ -13,6 +13,7 @@ RM_LINK = [[ ! -L $(1) ]] || unlink "$(1)"
 FORCE_BACKUP_FILE = [[ ! -f $(1) ]] || mv --force "$(1)" "$(1).bak"
 LN_SRC_CONFIG = ln -s $(realpath $(1)) $2
 MKDIR = mkdir --parents
+DOWNLOAD = wget --directory-prefix=$(1)/ $(2) --output-file=/dev/null
 
 XRESOURCES = $(HOME)/.Xresources
 XRESOURCES_CONFIGS := $(wildcard $(SRC)/config/Xresources.d/*)
@@ -32,3 +33,18 @@ $(XRESOURCES_TARGETS): Xresources
 	@$(call RM_LINK,$(filter %/$@,$(TARGET_FILES)))
 	@$(call FORCE_BACKUP_FILE,$(filter %/$@,$(TARGET_FILES)))
 	@$(call LN_SRC_CONFIG,$(filter %/$@,$(CONFIGS)),$(filter %/$@,$(TARGET_FILES)))
+
+URXVT_EXT_DIR := $(HOME)/.urxvt/ext
+URXVT_EXT_SOURCES := https://raw.githubusercontent.com/muennich/urxvt-perls/master/keyboard-select
+URXVT_EXT_SOURCES += https://raw.githubusercontent.com/exg/rxvt-unicode/main/src/perl/tabbed
+URXVT_EXT_SOURCES += https://raw.githubusercontent.com/simmel/urxvt-resize-font/master/resize-font
+URXVT_EXT_SOURCES += https://raw.githubusercontent.com/exg/rxvt-unicode/main/src/perl/selection-to-clipboard
+URXVT_EXT_SOURCES += https://raw.githubusercontent.com/su8/urxvt-pasta/master/pasta
+
+.PHONY: urxvt_plugins urxvt_ext_dst
+
+urxvt_ext_dst:
+	@$(MKDIR) $(URXVT_EXT_DIR)
+
+urxvt_plugins: | urxvt_ext_dst
+	@for ext in $(URXVT_EXT_SOURCES); do $(call DOWNLOAD,$(URXVT_EXT_DIR),$$ext); done
