@@ -18,7 +18,7 @@ DOWNLOAD = wget --directory-prefix=$(1)/ $(2) --output-file=/dev/null
 XRESOURCES = $(HOME)/.Xresources
 XRESOURCES_CONFIGS := $(wildcard $(SRC)/config/Xresources.d/*)
 XRESOURCES_TARGETS := $(notdir $(XRESOURCES_CONFIGS))
-XRESOURCES_INCLUDE = \#include '.config/Xresources.d/$(1)'
+XRESOURCES_INCLUDE = \#include \".config/Xresources.d/$(1)\"
 TEST_XRESOURCES_INCLUDE = grep --fixed-strings --line-regexp --quiet "$(1)" $(XRESOURCES)
 ADD_XRESOURCES_INCLUDE = if ! $(call TEST_XRESOURCES_INCLUDE,$(call XRESOURCES_INCLUDE,$(1))); then echo "$(call XRESOURCES_INCLUDE,$(1))" >> $(XRESOURCES); fi
 
