@@ -39,11 +39,11 @@ URxvt*letterSpace: -1
 URxvt*lineSpace: 0
 
 ! appearance
-URxvt*geometry: 92x24
+URxvt*geometry: 84x50
 URxvt*internalBorder: 16
 URxvt*cursorBlink: false
 URxvt*cursorUnderline: false
-URxvt*saveline: 2048
+URxvt*saveline: 4096
 URxvt*scrollBar: false
 URxvt*scrollBar_right: false
 URxvt*scrollBar_floating: false
