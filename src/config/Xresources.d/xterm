@@ -71,10 +71,8 @@ XTerm.vt100.backarrowKey: false
 XTerm.ttyModes: erase ^?
 
 ! copy/paste
-<Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
-Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
-Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
-
 XTerm.vt100.translations: #override \n\
   Ctrl <Key>M: maximize() \n\
-  Ctrl <Key>R: restore()
+  Ctrl <Key>R: restore() \n\
+  Shift Ctrl <Key> C: copy-selection(CLIPBOARD) \n\
+  Shift Ctrl <Key> V: insert-selection(CLIPBOARD)
