@@ -2,6 +2,12 @@
 
 URxvt.termName: rxvt-unicode-256color
 
+! Tango color scheme
+! ------------------
+! URxvt.cursorColor:      #8ae234
+! URxvt.colorUL:          #8ae234
+! URxvt.underlineColor:   #92659a
+
 URxvt.background: #000000
 URxvt.foreground: #B2B2B2
 
@@ -37,19 +43,23 @@ URxvt.italicFont: xft:DejaVu Sans Mono:style=Italic:size=12
 URxvt.boldItalicFont: xft:DejaVu Sans Mono:style=Bold Italic:size=12
 URxvt.letterSpace: -1
 URxvt.lineSpace: 0
+! URxvt.scaleHeight: 1.01
+
+! force utf8
+URxvt.locale: false
+URxvt.utf8: true
 
 ! appearance
 URxvt.geometry: 84x24
 URxvt.internalBorder: 16
 URxvt.cursorBlink: false
 URxvt.cursorUnderline: false
-URxvt.saveline: 5120
+URxvt.saveLines: 4096
 URxvt.scrollBar: false
 URxvt.scrollBar_right: false
 URxvt.scrollBar_floating: false
-URxvt.scrollstyle: rxvt
 URxvt.urgentOnBell: true
-! URxvt.depth: 24
+URxvt.depth: 24
 URxvt.iso14755: false
 
 ! addons
@@ -70,8 +80,8 @@ URxvt.keysym.M-Escape: perl:keyboard-select:activate
 URxvt.keysym.M-s: perl:keyboard-select:search
 
 ! addons: pasta
-URxvt.keysym*Control-Shift-V:     perl:pasta:paste
-URxvt.keysym*Control-Shift-C:     perl:clipboard:copy
+URxvt.keysym.Control-Shift-V:     perl:pasta:paste
+URxvt.keysym.Control-Shift-C:     perl:clipboard:copy
 
 ! addons: tabbed
 ! shift+down arrow opens new tab
@@ -87,8 +97,8 @@ URxvt.tabbed.tab-fg:    3
 URxvt.tabbed.tab-bg:    0
 
 ! addons: resize=font
-! URxvt.keysym*C-minus:     resize-font:smaller
-! URxvt.keysym*C-plus:      resize-font:bigger
-! URxvt.keysym*C-equal:     resize-font:reset
-! URxvt.keysym*C-question:  resize-font:show
-URxvt.resize-font*step: 1
+! URxvt.keysym.C-minus:     resize-font:smaller
+! URxvt.keysym.C-plus:      resize-font:bigger
+! URxvt.keysym.C-equal:     resize-font:reset
+! URxvt.keysym.C-question:  resize-font:show
+URxvt.resize-font.step: 1
