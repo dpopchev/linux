@@ -39,7 +39,7 @@ URxvt*letterSpace: -1
 URxvt*lineSpace: 0
 
 ! appearance
-URxvt*geometry: 84x50
+URxvt*geometry: 84x24
 URxvt*internalBorder: 16
 URxvt*cursorBlink: false
 URxvt*cursorUnderline: false
