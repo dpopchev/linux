@@ -6,7 +6,7 @@ XTerm.termName: xterm-256color
 ! ------------------
 ! XTerm.vt100.cursorColor:      #8ae234
 ! XTerm.vt100.colorUL:          #8ae234
-XTerm.vt100.underlineColor:   #92659a
+! XTerm.vt100.underlineColor:   #92659a
 
 XTerm.vt100.foreground:       #c8c8c8
 XTerm.vt100.background:       #0f0f0f
@@ -54,11 +54,10 @@ XTerm.vt100.geometry: 84x24
 XTerm.vt100.internalBorder: 16
 XTerm.vt100.cursorBlink: false
 XTerm.vt100.cursorUnderline: false
-XTerm.vt100.saveLines: 5120
+XTerm.vt100.saveLines: 4096
 XTerm.vt100.scrollBar: false
 XTerm.vt100.scrollBar_right: false
 XTerm.vt100.scrollBar_floating: false
-! XTerm.vt100.scrollbar.width: 8
 XTerm.vt100.urgentOnBell: true
 XTerm.vt100.depth: 24
 XTerm.vt100.iso14755: false
