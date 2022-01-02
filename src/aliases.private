@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+alias vimaliases='vim ~/.aliases.private'
+alias sourcealiases='source ~/.aliases.private'
+
+alias vimbashrc='vim ~/.bashrc.private'
+alias sourcebashrc='source ~/.bashrc.private'
+
+alias vimgitconfig='vim ~/.gitconfig'
+
+alias vimrc='vim ~/.vimrc'
+
+alias g='git'
+alias gc='git config --global --list | grep =commit'
+alias gd='git config --global --list | grep =diff'
+alias gs='git config --global --list | grep =status'
+alias gst='git config --global --list | grep =stash'
+alias gu='git config --global --list | grep "'\\.u\\w='"'
+alias v='vim'
+alias vi='vim'
+alias p='python3'
+alias ip='ipython3'
+
+alias grep='grep --color=auto'
+alias ls='ls --color=auto'
+alias less='less -R'
+alias cp='cp --interactive'
+alias df='df --human-readable'
+alias free='free -m'
+alias more='less'
+alias rm='rm --interactive=always --recursive'
+
+alias lshead='ls -lt | head'
+alias lstail='ls -lt | tail'
+alias tree="tree -I '__init__.py|__pycache__'"
+
+alias h='history'
+alias hgrep='history | grep -i'
+
+declare -a diff_opts
+diff_opts+=( --ignore-tab-expansion )
+diff_opts+=( --ignore-space-change )
+diff_opts+=( --ignore-all-space )
+diff_opts+=( --ignore-blank-lines )
+diff_opts+=( --expand-tabs )
+
+alias diff="diff \${diff_opts[*]}"
+unset diff_opts
+
+alias diffpatch="diff -u"
+alias patch="patch -u -b"
+# below should be ignored by git via filter
