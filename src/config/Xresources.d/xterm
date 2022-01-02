@@ -1,24 +1,38 @@
 XTerm.termName: xterm-256color
 
-! DOS-box colours...
-XTerm*foreground: rgb:a8/a8/a8
-XTerm*background: rgb:00/00/00
-XTerm*color0: rgb:00/00/00
-XTerm*color1: rgb:a8/00/00
-XTerm*color2: rgb:00/a8/00
-XTerm*color3: rgb:a8/54/00
-XTerm*color4: rgb:00/00/a8
-XTerm*color5: rgb:a8/00/a8
-XTerm*color6: rgb:00/a8/a8
-XTerm*color7: rgb:a8/a8/a8
-XTerm*color8: rgb:54/54/54
-XTerm*color9: rgb:fc/54/54
-XTerm*color10: rgb:54/fc/54
-XTerm*color11: rgb:fc/fc/54
-XTerm*color12: rgb:54/54/fc
-XTerm*color13: rgb:fc/54/fc
-XTerm*color14: rgb:54/fc/fc
-XTerm*color15: rgb:fc/fc/fc
+! Tango color scheme
+! ------------------
+! XTerm.vt100.cursorColor:      #8ae234
+! XTerm.vt100.colorUL:          #8ae234
+XTerm.vt100.underlineColor:   #92659a
+
+XTerm.vt100.foreground:       #c8c8c8
+XTerm.vt100.background:       #0f0f0f
+
+! black
+XTerm.vt100.color0:  #2E3436
+XTerm.vt100.color8:  #555753
+! red
+XTerm.vt100.color1:  #a40000
+XTerm.vt100.color9:  #EF2929
+! green
+XTerm.vt100.color2:  #4E9A06
+XTerm.vt100.color10: #8AE234
+! yellow
+XTerm.vt100.color3:  #C4A000
+XTerm.vt100.color11: #FCE94F
+! blue
+XTerm.vt100.color4:  #3465A4
+XTerm.vt100.color12: #729FCF
+! purple
+XTerm.vt100.color5:  #75507B
+XTerm.vt100.color13: #AD7FA8
+! orange (replaces cyan)
+XTerm.vt100.color6:  #ce5c00
+XTerm.vt100.color14: #fcaf3e
+! white
+XTerm.vt100.color7:  #babdb9
+XTerm.vt100.color15: #EEEEEC
 
 ! font
 XTerm.vt100.faceName: xft:DejaVu Sans Mono:style=Regular:size=12
@@ -44,7 +58,7 @@ XTerm.vt100.saveLines: 2048
 XTerm.vt100.scrollBar: false
 ! XTerm.vt100.scrollbar.width: 8
 
-XTerm.vt100.geometry: 92x24
+XTerm.vt100.geometry: 84x50
 
 ! copy/paste
 <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
