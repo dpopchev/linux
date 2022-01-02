@@ -1,0 +1,56 @@
+XTerm.termName: xterm-256color
+
+! DOS-box colours...
+XTerm*foreground: rgb:a8/a8/a8
+XTerm*background: rgb:00/00/00
+XTerm*color0: rgb:00/00/00
+XTerm*color1: rgb:a8/00/00
+XTerm*color2: rgb:00/a8/00
+XTerm*color3: rgb:a8/54/00
+XTerm*color4: rgb:00/00/a8
+XTerm*color5: rgb:a8/00/a8
+XTerm*color6: rgb:00/a8/a8
+XTerm*color7: rgb:a8/a8/a8
+XTerm*color8: rgb:54/54/54
+XTerm*color9: rgb:fc/54/54
+XTerm*color10: rgb:54/fc/54
+XTerm*color11: rgb:fc/fc/54
+XTerm*color12: rgb:54/54/fc
+XTerm*color13: rgb:fc/54/fc
+XTerm*color14: rgb:54/fc/fc
+XTerm*color15: rgb:fc/fc/fc
+
+! font
+XTerm.vt100.faceName: xft:DejaVu Sans Mono:style=Regular:size=12
+XTerm.vt100.boldFont: xft:DejaVu Sans Mono:style=Bold:size=12
+XTerm.vt100.italicFont: xft:DejaVu Sans Mono:style=Italic:size=12
+XTerm.vt100.boldItalicFont: xft:DejaVu Sans Mono:style=Bold Italic:size=12
+XTerm.vt100.letterSpace: -1
+XTerm.vt100.lineSpace: 0
+
+! force utf8
+XTerm.vt100.locale: false
+XTerm.vt100.utf8: true
+
+! make alt behave as on other terminals
+XTerm.vt100.metaSendsEscape: true
+
+! fix the backspace key
+XTerm.vt100.backarrowKey: false
+XTerm.ttyModes: erase ^?
+
+! scroll buffer and bar
+XTerm.vt100.saveLines: 2048
+XTerm.vt100.scrollBar: false
+! XTerm.vt100.scrollbar.width: 8
+
+XTerm.vt100.geometry: 92x24
+
+! copy/paste
+<Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
+Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
+
+XTerm.vt100.translations: #override \n\
+  Ctrl <Key>M: maximize() \n\
+  Ctrl <Key>R: restore()
