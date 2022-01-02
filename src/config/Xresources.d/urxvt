@@ -43,7 +43,7 @@ URxvt*geometry: 84x24
 URxvt*internalBorder: 16
 URxvt*cursorBlink: false
 URxvt*cursorUnderline: false
-URxvt*saveline: 4096
+URxvt*saveline: 5120
 URxvt*scrollBar: false
 URxvt*scrollBar_right: false
 URxvt*scrollBar_floating: false

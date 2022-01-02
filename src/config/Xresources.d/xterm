@@ -54,11 +54,11 @@ XTerm.vt100.backarrowKey: false
 XTerm.ttyModes: erase ^?
 
 ! scroll buffer and bar
-XTerm.vt100.saveLines: 2048
+XTerm.vt100.saveLines: 5120
 XTerm.vt100.scrollBar: false
 ! XTerm.vt100.scrollbar.width: 8
 
-XTerm.vt100.geometry: 84x50
+XTerm.vt100.geometry: 84x24
 
 ! copy/paste
 <Btn1Up>: select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
