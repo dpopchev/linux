@@ -49,7 +49,7 @@ URxvt.scrollBar_right: false
 URxvt.scrollBar_floating: false
 URxvt.scrollstyle: rxvt
 URxvt.urgentOnBell: true
-URxvt.depth: 24
+! URxvt.depth: 24
 URxvt.iso14755: false
 
 ! addons
