@@ -1,0 +1,3 @@
+gitconfig filter=gitignore
+bashrc.private filter=gitignore
+aliases.private filter=gitignore

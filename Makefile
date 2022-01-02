@@ -48,3 +48,7 @@ urxvt_ext_dst:
 
 urxvt_plugins: | urxvt_ext_dst
 	@for ext in $(URXVT_EXT_SOURCES); do $(call DOWNLOAD,$(URXVT_EXT_DIR),$$ext); done
+
+.PHONY: show
+show:
+	@for target in $(TARGETS_ALL); do echo $$target; done
