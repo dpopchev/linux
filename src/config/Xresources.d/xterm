@@ -1,6 +1,7 @@
 ! color theme
 
-XTerm.termName: xterm-256color
+XTerm.vt100.termName: xterm-256color
+XTerm.vt100.loginShell: true
 
 ! Tango color scheme
 ! ------------------
@@ -50,7 +51,7 @@ XTerm.vt100.locale: false
 XTerm.vt100.utf8: true
 
 ! appearance
-XTerm.vt100.geometry: 84x24
+XTerm.vt100.geometry: 84x32
 XTerm.vt100.internalBorder: 16
 XTerm.vt100.cursorBlink: false
 XTerm.vt100.cursorUnderline: false
@@ -59,7 +60,7 @@ XTerm.vt100.scrollBar: false
 XTerm.vt100.scrollBar_right: false
 XTerm.vt100.scrollBar_floating: false
 XTerm.vt100.urgentOnBell: true
-XTerm.vt100.depth: 24
+! XTerm.vt100.depth: NA
 XTerm.vt100.iso14755: false
 
 ! make alt behave as on other terminals

@@ -1,6 +1,7 @@
 ! color theme
 
 URxvt.termName: rxvt-unicode-256color
+URxvt.loginShell: true
 
 ! Tango color scheme
 ! ------------------
@@ -50,7 +51,7 @@ URxvt.locale: false
 URxvt.utf8: true
 
 ! appearance
-URxvt.geometry: 84x24
+URxvt.geometry: 84x32
 URxvt.internalBorder: 16
 URxvt.cursorBlink: false
 URxvt.cursorUnderline: false
