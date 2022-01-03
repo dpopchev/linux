@@ -20,7 +20,7 @@ XRESOURCES_INCLUDE = \#include \".config/Xresources.d/$(1)\"
 TEST_XRESOURCES_INCLUDE = grep --fixed-strings --line-regexp --quiet "$(1)" $(XRESOURCES)
 ADD_XRESOURCES_INCLUDE = if ! $(call TEST_XRESOURCES_INCLUDE,$(call XRESOURCES_INCLUDE,$(1))); then echo "$(call XRESOURCES_INCLUDE,$(1))" >> $(XRESOURCES); fi
 
-BASH_CONFIGS := $(SRC)/aliases.private $(SRC)/bashrc.private $(SRC)/gitconfig $(SRC)/inputrc
+BASH_CONFIGS := $(SRC)/aliases.private $(SRC)/bashrc.private $(SRC)/gitconfig $(SRC)/inputrc $(SRC)/vimrc
 BASH_TARGETS := $(notdir $(BASH_CONFIGS))
 
 HOME_CONFIGS := $(BASH_CONFIGS)
@@ -63,3 +63,24 @@ urxvt_plugins: | urxvt_ext_dst
 .PHONY: show
 show:
 	@for target in $(TARGETS_ALL); do echo $$target; done
+
+VIM_HOME_DIR := $(HOME)/.vim
+VIM_PLUGINS_DIR := $(VIM_HOME_DIR)/pack/plugins/start
+VIM_TMP_DIR := $(VIM_HOME_DIR)/tmp
+VIM_DIRS := $(VIM_PLUGINS_DIR) $(VIM_TMP_DIR)
+
+VIM_PLUGIN_GET = git clone --depth 1 --branch master "$(1)" > /dev/null
+
+VIM_PLUGINS := https://github.com/morhetz/gruvbox.git
+VIM_PLUGINS += https://github.com/tpope/vim-sensible.git
+VIM_PLUGINS += https://github.com/airblade/vim-gitgutter.git
+VIM_PLUGINS += https://github.com/itchyny/vim-gitbranch.git
+VIM_PLUGINS += https://github.com/itchyny/lightline.vim.git
+
+.PHONY: vim $(VIM_PLUGINS_DIR) $(VIM_TMP_DIR)
+
+$(VIM_DIRS):
+	@$(MKDIR) $@
+
+vim: vimrc | $(VIM_DIRS)
+	@for plugin in $(VIM_PLUGINS); do cd $(VIM_PLUGINS_DIR) && $(call VIM_PLUGIN_GET,$$plugin); done

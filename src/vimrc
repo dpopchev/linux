@@ -1,0 +1,93 @@
+" ==> gruvbox; https://github.com/morhetz/gruvbox/wiki/Configuration
+let g:gruvbox_contrast_dark      = 'medium'
+let g:gruvbox_contrast_light     = 'medium'
+let g:gruvbox_bold               = 1
+let g:gruvbox_italic             = 0
+let g:gruvbox_italicize_comments = 0
+let g:gruvbox_invert_selection   = 0
+
+" ==> colorscheme
+" manually specify background color -- available are dark and light
+set background=dark
+" set background=light
+
+" force color; needed TERM=xterm-256color
+if !has('gui_running')
+    set t_Co=256
+endif
+
+let colo_def      = 'gruvbox'   " set default colorscheme
+let colo_fallback = 'delek'    " set fallback colorscheme
+
+try
+    " try setting the default colorscheme
+    exe "colorscheme " . colo_def
+catch /^Vim\%((\a\+)\)\=:E185/
+    " if it fails try the fallback one
+    :call EchoWARN("colorscheme not found " . colo_def)
+    :call EchoWARN("will try with fallback: " . colo_fallback)
+    exe "colorscheme " . colo_fallback
+endtry
+
+" ==> auxiliary files
+let auxDump=[ $HOME."/.vim/tmp/", $HOME."/.tmp/", $HOME."/tmp/", "/tmp/" ]
+let &backupdir=join(auxDump, ",")  " store backup files
+let &dir=join(auxDump, ",")        " store swap files
+let &undodir=join(auxDump, ",")    " store undo files
+
+" ==> leader key
+" let mapleader='/' " default
+" let mapleader=',' " common alternative
+
+" ==> user warn function
+function! EchoWARN(WARN)
+    " general purpose function to echo warnings from functions
+
+    let WARN_msg    = toupper(a:WARN)
+    let WARN_prefix = " < < ==== "
+    let WARN_suffix = " ==== > > "
+
+    echom join([WARN_prefix, WARN_msg, WARN_suffix], " ")
+endfunction
+
+" ==> trim trailing spaces and blank lines at end of the file
+function! Preserve(command)
+    " Preparation: save last search, and cursor position.
+    let _s = @/
+    let l  = line(".")
+    let c  = col(".")
+    " Do the business:
+    execute a:command
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+
+augroup TrimBlanks
+    autocmd!
+    autocmd BufWritePre * call Preserve("%s/\\S\\zs\ \\+$//e")
+    autocmd BufWritePre * call Preserve("%s/\\S\\zs\t\\+$//e")
+    autocmd BufWritePre * call Preserve("%s#\\($\\n\\s\*\\)\\+\\%$##e")
+augroup END
+
+" ==> gitgutter; https://github.com/airblade/vim-gitgutter
+let g:gitgutter_map_keys = 0    " prevent gitgutter to apply any default mappings
+
+set updatetime=100
+let g:gitgutter_sign_added              = '+'
+let g:gitgutter_sign_modified           = '>'
+let g:gitgutter_sign_removed            = 'd'
+let g:gitgutter_sign_removed_first_line = '^'
+let g:gitgutter_sign_modified_removed   = '<'
+let g:gitgutter_max_signs               = 9999
+
+" Jump between hunks
+nmap ghn <Plug>(GitGutterNextHunk)
+nmap ghp <Plug>(GitGutterPrevHunk)
+
+" Hunk-add and hunk-revert for chunk staging
+nmap ghs <Plug>(GitGutterStageHunk)
+nmap ghu <Plug>(GitGutterUndoHunk)
+
+" preview hunk
+nmap ghP <Plug>(GitGutterPreviewHunk)
