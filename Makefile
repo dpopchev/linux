@@ -7,8 +7,6 @@ CONFIGS := $(shell find $(SRC)/ -type f)
 TARGETS_ALL := $(notdir $(CONFIGS))
 TARGET_FILES := $(patsubst $(SRC)/%,$(HOME)/.%,$(CONFIGS))
 
-.PHONY: $(TARGETS_ALL) Xresources.d Xresources
-
 RM_LINK = [[ ! -L $(1) ]] || unlink "$(1)"
 FORCE_BACKUP_FILE = [[ ! -f $(1) ]] || mv --force "$(1)" "$(1).bak"
 LN_SRC_CONFIG = ln -s $(realpath $(1)) $2
@@ -16,11 +14,19 @@ MKDIR = mkdir --parents
 DOWNLOAD = wget --directory-prefix=$(1)/ $(2) --output-file=/dev/null
 
 XRESOURCES = $(HOME)/.Xresources
-XRESOURCES_CONFIGS := $(wildcard $(SRC)/config/Xresources.d/*)
+XRESOURCES_CONFIGS := $(filter $(SRC)/config/Xresources.d/%,$(CONFIGS))
 XRESOURCES_TARGETS := $(notdir $(XRESOURCES_CONFIGS))
 XRESOURCES_INCLUDE = \#include \".config/Xresources.d/$(1)\"
 TEST_XRESOURCES_INCLUDE = grep --fixed-strings --line-regexp --quiet "$(1)" $(XRESOURCES)
 ADD_XRESOURCES_INCLUDE = if ! $(call TEST_XRESOURCES_INCLUDE,$(call XRESOURCES_INCLUDE,$(1))); then echo "$(call XRESOURCES_INCLUDE,$(1))" >> $(XRESOURCES); fi
+
+BASH_CONFIGS := $(SRC)/aliases.private $(SRC)/bashrc.private $(SRC)/gitconfig $(SRC)/inputrc
+BASH_TARGETS := $(notdir $(BASH_CONFIGS))
+
+HOME_CONFIGS := $(BASH_CONFIGS)
+HOME_TARGETS := $(BASH_TARGETS)
+
+.PHONY: $(TARGETS_ALL) Xresources.d Xresources $(HOME_TARGETS)
 
 Xresources: | Xresources.d
 	@touch "$(HOME)/.$@"
@@ -33,6 +39,11 @@ $(XRESOURCES_TARGETS): Xresources
 	@$(call RM_LINK,$(filter %/$@,$(TARGET_FILES)))
 	@$(call FORCE_BACKUP_FILE,$(filter %/$@,$(TARGET_FILES)))
 	@$(call LN_SRC_CONFIG,$(filter %/$@,$(CONFIGS)),$(filter %/$@,$(TARGET_FILES)))
+
+$(HOME_TARGETS):
+	@$(call RM_LINK,$(filter %/.$@,$(TARGET_FILES)))
+	@$(call FORCE_BACKUP_FILE,$(filter %/.$@,$(TARGET_FILES)))
+	@$(call LN_SRC_CONFIG,$(filter %/$@,$(CONFIGS)),$(filter %/.$@,$(TARGET_FILES)))
 
 URXVT_EXT_DIR := $(HOME)/.urxvt/ext
 URXVT_EXT_SOURCES := https://raw.githubusercontent.com/muennich/urxvt-perls/master/keyboard-select
