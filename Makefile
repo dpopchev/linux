@@ -90,6 +90,7 @@ VIM_PLUGINS += https://github.com/RRethy/vim-illuminate
 VIM_PLUGINS += https://github.com/pseewald/vim-anyfold
 VIM_PLUGINS += https://github.com/sheerun/vim-polyglot.git
 VIM_PLUGINS += https://github.com/mengelbrecht/lightline-bufferline.git
+VIM_PLUGINS += https://github.com/jiangmiao/auto-pairs.git
 
 .PHONY: vim $(VIM_PLUGINS_DIR) $(VIM_TMP_DIR)
 
