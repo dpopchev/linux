@@ -76,6 +76,19 @@ VIM_PLUGINS += https://github.com/tpope/vim-sensible.git
 VIM_PLUGINS += https://github.com/airblade/vim-gitgutter.git
 VIM_PLUGINS += https://github.com/itchyny/vim-gitbranch.git
 VIM_PLUGINS += https://github.com/itchyny/lightline.vim.git
+VIM_PLUGINS += https://github.com/junegunn/vim-easy-align.git
+VIM_PLUGINS += https://github.com/nelstrom/vim-visual-star-search.git
+VIM_PLUGINS += https://github.com/tpope/vim-commentary.git
+VIM_PLUGINS += https://github.com/tpope/vim-repeat.git
+VIM_PLUGINS += https://github.com/tpope/vim-surround.git
+VIM_PLUGINS += https://github.com/Yggdroot/indentLine.git
+VIM_PLUGINS += https://github.com/kien/ctrlp.vim.git
+VIM_PLUGINS += https://github.com/preservim/nerdtree.git
+VIM_PLUGINS += https://github.com/justinmk/vim-sneak.git
+VIM_PLUGINS += https://github.com/junegunn/goyo.vim.git
+VIM_PLUGINS += https://github.com/RRethy/vim-illuminate
+VIM_PLUGINS += https://github.com/pseewald/vim-anyfold
+VIM_PLUGINS += https://github.com/sheerun/vim-polyglot.git
 
 .PHONY: vim $(VIM_PLUGINS_DIR) $(VIM_TMP_DIR)
 

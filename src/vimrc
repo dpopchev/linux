@@ -1,5 +1,5 @@
 " ==> drop annoying shortcuts
-noremap <:-q> <Nop>
+noremap <q-:> <Nop>
 noremap <S-k> <Nop>
 
 " ==> gruvbox
@@ -120,3 +120,64 @@ let g:lightline = {
             \   'githunks': 'LightlineGitGutter'
             \ },
             \ }
+
+" ==> easy-align; https://github.com/junegunn/vim-easy-align
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
+" ==> indentLine; https://github.com/Yggdroot/indentLine.git
+" each level with separate char
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+
+" ==>  ctrlp.vim; https://github.com/ctrlpvim/ctrlp.vim
+" ==> nerdtree; https://github.com/preservim/nerdtree.git
+nnoremap <leader>t :NERDTreeFind<cr>
+nnoremap <leader>T :NERDTreeToggle<cr>
+" in case I want to switch
+let g:NERDTreeDirArrowExpandable  = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+" fuzzy search files
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.tar*,*.rar     " MacOSX/Linux
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+            \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+            \ 'file': '\v\.(exe|so|dll)$',
+            \ 'link': 'some_bad_symbolic_links',
+            \ }
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+" ==> vim-sneak
+let g:sneak#label = 1
+
+" ==> goyou; https://github.com/junegunn/goyo.vim
+let g:goyo_linenr = 1
+let g:goyo_height = '100%'
+let g:goyo_width  = 82
+let g:goyo_margin_top = 0
+let g:goyo_margin_bottom = 0
+
+nnoremap <leader>e :Goyo<cr>
+
+augroup goyou_enable_plugins
+    autocmd!
+    autocmd User GoyoEnter :GitGutterToggle
+augroup END
+
+" ==> vim-illuminate
+let g:Illuminate_delay = 250
+let g:Illuminate_highlightUnderCursor = 1
+nnoremap z/ :IlluminationToggle<cr>
+" NOTE: has extensive blocklist capabilities
+" let g:Illuminate_ftblacklist = ['nerdtree']
+augroup illuminate_augroup
+    autocmd!
+    autocmd VimEnter * hi illuminatedWord cterm=bold,underline
+    autocmd User GoyoLeave nested hi illuminatedWord cterm=bold,underline
+augroup END
+
+" ==> vim-anyfold
+augroup vim_anyfold_active
+    autocmd!
+    autocmd Filetype * AnyFoldActivate               " activate for all filetypes
+augroup END
+let g:anyfold_fold_comments=1
