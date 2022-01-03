@@ -1,4 +1,8 @@
-" ==> gruvbox; https://github.com/morhetz/gruvbox/wiki/Configuration
+" ==> drop annoying shortcuts
+noremap <:-q> <Nop>
+noremap <S-k> <Nop>
+
+" ==> gruvbox
 let g:gruvbox_contrast_dark      = 'medium'
 let g:gruvbox_contrast_light     = 'medium'
 let g:gruvbox_bold               = 1
@@ -91,3 +95,28 @@ nmap ghu <Plug>(GitGutterUndoHunk)
 
 " preview hunk
 nmap ghP <Plug>(GitGutterPreviewHunk)
+
+" ==> lightline with integrated gitgutter and gitbranchanme
+set laststatus=2    " needed to show lightline
+set noshowmode      " lightline already shows vim mode
+
+" integrate git gutter
+function! LightlineGitGutter()
+    if !get(g:, 'gitgutter_enabled', 0) || strlen(gitbranch#name()) == 0
+        return ''
+    endif
+    let [ l:added, l:modified, l:removed ] = GitGutterGetHunkSummary()
+    return printf('+%d ~%d -%d', l:added, l:modified, l:removed)
+endfunction
+
+" with integrated gutter and gitbranchname
+let g:lightline = {
+            \ 'active': {
+            \   'left': [ [ 'mode', 'paste' ],
+            \             [ 'gitbranch', 'githunks', 'readonly', 'filename', 'modified' ] ]
+            \ },
+            \ 'component_function': {
+            \   'gitbranch': 'gitbranch#name',
+            \   'githunks': 'LightlineGitGutter'
+            \ },
+            \ }
