@@ -1,7 +1,3 @@
-" ==> drop annoying shortcuts
-noremap <q-:> <Nop>
-noremap <S-k> <Nop>
-
 " ==> gruvbox
 let g:gruvbox_contrast_dark      = 'medium'
 let g:gruvbox_contrast_light     = 'medium'
@@ -181,3 +177,249 @@ augroup vim_anyfold_active
     autocmd Filetype * AnyFoldActivate               " activate for all filetypes
 augroup END
 let g:anyfold_fold_comments=1
+
+" ==> cursorline
+let underline_cursorline_fix = 0
+
+augroup HackCursorlineWhenUnderline
+    autocmd!
+augroup END
+
+if underline_cursorline_fix
+    autocmd VimEnter * echom 'cursorline underline hack'
+
+    autocmd HackCursorlineWhenUnderline WinEnter * setlocal cursorline
+    autocmd HackCursorlineWhenUnderline WinEnter * setlocal nocursorline
+    highlight cursorline cterm=none term=none
+    highlight CursorLine guibg=#303000 ctermbg=233
+    highlight Visual cterm=reverse ctermfg=NONE
+else
+    set cursorline  " highlichg current line via colorscheme
+endif
+
+" ==> general configs
+noremap <q-:> <Nop>
+noremap <S-k> <Nop>
+set laststatus=2    " always display status line
+set noruler         " do not display cursor position
+set showcmd         " show command in last line of the screen
+set cmdheight=2     " command line height in screen lines
+set wildmenu        " shown possible matches just above command line
+set title           " set window title to opened file
+set noerrorbells    " disable beep on erros
+set novisualbell    " disable flash the screen instead of beeping on errors
+set mouse=n         " enable mouse only in normal mode
+set number          " show line number
+set relativenumber  " compute line numbers relative to current position
+set scrolloff=3     " amount of lines to keep above and below cursor
+set sidescrolloff=3 " amount of screen columns to keep to the right
+set encoding=utf-8  " default encoding if none specified for the file
+
+let textThreshold=80             " set desired text width
+let &textwidth=textThreshold     " maximum allowed width of a line
+let &colorcolumn=textThreshold+1 " set text length marker
+set nowrap                       " disable line wrap
+set linebreak                    " avoid wrapping a line in middle of a word
+" filetype plugins are overriding formatoptions, which is annoying;
+" I want the one below applied for all filetypes;
+" source: https://stackoverflow.com/questions/28375119/override-options-set-by-ftplugins-in-vim
+augroup ForceOverwriteFO
+    autocmd!
+    autocmd FileType * setlocal formatoptions=tcrqbj
+augroup END
+
+set display=lastline    " display as much as possible of a line
+
+set showmatch           " highlight matching brackets
+" set matchtime=5       " tenths of a second to show matching bracket parent
+" set matchpairs+=<:>   " extend match pairs with < and >
+
+nnoremap U :call EchoWARN("check caps lock")<CR>
+
+nnoremap ++ :set invpaste<cr>
+
+" ==> leader maps
+nnoremap <leader>q :q<cr>
+nnoremap <leader>w :w<cr>
+noremap <leader>r i<cr><esc>
+noremap <leader><space> i<space><esc>
+noremap <leader><space><space> a<space><esc>
+vnoremap <leader>y "yy
+vnoremap <leader>Y "Yy
+vnoremap <leader><leader>y "yp
+nnoremap <leader><leader>y "yp
+vnoremap <leader>p "py
+vnoremap <leader>P "Py
+vnoremap <leader><leader>p "pp
+nnoremap <leader><leader>p "pp
+
+" ==> system clipboard; https://vim.fandom.com/wiki/Accessing_the_system_clipboard
+function! CopyToClipboard()
+    " https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript/1534347#1534347
+
+    if has('clipboard')
+        "if support is compiled,  yank visually selected text to "+
+        normal! "+y
+    else
+        call EchoWARN("check vim clipboard support")
+    endif
+endfunction
+vnoremap <C-c> :call CopyToClipboard()<cr>
+
+" ==> add/del empty lines; https://vim.fandom.com/wiki/Quickly_adding_and_deleting_empty_lines
+function! AddEmptyLineBelow()
+    call append(line("."), "")
+endfunction
+
+function! AddEmptyLineAbove()
+    let l:scrolloffsave = &scrolloff
+    " Avoid jerky scrolling with ^E at top of window
+    set scrolloff=0
+    call append(line(".") - 1, "")
+    if winline() != winheight(0)
+        silent normal! <C-e>
+    end
+    let &scrolloff = l:scrolloffsave
+endfunction
+
+function! DelEmptyLineBelow()
+    if line(".") == line("$")
+        return
+    end
+    let l:line = getline(line(".") + 1)
+    if l:line =~ '^\s*$'
+        let l:colsave = col(".")
+        .+1d
+        ''
+        call cursor(line("."), l:colsave)
+    end
+endfunction
+
+function! DelEmptyLineAbove()
+    if line(".") == 1
+        return
+    end
+    let l:line = getline(line(".") - 1)
+    if l:line =~ '^\s*$'
+        let l:colsave = col(".")
+        .-1d
+        silent normal! <C-y>
+        call cursor(line("."), l:colsave)
+    end
+endfunction
+
+" delete/add blank line below/above, and double -- inserts them.
+noremap jj :call DelEmptyLineBelow()<CR>
+noremap kk :call DelEmptyLineAbove()<CR>
+noremap <C-j><C-j> :call AddEmptyLineBelow()<CR>
+noremap <C-k><C-k> :call AddEmptyLineAbove()<CR>
+
+" ==> visual guides for blank characters
+set list listchars=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
+
+" ==> fold
+" folding cheat sheet
+"   zc/o/a      close/open/toggle fold if the cursor is on one
+"   zC/O/A      close/open/toggle all fold levels around the cursor
+"   zr/m        reduce/increasing folding by opening/closing one more fold level
+"   zR/M        reduce/increasing folding by opening/closing one more fold level at all buffer
+"   zf#j/k      create fold from cursor down/up # number of lines
+"   zj/k        move cursor to next fold down/up
+"set nofoldenable     " disable folding
+set foldenable        " enable folding
+set foldmethod=syntax " fold is based on indent level
+set foldcolumn=0      " sidebar indicating folding
+set foldlevel=6       " folds with higher level will be closed
+set foldnestmax=10    " maximum nesting of folds
+set foldlevelstart=6  " starting fold level when buffer is opened
+
+" ==> completion
+set complete+=kspell " use currently active spell checking
+set complete-=t      " use C-X C-]
+set complete-=i      " use C-X C-I
+set completeopt=menuone,preview,noselect
+
+" ==> spell
+"   move to misspelled words via            ]s and [s
+"   change word under cursor via            z=
+"   add word under cursor to dictionary     zg
+"   remove word from dictionary via         zw
+" to auto download spell, this should be the def site
+" when vim starts first disable :set nospell and then enable :set spell
+let g:spellfile_URL = 'http://ftp.vim.org/vim/runtime/spell'
+set spell          " enable spellcheck
+set spelllang=en   " spellcheck language
+" set spelllang+=bg  " spellcheck language
+"set spellfile=... " place to store additional words
+
+augroup SaneSpellCheckHi
+    autocmd!
+    autocmd BufEnter * :hi clear SpellBad
+    autocmd BufEnter * :hi SpellBad cterm=underline
+    autocmd BufEnter * :hi clear SpellRare
+    autocmd BufEnter * :hi SpellRare cterm=underline
+    autocmd BufEnter * :hi clear SpellCap
+    autocmd BufEnter * :hi SpellCap cterm=none
+    autocmd BufEnter * :hi clear SpellLocal
+    autocmd BufEnter * :hi SpellLocal cterm=underline
+augroup END
+
+" ==> indent
+" resource https://vim.fandom.com/wiki/Indenting_source_code
+" set amount of spaces for indentation
+let b:indent=4
+
+" indentation without hard tabs
+set expandtab             " convert tabs to 'softtabstop' amount of spaces
+let &shiftwidth=b:indent  " affects when pressing >>, << or == and auto indentation
+let &softtabstop=b:indent " affects <TAB> or <BS>;
+" let &tabstop=b:indent   " not recommended as may alter view of other editors
+
+function! InsertHalfShiftwidth()
+    return repeat(' ', &shiftwidth/2)
+endfunction
+
+inoremap <S-tab> <C-R>=InsertHalfShiftwidth()<cr>
+
+" ==> search
+" resource https://vim.fandom.com/wiki/Searching
+set hlsearch    " enable search highlighting
+set incsearch   " incremental search that shows partial matches
+set ignorecase  " ignore case when searching
+set smartcase   " automatically switch to case-sensitive when search
+set magic       " for regular expressions turn magic on
+nnoremap <C-l> :nohlsearch<CR><esc>
+
+" ==> diff
+if &diff
+    " diff mode ignore white spaces
+    set diffopt+=iwhite
+
+    " put/obtain line cursor is on
+    nnoremap <leader>dp V:diffput<cr>
+    nnoremap <leader>do V:diffget<cr>
+    vnoremap <leader>dp <esc>gv:diffput<cr>
+    vnoremap <leader>do <esc>gv:diffget<cr>
+
+    " undo the other, inactive window
+    nnoremap <leader>du :wincmd w<cr>:normal u<cr>:wincmd w<cr>
+
+    " recalculate differences
+    nnoremap <leader>dr :diffupdate<cr>
+endif
+
+" ==> make/build/compile/run/lint/test/autoformat Makefile shortcuts
+" file vise targets
+nnoremap m<cr> :silent make compile FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap m<cr><cr> :silent make format FILE=%<bar>redraw!<cr>
+nnoremap ml :silent make lint FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap mr :silent make run FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap mR :silent make debug FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap mt :silent make doctest FILE=%<bar>redraw!<bar>copen<cr>
+" project vise targets
+nnoremap Mt :silent make test <bar>redraw!<bar>copen<cr>
+nnoremap Mt<cr> :silent make cover <bar>redraw!<bar>copen<cr>
+nnoremap MT :silent make profile <bar>redraw!<bar>copen<cr>
+nnoremap M<cr> :silent make build <bar>redraw!<bar>copen<cr>
+nnoremap Mr :silent make run <bar>redraw!<bar>copen<cr>
+nnoremap MR :silent make debug <bar>redraw!<bar>copen<cr>
