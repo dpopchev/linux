@@ -14,6 +14,7 @@ set background=dark
 " force color; needed TERM=xterm-256color
 if !has('gui_running')
     set t_Co=256
+    set guioptions-=e
 endif
 
 let colo_def      = 'gruvbox'   " set default colorscheme
@@ -117,6 +118,13 @@ let g:lightline = {
             \ },
             \ }
 
+let g:lightline#bufferline#show_number  = 1
+let g:lightline#bufferline#shorten_path = 1
+let g:lightline#bufferline#unnamed      = '[No Name]'
+let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type   = {'buffers': 'tabsel'}
+
 " ==> easy-align; https://github.com/junegunn/vim-easy-align
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
@@ -141,6 +149,10 @@ let g:ctrlp_custom_ignore = {
             \ 'link': 'some_bad_symbolic_links',
             \ }
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
+    \ 'AcceptSelection("t")': ['<cr>'],
+    \ }
 
 " ==> vim-sneak
 let g:sneak#label = 1
@@ -390,6 +402,25 @@ set ignorecase  " ignore case when searching
 set smartcase   " automatically switch to case-sensitive when search
 set magic       " for regular expressions turn magic on
 nnoremap <C-l> :nohlsearch<CR><esc>
+
+" ==> split
+" cheatsheet
+" ctrl + w _ " Max out the height of the current split
+" ctrl + w | "Max out the width of the current split
+" ctrl + w = "Normalize all split sizes, which is very handy when resizing terminal
+" Ctrl+W R "Swap top/bottom or left/right split
+" Ctrl+W T "Break out current window into a new tabview
+" Ctrl+W o "Close every window in the current tabview but the current one
+
+set splitbelow
+set splitright
+
+" ==> buffers
+nnoremap [b :bprev<CR>
+nnoremap ]b :bnext<CR>
+nnoremap <leader>bd :bprevious<CR> :bdelete #<CR>
+nnoremap <Leader>bb :ls<CR>:b
+set showtabline=2
 
 " ==> diff
 if &diff
