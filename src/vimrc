@@ -386,6 +386,14 @@ augroup SaneSpellCheckHi
     autocmd BufEnter * :hi SpellLocal cterm=underline
 augroup END
 
+" robust omnifunc solution, source ft-syntax-omni
+if has("autocmd") && exists("+omnifunc")
+    autocmd Filetype *
+                \ if &omnifunc == "" |
+                \     setlocal omnifunc=syntaxcomplete#Complete |
+                \ endif
+endif
+
 " ==> indent
 " resource https://vim.fandom.com/wiki/Indenting_source_code
 " set amount of spaces for indentation
