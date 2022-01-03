@@ -220,6 +220,7 @@ let &textwidth=textThreshold     " maximum allowed width of a line
 let &colorcolumn=textThreshold+1 " set text length marker
 set nowrap                       " disable line wrap
 set linebreak                    " avoid wrapping a line in middle of a word
+
 " filetype plugins are overriding formatoptions, which is annoying;
 " I want the one below applied for all filetypes;
 " source: https://stackoverflow.com/questions/28375119/override-options-set-by-ftplugins-in-vim
