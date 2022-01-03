@@ -1,3 +1,12 @@
+" ==> disable Vi-compatible
+if &compatible
+    set nocompatible
+endif
+
+" ==> disable modelines; https://medium.com/usevim/securing-vim-d6a12496fec8
+set nomodeline
+set secure
+
 " ==> gruvbox
 let g:gruvbox_contrast_dark      = 'medium'
 let g:gruvbox_contrast_light     = 'medium'
