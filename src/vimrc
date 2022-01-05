@@ -43,23 +43,11 @@ function! LightlineGitGutter()
 endfunction
 
 " with integrated gutter and gitbranchname
-let g:lightline = {
-            \ 'active': {
-            \   'left': [ [ 'mode', 'paste' ],
-            \             [ 'gitbranch', 'githunks', 'readonly', 'filename', 'modified' ] ]
-            \ },
-            \ 'component_function': {
-            \   'gitbranch': 'gitbranch#name',
-            \   'githunks': 'LightlineGitGutter'
-            \ },
-            \ }
-
-let g:lightline#bufferline#show_number  = 1
-let g:lightline#bufferline#shorten_path = 1
-let g:lightline#bufferline#unnamed      = '[No Name]'
-let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
-let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type   = {'buffers': 'tabsel'}
+let g:lightline = {}
+" let g:lightline.colorscheme = 'gruvbox'
+let g:lightline.active = { 'left': [ ['mode', 'paste'], ['readonly', 'filename', 'modified'] ]  }
+let g:lightline.active = { 'right': [ ['percent'], ['fileformat', 'fileencoding', 'filetype'] ]  }
+let g:lightline.component_function = { 'gitbranch': 'gitbranch#name', 'githunks': 'LightlineGitGutter' }
 
 " ==> easy-align; https://github.com/junegunn/vim-easy-align
 xmap ga <Plug>(EasyAlign)
@@ -438,7 +426,6 @@ nnoremap [b :bprev<CR>
 nnoremap ]b :bnext<CR>
 nnoremap <leader>BD :bprevious<CR> :bdelete #<CR>
 nnoremap <Leader>BB :ls<CR>:b
-set showtabline=2
 
 " ==> tabs
 nnoremap [t :tabn<CR>
