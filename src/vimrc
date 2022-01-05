@@ -71,7 +71,7 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
 " ==>  ctrlp.vim; https://github.com/ctrlpvim/ctrlp.vim
 " ==> nerdtree; https://github.com/preservim/nerdtree.git
-nnoremap <leader>t :NERDTreeFind<cr>
+" nnoremap <leader>t :NERDTreeFind<cr>
 nnoremap <leader>T :NERDTreeToggle<cr>
 " in case I want to switch
 let g:NERDTreeDirArrowExpandable  = '▸'
@@ -89,6 +89,7 @@ let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
     \ 'AcceptSelection("t")': ['<cr>'],
     \ }
+nnoremap <leader>b :CtrlPBuffer<cr>
 
 " ==> vim-sneak
 let g:sneak#label = 1
@@ -435,8 +436,8 @@ set splitright
 " ==> buffers
 nnoremap [b :bprev<CR>
 nnoremap ]b :bnext<CR>
-nnoremap <leader>bd :bprevious<CR> :bdelete #<CR>
-nnoremap <Leader>bb :ls<CR>:b
+nnoremap <leader>BD :bprevious<CR> :bdelete #<CR>
+nnoremap <Leader>BB :ls<CR>:b
 set showtabline=2
 
 " ==> tabs
