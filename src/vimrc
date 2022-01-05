@@ -43,10 +43,20 @@ function! LightlineGitGutter()
 endfunction
 
 " with integrated gutter and gitbranchname
-let g:lightline = {'active': {}, 'component_function': {}}
+" buffers shown in tabline via lightline-buffer
+set showtabline=2
+
+let g:lightline#bufferline#show_number  = 1
+let g:lightline#bufferline#shorten_path = 1
+let g:lightline#bufferline#unnamed      = '[No Name]'
+
+let g:lightline = {'active': {}, 'component_function': {}, 'tabline': {}, 'component_type': {}, 'component_expand': {}}
 call extend(g:lightline.active, { 'left': [ ['mode', 'paste'], ['readonly', 'filename', 'modified'], ['gitbranch', 'gitstatus' ] ]  })
 call extend(g:lightline.active, { 'right': [ ['percent'], ['fileformat', 'fileencoding', 'filetype'] ]  })
-call extend(g:lightline.component_function, { 'gitbranch': 'gitbranch#name', 'gitstatus': 'LightlineGitGutter' })
+call extend(g:lightline.component_function, { 'gitbranch': 'gitbranch#name', 'gitstatus': 'LightlineGitGutter',  })
+call extend(g:lightline.tabline, { 'left': [['buffers']] })
+call extend(g:lightline.component_type, { 'buffers': 'tabsel' })
+call extend(g:lightline.component_expand, {'buffers': 'lightline#bufferline#buffers'})
 
 " ==> easy-align; https://github.com/junegunn/vim-easy-align
 xmap ga <Plug>(EasyAlign)
@@ -58,7 +68,7 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
 " ==>  ctrlp.vim; https://github.com/ctrlpvim/ctrlp.vim
 " ==> nerdtree; https://github.com/preservim/nerdtree.git
-" nnoremap <leader>t :NERDTreeFind<cr>
+nnoremap <leader>t :NERDTreeFind<cr>
 nnoremap <leader>T :NERDTreeToggle<cr>
 " in case I want to switch
 let g:NERDTreeDirArrowExpandable  = '▸'
@@ -418,16 +428,16 @@ set splitright
 " ==> buffers
 nnoremap [b :bprev<CR>
 nnoremap ]b :bnext<CR>
-nnoremap <leader>BD :bprevious<CR> :bdelete #<CR>
-nnoremap <Leader>B :ls<CR>
-nnoremap <Leader>BB :ls<CR>:b
+nnoremap gbd :bprevious<CR> :bdelete #<CR>
+nnoremap gbl :ls<CR>
+nnoremap gbb :ls<CR>:b
 set hidden
 
 " ==> tabs
 nnoremap [t :tabn<CR>
 nnoremap ]t :tabp<CR>
-nnoremap <leader>td :tabclose<CR>
-nnoremap <Leader>tt :tabs<CR>
+nnoremap gtd :tabclose<CR>
+nnoremap gtt :tabs<CR>
 
 " ==> diff
 if &diff

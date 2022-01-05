@@ -76,6 +76,7 @@ VIM_PLUGINS += https://github.com/tpope/vim-sensible.git
 VIM_PLUGINS += https://github.com/airblade/vim-gitgutter.git
 VIM_PLUGINS += https://github.com/itchyny/vim-gitbranch.git
 VIM_PLUGINS += https://github.com/itchyny/lightline.vim.git
+VIM_PLUGINS += https://github.com/mengelbrecht/lightline-bufferline.git
 VIM_PLUGINS += https://github.com/junegunn/vim-easy-align.git
 VIM_PLUGINS += https://github.com/nelstrom/vim-visual-star-search.git
 VIM_PLUGINS += https://github.com/tpope/vim-commentary.git
