@@ -445,16 +445,16 @@ if &diff
     set diffopt+=iwhite
 
     " put/obtain line cursor is on
-    nnoremap <leader>dp V:diffput<cr>
-    nnoremap <leader>do V:diffget<cr>
-    vnoremap <leader>dp <esc>gv:diffput<cr>
-    vnoremap <leader>do <esc>gv:diffget<cr>
+    nnoremap gdp V:diffput<cr>
+    nnoremap gdo V:diffget<cr>
+    vnoremap gdp <esc>gv:diffput<cr>
+    vnoremap gdo <esc>gv:diffget<cr>
 
     " undo the other, inactive window
-    nnoremap <leader>du :wincmd w<cr>:normal u<cr>:wincmd w<cr>
+    nnoremap gdu :wincmd w<cr>:normal u<cr>:wincmd w<cr>
 
     " recalculate differences
-    nnoremap <leader>dr :diffupdate<cr>
+    nnoremap gdr :diffupdate<cr>
 endif
 
 " ==> make/build/compile/run/lint/test/autoformat Makefile shortcuts
