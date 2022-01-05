@@ -439,6 +439,12 @@ nnoremap <leader>bd :bprevious<CR> :bdelete #<CR>
 nnoremap <Leader>bb :ls<CR>:b
 set showtabline=2
 
+" ==> tabs
+nnoremap [t :tabn<CR>
+nnoremap ]t :tabp<CR>
+nnoremap <leader>td :tabclose<CR>
+nnoremap <Leader>tt :tabs<CR>
+
 " ==> diff
 if &diff
     " diff mode ignore white spaces
