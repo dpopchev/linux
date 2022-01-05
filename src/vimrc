@@ -65,17 +65,12 @@ let g:NERDTreeDirArrowExpandable  = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 " fuzzy search files
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.tar*,*.rar     " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/]\.(git|hg|svn)$',
             \ 'file': '\v\.(exe|so|dll)$',
-            \ 'link': 'some_bad_symbolic_links',
             \ }
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<2-LeftMouse>'],
-    \ 'AcceptSelection("t")': ['<cr>'],
-    \ }
+" let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_working_path_mode = 'ra'
 nnoremap <leader>b :CtrlPBuffer<cr>
 
 " ==> vim-sneak
@@ -424,6 +419,7 @@ set splitright
 nnoremap [b :bprev<CR>
 nnoremap ]b :bnext<CR>
 nnoremap <leader>BD :bprevious<CR> :bdelete #<CR>
+nnoremap <Leader>B :ls<CR>
 nnoremap <Leader>BB :ls<CR>:b
 set hidden
 
