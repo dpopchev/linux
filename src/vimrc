@@ -43,11 +43,10 @@ function! LightlineGitGutter()
 endfunction
 
 " with integrated gutter and gitbranchname
-let g:lightline = {}
-" let g:lightline.colorscheme = 'gruvbox'
-let g:lightline.active = { 'left': [ ['mode', 'paste'], ['readonly', 'filename', 'modified'] ]  }
-let g:lightline.active = { 'right': [ ['percent'], ['fileformat', 'fileencoding', 'filetype'] ]  }
-let g:lightline.component_function = { 'gitbranch': 'gitbranch#name', 'githunks': 'LightlineGitGutter' }
+let g:lightline = {'active': {}, 'component_function': {}}
+call extend(g:lightline.active, { 'left': [ ['mode', 'paste'], ['readonly', 'filename', 'modified'], ['gitbranch', 'gitstatus' ] ]  })
+call extend(g:lightline.active, { 'right': [ ['percent'], ['fileformat', 'fileencoding', 'filetype'] ]  })
+call extend(g:lightline.component_function, { 'gitbranch': 'gitbranch#name', 'gitstatus': 'LightlineGitGutter' })
 
 " ==> easy-align; https://github.com/junegunn/vim-easy-align
 xmap ga <Plug>(EasyAlign)
@@ -426,6 +425,7 @@ nnoremap [b :bprev<CR>
 nnoremap ]b :bnext<CR>
 nnoremap <leader>BD :bprevious<CR> :bdelete #<CR>
 nnoremap <Leader>BB :ls<CR>:b
+set hidden
 
 " ==> tabs
 nnoremap [t :tabn<CR>
