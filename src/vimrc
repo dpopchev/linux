@@ -58,6 +58,15 @@ call extend(g:lightline.tabline, { 'left': [['buffers']] })
 call extend(g:lightline.component_type, { 'buffers': 'tabsel' })
 call extend(g:lightline.component_expand, {'buffers': 'lightline#bufferline#buffers'})
 
+" ==> vim simple complete
+" disable tab hijacking
+let g:vsc_tab_complete = 0
+
+" ==> vim polyglot
+" markdown
+let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_conceal = 0
+
 " ==> easy-align; https://github.com/junegunn/vim-easy-align
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
