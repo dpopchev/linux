@@ -69,6 +69,13 @@ let g:vim_markdown_conceal = 0
 let g:vim_markdown_auto_insert_bullets = 0
 let g:vim_markdown_new_list_item_indent = 0
 
+augroup ForceSetNoConcealLevel
+    autocmd!
+    autocmd FileType markdown,md setlocal commentstring=<!--\ %s\ -->
+    autocmd InsertEnter *.{markdown,md} setlocal conceallevel=0
+    autocmd InsertLeave *.{markdown,md} setlocal conceallevel=1
+augroup END
+
 " ==> easy-align; https://github.com/junegunn/vim-easy-align
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
@@ -442,6 +449,8 @@ nnoremap ]b :bnext<CR>
 nnoremap gbd :bprevious<CR> :bdelete #<CR>
 nnoremap gbl :ls<CR>
 nnoremap gbb :ls<CR>:b
+nnoremap gb :b
+
 set hidden
 
 " ==> tabs
