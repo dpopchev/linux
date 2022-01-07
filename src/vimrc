@@ -73,7 +73,7 @@ augroup ForceSetNoConcealLevel
     autocmd!
     autocmd FileType markdown,md setlocal commentstring=<!--\ %s\ -->
     autocmd InsertEnter *.{markdown,md} setlocal conceallevel=0
-    autocmd InsertLeave *.{markdown,md} setlocal conceallevel=1
+    autocmd InsertLeave *.{markdown,md} setlocal conceallevel=0
 augroup END
 
 " ==> easy-align; https://github.com/junegunn/vim-easy-align
