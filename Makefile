@@ -69,7 +69,7 @@ VIM_PLUGINS_DIR := $(VIM_HOME_DIR)/pack/plugins/start
 VIM_TMP_DIR := $(VIM_HOME_DIR)/tmp
 VIM_DIRS := $(VIM_PLUGINS_DIR) $(VIM_TMP_DIR)
 
-VIM_PLUGIN_GET = git clone --depth 1 --branch master "$(1)" > /dev/null
+VIM_PLUGIN_GET = git clone --depth 1 "$(1)" > /dev/null
 
 VIM_PLUGINS := https://github.com/morhetz/gruvbox.git
 VIM_PLUGINS += https://github.com/tpope/vim-sensible.git
@@ -92,6 +92,7 @@ VIM_PLUGINS += https://github.com/pseewald/vim-anyfold
 VIM_PLUGINS += https://github.com/sheerun/vim-polyglot.git
 VIM_PLUGINS += https://github.com/jiangmiao/auto-pairs.git
 VIM_PLUGINS += https://github.com/maxboisvert/vim-simple-complete.git
+VIM_PLUGINS += https://github.com/azabiong/vim-highlighter.git
 
 .PHONY: vim $(VIM_PLUGINS_DIR) $(VIM_TMP_DIR)
 
