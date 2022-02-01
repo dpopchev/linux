@@ -444,6 +444,11 @@ set splitbelow
 set splitright
 
 " ==> buffers
+augroup IgnoreTerminalFromBufferList
+    autocmd!
+    autocmd TerminalOpen * if bufwinnr('') > 0 | setlocal nobuflisted | endif
+augroup END
+
 nnoremap [b :bprev<CR>
 nnoremap ]b :bnext<CR>
 nnoremap gbd :bprevious<CR> :bdelete #<CR>
