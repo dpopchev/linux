@@ -97,6 +97,7 @@ let g:ctrlp_custom_ignore = {
     \ 'file': '\v\.(pyc|mod)$' }
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_show_hidden = 0
+let g:ctrlp_use_caching = 0
 nnoremap <leader>b :CtrlPBuffer<cr>
 
 " ==> vim-sneak
