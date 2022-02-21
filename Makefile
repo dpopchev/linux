@@ -11,6 +11,7 @@ SRC := src
 BACKUP = [[ ! -e $(1) ]] || yes | cp --backup=numbered --recursive "$(1)" "$(1).bak"; true
 RM_LINK = [[ ! -L $(1) ]] || unlink "$(1)"
 RM_FILE = [[ ! -f $(1) ]] || rm --force --recursive "$(1)"
+RM_DIR = [[ ! -d $(1) ]] || rm --force --recursive "$(1)"
 LN = ln -s $(realpath $(1)) $2
 MKDIR = mkdir --parents "$(1)"
 DOWNLOAD = wget --directory-prefix=$(1)/ $(2) --output-file=/dev/null
@@ -31,6 +32,7 @@ $(HOME)/.%: $(SRC)/%
 	@$(call RM_LINK,$@)
 	@$(call PRINT_STEP,attempt to remove file/dir $(notdir $@))
 	@$(call RM_FILE,$@)
+	@$(call RM_DIR,$@)
 	@$(call PRINT_STEP,make new link to this project $(notdir $@))
 	@$(call LN,$<,$@)
 
