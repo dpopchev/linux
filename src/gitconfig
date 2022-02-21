@@ -1,5 +1,7 @@
 # This is Git's per-user configuration file.
 [user]
+	email = dpopchev@gmail.com
+	name = Dimitar Popchev
 [diff]
         tool = vimdiff
 [merge]
