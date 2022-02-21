@@ -84,26 +84,34 @@ $(XRESOURCES_CONFIG_TARGETS): Xresources.d
 	@$(call PRINT_DONE,$@)
 
 URXVT_EXT := $(HOME)/.urxvt/ext
+URXVT_PLUGINS :=
 
 keyboard_select: URL:=https://raw.githubusercontent.com/muennich/urxvt-perls/master/keyboard-select
+URXVT_PLUGINS += keyboard_select
+
 tabbed: URL:=https://raw.githubusercontent.com/exg/rxvt-unicode/main/src/perl/tabbed
+URXVT_PLUGINS += tabbed
+
 resize_font: URL:=https://raw.githubusercontent.com/simmel/urxvt-resize-font/master/resize-font
+URXVT_PLUGINS += resize_font
+
 selection_to_clipboard: URL:=https://raw.githubusercontent.com/exg/rxvt-unicode/main/src/perl/selection-to-clipboard
+URXVT_PLUGINS += selection_to_clipboard
+
 pasta: URL:=https://raw.githubusercontent.com/su8/urxvt-pasta/master/pasta
-URXVT_PLUGINS := keyboard_select tabbed resize_font selection_to_clipboard pasta
+URXVT_PLUGINS += pasta
 .PHONY: $(URXVT_PLUGINS)
+$(URXVT_PLUGINS): | $(URXVT_EXT)
+	@$(call PRINT_STEP,setup urxvt plugin: $@)
+	@$(call DOWNLOAD,$(URXVT_EXT),$(URL))
+
+urxvt_plugins: $(URXVT_PLUGINS)
 
 urxvt: Xresources.d urxvt_plugins
 	@touch "$(XRESOURCES)"
 	@$(call PRINT_STEP,if missing append $(notdir $@) to $(notdir $(XRESOURCES)))
 	@$(call ADD_XRESOURCES_INCLUDE,$@)
 	@$(call PRINT_DONE,$@)
-
-urxvt_plugins: $(URXVT_PLUGINS)
-
-$(URXVT_PLUGINS): | $(URXVT_EXT)
-	@$(call PRINT_STEP,setup urxvt plugin: $@)
-	@$(call DOWNLOAD,$(URXVT_EXT),$(URL))
 
 .PHONY: vim ## vim configuration and plugins
 .PHONY: vimrc ## vim configuration
