@@ -127,41 +127,85 @@ vimrc: $(HOME)/.vimrc | $(VIM_DIR)
 	@$(call PRINT_STEP,setup vim home tmp and plugin directories)
 	@$(call MKDIR,$(VIM_TMP_DIR))
 	@$(call MKDIR,$(VIM_PLUGINS_DIR))
+	@$(call PRINT_DONE,$@)
+
+VIM_PLUGINS :=
 
 gruvbox: URL:=https://github.com/morhetz/gruvbox.git
+VIM_PLUGINS += gruvbox
+
 vim_sensible: URL:=https://github.com/tpope/vim-sensible.git
+VIM_PLUGINS += vim_sensible
+
 gitgutter: URL:=https://github.com/airblade/vim-gitgutter.git
+VIM_PLUGINS += gitgutter
+
 gitbranch: URL:=https://github.com/itchyny/vim-gitbranch.git
+VIM_PLUGINS += gitbranch
+
 lightline: URL:=https://github.com/itchyny/lightline.vim.git
+VIM_PLUGINS += lightline
+
 lightline_bufferline: URL:=https://github.com/mengelbrecht/lightline-bufferline.git
+VIM_PLUGINS += lightline_bufferline
+
 vim_easy_align: URL:=https://github.com/junegunn/vim-easy-align.git
+VIM_PLUGINS += vim_easy_align
+
 visual_star_search: URL:=https://github.com/nelstrom/vim-visual-star-search.git
+VIM_PLUGINS += visual_star_search
+
 vim_commentary: URL:=https://github.com/tpope/vim-commentary.git
+VIM_PLUGINS += vim_commentary
+
 vim_repeat: URL:=https://github.com/tpope/vim-repeat.git
+VIM_PLUGINS += vim_repeat
+
 vim_surround: URL:=https://github.com/tpope/vim-surround.git
+VIM_PLUGINS += vim_surround
+
 indent_line: URL:=https://github.com/Yggdroot/indentLine.git
+VIM_PLUGINS += indent_line
+
 ctrlp: URL:=https://github.com/kien/ctrlp.vim.git
+VIM_PLUGINS += ctrlp
+
 nerdtree: URL:=https://github.com/preservim/nerdtree.git
+VIM_PLUGINS += nerdtree
+
 vim_sneak: URL:=https://github.com/justinmk/vim-sneak.git
+VIM_PLUGINS += vim_sneak
+
 goyo: URL:=https://github.com/junegunn/goyo.vim.git
+VIM_PLUGINS += goyo
+
 vim_illumiate: URL:=https://github.com/RRethy/vim-illuminate
+VIM_PLUGINS += vim_illumiate
+
 vim_anyfold: URL:=https://github.com/pseewald/vim-anyfold
+VIM_PLUGINS += vim_anyfold
+
 vim_polyglot: URL:=https://github.com/sheerun/vim-polyglot.git
+VIM_PLUGINS += vim_polyglot
+
 auto_pairs: URL:=https://github.com/jiangmiao/auto-pairs.git
+VIM_PLUGINS += auto_pairs
+
 vim_simple_complete: URL:=https://github.com/maxboisvert/vim-simple-complete.git
+VIM_PLUGINS += vim_simple_complete
+
 vim_highlighter: URL:=https://github.com/azabiong/vim-highlighter.git
-VIM_PLUGINS := gruvbox vim_sensible gitgutter gitbranch lightline lightline_bufferline
-VIM_PLUGINS += vim_easy_align visual_star_search vim_commentary vim_repeat
-VIM_PLUGINS += vim_surround indent_line ctrlp nerdtree vim_sneak goyo
-VIM_PLUGINS += vim_illumiate vim_anyfold vim_polyglot auto_pairs
-VIM_PLUGINS += vim_simple_complete vim_highlighter
+VIM_PLUGINS += vim_highlighter
+
 .PHONY: $(VIM_PLUGINS)
 $(VIM_PLUGINS): | $(VIM_PLUGINS_DIR)
 	@$(call PRINT_STEP,setup vim plugin: $@)
-	@$(call GIT,$(URL))
+	@cd $(VIM_PLUGINS_DIR) && $(call GIT,$(URL))
 
+vim_plugins: $(VIM_PLUGINS)
+	@$(call PRINT_DONE,$@)
 
 # directories some programs need and use in their configurations
-DEP_DIRS := $(URXVT_EXT) $(VIM_DIR) $(VIM_PLUGINS_DIR)
+DEP_DIRS := $(URXVT_EXT) $(VIM_DIR) $(VIM_PLUGINS_DIR) $(VIM_TMP_DIR)
 $(DEP_DIRS):
-	@$(MKDIR) $@
+	@$(call MKDIR,$@)
