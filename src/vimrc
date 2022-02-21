@@ -7,6 +7,18 @@ endif
 set nomodeline
 set secure
 
+" ==> user warn function
+function! EchoWARN(WARN)
+    " general purpose function to echo warnings from functions
+
+    let WARN_msg    = toupper(a:WARN)
+    let WARN_prefix = " < < ==== "
+    let WARN_suffix = " ==== > > "
+
+    echom join([WARN_prefix, WARN_msg, WARN_suffix], " ")
+endfunction
+
+
 " ==> gitgutter; https://github.com/airblade/vim-gitgutter
 let g:gitgutter_map_keys = 0    " prevent gitgutter to apply any default mappings
 
@@ -177,17 +189,6 @@ let &undodir=join(auxDump, ",")    " store undo files
 " ==> leader key
 " let mapleader='/' " default
 " let mapleader=',' " common alternative
-
-" ==> user warn function
-function! EchoWARN(WARN)
-    " general purpose function to echo warnings from functions
-
-    let WARN_msg    = toupper(a:WARN)
-    let WARN_prefix = " < < ==== "
-    let WARN_suffix = " ==== > > "
-
-    echom join([WARN_prefix, WARN_msg, WARN_suffix], " ")
-endfunction
 
 " ==> trim trailing spaces and blank lines at end of the file
 function! Preserve(command)
