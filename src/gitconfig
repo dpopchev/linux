@@ -34,7 +34,7 @@
         last = log -1 HEAD --stat
         lg = log --pretty=pretty-log --abbrev-commit -30
         gl = config --global --list
-        sweep = !git checkout master && git fetch --prune && git branch -v --merged | sed -rn 's/^[[:blank:]]*([[:alnum:]\\/-]+)[[:blank:]]+\\w{7}[[:blank:]]+\\[gone\\][[:graph:][:blank:]]*/\\1/p' | xargs git branch -d
+        sweep = !git checkout $(git remote show origin | sed -nr 's/HEAD branch: (\\w+)/\\1/p') && git fetch --prune && git branch -v --merged | sed -rn 's/^[[:blank:]]*([[:alnum:]\\/-]+)[[:blank:]]+\\w{7}[[:blank:]]+\\[gone\\][[:graph:][:blank:]]*/\\1/p' | xargs git branch -d
         f = !git fetch && git checkout
         here = '!git init . && git add . && git commit --allow-empty -m "Initialize repository"'
 [pretty]
