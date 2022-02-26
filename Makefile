@@ -95,6 +95,17 @@ clean_i3:
 	@$(call PRINT_CLEAN,$@)
 	@$(call RM_LINK,$(HOME)/.config/i3)
 
+.PHONY: i3status ## i3 wm status bar
+ALL += i3status
+i3status: $(HOME)/.config/i3status
+	@$(call PRINT_DONE,$@)
+
+.PHONY: clean_i3status
+CLEAN_ALL += clean_i3status
+clean_i3status:
+	@$(call PRINT_CLEAN,$@)
+	@$(call RM_LINK,$(HOME)/.config/i3status)
+
 .PHONY: Xresources ## Xresources includes all configurations
 ALL += Xresources
 .PHONY: xterm ## Xresources xterm terminal configuration
