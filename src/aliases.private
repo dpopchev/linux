@@ -10,6 +10,9 @@ alias vimgitconfig='vim ~/.gitconfig'
 
 alias vimrc='vim ~/.vimrc'
 
+alias vimi3='vim ~/.config/i3/config'
+alias vimi3status='vim ~/.config/i3status/config'
+
 alias g='git'
 alias gc='git config --global --list | grep =commit'
 alias gd='git config --global --list | grep =diff'
