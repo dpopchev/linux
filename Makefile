@@ -15,7 +15,7 @@ RM_DIR = [[ ! -d $(1) ]] || rm --force --recursive "$(1)"
 LN = ln -s $(realpath $(1)) $2
 MKDIR = mkdir --parents "$(1)"
 DOWNLOAD = wget --quiet --directory-prefix=$(1)/ $(2) --output-file=/dev/null
-GIT = git clone --quiet --depth 1 "$(1)" > /dev/null
+GIT = git clone --quiet --depth 1 "$(1)" > /dev/null; true
 PRINT_DONE = printf -- "++++ done: $(1)\n"
 PRINT_STEP = printf -- ">>>> step: $(1)\n"
 PRINT_CLEAN = printf -- "---- clean: $(1)\n"
@@ -264,6 +264,9 @@ VIM_PLUGINS += vim_simple_complete
 
 vim_highlighter: URL:=https://github.com/azabiong/vim-highlighter.git
 VIM_PLUGINS += vim_highlighter
+
+jedi-vim: URL:=https://github.com/davidhalter/jedi-vim.git
+VIM_PLUGINS += jedi-vim
 
 .PHONY: $(VIM_PLUGINS)
 $(VIM_PLUGINS): | $(VIM_PLUGINS_DIR)
