@@ -42,7 +42,7 @@ disk "/" {
 
 order += "battery all"
 battery all {
-        format = "%status %emptytime / %consumption"
+        format = "%status %emptytime (%percentage) / %consumption"
         last_full_capacity = false
         hide_seconds = true
         integer_battery_capacity = true
