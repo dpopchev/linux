@@ -106,6 +106,17 @@ clean_i3status:
 	@$(call PRINT_CLEAN,$@)
 	@$(call RM_LINK,$(HOME)/.config/i3status)
 
+.PHONY: picom ## most recent compton fork
+ALL += picom
+picom: $(HOME)/.config/picom.conf
+	@$(call PRINT_DONE,$@)
+
+.PHONY: clean_picom
+CLEAN_ALL += clean_picom
+clean_picom:
+	@$(call PRINT_CLEAN,$@)
+	@$(call RM_LINK,$(HOME)/.config/picom.conf)
+
 .PHONY: Xresources ## Xresources includes all configurations
 ALL += Xresources
 .PHONY: xterm ## Xresources xterm terminal configuration
