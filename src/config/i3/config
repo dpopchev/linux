@@ -16,6 +16,20 @@ set $mod Mod4
 # is used in the bar {} block below.
 font pango:DejaVu Sans Mono 10
 
+# default orientations
+default_orientation auto
+workspace_layout default
+
+# title align to left as it may get lengthily
+title_align left
+
+# hide_edge_borders vertical
+# hide borderds on workspaces with only one window visible
+hide_edge_borders smart
+
+# automatic back-and-forth workspace switching
+workspace_auto_back_and_forth yes
+
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 font pango:DejaVu Sans Mono 10
@@ -164,6 +178,27 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+# change all colors which i3 uses to draw window decoration
+# <colorclass> <border> <background> <text> <indicator> <child_border>
+# class                 border  backgr. text    indicator child_border
+client.focused          #4c7899 #285577 #ffffff #2e9ef4   #285577
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #900000 #ffffff #900000   #900000
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff
+
+# read 1 character and mark/unmark the current window with this character
+bindsym $mod+m exec i3-input -F 'mark %s' -l 1 -P 'Mark: '
+bindsym $mod+Shift+m exec i3-input -F 'unmark %s' -l 1 -P 'Unmark: '
+
+# read 1 character and go to the window with the character
+bindsym $mod+g exec i3-input -F '[con_mark="%s"] focus' -l 1 -P 'Goto: '
+
+# show marks in border decoration
+show_marks yes
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
