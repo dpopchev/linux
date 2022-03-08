@@ -209,3 +209,6 @@ bar {
         # mode hide
         # tray_output none
 }
+
+# auto start applications
+exec_always --no-startup-id picom
