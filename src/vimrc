@@ -392,7 +392,7 @@ set completeopt=menuone,preview,noselect
 " let g:jedi#documentation_command = "K"
 " let g:jedi#usages_command = "<leader>n"
 " let g:jedi#completions_command = "<C-Space>"
-" let g:jedi#rename_command = "<leader>r"
+let g:jedi#rename_command = "<leader><leader>r"
 " let g:jedi#environment_path = "/usr/bin/python3.9"
 " let g:jedi#environment_path = "venv"
 
