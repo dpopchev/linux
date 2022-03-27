@@ -150,7 +150,7 @@ let g:anyfold_fold_comments=1
 
 " ==> gruvbox
 let g:gruvbox_contrast_dark      = 'medium'
-let g:gruvbox_contrast_light     = 'medium'
+let g:gruvbox_contrast_light     = 'hard'
 let g:gruvbox_bold               = 1
 let g:gruvbox_italic             = 0
 let g:gruvbox_italicize_comments = 0
@@ -179,6 +179,18 @@ catch /^Vim\%((\a\+)\)\=:E185/
     :call EchoWARN("will try with fallback: " . colo_fallback)
     exe "colorscheme " . colo_fallback
 endtry
+
+" toggle background and gruvbox on the fly
+if exists("*ToggleBackground") == 0
+    function ToggleBackground()
+        if &background == 'dark'
+            set background=light
+        else
+            set background=dark
+        endif
+    endfunction
+    command BG call ToggleBackground()
+endif
 
 " ==> auxiliary files
 let auxDump=[ $HOME."/.vim/tmp/", $HOME."/.tmp/", $HOME."/tmp/", "/tmp/" ]
