@@ -288,7 +288,7 @@ nnoremap <leader>q :q<cr>
 nnoremap <leader>w :w<cr>
 noremap <leader>r i<cr><esc>
 noremap <leader><space> i<space><esc>
-noremap <leader><space><space> a<space><esc>
+noremap <leader><leader><space> a<space><esc>
 vnoremap <leader>y "yy
 vnoremap <leader>Y "Yy
 vnoremap <leader><leader>y "yp
@@ -504,7 +504,7 @@ endif
 " ==> make/build/compile/run/lint/test/autoformat Makefile shortcuts
 " file vise targets
 nnoremap m<cr> :silent make compile FILE=%<bar>redraw!<bar>copen<cr>
-nnoremap m<cr><cr> :silent make format FILE=%<bar>redraw!<cr>
+nnoremap mm<cr> :silent make format FILE=%<bar>redraw!<cr>
 nnoremap ml :silent make lint FILE=%<bar>redraw!<bar>copen<cr>
 nnoremap mr :silent make run FILE=%<bar>redraw!<bar>copen<cr>
 nnoremap mR :silent make debug FILE=%<bar>redraw!<bar>copen<cr>
