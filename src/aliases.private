@@ -23,7 +23,7 @@ alias gu='git config --global --list | grep "'\\.u\\w='"'
 alias v='vim'
 alias vi='vim'
 alias p='python3'
-alias ip='ipython3'
+alias ip='p -m IPython'
 
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
