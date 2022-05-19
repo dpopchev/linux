@@ -146,7 +146,9 @@ augroup vim_anyfold_active
     autocmd!
     autocmd Filetype * AnyFoldActivate               " activate for all filetypes
 augroup END
-let g:anyfold_fold_comments=1
+let g:anyfold_identify_comments=2
+let g:anyfold_fold_comments=0
+set foldlevel=99
 
 " ==> gruvbox
 let g:gruvbox_contrast_dark      = 'medium'
@@ -371,12 +373,12 @@ set list listchars=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
 "   zf#j/k      create fold from cursor down/up # number of lines
 "   zj/k        move cursor to next fold down/up
 "set nofoldenable     " disable folding
-set foldenable        " enable folding
-set foldmethod=syntax " fold is based on indent level
-set foldcolumn=0      " sidebar indicating folding
-set foldlevel=6       " folds with higher level will be closed
-set foldnestmax=10    " maximum nesting of folds
-set foldlevelstart=6  " starting fold level when buffer is opened
+" set foldenable        " enable folding
+" set foldmethod=syntax " fold is based on indent level
+" set foldcolumn=0      " sidebar indicating folding
+" set foldlevel=6       " folds with higher level will be closed
+" set foldnestmax=10    " maximum nesting of folds
+" set foldlevelstart=6  " starting fold level when buffer is opened
 
 " ==> completion
 set complete+=kspell " use currently active spell checking
