@@ -8,6 +8,11 @@ if [[ $- != *i* ]] ; then
         return
 fi
 
+# EXPECTED_BASH_COMPLETION=/usr/share/bash-completion/bash_completion
+EXPECTED_BASH_COMPLETION=~/.local/share/bash-completion/bash_completion
+# Use bash-completion, if available
+[[ $PS1 && -f $EXPECTED_BASH_COMPLETION ]] && . $EXPECTED_BASH_COMPLETION
+
 # Bash won't get SIGWINCH if another process is in the foreground.
 # Enable checkwinsize so that bash will check the terminal size when
 # it regains control.  #65623
