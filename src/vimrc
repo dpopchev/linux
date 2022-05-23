@@ -494,6 +494,7 @@ augroup IgnoreTerminalFromBufferList
     autocmd TerminalOpen * if bufwinnr('') > 0 | setlocal nobuflisted | endif
 augroup END
 
+set switchbuf=useopen
 nnoremap [b :bprev<CR>
 nnoremap ]b :bnext<CR>
 nnoremap gbd :bprevious<CR> :bdelete #<CR>
@@ -503,7 +504,7 @@ nnoremap gbb :ls<CR>:b
 let buf_num = 1
 let buf_count = 99
 while buf_num <= buf_count
-  execute "nnoremap " . buf_num . "gb :" . buf_num . "b\<CR>"
+  execute "nnoremap " . buf_num . "gb :" . buf_num . "sbuffer\<CR>"
   let buf_num += 1
 endwhile
 
