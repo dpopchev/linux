@@ -145,7 +145,7 @@ function! Scratch()
         file scratch
     endif
 endfunction
-nnoremap <leader><leader>s :call Scratch()<cr>
+nnoremap gs :call Scratch()<cr>
 
 " ==> vim-illuminate
 let g:Illuminate_delay = 250
