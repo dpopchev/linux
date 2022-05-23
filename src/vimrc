@@ -129,6 +129,24 @@ augroup goyou_enable_plugins
     autocmd User GoyoEnter :GitGutterToggle
 augroup END
 
+" ==> create scratch buffer
+function! Scratch()
+    let bnr = bufwinnr('scratch')
+    if bnr > 0
+        setlocal switchbuf=useopen
+        sbuffer scratch
+    else
+        vsplit
+        noswapfile hide enew
+        setlocal buftype=nofile
+        setlocal bufhidden=hide
+        " setlocal nobuflisted
+        "lcd ~
+        file scratch
+    endif
+endfunction
+nnoremap <leader><leader>s :call Scratch()<cr>
+
 " ==> vim-illuminate
 let g:Illuminate_delay = 250
 let g:Illuminate_highlightUnderCursor = 1
