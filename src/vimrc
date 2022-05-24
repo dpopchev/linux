@@ -504,7 +504,7 @@ nnoremap gbb :ls<CR>:b
 let buf_num = 1
 let buf_count = 99
 while buf_num <= buf_count
-  execute "nnoremap " . buf_num . "gb :" . buf_num . "sbuffer\<CR>"
+  execute "nnoremap " . buf_num . "gb :vert sbuffer" . buf_num . "\<CR>"
   let buf_num += 1
 endwhile
 
