@@ -131,10 +131,10 @@ augroup END
 
 " ==> create scratch buffer
 function! Scratch()
-    let bnr = bufwinnr('scratch')
-    if bnr > 0
+    let bnr = bufname('scratch')
+    if bnr == 'scratch'
         setlocal switchbuf=useopen
-        sbuffer scratch
+        vert sbuffer scratch
     else
         vsplit
         noswapfile hide enew
