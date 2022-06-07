@@ -489,10 +489,10 @@ set splitbelow
 set splitright
 
 " ==> buffers
-augroup IgnoreTerminalFromBufferList
-    autocmd!
-    autocmd TerminalOpen * if bufwinnr('') > 0 | setlocal nobuflisted | endif
-augroup END
+" augroup IgnoreTerminalFromBufferList
+"     autocmd!
+"     autocmd TerminalOpen * if bufwinnr('') > 0 | setlocal nobuflisted | endif
+" augroup END
 
 set switchbuf=useopen
 nnoremap [b :bprev<CR>
