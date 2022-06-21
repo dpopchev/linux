@@ -96,6 +96,17 @@ nmap ga <Plug>(EasyAlign)
 " each level with separate char
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
+" ==> vim-highlight https://github.com/azabiong/vim-highlighter
+" let HiSet   = 'f<CR>'
+" let HiErase = 'f<BS>'
+" let HiClear = 'f<C-L>'
+" let HiFind  = 'f<Tab>'
+nnoremap F<CR> :Hi ==<cr>
+" not active
+" nnoremap gF<CR> :Hi =<cr>
+" nnoremap <CR>     <Cmd>Hi><CR>
+" nnoremap g<CR>    <Cmd>Hi<<CR>
+
 " ==>  ctrlp.vim; https://github.com/ctrlpvim/ctrlp.vim
 " ==> nerdtree; https://github.com/preservim/nerdtree.git
 nnoremap <leader>t :NERDTreeFind<cr>
