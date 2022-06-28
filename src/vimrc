@@ -129,7 +129,7 @@ let g:sneak#label = 1
 " ==> goyou; https://github.com/junegunn/goyo.vim
 let g:goyo_linenr = 1
 let g:goyo_height = '100%'
-let g:goyo_width  = 82
+let g:goyo_width  = 85
 let g:goyo_margin_top = 0
 let g:goyo_margin_bottom = 0
 
@@ -138,6 +138,7 @@ nnoremap <leader>e :Goyo<cr>
 augroup goyou_enable_plugins
     autocmd!
     autocmd User GoyoEnter :GitGutterToggle
+    autocmd User GoyoEnter :set colorcolumn=81
 augroup END
 
 " ==> create scratch buffer
