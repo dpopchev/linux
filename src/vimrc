@@ -116,11 +116,11 @@ let g:NERDTreeDirArrowExpandable  = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 " fuzzy search files
 let g:ctrlp_custom_ignore = {
-    \ 'dir': '\v[\/](\.git|__pycache__|\.dummies)$',
+    \ 'dir': '\v[\/](\.git|__pycache__|\.dummies|legacy)$',
     \ 'file': '\v\.(pyc|mod|png)$' }
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_show_hidden = 0
-let g:ctrlp_use_caching = 0
+let g:ctrlp_use_caching = 1
 nnoremap <leader>b :CtrlPBuffer<cr>
 
 " ==> vim-sneak
@@ -548,19 +548,19 @@ endif
 
 " ==> make/build/compile/run/lint/test/autoformat Makefile shortcuts
 " file vise targets
-nnoremap m<cr> :silent make compile FILE=%<bar>redraw!<bar>copen<cr>
-nnoremap mm<cr> :silent make format FILE=%<bar>redraw!<cr>
-nnoremap ml :silent make lint FILE=%<bar>redraw!<bar>copen<cr>
-nnoremap mr :silent make run FILE=%<bar>redraw!<bar>copen<cr>
-nnoremap mR :silent make debug FILE=%<bar>redraw!<bar>copen<cr>
-nnoremap mt :silent make doctest FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap m<cr> :silent make! compile FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap mm<cr> :silent make! format FILE=%<bar>redraw!<cr>
+nnoremap ml :silent make! lint FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap mr :silent make! run FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap mR :silent make! debug FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap mt :silent make! doctest FILE=%<bar>redraw!<bar>copen<cr>
 " project vise targets
-nnoremap Mt :silent make test <bar>redraw!<bar>copen<cr>
-nnoremap Mt<cr> :silent make cover <bar>redraw!<bar>copen<cr>
-nnoremap MT :silent make profile <bar>redraw!<bar>copen<cr>
-nnoremap M<cr> :silent make build <bar>redraw!<bar>copen<cr>
-nnoremap Mr :silent make run <bar>redraw!<bar>copen<cr>
-nnoremap MR :silent make debug <bar>redraw!<bar>copen<cr>
+nnoremap Mt :silent make! test <bar>redraw!<bar>copen<cr>
+nnoremap Mt<cr> :silent make! cover <bar>redraw!<bar>copen<cr>
+nnoremap MT :silent make! profile <bar>redraw!<bar>copen<cr>
+nnoremap M<cr> :silent make! build <bar>redraw!<bar>copen<cr>
+nnoremap Mr :silent make! run <bar>redraw!<bar>copen<cr>
+nnoremap MR :silent make! debug <bar>redraw!<bar>copen<cr>
 
 augroup QuickFixListBottomHack
     autocmd!
