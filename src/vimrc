@@ -11,7 +11,8 @@ endfunction
 
 " ==> vim-code-dark 
 " If you don't like many colors and prefer the conservative style of the standard Visual Studio
-let g:codedark_conservative=1
+" let g:codedark_conservative=1
+
 " Activates italicized comments (make sure your terminal supports italics)
 let g:codedark_italics=0
 " Make the background transparent
@@ -25,7 +26,9 @@ colorscheme codedark
 " ==> vim-gitgutter 
 let g:gitgutter_map_keys = 0    " prevent gitgutter to apply any default mappings
 
-set updatetime=100
+" global vairable in milisecond, :h updatetime, default 4s, 
+" used to govern refresh rate of gitgutter signs
+" set updatetime=100
 let g:gitgutter_sign_added              = '+'
 let g:gitgutter_sign_modified           = '>'
 let g:gitgutter_sign_removed            = 'd'
@@ -43,6 +46,10 @@ nmap ghu <Plug>(GitGutterUndoHunk)
 
 " preview hunk
 nmap ghP <Plug>(GitGutterPreviewHunk)
+
+
+" update signs on every file writing 
+autocmd! BufWritePost * GitGutter
 
 " ==> lightline.vim 
 set laststatus=2    " needed to show lightline
