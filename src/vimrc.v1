@@ -1,0 +1,574 @@
+" ==> disable Vi-compatible
+if &compatible
+    set nocompatible
+endif
+
+" ==> disable modelines; https://medium.com/usevim/securing-vim-d6a12496fec8
+set nomodeline
+set secure
+
+" ==> user warn function
+function! EchoWARN(WARN)
+    " general purpose function to echo warnings from functions
+
+    let WARN_msg    = toupper(a:WARN)
+    let WARN_prefix = " < < ==== "
+    let WARN_suffix = " ==== > > "
+
+    echom join([WARN_prefix, WARN_msg, WARN_suffix], " ")
+endfunction
+
+
+" ==> gitgutter; https://github.com/airblade/vim-gitgutter
+let g:gitgutter_map_keys = 0    " prevent gitgutter to apply any default mappings
+
+set updatetime=100
+let g:gitgutter_sign_added              = '+'
+let g:gitgutter_sign_modified           = '>'
+let g:gitgutter_sign_removed            = 'd'
+let g:gitgutter_sign_removed_first_line = '^'
+let g:gitgutter_sign_modified_removed   = '<'
+let g:gitgutter_max_signs               = 9999
+
+" Jump between hunks
+nmap ghn <Plug>(GitGutterNextHunk)
+nmap ghp <Plug>(GitGutterPrevHunk)
+
+" Hunk-add and hunk-revert for chunk staging
+nmap ghs <Plug>(GitGutterStageHunk)
+nmap ghu <Plug>(GitGutterUndoHunk)
+
+" preview hunk
+nmap ghP <Plug>(GitGutterPreviewHunk)
+
+" ==> lightline with integrated gitgutter and gitbranchanme
+set laststatus=2    " needed to show lightline
+set noshowmode      " lightline already shows vim mode
+
+" integrate git gutter
+function! LightlineGitGutter()
+    if !get(g:, 'gitgutter_enabled', 0) || strlen(gitbranch#name()) == 0
+        return ''
+    endif
+    let [ l:added, l:modified, l:removed ] = GitGutterGetHunkSummary()
+    return printf('+%d ~%d -%d', l:added, l:modified, l:removed)
+endfunction
+
+" with integrated gutter and gitbranchname
+" buffers shown in tabline via lightline-buffer
+set showtabline=2
+
+let g:lightline#bufferline#show_number  = 1
+let g:lightline#bufferline#shorten_path = 1
+let g:lightline#bufferline#unnamed      = '[No Name]'
+
+let g:lightline = {'active': {}, 'component_function': {}, 'tabline': {}, 'component_type': {}, 'component_expand': {}}
+call extend(g:lightline.active, { 'left': [ ['mode', 'paste'], ['readonly', 'filename', 'modified'], ['gitbranch', 'gitstatus' ] ]  })
+call extend(g:lightline.active, { 'right': [ ['percent'], ['fileformat', 'fileencoding', 'filetype'] ]  })
+call extend(g:lightline.component_function, { 'gitbranch': 'gitbranch#name', 'gitstatus': 'LightlineGitGutter',  })
+call extend(g:lightline.tabline, { 'left': [['buffers']] })
+call extend(g:lightline.component_type, { 'buffers': 'tabsel' })
+call extend(g:lightline.component_expand, {'buffers': 'lightline#bufferline#buffers'})
+
+" ==> vim simple complete
+" disable tab hijacking
+let g:vsc_tab_complete = 0
+
+" ==> vim polyglot
+" markdown
+let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_new_list_item_indent = 0
+
+augroup ForceSetNoConcealLevel
+    autocmd!
+    autocmd FileType markdown,md setlocal commentstring=<!--\ %s\ -->
+    autocmd InsertEnter *.{markdown,md} setlocal conceallevel=0
+    autocmd InsertLeave *.{markdown,md} setlocal conceallevel=0
+augroup END
+
+" ==> easy-align; https://github.com/junegunn/vim-easy-align
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
+" ==> indentLine; https://github.com/Yggdroot/indentLine.git
+" each level with separate char
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+
+" ==> vim-highlight https://github.com/azabiong/vim-highlighter
+" let HiSet   = 'f<CR>'
+" let HiErase = 'f<BS>'
+" let HiClear = 'f<C-L>'
+" let HiFind  = 'f<Tab>'
+nnoremap F<CR> :Hi ==<cr>
+" not active
+" nnoremap gF<CR> :Hi =<cr>
+" nnoremap <CR>     <Cmd>Hi><CR>
+" nnoremap g<CR>    <Cmd>Hi<<CR>
+
+" ==>  ctrlp.vim; https://github.com/ctrlpvim/ctrlp.vim
+" ==> nerdtree; https://github.com/preservim/nerdtree.git
+nnoremap <leader>t :NERDTreeFind<cr>
+nnoremap <leader>T :NERDTreeToggle<cr>
+" in case I want to switch
+let g:NERDTreeDirArrowExpandable  = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+" fuzzy search files
+let g:ctrlp_custom_ignore = {
+    \ 'dir': '\v[\/](\.git|__pycache__|\.dummies|legacy)$',
+    \ 'file': '\v\.(pyc|mod|png)$' }
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_show_hidden = 0
+let g:ctrlp_use_caching = 1
+nnoremap <leader>b :CtrlPBuffer<cr>
+
+" ==> vim-sneak
+let g:sneak#label = 1
+
+" ==> goyou; https://github.com/junegunn/goyo.vim
+let g:goyo_linenr = 1
+let g:goyo_height = '100%'
+let g:goyo_width  = 100
+let g:goyo_margin_top = 0
+let g:goyo_margin_bottom = 0
+
+nnoremap <leader>e :Goyo<cr>
+
+augroup goyou_enable_plugins
+    autocmd!
+    autocmd User GoyoEnter :GitGutterToggle
+    autocmd User GoyoEnter :set colorcolumn=81
+augroup END
+
+" ==> create scratch buffer
+function! Scratch()
+    let bnr = bufname('scratch')
+    if bnr == 'scratch'
+        setlocal switchbuf=useopen
+        vert sbuffer scratch
+    else
+        vsplit
+        noswapfile hide enew
+        setlocal buftype=nofile
+        setlocal bufhidden=hide
+        " setlocal nobuflisted
+        "lcd ~
+        file scratch
+    endif
+endfunction
+nnoremap gs :call Scratch()<cr>
+
+" ==> vim-illuminate
+let g:Illuminate_delay = 250
+let g:Illuminate_highlightUnderCursor = 1
+nnoremap z/ :IlluminationToggle<cr>
+" NOTE: has extensive blocklist capabilities
+" let g:Illuminate_ftblacklist = ['nerdtree']
+augroup illuminate_augroup
+    autocmd!
+    autocmd VimEnter * hi illuminatedWord cterm=bold,underline
+    autocmd User GoyoLeave nested hi illuminatedWord cterm=bold,underline
+augroup END
+
+" ==> vim-anyfold
+augroup vim_anyfold_active
+    autocmd!
+    autocmd Filetype * AnyFoldActivate               " activate for all filetypes
+augroup END
+let g:anyfold_identify_comments=2
+let g:anyfold_fold_comments=0
+set foldlevel=99
+
+" ==> gruvbox
+let g:gruvbox_contrast_dark      = 'medium'
+let g:gruvbox_contrast_light     = 'hard'
+let g:gruvbox_bold               = 1
+let g:gruvbox_italic             = 0
+let g:gruvbox_italicize_comments = 0
+let g:gruvbox_invert_selection   = 0
+
+" ==> colorscheme
+" manually specify background color -- available are dark and light
+set background=dark
+" set background=light
+
+" force color; needed TERM=xterm-256color
+if !has('gui_running')
+    set t_Co=256
+    set guioptions-=e
+endif
+
+let colo_def      = 'gruvbox'   " set default colorscheme
+let colo_fallback = 'delek'    " set fallback colorscheme
+
+try
+    " try setting the default colorscheme
+    exe "colorscheme " . colo_def
+catch /^Vim\%((\a\+)\)\=:E185/
+    " if it fails try the fallback one
+    :call EchoWARN("colorscheme not found " . colo_def)
+    :call EchoWARN("will try with fallback: " . colo_fallback)
+    exe "colorscheme " . colo_fallback
+endtry
+
+" toggle background and gruvbox on the fly
+if exists("*ToggleBackground") == 0
+    function ToggleBackground()
+        if &background == 'dark'
+            set background=light
+        else
+            set background=dark
+        endif
+    endfunction
+    command BG call ToggleBackground()
+endif
+
+" ==> auxiliary files
+let auxDump=[ $HOME."/.vim/tmp/", $HOME."/.tmp/", $HOME."/tmp/", "/tmp/" ]
+let &backupdir=join(auxDump, ",")  " store backup files
+let &dir=join(auxDump, ",")        " store swap files
+let &undodir=join(auxDump, ",")    " store undo files
+
+" ==> leader key
+" let mapleader='/' " default
+" let mapleader=',' " common alternative
+
+" ==> trim trailing spaces and blank lines at end of the file
+function! Preserve(command)
+    " Preparation: save last search, and cursor position.
+    let _s = @/
+    let l  = line(".")
+    let c  = col(".")
+    " Do the business:
+    execute a:command
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+
+augroup TrimBlanks
+    autocmd!
+    autocmd BufWritePre * call Preserve("%s/\\S\\zs\ \\+$//e")
+    autocmd BufWritePre * call Preserve("%s/\\S\\zs\t\\+$//e")
+    autocmd BufWritePre * call Preserve("%s#\\($\\n\\s\*\\)\\+\\%$##e")
+augroup END
+
+" ==> cursorline
+let underline_cursorline_fix = 0
+
+augroup HackCursorlineWhenUnderline
+    autocmd!
+augroup END
+
+if underline_cursorline_fix
+    autocmd VimEnter * echom 'cursorline underline hack'
+
+    autocmd HackCursorlineWhenUnderline WinEnter * setlocal cursorline
+    autocmd HackCursorlineWhenUnderline WinEnter * setlocal nocursorline
+    highlight cursorline cterm=none term=none
+    highlight CursorLine guibg=#303000 ctermbg=233
+    highlight Visual cterm=reverse ctermfg=NONE
+else
+    set cursorline  " highlichg current line via colorscheme
+endif
+
+" ==> general configs
+noremap <q-:> <Nop>
+noremap <S-k> <Nop>
+set laststatus=2    " always display status line
+set noruler         " do not display cursor position
+set showcmd         " show command in last line of the screen
+set cmdheight=2     " command line height in screen lines
+set wildmenu        " shown possible matches just above command line
+set title           " set window title to opened file
+set noerrorbells    " disable beep on erros
+set novisualbell    " disable flash the screen instead of beeping on errors
+set mouse=n         " enable mouse only in normal mode
+set number          " show line number
+set relativenumber  " compute line numbers relative to current position
+set scrolloff=3     " amount of lines to keep above and below cursor
+set sidescrolloff=3 " amount of screen columns to keep to the right
+set encoding=utf-8  " default encoding if none specified for the file
+
+let textThreshold=80             " set desired text width
+let &textwidth=textThreshold     " maximum allowed width of a line
+let &colorcolumn=textThreshold+1 " set text length marker
+set nowrap                       " disable line wrap
+set linebreak                    " avoid wrapping a line in middle of a word
+
+" filetype plugins are overriding formatoptions, which is annoying;
+" I want the one below applied for all filetypes;
+" source: https://stackoverflow.com/questions/28375119/override-options-set-by-ftplugins-in-vim
+augroup ForceOverwriteFO
+    autocmd!
+    autocmd FileType * setlocal formatoptions=tcrqbj
+augroup END
+
+set display=lastline    " display as much as possible of a line
+
+set showmatch           " highlight matching brackets
+" set matchtime=5       " tenths of a second to show matching bracket parent
+" set matchpairs+=<:>   " extend match pairs with < and >
+
+nnoremap U :call EchoWARN("check caps lock")<CR>
+
+nnoremap ++ :set invpaste<cr>
+
+" ==> leader maps
+nnoremap <leader>q :q<cr>
+nnoremap <leader>w :w<cr>
+noremap <leader>r i<cr><esc>
+noremap <leader><space> i<space><esc>
+noremap <leader><leader><space> a<space><esc>
+vnoremap <leader>y "yy
+vnoremap <leader>Y "Yy
+vnoremap <leader><leader>y "yp
+nnoremap <leader><leader>y "yp
+vnoremap <leader>p "py
+vnoremap <leader>P "Py
+vnoremap <leader><leader>p "pp
+nnoremap <leader><leader>p "pp
+
+" ==> system clipboard; https://vim.fandom.com/wiki/Accessing_the_system_clipboard
+function! CopyToClipboard()
+    " https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript/1534347#1534347
+
+    if has('clipboard')
+        "if support is compiled,  yank visually selected text to "+
+        normal! "+y
+    else
+        call EchoWARN("check vim clipboard support")
+    endif
+endfunction
+vnoremap <C-c> :call CopyToClipboard()<cr>
+
+" ==> add/del empty lines; https://vim.fandom.com/wiki/Quickly_adding_and_deleting_empty_lines
+function! AddEmptyLineBelow()
+    call append(line("."), "")
+endfunction
+
+function! AddEmptyLineAbove()
+    let l:scrolloffsave = &scrolloff
+    " Avoid jerky scrolling with ^E at top of window
+    set scrolloff=0
+    call append(line(".") - 1, "")
+    if winline() != winheight(0)
+        silent normal! <C-e>
+    end
+    let &scrolloff = l:scrolloffsave
+endfunction
+
+function! DelEmptyLineBelow()
+    if line(".") == line("$")
+        return
+    end
+    let l:line = getline(line(".") + 1)
+    if l:line =~ '^\s*$'
+        let l:colsave = col(".")
+        .+1d
+        ''
+        call cursor(line("."), l:colsave)
+    end
+endfunction
+
+function! DelEmptyLineAbove()
+    if line(".") == 1
+        return
+    end
+    let l:line = getline(line(".") - 1)
+    if l:line =~ '^\s*$'
+        let l:colsave = col(".")
+        .-1d
+        silent normal! <C-y>
+        call cursor(line("."), l:colsave)
+    end
+endfunction
+
+" delete/add blank line below/above, and double -- inserts them.
+noremap jj :call DelEmptyLineBelow()<CR>
+noremap kk :call DelEmptyLineAbove()<CR>
+noremap <C-j><C-j> :call AddEmptyLineBelow()<CR>
+noremap <C-k><C-k> :call AddEmptyLineAbove()<CR>
+
+" ==> visual guides for blank characters
+set list listchars=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
+
+" ==> fold
+" folding cheat sheet
+"   zc/o/a      close/open/toggle fold if the cursor is on one
+"   zC/O/A      close/open/toggle all fold levels around the cursor
+"   zr/m        reduce/increasing folding by opening/closing one more fold level
+"   zR/M        reduce/increasing folding by opening/closing one more fold level at all buffer
+"   zf#j/k      create fold from cursor down/up # number of lines
+"   zj/k        move cursor to next fold down/up
+"set nofoldenable     " disable folding
+" set foldenable        " enable folding
+" set foldmethod=syntax " fold is based on indent level
+" set foldcolumn=0      " sidebar indicating folding
+" set foldlevel=6       " folds with higher level will be closed
+" set foldnestmax=10    " maximum nesting of folds
+" set foldlevelstart=6  " starting fold level when buffer is opened
+
+" ==> completion
+set complete+=kspell " use currently active spell checking
+set complete-=t      " use C-X C-]
+set complete-=i      " use C-X C-I
+set completeopt=menuone,preview,noselect
+
+" ==> jedi python completion
+" let g:jedi#goto_command = "<leader>d"
+" let g:jedi#goto_assignments_command = "<leader>g"
+" let g:jedi#goto_stubs_command = "<leader>s"
+" let g:jedi#goto_definitions_command = ""
+" let g:jedi#documentation_command = "K"
+" let g:jedi#usages_command = "<leader>n"
+" let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader><leader>r"
+" let g:jedi#environment_path = "/usr/bin/python3.9"
+" let g:jedi#environment_path = "venv"
+
+" ==> spell
+"   move to misspelled words via            ]s and [s
+"   change word under cursor via            z=
+"   add word under cursor to dictionary     zg
+"   remove word from dictionary via         zw
+" to auto download spell, this should be the def site
+" when vim starts first disable :set nospell and then enable :set spell
+let g:spellfile_URL = 'http://ftp.vim.org/vim/runtime/spell'
+set spell          " enable spellcheck
+set spelllang=en   " spellcheck language
+" set spelllang+=bg  " spellcheck language
+"set spellfile=... " place to store additional words
+
+augroup SaneSpellCheckHi
+    autocmd!
+    autocmd BufEnter * :hi clear SpellBad
+    autocmd BufEnter * :hi SpellBad cterm=underline
+    autocmd BufEnter * :hi clear SpellRare
+    autocmd BufEnter * :hi SpellRare cterm=underline
+    autocmd BufEnter * :hi clear SpellCap
+    autocmd BufEnter * :hi SpellCap cterm=none
+    autocmd BufEnter * :hi clear SpellLocal
+    autocmd BufEnter * :hi SpellLocal cterm=underline
+augroup END
+
+" robust omnifunc solution, source ft-syntax-omni
+if has("autocmd") && exists("+omnifunc")
+    autocmd Filetype *
+                \ if &omnifunc == "" |
+                \     setlocal omnifunc=syntaxcomplete#Complete |
+                \ endif
+endif
+
+" ==> indent
+" resource https://vim.fandom.com/wiki/Indenting_source_code
+" set amount of spaces for indentation
+let b:indent=4
+
+" indentation without hard tabs
+set expandtab             " convert tabs to 'softtabstop' amount of spaces
+let &shiftwidth=b:indent  " affects when pressing >>, << or == and auto indentation
+let &softtabstop=b:indent " affects <TAB> or <BS>;
+" let &tabstop=b:indent   " not recommended as may alter view of other editors
+
+function! InsertHalfShiftwidth()
+    return repeat(' ', &shiftwidth/2)
+endfunction
+
+inoremap <S-tab> <C-R>=InsertHalfShiftwidth()<cr>
+
+" ==> search
+" resource https://vim.fandom.com/wiki/Searching
+set hlsearch    " enable search highlighting
+set incsearch   " incremental search that shows partial matches
+set ignorecase  " ignore case when searching
+set smartcase   " automatically switch to case-sensitive when search
+set magic       " for regular expressions turn magic on
+nnoremap <C-l> :nohlsearch<CR><esc>
+nnoremap / /\v
+
+" ==> split
+" cheatsheet
+" ctrl + w _ " Max out the height of the current split
+" ctrl + w | "Max out the width of the current split
+" ctrl + w = "Normalize all split sizes, which is very handy when resizing terminal
+" Ctrl+W R "Swap top/bottom or left/right split
+" Ctrl+W T "Break out current window into a new tabview
+" Ctrl+W o "Close every window in the current tabview but the current one
+
+set splitbelow
+set splitright
+
+" ==> buffers
+" augroup IgnoreTerminalFromBufferList
+"     autocmd!
+"     autocmd TerminalOpen * if bufwinnr('') > 0 | setlocal nobuflisted | endif
+" augroup END
+
+set switchbuf=useopen
+nnoremap [b :bprev<CR>
+nnoremap ]b :bnext<CR>
+nnoremap gbd :bprevious<CR> :bdelete #<CR>
+nnoremap gbl :ls<CR>
+nnoremap gbb :ls<CR>:b
+" nnoremap gb :b
+let buf_num = 1
+let buf_count = 99
+while buf_num <= buf_count
+  execute "nnoremap " . buf_num . "gb :vert sbuffer" . buf_num . "\<CR>"
+  let buf_num += 1
+endwhile
+
+set hidden
+
+" ==> tabs
+nnoremap [t :tabn<CR>
+nnoremap ]t :tabp<CR>
+nnoremap gtd :tabclose<CR>
+nnoremap gtt :tabs<CR>
+
+" ==> diff
+if &diff
+    " diff mode ignore white spaces
+    set diffopt+=iwhite
+
+    " put/obtain line cursor is on
+    nnoremap gdp V:diffput<cr>
+    nnoremap gdo V:diffget<cr>
+    vnoremap gdp <esc>gv:diffput<cr>
+    vnoremap gdo <esc>gv:diffget<cr>
+
+    " undo the other, inactive window
+    nnoremap gdu :wincmd w<cr>:normal u<cr>:wincmd w<cr>
+
+    " recalculate differences
+    nnoremap gdr :diffupdate<cr>
+endif
+
+" ==> make/build/compile/run/lint/test/autoformat Makefile shortcuts
+" file vise targets
+nnoremap m<cr> :silent make! compile FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap mm<cr> :silent make! format FILE=%<bar>redraw!<cr>
+nnoremap ml :silent make! lint FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap mr :silent make! run FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap mR :silent make! debug FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap mt :silent make! doctest FILE=%<bar>redraw!<bar>copen<cr>
+" project vise targets
+nnoremap Mt :silent make! test <bar>redraw!<bar>copen<cr>
+nnoremap Mt<cr> :silent make! cover <bar>redraw!<bar>copen<cr>
+nnoremap MT :silent make! profile <bar>redraw!<bar>copen<cr>
+nnoremap M<cr> :silent make! build <bar>redraw!<bar>copen<cr>
+nnoremap Mr :silent make! run <bar>redraw!<bar>copen<cr>
+nnoremap MR :silent make! debug <bar>redraw!<bar>copen<cr>
+
+augroup QuickFixListBottomHack
+    autocmd!
+    autocmd FileType qf wincmd L
+augroup END
+
+" ==> built in terminal >=vim-8.1
+nnoremap <leader><cr> :vert terminal<CR>
+set termwinkey=<C-X>
+tnoremap <C-X>n <C-X>N
+tnoremap <C-X><C-N> <C-X>N
