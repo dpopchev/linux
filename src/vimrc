@@ -22,6 +22,7 @@ let g:airline_theme = 'codedark'
 
 " ==> colorscheme 
 colorscheme codedark
+set background=dark
 
 " ==> vim-gitgutter 
 let g:gitgutter_map_keys = 0    " prevent gitgutter to apply any default mappings
@@ -111,3 +112,96 @@ let g:sneak#label = 1
 " `cs"'`: change surrounds, e.g. "Hello" --> 'Hello' then `cs'<q>` for <q>Hello</q>, then `cst"` for "Hello" and to rm ds"
 " `ysiw]`: surround word under curssor with brackets (iw is a text object)
 " `yssb`: wrap whole line with parantheses
+
+" ==> indentLine
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+let g:indentLine_setConceal = 0 " keep default conceal settings
+let g:vim_json_conceal=0 " disable conceal on json
+let g:markdown_syntax_conceal=0 " disable concea on markdown
+
+" ==> vim-highlighter
+" default key mappings
+" let HiSet   = 'f<CR>'
+" let HiErase = 'f<BS>'
+" let HiClear = 'f<C-L>'
+" let HiFind  = 'f<Tab>'
+" synchronize highlighting of the current window with other split windows
+nnoremap F<CR> :Hi ==<cr> 	
+" swithc back to single window highlighting mode
+nnoremap FF<CR> :Hi ==<cr> 	
+" jump around highlighted words
+nnoremap <CR>   <Cmd>Hi><CR>
+nnoremap g<CR>  <Cmd>Hi<<CR>
+
+" ==> ctrlp.vim
+let g:ctrlp_custom_ignore = {
+    \ 'dir': '\v[\/](\.git|__pycache__|\.dummies|legacy)$',
+    \ 'file': '\v\.(pyc|mod|png)$' }
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_show_hidden = 0
+let g:ctrlp_use_caching = 1
+nnoremap <leader>b :CtrlPBuffer<cr>
+
+" ==> scratch buffer
+function! Scratch()
+    let bnr = bufname('scratch')
+    if bnr == 'scratch'
+        setlocal switchbuf=useopen
+        vert sbuffer scratch
+    else
+        vsplit
+        noswapfile hide enew
+        setlocal buftype=nofile
+        setlocal bufhidden=hide
+        " setlocal nobuflisted
+        "lcd ~
+        file scratch
+    endif
+endfunction
+nnoremap gs :call Scratch()<cr>
+
+" ==> auxiliary files
+let auxDump=[ $HOME."/.vim/tmp/", $HOME."/.tmp/", $HOME."/tmp/", "/tmp/" ]
+let &backupdir=join(auxDump, ",")  " store backup files
+let &dir=join(auxDump, ",")        " store swap files
+let &undodir=join(auxDump, ",")    " store undo files
+
+" ==> leader key
+" let mapleader='/' " default
+" let mapleader=',' " common alternative
+
+" ==> trim trailing spaces and blank lines at end of the file
+function! Preserve(command)
+    " Preparation: save last search, and cursor position.
+    let _s = @/
+    let l  = line(".")
+    let c  = col(".")
+    " Do the business:
+    execute a:command
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+
+autocmd! BufWritePre * call Preserve("%s/\\S\\zs\ \\+$//e")
+autocmd! BufWritePre * call Preserve("%s/\\S\\zs\t\\+$//e")
+autocmd! BufWritePre * call Preserve("%s#\\($\\n\\s\*\\)\\+\\%$##e")
+
+" ==> cursorline
+let underline_cursorline_fix = 0
+
+augroup HackCursorlineWhenUnderline
+    autocmd!
+augroup END
+
+if underline_cursorline_fix
+    autocmd VimEnter * echom 'cursorline underline hack'
+
+    autocmd HackCursorlineWhenUnderline WinEnter * setlocal cursorline
+    autocmd HackCursorlineWhenUnderline WinEnter * setlocal nocursorline
+    highlight cursorline cterm=none term=none
+    highlight CursorLine guibg=#303000 ctermbg=233
+    highlight Visual cterm=reverse ctermfg=NONE
+else
+    set cursorline  " highlichg current line via colorscheme
+endif
