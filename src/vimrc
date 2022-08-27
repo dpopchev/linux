@@ -129,7 +129,7 @@ let g:sneak#label = 1
 " ==> goyou; https://github.com/junegunn/goyo.vim
 let g:goyo_linenr = 1
 let g:goyo_height = '100%'
-let g:goyo_width  = 85
+let g:goyo_width  = 100
 let g:goyo_margin_top = 0
 let g:goyo_margin_bottom = 0
 
@@ -564,7 +564,7 @@ nnoremap MR :silent make! debug <bar>redraw!<bar>copen<cr>
 
 augroup QuickFixListBottomHack
     autocmd!
-    autocmd FileType qf wincmd J
+    autocmd FileType qf wincmd L
 augroup END
 
 " ==> built in terminal >=vim-8.1
