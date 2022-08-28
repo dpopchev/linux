@@ -6,14 +6,14 @@ let g:codedark_italics=0
 " Make the background transparent
 let g:codedark_transparent=0
 
-" ==> colorscheme 
+" ==> colorscheme
 set background=dark
 " set background=light
 
-" load specific scheme, note desert is nice built-in 
+" load specific scheme, note desert is nice built-in
 colorscheme codedark
 
-" ==> sensible 
+" ==> sensible
 " 'backspace': Backspace through anything in insert mode.
 " 'incsearch': Start searching before pressing enter.
 " 'listchars': Makes :set list (visible whitespace) prettier.
@@ -22,14 +22,26 @@ colorscheme codedark
 " runtime! macros/matchit.vim: Load the version of matchit.vim that ships with Vim.
 "
 " ==> commentary
-" `gcc`: comment out a line (takes a count) 
-" `gc`: to comment out the target of a motion, e.g. `gcap` to comment out a paragraph) 
-" `gc`: in visual mode to comment out the selection 
+" `gcc`: comment out a line (takes a count)
+" `gc`: to comment out the target of a motion, e.g. `gcap` to comment out a paragraph)
+" `gc`: in visual mode to comment out the selection
 " `gc`: in operator pending mode to target a comment
-" `:7,17Commentary`: use it as a command 
+" `:7,17Commentary`: use it as a command
 " `:g/TODO/Commentary`: use as a global invocation
 
 " ==> vim-polyglot
+" markdown
+let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_new_list_item_indent = 0
+
+augroup ForceSetNoConcealLevel
+    autocmd!
+    autocmd FileType markdown,md setlocal commentstring=<!--\ %s\ -->
+    autocmd InsertEnter *.{markdown,md} setlocal conceallevel=0
+    autocmd InsertLeave *.{markdown,md} setlocal conceallevel=0
+augroup END
 
 " ==> surround
 " `cs"'`: change "Hello" to 'Hello'
@@ -85,9 +97,14 @@ set noruler         " do not display cursor position
 set showcmd         " show command in last line of the screen
 set wildmenu        " shown possible matches just above command line
 set title           " set window title to opened file
-set noerrorbells    " disable beep on erros
+set noerrorbells    " disable beep on errors
 set novisualbell    " disable flash the screen instead of beeping on errors
 set mouse=n         " enable mouse only in normal mode
+set showmatch           " highlight matching brackets
+" set matchtime=5       " tenths of a second to show matching bracket parent
+" set matchpairs+=<:>   " extend match pairs with < and >
+
+autocmd! FileType,BufWinEnter * setlocal formatoptions-=o
 
 " ==> built in terminal >=vim-8.1
 nnoremap <leader><cr> :vert terminal<CR>
@@ -95,7 +112,7 @@ set termwinkey=<C-X>
 tnoremap <C-X>n <C-X>N
 tnoremap <C-X><C-N> <C-X>N
 
-" ==> vim-gitgutter 
+" ==> vim-gitgutter
 let g:gitgutter_map_keys = 0    " prevent gitgutter to apply any default mappings
 
 let g:gitgutter_sign_added              = '+'
@@ -119,7 +136,7 @@ nmap ghP <Plug>(GitGutterPreviewHunk)
 " update signes when saving a file
 autocmd! BufWritePost * GitGutter
 
-" ==> lightline.vim, vim-gitbranch
+" ==> lightline.vim, vim-gitbranch, lightline-bufferline
 set laststatus=2    " needed to show lightline
 set noshowmode      " lightline already shows vim mode
 
@@ -174,3 +191,242 @@ vnoremap <leader>p "py
 vnoremap <leader>P "Py
 vnoremap <leader><leader>p "pp
 nnoremap <leader><leader>p "pp
+
+" ==> indentLine
+" each level with separate char
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+
+" ==> vim-highlighter
+" let HiSet   = 'f<CR>'
+" let HiErase = 'f<BS>'
+" let HiClear = 'f<C-L>'
+" let HiFind  = 'f<Tab>'
+" enable/disable highlither to all buffers
+nnoremap F<CR> :Hi ==<cr>
+nnoremap FF<CR> :Hi =<cr>
+" jump forward/back to marks
+nnoremap <CR>   <Cmd>Hi><CR>
+nnoremap g<CR>  <Cmd>Hi<<CR>
+
+" ==> create scratch buffer
+function! Scratch()
+    let bnr = bufname('scratch')
+    if bnr == 'scratch'
+        setlocal switchbuf=useopen
+        vert sbuffer scratch
+    else
+        vsplit
+        noswapfile hide enew
+        setlocal buftype=nofile
+        setlocal bufhidden=hide
+        " setlocal nobuflisted
+        "lcd ~
+        file scratch
+    endif
+endfunction
+nnoremap gs :call Scratch()<cr>
+
+" ==> auxiliary files
+let auxDump=[ $HOME."/.vim/tmp/", $HOME."/.tmp/", $HOME."/tmp/", "/tmp/" ]
+let &backupdir=join(auxDump, ",")  " store backup files
+let &dir=join(auxDump, ",")        " store swap files
+let &undodir=join(auxDump, ",")    " store undo files
+
+" ==> trim trailing spaces and blank lines at end of the file
+function! Preserve(command)
+    " Preparation: save last search, and cursor position.
+    let _s = @/
+    let l  = line(".")
+    let c  = col(".")
+    " Do the business:
+    execute a:command
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+
+augroup TrimBlanks
+    autocmd!
+    autocmd BufWritePre * call Preserve("%s/\\S\\zs\ \\+$//e")
+    autocmd BufWritePre * call Preserve("%s/\\S\\zs\t\\+$//e")
+    autocmd BufWritePre * call Preserve("%s#\\($\\n\\s\*\\)\\+\\%$##e")
+augroup END
+
+" ==> search
+" resource https://vim.fandom.com/wiki/Searching
+set hlsearch    " enable search highlighting
+set incsearch   " incremental search that shows partial matches
+set ignorecase  " ignore case when searching
+set smartcase   " automatically switch to case-sensitive when search
+set magic       " for regular expressions turn magic on
+nnoremap <C-l> :nohlsearch<CR><esc>
+nnoremap / /\v
+
+" ==> split
+" cheatsheet
+" ctrl + w _ " Max out the height of the current split
+" ctrl + w | "Max out the width of the current split
+" ctrl + w = "Normalize all split sizes, which is very handy when resizing terminal
+" Ctrl+W R "Swap top/bottom or left/right split
+" Ctrl+W T "Break out current window into a new tabview
+" Ctrl+W o "Close every window in the current tabview but the current one
+
+set splitbelow
+set splitright
+
+" ==> buffers
+" augroup IgnoreTerminalFromBufferList
+"     autocmd!
+"     autocmd TerminalOpen * if bufwinnr('') > 0 | setlocal nobuflisted | endif
+" augroup END
+
+set switchbuf=useopen
+nnoremap [b :bprev<CR>
+nnoremap ]b :bnext<CR>
+nnoremap gbd :bprevious<CR> :bdelete #<CR>
+nnoremap gbl :ls<CR>
+nnoremap gbb :ls<CR>:b
+" nnoremap gb :b
+let buf_num = 1
+let buf_count = 99
+while buf_num <= buf_count
+  execute "nnoremap " . buf_num . "gb :vert sbuffer" . buf_num . "\<CR>"
+  let buf_num += 1
+endwhile
+
+set hidden
+
+" ==> diff
+if &diff
+    " diff mode ignore white spaces
+    set diffopt+=iwhite
+
+    " put/obtain line cursor is on
+    nnoremap gdp V:diffput<cr>
+    nnoremap gdo V:diffget<cr>
+    vnoremap gdp <esc>gv:diffput<cr>
+    vnoremap gdo <esc>gv:diffget<cr>
+
+    " undo the other, inactive window
+    nnoremap gdu :wincmd w<cr>:normal u<cr>:wincmd w<cr>
+
+    " recalculate differences
+    nnoremap gdr :diffupdate<cr>
+endif
+
+" ==> add/del empty lines; https://vim.fandom.com/wiki/Quickly_adding_and_deleting_empty_lines
+function! AddEmptyLineBelow()
+    call append(line("."), "")
+endfunction
+
+function! AddEmptyLineAbove()
+    let l:scrolloffsave = &scrolloff
+    " Avoid jerky scrolling with ^E at top of window
+    set scrolloff=0
+    call append(line(".") - 1, "")
+    if winline() != winheight(0)
+        silent normal! <C-e>
+    end
+    let &scrolloff = l:scrolloffsave
+endfunction
+
+function! DelEmptyLineBelow()
+    if line(".") == line("$")
+        return
+    end
+    let l:line = getline(line(".") + 1)
+    if l:line =~ '^\s*$'
+        let l:colsave = col(".")
+        .+1d
+        ''
+        call cursor(line("."), l:colsave)
+    end
+endfunction
+
+function! DelEmptyLineAbove()
+    if line(".") == 1
+        return
+    end
+    let l:line = getline(line(".") - 1)
+    if l:line =~ '^\s*$'
+        let l:colsave = col(".")
+        .-1d
+        silent normal! <C-y>
+        call cursor(line("."), l:colsave)
+    end
+endfunction
+
+" delete/add blank line below/above, and double -- inserts them.
+" del is map with Alt key, it may not show when text copied around
+" to make a alt combination, e.g. A-j, in insert mode hit Ctrl+V then Alt+j
+noremap jj :call DelEmptyLineBelow()<CR>
+noremap kk :call DelEmptyLineAbove()<CR>
+noremap <C-j><C-j> :call AddEmptyLineBelow()<CR>
+noremap <C-k><C-k> :call AddEmptyLineAbove()<CR>
+
+" ==> fold
+" folding cheat sheet
+"   zc/o/a      close/open/toggle fold if the cursor is on one
+"   zC/O/A      close/open/toggle all fold levels around the cursor
+"   zr/m        reduce/increasing folding by opening/closing one more fold level
+"   zR/M        reduce/increasing folding by opening/closing one more fold level at all buffer
+"   zf#j/k      create fold from cursor down/up # number of lines
+"   zj/k        move cursor to next fold down/up
+
+" ==> completion
+set complete+=kspell " use currently active spell checking
+" set complete-=t      " use C-X C-]
+" set complete-=i      " use C-X C-I
+" set completeopt=menuone,preview,noselect
+
+" ==> spell
+"   move to misspelled words via            ]s and [s
+"   change word under cursor via            z=
+"   add word under cursor to dictionary     zg
+"   remove word from dictionary via         zw
+" to auto download spell, this should be the def site
+" when vim starts first disable :set nospell and then enable :set spell
+let g:spellfile_URL = 'http://ftp.vim.org/vim/runtime/spell'
+set spell          " enable spellcheck
+set spelllang=en   " spellcheck language
+" set spelllang+=bg  " spellcheck language
+"set spellfile=... " place to store additional words
+
+" augroup SaneSpellCheckHi
+"     autocmd!
+"     autocmd BufEnter * :hi clear SpellBad
+"     autocmd BufEnter * :hi SpellBad cterm=underline
+"     autocmd BufEnter * :hi clear SpellRare
+"     autocmd BufEnter * :hi SpellRare cterm=underline
+"     autocmd BufEnter * :hi clear SpellCap
+"     autocmd BufEnter * :hi SpellCap cterm=none
+"     autocmd BufEnter * :hi clear SpellLocal
+"     autocmd BufEnter * :hi SpellLocal cterm=underline
+" augroup END
+
+" ==> indent
+" resource https://vim.fandom.com/wiki/Indenting_source_code
+" set amount of spaces for indentation
+let b:indent=4
+
+" indentation without hard tabs
+set expandtab             " convert tabs to 'softtabstop' amount of spaces
+let &shiftwidth=b:indent  " affects when pressing >>, << or == and auto indentation
+let &softtabstop=b:indent " affects <TAB> or <BS>;
+" let &tabstop=b:indent   " not recommended as may alter view of other editors
+
+" ==> make/build/compile/run/lint/test/autoformat Makefile shortcuts
+" file vise targets
+nnoremap m<cr> :silent make! compile FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap mm<cr> :silent make! format FILE=%<bar>redraw!<cr>
+nnoremap ml :silent make! lint FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap mr :silent make! run FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap mt :silent make! doctest FILE=%<bar>redraw!<bar>copen<cr>
+
+augroup QuickFixListBottomHack
+    autocmd!
+    autocmd FileType qf wincmd L
+augroup END
+
+" ==> vim-easy-align
+" ==> auto-pairs
