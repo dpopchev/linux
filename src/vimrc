@@ -7,7 +7,6 @@ let g:codedark_italics=0
 let g:codedark_transparent=0
 
 " ==> colorscheme 
-set t_Co=256
 set background=dark
 " set background=light
 
