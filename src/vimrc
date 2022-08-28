@@ -148,3 +148,20 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_show_hidden = 0
 let g:ctrlp_use_caching = 1
 nnoremap <leader>b :CtrlPBuffer<cr>
+
+" ==> leader maps
+" let mapleader='/' " default
+" let mapleader=',' " common alternative
+nnoremap <leader>q :q<cr>
+nnoremap <leader>w :w<cr>
+noremap <leader>r i<cr><esc>
+noremap <leader><space> i<space><esc>
+noremap <leader><leader><space> a<space><esc>
+vnoremap <leader>y "yy
+vnoremap <leader>Y "Yy
+vnoremap <leader><leader>y "yp
+nnoremap <leader><leader>y "yp
+vnoremap <leader>p "py
+vnoremap <leader>P "Py
+vnoremap <leader><leader>p "pp
+nnoremap <leader><leader>p "pp
