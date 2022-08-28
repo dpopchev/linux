@@ -138,3 +138,13 @@ call extend(g:lightline.component_function, { 'gitbranch': 'gitbranch#name', 'gi
 call extend(g:lightline.tabline, { 'left': [['buffers']] })
 call extend(g:lightline.component_type, { 'buffers': 'tabsel' })
 call extend(g:lightline.component_expand, {'buffers': 'lightline#bufferline#buffers'})
+
+" ==> ctrlp.vim
+" fuzzy search files
+let g:ctrlp_custom_ignore = {
+    \ 'dir': '\v[\/](\.git|__pycache__|\.dummies|legacy)$',
+    \ 'file': '\v\.(pyc|mod|png)$' }
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_show_hidden = 0
+let g:ctrlp_use_caching = 1
+nnoremap <leader>b :CtrlPBuffer<cr>
