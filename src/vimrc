@@ -1,1 +1,140 @@
+" ==> vim-code-dark
+" If you don't like many colors and prefer the conservative style of the standard Visual Studio
+let g:codedark_conservative=0
+" Activates italicized comments (make sure your terminal supports italics)
+let g:codedark_italics=0
+" Make the background transparent
+let g:codedark_transparent=0
 
+" ==> zenburn
+
+" ==> colorscheme 
+
+set background=dark
+" set background=light
+
+" load specific scheme, note desert is nice built-in 
+colorscheme zenburn
+
+" ==> sensible 
+" 'backspace': Backspace through anything in insert mode.
+" 'incsearch': Start searching before pressing enter.
+" 'listchars': Makes :set list (visible whitespace) prettier.
+" 'scrolloff': Always show at least one line above/below the cursor.
+" 'autoread': Autoload file changes. You can undo by pressing u.
+" runtime! macros/matchit.vim: Load the version of matchit.vim that ships with Vim.
+"
+" ==> commentary
+" `gcc`: comment out a line (takes a count) 
+" `gc`: to comment out the target of a motion, e.g. `gcap` to comment out a paragraph) 
+" `gc`: in visual mode to comment out the selection 
+" `gc`: in operator pending mode to target a comment
+" `:7,17Commentary`: use it as a command 
+" `:g/TODO/Commentary`: use as a global invocation
+
+" ==> vim-polyglot
+
+" ==> surround
+" `cs"'`: change "Hello" to 'Hello'
+" `cs'<q>`: change 'Hello' to <q>Hello</q>
+" `cst"`: change <q>Hello</q> to "Hello"
+" `ds"`: remove double quaotes in Hello
+" `ysiw]`: surround word under cursor, `iw` is a text object
+" `cs[}`: change surrounding brackets
+" `yssb`: wrap line in parentheses
+" `ds{`: remove line paranthesis
+
+" ==> vim-sneak
+" `sab`: move cursor immediately if singe match, or highlighted other matches
+" `;`: go to next match
+" `3;`: got to 3rd match
+" C-O or ``: jump back to starting point
+" `s<CR>`: repeat last sneak search
+" `S`: sneak backwards
+" `yszxy]`: surround in brackets up to 'xy'
+" `gUz\}`: to upper case text from curssor until literal text \}
+let g:sneak#label = 1
+
+" ==> repeat
+
+" ==> editor
+" line numbers
+set number
+set relativenumber
+
+" trailing text in all directions
+set scrolloff=3
+set sidescrolloff=3
+
+" text width and end of line control
+let textThreshold = 80             " set desired text width
+let &textwidth = textThreshold     " maximum allowed width of a line
+let &colorcolumn = textThreshold+1 " set text length marker
+set nowrap                       " disable line wrap
+set linebreak                    " avoid wrapping a line in middle of a word
+
+set display=lastline    " display as much as possible of a line
+
+set cursorline  " highlichg current line via colorscheme
+
+" paste insert mode control
+nnoremap ++ :set invpaste<cr>
+
+" ==> built in terminal >=vim-8.1
+nnoremap <leader><cr> :vert terminal<CR>
+set termwinkey=<C-X>
+tnoremap <C-X>n <C-X>N
+tnoremap <C-X><C-N> <C-X>N
+
+" ==> vim-gitgutter 
+let g:gitgutter_map_keys = 0    " prevent gitgutter to apply any default mappings
+
+let g:gitgutter_sign_added              = '+'
+let g:gitgutter_sign_modified           = '>'
+let g:gitgutter_sign_removed            = 'd'
+let g:gitgutter_sign_removed_first_line = '^'
+let g:gitgutter_sign_modified_removed   = '<'
+let g:gitgutter_max_signs               = 9999
+
+" Jump between hunks
+nmap ghn <Plug>(GitGutterNextHunk)
+nmap ghp <Plug>(GitGutterPrevHunk)
+
+" Hunk-add and hunk-revert for chunk staging
+nmap ghs <Plug>(GitGutterStageHunk)
+nmap ghu <Plug>(GitGutterUndoHunk)
+
+" preview hunk
+nmap ghP <Plug>(GitGutterPreviewHunk)
+
+" update signes when saving a file
+autocmd! BufWritePost * GitGutter
+
+" ==> lightline.vim, vim-gitbranch
+set laststatus=2    " needed to show lightline
+set noshowmode      " lightline already shows vim mode
+
+" integrate git gutter
+function! LightlineGitGutter()
+    if !get(g:, 'gitgutter_enabled', 0) || strlen(gitbranch#name()) == 0
+        return ''
+    endif
+    let [ l:added, l:modified, l:removed ] = GitGutterGetHunkSummary()
+    return printf('+%d ~%d -%d', l:added, l:modified, l:removed)
+endfunction
+
+" with integrated gutter and gitbranchname
+" buffers shown in tabline via lightline-buffer
+set showtabline=2
+
+let g:lightline#bufferline#show_number  = 1
+let g:lightline#bufferline#shorten_path = 1
+let g:lightline#bufferline#unnamed      = '[No Name]'
+
+let g:lightline = {'active': {}, 'component_function': {}, 'tabline': {}, 'component_type': {}, 'component_expand': {}}
+call extend(g:lightline.active, { 'left': [ ['mode', 'paste'], ['readonly', 'filename', 'modified'], ['gitbranch', 'gitstatus' ] ]  })
+call extend(g:lightline.active, { 'right': [ ['percent'], ['fileformat', 'fileencoding', 'filetype'] ]  })
+call extend(g:lightline.component_function, { 'gitbranch': 'gitbranch#name', 'gitstatus': 'LightlineGitGutter',  })
+call extend(g:lightline.tabline, { 'left': [['buffers']] })
+call extend(g:lightline.component_type, { 'buffers': 'tabsel' })
+call extend(g:lightline.component_expand, {'buffers': 'lightline#bufferline#buffers'})
