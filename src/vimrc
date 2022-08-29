@@ -443,3 +443,7 @@ augroup END
 
 " ==> vim-easy-align
 " ==> auto-pairs
+" ==> ctags
+" C + ] or g]: jump to tag underneath
+" C + w }: open preview window with location of tag definition
+" C + w C + ]: open definition in horizontal split
