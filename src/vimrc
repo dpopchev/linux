@@ -374,10 +374,22 @@ noremap <C-k><C-k> :call AddEmptyLineAbove()<CR>
 "   zj/k        move cursor to next fold down/up
 
 " ==> completion
+" C-N: insert next matching word
+" C-P: insert previous mathcing word
+" C-X C-N: local keyword completion
+" C-X C-F: file path completion
+" C-X C-O: omni completion after typing
+" C-X C-K: dictionary words
+" C-X C-U: user defined completion
+" C-X C-]: tags
+" C-X C-V: vim command
+
 set complete+=kspell " use currently active spell checking
 " set complete-=t      " use C-X C-]
 " set complete-=i      " use C-X C-I
 " set completeopt=menuone,preview,noselect
+set completeopt=longest,menuone
+set omnifunc=syntaxcomplete#Complete
 
 " ==> spell
 "   move to misspelled words via            ]s and [s
