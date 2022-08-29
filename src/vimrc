@@ -202,7 +202,7 @@ nnoremap <leader><leader>p "pp
 " ==> indentLine
 " each level with separate char
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-let g:indentLine_indentLevel = 4
+let g:indentLine_indentLevel = 5
 let g:indentLine_faster = 1
 
 " ==> vim-highlighter
