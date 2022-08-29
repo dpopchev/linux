@@ -221,6 +221,7 @@ nnoremap g<CR>  <Cmd>Hi<<CR>
 " scratch.vim
 let g:scratch_horizontal = 0
 let g:scratch_insert_autohide = 0
+let g:scratch_width = 30
 
 " manual definition
 "function! Scratch()
