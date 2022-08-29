@@ -216,22 +216,27 @@ nnoremap <CR>   <Cmd>Hi><CR>
 nnoremap g<CR>  <Cmd>Hi<<CR>
 
 " ==> create scratch buffer
-function! Scratch()
-    let bnr = bufname('scratch')
-    if bnr == 'scratch'
-        setlocal switchbuf=useopen
-        vert sbuffer scratch
-    else
-        vsplit
-        noswapfile hide enew
-        setlocal buftype=nofile
-        setlocal bufhidden=hide
-        " setlocal nobuflisted
-        "lcd ~
-        file scratch
-    endif
-endfunction
-nnoremap gs :call Scratch()<cr>
+" scratch.vim
+let g:scratch_horizontal = 0
+let g:scratch_insert_autohide = 0
+
+" manual definition
+"function! Scratch()
+"    let bnr = bufname('scratch')
+"    if bnr == 'scratch'
+"        setlocal switchbuf=useopen
+"        vert sbuffer scratch
+"    else
+"        vsplit
+"        noswapfile hide enew
+"        setlocal buftype=nofile
+"        setlocal bufhidden=hide
+"        " setlocal nobuflisted
+"        "lcd ~
+"        file scratch
+"    endif
+"endfunction
+"nnoremap gs :call Scratch()<cr>
 
 " ==> auxiliary files
 let auxDump=[ $HOME."/.vim/tmp/", $HOME."/.tmp/", $HOME."/tmp/", "/tmp/" ]
