@@ -68,12 +68,13 @@ let g:sneak#label = 1
 
 " ==> editor
 " line numbers
-" set number
-" set relativenumber
+set number
+set relativenumber
+
 " alternative line numbering configuration
-set relativenumber nonumber
-autocmd! InsertEnter * :setlocal norelativenumber number
-autocmd! InsertLeave * :setlocal relativenumber  nonumber
+" set relativenumber nonumber
+" autocmd! InsertEnter * :setlocal norelativenumber number
+" autocmd! InsertLeave * :setlocal relativenumber  nonumber
 
 " trailing text in all directions
 set scrolloff=3
