@@ -392,17 +392,17 @@ set spelllang=en   " spellcheck language
 " set spelllang+=bg  " spellcheck language
 "set spellfile=... " place to store additional words
 
-" augroup SaneSpellCheckHi
-"     autocmd!
-"     autocmd BufEnter * :hi clear SpellBad
-"     autocmd BufEnter * :hi SpellBad cterm=underline
-"     autocmd BufEnter * :hi clear SpellRare
-"     autocmd BufEnter * :hi SpellRare cterm=underline
-"     autocmd BufEnter * :hi clear SpellCap
-"     autocmd BufEnter * :hi SpellCap cterm=none
-"     autocmd BufEnter * :hi clear SpellLocal
-"     autocmd BufEnter * :hi SpellLocal cterm=underline
-" augroup END
+augroup SaneSpellCheckHi
+    autocmd!
+    autocmd BufEnter * :hi clear SpellBad
+    autocmd BufEnter * :hi SpellBad cterm=underline
+    autocmd BufEnter * :hi clear SpellRare
+    autocmd BufEnter * :hi SpellRare cterm=underline
+    autocmd BufEnter * :hi clear SpellCap
+    autocmd BufEnter * :hi SpellCap cterm=none
+    autocmd BufEnter * :hi clear SpellLocal
+    autocmd BufEnter * :hi SpellLocal cterm=underline
+augroup END
 
 " ==> indent
 " resource https://vim.fandom.com/wiki/Indenting_source_code
