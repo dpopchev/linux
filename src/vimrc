@@ -278,7 +278,7 @@ set ignorecase  " ignore case when searching
 set smartcase   " automatically switch to case-sensitive when search
 set magic       " for regular expressions turn magic on
 nnoremap <C-l> :nohlsearch<CR><esc>
-nnoremap / /\v
+" nnoremap / /\v
 
 " ==> split
 " cheatsheet
