@@ -406,7 +406,7 @@ set complete+=kspell " use currently active spell checking
 " set complete-=t      " use C-X C-]
 " set complete-=i      " use C-X C-I
 " set completeopt=menuone,preview,noselect
-set completeopt=longest,menuone
+set completeopt=menuone,longest,popup
 set omnifunc=syntaxcomplete#Complete
 
 " ==> spell
