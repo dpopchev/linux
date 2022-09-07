@@ -210,74 +210,59 @@ clean_vimrc:
 
 VIM_PLUGINS :=
 
-gruvbox: URL:=https://github.com/morhetz/gruvbox.git
-VIM_PLUGINS += gruvbox
+auto_pairs: URL:=https://github.com/jiangmiao/auto-pairs.git
+VIM_PLUGINS += auto_pairs
 
-vim_sensible: URL:=https://github.com/tpope/vim-sensible.git
-VIM_PLUGINS += vim_sensible
+commentary: URL:=https://github.com/tpope/vim-commentary.git
+VIM_PLUGINS += commentary
 
-gitgutter: URL:=https://github.com/airblade/vim-gitgutter.git
-VIM_PLUGINS += gitgutter
+ctrlp_modified: URL:=https://github.com/jasoncodes/ctrlp-modified.vim.git
+VIM_PLUGINS += ctrlp_modified
 
-gitbranch: URL:=https://github.com/itchyny/vim-gitbranch.git
-VIM_PLUGINS += gitbranch
-
-lightline: URL:=https://github.com/itchyny/lightline.vim.git
-VIM_PLUGINS += lightline
-
-lightline_bufferline: URL:=https://github.com/mengelbrecht/lightline-bufferline.git
-VIM_PLUGINS += lightline_bufferline
-
-vim_easy_align: URL:=https://github.com/junegunn/vim-easy-align.git
-VIM_PLUGINS += vim_easy_align
-
-visual_star_search: URL:=https://github.com/nelstrom/vim-visual-star-search.git
-VIM_PLUGINS += visual_star_search
-
-vim_commentary: URL:=https://github.com/tpope/vim-commentary.git
-VIM_PLUGINS += vim_commentary
-
-vim_repeat: URL:=https://github.com/tpope/vim-repeat.git
-VIM_PLUGINS += vim_repeat
-
-vim_surround: URL:=https://github.com/tpope/vim-surround.git
-VIM_PLUGINS += vim_surround
+ctrlp: URL:=https://github.com/ctrlpvim/ctrlp.vim.git
+VIM_PLUGINS += ctrlp
 
 indent_line: URL:=https://github.com/Yggdroot/indentLine.git
 VIM_PLUGINS += indent_line
 
-ctrlp: URL:=https://github.com/kien/ctrlp.vim.git
-VIM_PLUGINS += ctrlp
+lightline_bufferline: URL:=https://github.com/mengelbrecht/lightline-bufferline.git
+VIM_PLUGINS += lightline_bufferline
 
-nerdtree: URL:=https://github.com/preservim/nerdtree.git
-VIM_PLUGINS += nerdtree
+lightline: URL:=https://github.com/itchyny/lightline.vim.git
+VIM_PLUGINS += lightline
 
-vim_sneak: URL:=https://github.com/justinmk/vim-sneak.git
-VIM_PLUGINS += vim_sneak
+repeat: URL:=https://github.com/tpope/vim-repeat.git
+VIM_PLUGINS += repeat
 
-goyo: URL:=https://github.com/junegunn/goyo.vim.git
-VIM_PLUGINS += goyo
+scratch: URL:=https://github.com/mtth/scratch.vim.git
+VIM_PLUGINS += scratch
 
-vim_illumiate: URL:=https://github.com/RRethy/vim-illuminate
-VIM_PLUGINS += vim_illumiate
+sensible: URL:=https://github.com/tpope/vim-sensible.git
+VIM_PLUGINS += sensible
 
-vim_anyfold: URL:=https://github.com/pseewald/vim-anyfold
-VIM_PLUGINS += vim_anyfold
+surround: URL:=https://github.com/tpope/vim-surround.git
+VIM_PLUGINS += surround
 
-vim_polyglot: URL:=https://github.com/sheerun/vim-polyglot.git
-VIM_PLUGINS += vim_polyglot
+code_dark: URL:=https://github.com/tomasiser/vim-code-dark.git
+VIM_PLUGINS += code_dark
 
-auto_pairs: URL:=https://github.com/jiangmiao/auto-pairs.git
-VIM_PLUGINS += auto_pairs
+easy_align: URL:=https://github.com/junegunn/vim-easy-align.git
+VIM_PLUGINS += easy_align
 
-vim_simple_complete: URL:=https://github.com/maxboisvert/vim-simple-complete.git
-VIM_PLUGINS += vim_simple_complete
+gitbranch: URL:=https://github.com/itchyny/vim-gitbranch.git
+VIM_PLUGINS += gitbranch
 
-vim_highlighter: URL:=https://github.com/azabiong/vim-highlighter.git
-VIM_PLUGINS += vim_highlighter
+gitgutter: URL:=https://github.com/airblade/vim-gitgutter.git
+VIM_PLUGINS += gitgutter
 
-jedi-vim: URL:=https://github.com/davidhalter/jedi-vim.git
-VIM_PLUGINS += jedi-vim
+highlighter: URL:=https://github.com/azabiong/vim-highlighter.git
+VIM_PLUGINS += highlighter
+
+polyglot: URL:=https://github.com/sheerun/vim-polyglot.git
+VIM_PLUGINS += polyglot
+
+sneak: URL:=https://github.com/justinmk/vim-sneak.git
+VIM_PLUGINS += sneak
 
 .PHONY: $(VIM_PLUGINS)
 $(VIM_PLUGINS): | $(VIM_PLUGINS_DIR)
