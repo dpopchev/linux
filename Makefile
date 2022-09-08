@@ -264,6 +264,9 @@ VIM_PLUGINS += polyglot
 sneak: URL:=https://github.com/justinmk/vim-sneak.git
 VIM_PLUGINS += sneak
 
+slime: URL:=https://github.com/jpalardy/vim-slime.git
+VIM_PLUGINS += slime
+
 .PHONY: $(VIM_PLUGINS)
 $(VIM_PLUGINS): | $(VIM_PLUGINS_DIR)
 	@$(call PRINT_STEP,vim plugin $@)
