@@ -415,6 +415,8 @@ ex ()
   fi
 }
 
+PATH_preappend ~/.local/bin/
+
 # https://wiki.archlinux.org/title/SSH_keys#SSH_agents
 # make sure ssh-agent process runs at a time
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
