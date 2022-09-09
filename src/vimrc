@@ -112,6 +112,7 @@ set showmatch           " highlight matching brackets
 " see :h 'fo-table'
 autocmd! FileType,BufWinEnter * setlocal fo-=o fo+=r fo+=b fo+=1 fo+=p
 
+" quickfix open/close mappings
 nnoremap go :cclose<cr>
 nnoremap gO :copen<cr>
 
