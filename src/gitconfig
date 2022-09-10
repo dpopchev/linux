@@ -43,4 +43,3 @@
 [filter "gitignore"]
         clean = "sed '/#[[:blank:]]*gitignore[[:blank:]]*$/'d"
         smudge = cat
-[user]
