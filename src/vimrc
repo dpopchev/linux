@@ -219,8 +219,8 @@ let g:indentLine_faster = 1
 nnoremap F<CR> :Hi ==<cr>
 nnoremap FF<CR> :Hi =<cr>
 " jump forward/back to marks
-nnoremap <CR>   <Cmd>Hi><CR>
-nnoremap g<CR>  <Cmd>Hi<<CR>
+nnoremap <CR>   :Hi><CR>
+nnoremap g<CR>  :Hi<<CR>
 
 " ==> create scratch buffer
 " scratch.vim
