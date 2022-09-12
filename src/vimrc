@@ -23,7 +23,8 @@ set background=dark
 " set background=light
 
 " load specific scheme, note desert is nice built-in
-colorscheme codedark
+" colorscheme codedark
+colorscheme PaperColor
 
 " ==> sensible
 " 'backspace': Backspace through anything in insert mode.
