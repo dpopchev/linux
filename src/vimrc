@@ -41,6 +41,8 @@ colorscheme PaperColor
 " `gc`: in operator pending mode to target a comment
 " `:7,17Commentary`: use it as a command
 " `:g/TODO/Commentary`: use as a global invocation
+" add costume comment string per file type
+" autocmd FileType apache setlocal commentstring=#\ %s
 
 " ==> vim-polyglot
 " markdown
