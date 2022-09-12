@@ -1,4 +1,16 @@
-" ==> vim-code-dark
+" ==> grouped colorscheme configs gathered around the net to test
+if has('termguicolors')
+    set termguicolors
+endif
+
+" set t_Co=256
+" set t_AB=^[[48;5;%dm
+" set t_AF=^[[38;5;%dm
+
+set t_Co=256
+set t_ut=
+
+" ==> code-dark
 " If you don't like many colors and prefer the conservative style of the standard Visual Studio
 let g:codedark_conservative=0
 " Activates italicized comments (make sure your terminal supports italics)
