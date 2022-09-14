@@ -169,8 +169,8 @@ let mapleader="\<space>"
 nnoremap <leader>q :q<cr>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>r i<cr><esc>
-nnoremap <leader><space> i<space><esc>
-nnoremap <leader><leader><space> a<space><esc>
+nnoremap <leader>i<space> i<space><esc>
+nnoremap <leader>a<space> a<space><esc>
 vnoremap <leader>e "ey
 nnoremap <leader><leader>e "ep
 vnoremap <leader>g "gy
@@ -490,7 +490,7 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_show_hidden = 0
 let g:ctrlp_use_caching = 1
 nnoremap <leader>b :CtrlPBuffer<cr>
-nnoremap <leader>t :CtrlPTag<cr>
+nnoremap <leader>] :CtrlPTag<cr>
 nnoremap <leader>m :CtrlPModified<cr>
 " }}}
 
@@ -512,8 +512,11 @@ nnoremap <leader>m :CtrlPModified<cr>
 
 " ctags {{{
 " C + ] or g]: jump to tag underneath
+" C + o: jump back
+" C + |: jump back to tag
 " C + w }: open preview window with location of tag definition
 " C + w C + ]: open definition in horizontal split
+autocmd! BufWritePost  *.{py,ipynb} silent !ctags -R .
 " }}}
 
 " ==> vim-slime
