@@ -426,6 +426,25 @@ while buf_num <= buf_count
 endwhile
 " }}}
 
+" diff {{{
+if &diff
+    " diff mode ignore white spaces
+    set diffopt+=iwhite
+
+    " put/obtain line cursor is on
+    nnoremap gdp V:diffput<cr>
+    nnoremap gdo V:diffget<cr>
+    vnoremap gdp <esc>gv:diffput<cr>
+    vnoremap gdo <esc>gv:diffget<cr>
+
+    " undo the other, inactive window
+    nnoremap gdu :wincmd w<cr>:normal u<cr>:wincmd w<cr>
+
+    " recalculate differences
+    nnoremap gdr :diffupdate<cr>
+endif
+" }}}
+
 " gitgutter {{{
 let g:gitgutter_map_keys = 0    " prevent gitgutter to apply any default mappings
 
@@ -448,7 +467,14 @@ nmap ghu <Plug>(GitGutterUndoHunk)
 nmap ghP <Plug>(GitGutterPreviewHunk)
 
 " open vimdiff of current buffer
-nmap ghD :GitGutterDiffOrig<cr>
+function! GitGutterDiffOrigToggle()
+  if &diff
+    +clo
+  else
+    GitGutterDiffOrig
+  endif
+endfunction
+nnoremap <expr> ghD &diff ? ':+clo<CR>' : ':GitGutterDiffOrig<CR>'
 
 " update signes when saving a file
 autocmd! BufWritePost * GitGutter
