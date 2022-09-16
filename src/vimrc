@@ -447,6 +447,9 @@ nmap ghu <Plug>(GitGutterUndoHunk)
 " preview hunk
 nmap ghP <Plug>(GitGutterPreviewHunk)
 
+" open vimdiff of current buffer
+nmap ghD :GitGutterDiffOrig<cr>
+
 " update signes when saving a file
 autocmd! BufWritePost * GitGutter
 " }}}
