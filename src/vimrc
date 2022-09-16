@@ -545,7 +545,7 @@ nnoremap <leader>m :CtrlPModified<cr>
 " C + |: jump back to tag
 " C + w }: open preview window with location of tag definition
 " C + w C + ]: open definition in horizontal split
-nnoremap <leader>` :silent !ctags -R .
+nnoremap <leader>` :silent make! tags <bar>redraw!<cr>
 " }}}
 
 " ==> vim-slime
