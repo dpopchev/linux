@@ -512,7 +512,7 @@ call extend(g:lightline.component_expand, {'buffers': 'lightline#bufferline#buff
 " ctrlp {{{
 " fuzzy search files
 let g:ctrlp_custom_ignore = {
-      \ 'dir': '\v[\/](\.git|__pycache__|\.dummies|legacy)$',
+      \ 'dir': '\v[\/](\.git|__pycache__|\.dummies|legacy|scalarfield_collapse)$',
       \ 'file': '\v\.(pyc|mod|png)$' }
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_show_hidden = 0
