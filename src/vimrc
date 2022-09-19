@@ -259,6 +259,9 @@ nnoremap <leader>j :call AddEmptyLineBelow()<CR>
 nnoremap <leader>k :call AddEmptyLineAbove()<CR>
 nnoremap gj :call DelEmptyLineBelow()<CR>
 nnoremap gk :call DelEmptyLineAbove()<CR>
+
+nnoremap <leader>ro :set readonly!<cr>
+
 " }}}
 
 " search {{{
