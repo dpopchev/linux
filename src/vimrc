@@ -57,9 +57,9 @@ set background=dark
 " set background=light
 
 " solarized8_high, solarized8, solarized8_low, solarized_flat
-colorscheme solarized8_high
+" colorscheme solarized8_high
 
-" colorscheme sonokai
+colorscheme sonokai
 " colorscheme molokai
 " colorscheme codedark
 " colorscheme PaperColor
@@ -155,7 +155,7 @@ autocmd! FileType,BufWinEnter * setlocal fo-=o fo+=r fo+=b fo+=1 fo+=p
 
 set display=lastline    " display as much as possible of a line
 
-" set cursorline  " highlichg current line via colorscheme
+set cursorline  " highlichg current line via colorscheme
 
 " paste insert mode control
 nnoremap ++ :set invpaste<cr>
