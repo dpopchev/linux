@@ -41,8 +41,8 @@ let g:PaperColor_Theme_Options = {
 " }}}
 
 " colorscheme {{{
-" set background=dark
-set background=light
+set background=dark
+" set background=light
 
 " solarized8_high, solarized8, solarized8_low, solarized_flat
 colorscheme solarized8_high
