@@ -570,8 +570,8 @@ nnoremap <leader>` :silent make! tags <bar>redraw!<cr>
 let g:slime_no_mappings = 1
 let g:slime_target = "vimterminal"
 let g:slime_python_ipython = 1
-" let g:slime_vimterminal_cmd = "python3 -m IPython --colors=Linux"
-let g:slime_vimterminal_cmd = "/tool/pandora64/bin/python3.7 -m IPython --colors=Linux"
+let g:slime_vimterminal_cmd = "python3 -m IPython --colors=Linux"
+" let g:slime_vimterminal_cmd = "/tool/pandora64/bin/python3.7 -m IPython --colors=Linux"
 let g:slime_vimterminal_config = {"vertical": 1, "term_finish": "close"}
 let g:slime_cell_delimiter = "#[[:blank:]]*%%"
 nnoremap <leader>o o# %%<esc>k
