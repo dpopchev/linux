@@ -1,16 +1,16 @@
 " colorscheme misc pre-configs {{{
 if has('termguicolors')
+  set termguicolors
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
+  set t_Co=256
+  set t_ut=
 endif
 
-set t_Co=256
-set t_ut=
 " }}}
 
 " solarized8 {{{
-let g:solarized_extra_hi_groups = 0
+let g:solarized_extra_hi_groups = 1
 let g:solarized_italics = 0
 let g:solarized_old_cursor_style = 0
 let g:solarized_termtrans = 0
@@ -41,8 +41,8 @@ let g:PaperColor_Theme_Options = {
 " }}}
 
 " colorscheme {{{
-set background=dark
-" set background=light
+" set background=dark
+set background=light
 
 " solarized8_high, solarized8, solarized8_low, solarized_flat
 colorscheme solarized8_high
