@@ -39,13 +39,27 @@ let g:PaperColor_Theme_Options = {
       \ }
 " }}}
 
+" sonokai {{{
+" default, atlantis, andromeda, shusia, maia, espresso
+let g:sonokai_style = 'maia'
+
+" auto, red, orange, yellow, green, blue, purple
+let g:sonokai_cursor = 'auto'
+
+let g:sonokai_better_performance = 1
+let g:sonokai_disable_italic_comment = 1
+let g:sonokai_enable_italic = 0
+let g:sonokai_transparent_background = 0
+" }}}
+
 " colorscheme {{{
-" set background=dark
-set background=light
+set background=dark
+" set background=light
 
 " solarized8_high, solarized8, solarized8_low, solarized_flat
 colorscheme solarized8_high
 
+" colorscheme sonokai
 " colorscheme molokai
 " colorscheme codedark
 " colorscheme PaperColor
