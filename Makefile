@@ -273,6 +273,9 @@ VIM_PLUGINS += auto_pairs
 slime: URL:=https://github.com/jpalardy/vim-slime.git
 VIM_PLUGINS += slime
 
+spell_underline: URL:=https://github.com/osamuaoki/vim-spell-under.git
+VIM_PLUGINS += spell_underline
+
 .PHONY: $(VIM_PLUGINS)
 $(VIM_PLUGINS): | $(VIM_PLUGINS_DIR)
 	@$(call PRINT_STEP,vim plugin $@)

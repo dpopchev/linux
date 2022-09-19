@@ -369,7 +369,7 @@ set omnifunc=syntaxcomplete#Complete
 " to auto download spell, this should be the def site
 " when vim starts first disable :set nospell and then enable :set spell
 let g:spellfile_URL = 'http://ftp.vim.org/vim/runtime/spell'
-set nospell          " enable spellcheck
+set spell          " enable spellcheck
 set spelllang=en   " spellcheck language
 " set spelllang+=bg  " spellcheck language
 "set spellfile=... " place to store additional words
