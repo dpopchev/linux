@@ -59,8 +59,9 @@ set background=dark
 " solarized8_high, solarized8, solarized8_low, solarized_flat
 " colorscheme solarized8_high
 
-autocmd! VimEnter * colorscheme sonokai
-" colorscheme sonokai
+packadd! sonokai
+colorscheme sonokai
+
 " colorscheme molokai
 " colorscheme codedark
 " colorscheme PaperColor
