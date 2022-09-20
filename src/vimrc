@@ -97,12 +97,7 @@ let g:vim_markdown_conceal = 0
 let g:vim_markdown_auto_insert_bullets = 0
 let g:vim_markdown_new_list_item_indent = 0
 
-augroup ForceMarkdownConfigs
-  autocmd!
-  autocmd FileType markdown,md setlocal commentstring=<!--\ %s\ -->
-  autocmd InsertEnter *.{markdown,md} setlocal conceallevel=0
-  autocmd InsertLeave *.{markdown,md} setlocal conceallevel=0
-augroup END
+autocmd! FileType markdown,md setlocal commentstring=<!--\ %s\ -->
 " }}}
 
 " surround {{{
@@ -157,7 +152,7 @@ autocmd! FileType,BufWinEnter * setlocal fo-=o fo+=r fo+=b fo+=1 fo+=p
 
 set display=lastline    " display as much as possible of a line
 
-set cursorline  " highlichg current line via colorscheme
+" set cursorline  " highlichg current line via colorscheme
 
 " paste insert mode control
 nnoremap ++ :set invpaste<cr>
@@ -264,6 +259,10 @@ nnoremap <leader>ro :set readonly!<cr>
 
 " inoremap jk <esc>
 inoremap kj <esc>
+
+" set conceallevel=0
+" autocmd! BufEnter * setlocal conceallevel=1
+" autocmd! BufEnter * setlocal concealcursor=n
 " }}}
 
 " search {{{
