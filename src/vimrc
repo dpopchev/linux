@@ -304,7 +304,7 @@ let g:scratch_horizontal = 0
 let g:scratch_insert_autohide = 0
 let g:scratch_height = 50
 let g:scratch_persistence_file = '.scratch.vim'
-" let g:scratch_filetype = scratch
+let g:scratch_filetype = 'markdown'
 nmap <leader><leader>gs :ScratchPreview<cr>
 nmap <leader>gs <plug>(scratch-insert-reuse)
 nmap <leader>gS <plug>(scratch-insert-clear)
@@ -361,7 +361,7 @@ let &undodir=join(auxDump, ",")    " store undo files
 " C-X C-V: vim command
 
 set complete+=kspell " use currently active spell checking
-set completeopt=menuone,longest,preview,noselect
+set completeopt=menuone,longest,preview
 set omnifunc=syntaxcomplete#Complete
 " }}}
 
