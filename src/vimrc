@@ -407,7 +407,7 @@ let &softtabstop=b:indent " affects <TAB> or <BS>;
 
 " makefile {{{
 " file vise targets
-nnoremap <leader>m<cr> :silent make! run FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap gm :silent make! run FILE=%<bar>redraw!<bar>copen<cr>
 
 augroup QuickFixListBottomHack
   autocmd!
@@ -543,7 +543,7 @@ let g:ctrlp_show_hidden = 0
 let g:ctrlp_use_caching = 1
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>] :CtrlPTag<cr>
-nnoremap <leader>l :CtrlPModified<cr>
+nnoremap <leader>m :CtrlPModified<cr>
 " }}}
 
 " auto-pairs {{{
