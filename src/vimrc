@@ -262,7 +262,7 @@ nnoremap gk :call DelEmptyLineAbove()<CR>
 
 nnoremap <leader>ro :set readonly!<cr>
 
-inoremap jk <esc>
+" inoremap jk <esc>
 inoremap kj <esc>
 " }}}
 
