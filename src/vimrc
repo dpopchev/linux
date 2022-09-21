@@ -317,7 +317,7 @@ nnoremap g<CR>  :Hi<<CR>
 let g:scratch_no_mappings = 1
 let g:scratch_horizontal = 0
 let g:scratch_insert_autohide = 0
-let g:scratch_height = 90
+let g:scratch_height = 85
 let g:scratch_persistence_file = '.scratch.vim'
 let g:scratch_filetype = 'markdown'
 nmap <leader><leader>gs :ScratchPreview<cr>
