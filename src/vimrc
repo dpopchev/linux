@@ -40,6 +40,7 @@ let g:PaperColor_Theme_Options = {
 " }}}
 
 " sonokai {{{
+packadd! sonokai
 " default, atlantis, andromeda, shusia, maia, espresso
 let g:sonokai_style = 'maia'
 
@@ -59,7 +60,6 @@ set background=dark
 " solarized8_high, solarized8, solarized8_low, solarized_flat
 " colorscheme solarized8_high
 
-packadd! sonokai
 colorscheme sonokai
 
 " colorscheme molokai
@@ -92,12 +92,23 @@ colorscheme sonokai
 "
 " polyglot {{{
 " markdown
+let g:vim_markdown_folding_style_pythonic = 1
+let g:vim_markdown_override_foldtext = 0
 let g:vim_markdown_no_default_key_mappings = 1
-let g:vim_markdown_conceal = 0
+let g:vim_markdown_toc_autofit = 1
+let g:vim_markdown_emphasis_multiline = 0
+let g:tex_conceal = ""
+let g:vim_markdown_math = 1
+let g:vim_markdown_conceal = 2
+let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_math = 1
 let g:vim_markdown_auto_insert_bullets = 0
 let g:vim_markdown_new_list_item_indent = 0
-
+let g:vim_markdown_autowrite = 1
 autocmd! FileType markdown,md setlocal commentstring=<!--\ %s\ -->
+
+" python
+let g:python_highlight_all = 1
 " }}}
 
 " surround {{{
@@ -260,7 +271,8 @@ nnoremap <leader>ro :set readonly!<cr>
 " inoremap jk <esc>
 inoremap kj <esc>
 
-" set conceallevel=0
+set conceallevel=2
+set concealcursor="inc"
 " autocmd! BufEnter * setlocal conceallevel=1
 " autocmd! BufEnter * setlocal concealcursor=n
 " }}}
@@ -281,6 +293,10 @@ nnoremap <C-l> :nohlsearch<CR><esc>
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:indentLine_indentLevel = 5
 let g:indentLine_setColors = 0
+" let g:indentLine_concealcursor = 'inc'
+" let g:indentLine_conceallevel = 2
+" respect global conceal settings, but by requirement is value of 1 or 2
+let g:indentLine_setConceal = 0
 " }}}
 
 " vim-highlighter {{{
@@ -301,7 +317,7 @@ nnoremap g<CR>  :Hi<<CR>
 let g:scratch_no_mappings = 1
 let g:scratch_horizontal = 0
 let g:scratch_insert_autohide = 0
-let g:scratch_height = 50
+let g:scratch_height = 90
 let g:scratch_persistence_file = '.scratch.vim'
 let g:scratch_filetype = 'markdown'
 nmap <leader><leader>gs :ScratchPreview<cr>
