@@ -275,6 +275,9 @@ set conceallevel=2
 set concealcursor="inc"
 " autocmd! BufEnter * setlocal conceallevel=1
 " autocmd! BufEnter * setlocal concealcursor=n
+
+" ctrl + space insertes last inserted text, disable it
+inoremap <c-@> <nop>
 " }}}
 
 " search {{{
