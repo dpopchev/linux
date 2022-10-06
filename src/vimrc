@@ -324,7 +324,7 @@ let g:scratch_insert_autohide = 0
 let g:scratch_height = 85
 let g:scratch_persistence_file = '.scratch.vim'
 let g:scratch_filetype = 'markdown'
-nmap gsp :ScratchPreview<cr>
+nmap gss :ScratchPreview<cr>
 nmap gsi <plug>(scratch-insert-reuse)
 nmap gsC <plug>(scratch-insert-clear)
 vmap gs <plug>(scratch-selection-reuse)
