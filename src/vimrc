@@ -324,11 +324,11 @@ let g:scratch_insert_autohide = 0
 let g:scratch_height = 85
 let g:scratch_persistence_file = '.scratch.vim'
 let g:scratch_filetype = 'markdown'
-nmap <leader><leader>gs :ScratchPreview<cr>
-nmap <leader>gs <plug>(scratch-insert-reuse)
-nmap <leader>gS <plug>(scratch-insert-clear)
-vmap <leader>gs <plug>(scratch-selection-reuse)
-vmap <leader>gS <plug>(scratch-selection-clear)
+nmap gsp :ScratchPreview<cr>
+nmap gsi <plug>(scratch-insert-reuse)
+nmap gsC <plug>(scratch-insert-clear)
+vmap gs <plug>(scratch-selection-reuse)
+vmap gS <plug>(scratch-selection-clear)
 
 " manual definition
 "function! Scratch()
@@ -425,7 +425,8 @@ let &softtabstop=b:indent " affects <TAB> or <BS>;
 
 " makefile {{{
 " file vise targets
-nnoremap gm :silent make! run FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap gmm :silent make! run FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap gmt :silent make! doctest FILE=%<bar>redraw!<bar>copen<cr>
 
 augroup QuickFixListBottomHack
   autocmd!
