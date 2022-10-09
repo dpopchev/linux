@@ -620,6 +620,6 @@ let g:jedi#goto_definitions_command = ""
 let g:jedi#use_splits_not_buffers = "right"
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 1
-" let g:jedi#show_call_signatures = "1"
+let g:jedi#show_call_signatures = "0"
 let g:jedi#added_sys_path = ['./lib', './src', '../nrpytutorial/']
 " }}}
