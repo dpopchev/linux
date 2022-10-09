@@ -609,7 +609,7 @@ nmap <leader>si <Plug>SlimeSendCell
 " }}}
 
 " jedi-vim {{{
-let g:jedi#completions_command = "<leader>gn"
+let g:jedi#completions_command = "<C-Space>"
 let g:jedi#goto_assignments_command = "<leader>ga"
 let g:jedi#goto_command = "<leader>gd"
 let g:jedi#goto_stubs_command = "<leader>gs"
