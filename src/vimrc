@@ -424,6 +424,15 @@ let &softtabstop=b:indent " affects <TAB> or <BS>;
 " }}}
 
 " makefile {{{
+" ctags {{{
+" C + ] or g]: jump to tag underneath
+" C + o: jump back
+" C + |: jump back to tag
+" C + w }: open preview window with location of tag definition
+" C + w C + ]: open definition in horizontal split
+nnoremap gmT :silent make! tags <bar>redraw!<cr>
+" }}}
+
 " file vise targets
 nnoremap gmm :silent make! run FILE=%<bar>redraw!<bar>copen<cr>
 nnoremap gmd :silent make! doctest FILE=%<bar>redraw!<bar>copen<cr>
@@ -580,15 +589,6 @@ nnoremap <leader>m :CtrlPModified<cr>
 " If <M-p> <M-e> or <M-n> conflict with another keys or want to bind to another keys, add
 " let g:AutoPairsShortcutToggle = '<another key>'
 " to .vimrc, if the key is empty string '', then the shortcut will be disabled.
-" }}}
-
-" ctags {{{
-" C + ] or g]: jump to tag underneath
-" C + o: jump back
-" C + |: jump back to tag
-" C + w }: open preview window with location of tag definition
-" C + w C + ]: open definition in horizontal split
-nnoremap <leader>` :silent make! tags <bar>redraw!<cr>
 " }}}
 
 " ==> vim-slime
