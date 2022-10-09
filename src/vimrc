@@ -426,7 +426,8 @@ let &softtabstop=b:indent " affects <TAB> or <BS>;
 " makefile {{{
 " file vise targets
 nnoremap gmm :silent make! run FILE=%<bar>redraw!<bar>copen<cr>
-nnoremap gmt :silent make! doctest FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap gmd :silent make! doctest FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap gmt :silent make! unittest FILE=%<bar>redraw!<bar>copen<cr>
 
 augroup QuickFixListBottomHack
   autocmd!
