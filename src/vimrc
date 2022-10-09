@@ -437,6 +437,7 @@ nnoremap gmT :silent make! tags <bar>redraw!<cr>
 nnoremap gmm :silent make! run FILE=%<bar>redraw!<bar>copen<cr>
 nnoremap gmd :silent make! doctest FILE=%<bar>redraw!<bar>copen<cr>
 nnoremap gmt :silent make! unittest FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap gml :silent make! lint FILE=%<bar>redraw!<bar>copen<cr>
 
 augroup QuickFixListBottomHack
   autocmd!
