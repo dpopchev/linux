@@ -597,8 +597,6 @@ nnoremap <leader>m :CtrlPModified<cr>
 let g:slime_no_mappings = 1
 let g:slime_target = "vimterminal"
 let g:slime_python_ipython = 1
-let g:slime_vimterminal_cmd = "python3 -m IPython --colors=Linux"
-" let g:slime_vimterminal_cmd = "/tool/pandora64/bin/python3.7 -m IPython --colors=Linux"
 let g:slime_vimterminal_config = {"vertical": 1, "term_finish": "close"}
 let g:slime_cell_delimiter = "#[[:blank:]]*%%"
 nnoremap <leader>so o# %%<esc>k
@@ -623,6 +621,9 @@ let g:jedi#use_splits_not_buffers = "right"
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 1
 let g:jedi#show_call_signatures = 0
-let g:jedi#added_sys_path = ['./lib', './src', '../nrpytutorial/']
 nnoremap <leader>gi :Pyimport
+" }}}
+
+" local-vim {{{
+source $HOME/.vim/local.vim
 " }}}
