@@ -195,8 +195,8 @@ nnoremap <leader>i i <esc>r
 nnoremap <leader>a a <esc>r
 vnoremap <leader>e "ey
 nnoremap <leader><leader>e "ep
-vnoremap <leader>g "gy
-nnoremap <leader><leader>g "gp
+vnoremap <leader>h "hy
+nnoremap <leader><leader>h "hp
 
 nnoremap <leader>cb :let &background = ( &background == "dark"? "light" : "dark" )<CR>
 " nnoremap <leader>cs :execute ( g:colors_name == "selenized_bw" ? "colorscheme selenized" : "colorscheme selenized_bw" ) <CR>
@@ -424,9 +424,21 @@ let &softtabstop=b:indent " affects <TAB> or <BS>;
 " }}}
 
 " makefile {{{
+" ctags {{{
+" C + ] or g]: jump to tag underneath
+" C + o: jump back
+" C + |: jump back to tag
+" C + w }: open preview window with location of tag definition
+" C + w C + ]: open definition in horizontal split
+nnoremap gmT :silent make! tags <bar>redraw!<cr>
+" }}}
+
 " file vise targets
 nnoremap gmm :silent make! run FILE=%<bar>redraw!<bar>copen<cr>
-nnoremap gmt :silent make! doctest FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap gmd :silent make! doctest FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap gmt :silent make! unittest FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap gml :silent make! lint FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap gmf :silent make! format FILE=%<bar>redraw!<bar>copen<cr>
 
 augroup QuickFixListBottomHack
   autocmd!
@@ -581,21 +593,10 @@ nnoremap <leader>m :CtrlPModified<cr>
 " to .vimrc, if the key is empty string '', then the shortcut will be disabled.
 " }}}
 
-" ctags {{{
-" C + ] or g]: jump to tag underneath
-" C + o: jump back
-" C + |: jump back to tag
-" C + w }: open preview window with location of tag definition
-" C + w C + ]: open definition in horizontal split
-nnoremap <leader>` :silent make! tags <bar>redraw!<cr>
-" }}}
-
-" ==> vim-slime
+" vim-slime {{{
 let g:slime_no_mappings = 1
 let g:slime_target = "vimterminal"
 let g:slime_python_ipython = 1
-" let g:slime_vimterminal_cmd = "python3 -m IPython --colors=Linux"
-let g:slime_vimterminal_cmd = "/tool/pandora64/bin/python3.7 -m IPython --colors=Linux"
 let g:slime_vimterminal_config = {"vertical": 1, "term_finish": "close"}
 let g:slime_cell_delimiter = "#[[:blank:]]*%%"
 nnoremap <leader>so o# %%<esc>k
@@ -605,3 +606,24 @@ xmap <leader>sr <Plug>SlimeRegionSend
 nmap <leader>sr <Plug>SlimeParagraphSend
 nmap <leader>sf <Plug>SlimeConfig
 nmap <leader>si <Plug>SlimeSendCell
+" }}}
+
+" jedi-vim {{{
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#goto_assignments_command = "<leader>ga"
+let g:jedi#goto_command = "<leader>gd"
+let g:jedi#goto_stubs_command = "<leader>gs"
+let g:jedi#documentation_command = "K"
+let g:jedi#rename_command = "<leader>gr"
+let g:jedi#usages_command = "<leader>gu"
+let g:jedi#goto_definitions_command = ""
+let g:jedi#use_splits_not_buffers = "right"
+let g:jedi#popup_on_dot = 0
+let g:jedi#popup_select_first = 1
+let g:jedi#show_call_signatures = 0
+nnoremap <leader>gi :Pyimport
+" }}}
+
+" local-vim {{{
+source $HOME/.vim/local.vim
+" }}}
