@@ -22,7 +22,7 @@ alias gst='git config --global --list | grep =stash'
 alias gu='git config --global --list | grep "'\\.u\\w='"'
 alias v='vim'
 alias vi='vim'
-alias p='python3.8'
+alias p='/tool/pandora64/bin/python3.7'
 alias ip='p -m IPython'
 
 alias grep='grep --color=auto'
