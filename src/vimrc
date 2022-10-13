@@ -190,6 +190,7 @@ set showmatch           " highlight matching brackets
 " let mapleader=',' " common alternative
 let mapleader="\<space>"
 nnoremap <leader>q :q<cr>
+nnoremap <leader>Q :q!<cr>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>i i <esc>r
 nnoremap <leader>a a <esc>r
@@ -451,8 +452,12 @@ nnoremap gO :copen<cr>
 " }}}
 
 " built in terminal >=vim-8.1 {{{
-nnoremap <leader><cr> :vert terminal<CR>
-set termwinkey=<C-X>
+if has('nvim')
+  nnoremap <leader><cr> :vsplit <bar> :term<cr>
+else
+  set termwinkey=<C-X>
+  nnoremap <leader><cr> :vert terminal<CR>
+endif
 tnoremap <C-X>n <C-X>N
 tnoremap <C-X><C-N> <C-X>N
 " }}}
