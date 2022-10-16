@@ -9,6 +9,7 @@ alias sourcebashrc='source ~/.bashrc.private'
 alias vimgitconfig='vim ~/.gitconfig'
 
 alias vimrc='vim ~/.vimrc'
+alias nvimrc='nvim ~/.config/nvim/init.vim'
 
 alias vimi3='vim ~/.config/i3/config'
 alias vimi3status='vim ~/.config/i3status/config'

@@ -599,8 +599,12 @@ nnoremap <leader>m :CtrlPModified<cr>
 " }}}
 
 " vim-slime {{{
+if has('nvim')
+  let g:slime_target = "neovim"
+else
+  let g:slime_target = "vimterminal"
+endif
 let g:slime_no_mappings = 1
-let g:slime_target = "vimterminal"
 let g:slime_python_ipython = 1
 let g:slime_vimterminal_config = {"vertical": 1, "term_finish": "close"}
 let g:slime_cell_delimiter = "#[[:blank:]]*%%"
@@ -609,8 +613,8 @@ nnoremap <leader>sO O# %%<esc>j
 nmap <leader>sl <Plug>SlimeLineSend
 xmap <leader>sr <Plug>SlimeRegionSend
 nmap <leader>sr <Plug>SlimeParagraphSend
-nmap <leader>sf <Plug>SlimeConfig
 nmap <leader>si <Plug>SlimeSendCell
+nmap <leader>sf <Plug>SlimeConfig
 " }}}
 
 " jedi-vim {{{

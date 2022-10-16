@@ -1,5 +1,4 @@
 call plug#begin()
-" Make sure you use single quotes
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'kien/ctrlp.vim'
@@ -23,13 +22,698 @@ Plug 'nelstrom/vim-visual-star-search'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
-" Initialize plugin system
-" - Automatically executes `filetype plugin indent on` and `syntax enable`.
 call plug#end()
-" You can revert the settings after the call like so:
-"   filetype indent off   " Disable file-type-specific indentation
-"   syntax off            " Disable syntax highlighting
+
+" colorscheme misc pre-configs {{{
+if has('termguicolors')
+  set termguicolors
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set t_Co=256
+  set t_ut=
+  set t_TI=
+  set t_TE=
+endif
+" }}}
+
+" sonokai {{{
+packadd! sonokai
+" default, atlantis, andromeda, shusia, maia, espresso
+let g:sonokai_style = 'maia'
+
+" auto, red, orange, yellow, green, blue, purple
+let g:sonokai_cursor = 'auto'
+
+let g:sonokai_better_performance = 1
+let g:sonokai_disable_italic_comment = 1
+let g:sonokai_enable_italic = 0
+let g:sonokai_transparent_background = 0
+" }}}
+
+" colorscheme {{{
+set background=dark
+" set background=light
+
+" solarized8_high, solarized8, solarized8_low, solarized_flat
+" colorscheme solarized8_high
+
 colorscheme sonokai
+
+" colorscheme molokai
+" colorscheme codedark
+" colorscheme PaperColor
+
+" fallback
+" colorscheme desert
+" }}}
+
+" sensible {{{
+" 'backspace': Backspace through anything in insert mode.
+" 'incsearch': Start searching before pressing enter.
+" 'listchars': Makes :set list (visible whitespace) prettier.
+" 'scrolloff': Always show at least one line above/below the cursor.
+" 'autoread': Autoload file changes. You can undo by pressing u.
+" runtime! macros/matchit.vim: Load the version of matchit.vim that ships with Vim.
+" }}}
+
+" commentary {{{
+" `gcc`: comment out a line (takes a count)
+" `gc`: to comment out the target of a motion, e.g. `gcap` to comment out a paragraph)
+" `gc`: in visual mode to comment out the selection
+" `gc`: in operator pending mode to target a comment
+" `:7,17Commentary`: use it as a command
+" `:g/TODO/Commentary`: use as a global invocation
+" adjust for concrete filetype via
+" autocmd FileType apache setlocal commentstring=#\ %s
+" }}}
+"
+" polyglot {{{
+" markdown
+let g:vim_markdown_folding_style_pythonic = 1
+let g:vim_markdown_override_foldtext = 0
+let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_toc_autofit = 1
+let g:vim_markdown_emphasis_multiline = 0
+let g:tex_conceal = ""
+let g:vim_markdown_math = 1
+let g:vim_markdown_conceal = 2
+let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_math = 1
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_new_list_item_indent = 0
+let g:vim_markdown_autowrite = 1
+autocmd! FileType markdown,md setlocal commentstring=<!--\ %s\ -->
+
+" python
+let g:python_highlight_all = 1
+" }}}
+
+" surround {{{
+" `cs"'`: change "Hello" to 'Hello'
+" `cs'<q>`: change 'Hello' to <q>Hello</q>
+" `cst"`: change <q>Hello</q> to "Hello"
+" `ds"`: remove double quaotes in Hello
+" `ysiw]`: surround word under cursor, `iw` is a text object
+" `cs[}`: change surrounding brackets
+" `yssb`: wrap line in parentheses
+" `ds{`: remove line paranthesis
+" }}}
+
+" sneak {{{
+" `sab`: move cursor immediately if singe match, or highlighted other matches
+" `;`: go to next match
+" `3;`: got to 3rd match
+" C-O or ``: jump back to starting point
+" `s<CR>`: repeat last sneak search
+" `S`: sneak backwards
+" `yszxy]`: surround in brackets up to 'xy'
+" `gUz\}`: to upper case text from curssor until literal text \}
+let g:sneak#label = 1
+" }}}
+
+" repeat {{{
+" }}}
+
+" editor {{{
+" line numberring
+set number
+set relativenumber
+
+" alternative line numbering configuration
+" set relativenumber nonumber
+" autocmd! InsertEnter * :setlocal norelativenumber number
+" autocmd! InsertLeave * :setlocal relativenumber  nonumber
+
+" trailing text in all directions
+set scrolloff=3
+set sidescrolloff=3
+
+" text width and end of line control
+let textThreshold = 80             " set desired text width
+let &textwidth = textThreshold     " maximum allowed width of a line
+let &colorcolumn = textThreshold+1 " set text length marker
+set nowrap                       " disable line wrap
+set linebreak                    " avoid wrapping a line in middle of a word
+
+" see :h 'fo-table'
+autocmd! FileType,BufWinEnter * setlocal fo-=o fo+=r fo+=b fo+=1 fo+=p
+
+set display=lastline    " display as much as possible of a line
+
+" set cursorline  " highlichg current line via colorscheme
+
+" paste insert mode control
+nnoremap ++ :set invpaste<cr>
+
+" visual guides for blank characters
+set list listchars=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
+
+" misc
+set noruler         " do not display cursor position
+set showcmd         " show command in last line of the screen
+set wildmenu        " shown possible matches just above command line
+set title           " set window title to opened file
+set noerrorbells    " disable beep on errors
+set novisualbell    " disable flash the screen instead of beeping on errors
+set mouse=          " enable mouse only in normal mode
+set showmatch           " highlight matching brackets
+" set matchtime=5       " tenths of a second to show matching bracket parent
+" set matchpairs+=<:>   " extend match pairs with < and >
+
+" leader key
+" let mapleader='/' " default
+" let mapleader=',' " common alternative
+let mapleader="\<space>"
+nnoremap <leader>q :q<cr>
+nnoremap <leader>Q :q!<cr>
+nnoremap <leader>w :w<cr>
+nnoremap <leader>i i <esc>r
+nnoremap <leader>a a <esc>r
+vnoremap <leader>e "ey
+nnoremap <leader><leader>e "ep
+vnoremap <leader>h "hy
+nnoremap <leader><leader>h "hp
+
+nnoremap <leader>cb :let &background = ( &background == "dark"? "light" : "dark" )<CR>
+" nnoremap <leader>cs :execute ( g:colors_name == "selenized_bw" ? "colorscheme selenized" : "colorscheme selenized_bw" ) <CR>
+" nnoremap <leader>cg :let &background = ( &background == "dark" ? "light" : "dark" )<CR> <bar> :execute ( g:colors_name == "selenized_bw" ? "colorscheme selenized" : "colorscheme selenized_bw" ) <CR>
+
+" trim trailing spaces and blank lines at end of the file
+function! Preserve(command)
+  " Preparation: save last search, and cursor position.
+  let _s = @/
+  let l  = line(".")
+  let c  = col(".")
+  " Do the business:
+  execute a:command
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
+
+augroup TrimBlanks
+  autocmd!
+  autocmd BufWritePre * call Preserve("%s/\\S\\zs\ \\+$//e")
+  autocmd BufWritePre * call Preserve("%s/\\S\\zs\t\\+$//e")
+  autocmd BufWritePre * call Preserve("%s#\\($\\n\\s\*\\)\\+\\%$##e")
+augroup END
+
+" add/del empty lines arund cursor; https://vim.fandom.com/wiki/Quickly_adding_and_deleting_empty_lines
+function! AddEmptyLineBelow()
+  call append(line("."), "")
+endfunction
+
+function! AddEmptyLineAbove()
+  let l:scrolloffsave = &scrolloff
+  " Avoid jerky scrolling with ^E at top of window
+  set scrolloff=0
+  call append(line(".") - 1, "")
+  if winline() != winheight(0)
+    silent normal! <C-e>
+  end
+  let &scrolloff = l:scrolloffsave
+endfunction
+
+function! DelEmptyLineBelow()
+  if line(".") == line("$")
+    return
+  end
+  let l:line = getline(line(".") + 1)
+  if l:line =~ '^\s*$'
+    let l:colsave = col(".")
+    .+1d
+    ''
+    call cursor(line("."), l:colsave)
+  end
+endfunction
+
+function! DelEmptyLineAbove()
+  if line(".") == 1
+    return
+  end
+  let l:line = getline(line(".") - 1)
+  if l:line =~ '^\s*$'
+    let l:colsave = col(".")
+    .-1d
+    silent normal! <C-y>
+    call cursor(line("."), l:colsave)
+  end
+endfunction
+nnoremap <leader>j :call AddEmptyLineBelow()<CR>
+nnoremap <leader>k :call AddEmptyLineAbove()<CR>
+nnoremap gj :call DelEmptyLineBelow()<CR>
+nnoremap gk :call DelEmptyLineAbove()<CR>
+
+nnoremap <leader>ro :set readonly!<cr>
+
+inoremap kj <esc>l
+
+set conceallevel=2
+set concealcursor="inc"
+" autocmd! BufEnter * setlocal conceallevel=1
+" autocmd! BufEnter * setlocal concealcursor=n
+
+" ctrl + space insertes last inserted text, disable it
+inoremap <c-@> <nop>
+" }}}
+
+" search {{{
+" resource https://vim.fandom.com/wiki/Searching
+set hlsearch    " enable search highlighting
+set incsearch   " incremental search that shows partial matches
+set ignorecase  " ignore case when searching
+set smartcase   " automatically switch to case-sensitive when search
+set magic       " for regular expressions turn magic on
+nnoremap <C-l> :nohlsearch<CR><esc>
+" nnoremap / /\v
+" }}}
+
+" indentline {{{
+" each level with separate char
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+let g:indentLine_indentLevel = 5
+let g:indentLine_setColors = 0
+" let g:indentLine_concealcursor = 'inc'
+" let g:indentLine_conceallevel = 2
+" respect global conceal settings, but by requirement is value of 1 or 2
+let g:indentLine_setConceal = 0
+" }}}
+
+" vim-highlighter {{{
+" let HiSet   = 'f<CR>'
+" let HiErase = 'f<BS>'
+" let HiClear = 'f<C-L>'
+" let HiFind  = 'f<Tab>'
+" enable/disable highlither to all buffers
+nnoremap F<CR> :Hi ==<cr>
+nnoremap FF<CR> :Hi =<cr>
+" jump forward/back to marks
+nnoremap <CR>   :Hi><CR>
+nnoremap g<CR>  :Hi<<CR>
+" }}}
+
+" create scratch buffer {{{
+" scratch.vim
+let g:scratch_no_mappings = 1
+let g:scratch_horizontal = 0
+let g:scratch_insert_autohide = 0
+let g:scratch_height = 85
+let g:scratch_persistence_file = '.scratch.vim'
+let g:scratch_filetype = 'markdown'
+nmap gss :ScratchPreview<cr>
+nmap gsi <plug>(scratch-insert-reuse)
+nmap gsC <plug>(scratch-insert-clear)
+vmap gs <plug>(scratch-selection-reuse)
+vmap gS <plug>(scratch-selection-clear)
+
+" manual definition
+"function! Scratch()
+"    let bnr = bufname('scratch')
+"    if bnr == 'scratch'
+"        setlocal switchbuf=useopen
+"        vert sbuffer scratch
+"    else
+"        vsplit
+"        noswapfile hide enew
+"        setlocal buftype=nofile
+"        setlocal bufhidden=hide
+"        " setlocal nobuflisted
+"        "lcd ~
+"        file scratch
+"    endif
+"endfunction
+"nnoremap gs :call Scratch()<cr>
+" }}}
+
+" auxiliary files {{{
+let auxDump=[ $HOME."/.vim/tmp/", $HOME."/.tmp/", $HOME."/tmp/", "/tmp/" ]
+let &backupdir=join(auxDump, ",")  " store backup files
+let &dir=join(auxDump, ",")        " store swap files
+let &undodir=join(auxDump, ",")    " store undo files
+" }}}
+
+" fold {{{
+" folding cheat sheet
+"   zc/o/a      close/open/toggle fold if the cursor is on one
+"   zC/O/A      close/open/toggle all fold levels around the cursor
+"   zr/m        reduce/increasing folding by opening/closing one more fold
+" level
+"   zR/M        reduce/increasing folding by opening/closing one more fold
+" level at all buffer
+"   zf#j/k      create fold from cursor down/up # number of lines
+"   zj/k        move cursor to next fold down/up
+" }}}
+
+" completion {{{
+" C-N: insert next matching word
+" C-P: insert previous mathcing word
+" C-X C-N: local keyword completion
+" C-X C-F: file path completion
+" C-X C-O: omni completion after typing
+" C-X C-K: dictionary words
+" C-X C-U: user defined completion
+" C-X C-]: tags
+" C-X C-V: vim command
+
+set complete+=kspell " use currently active spell checking
+set completeopt=menuone,longest,preview
+set omnifunc=syntaxcomplete#Complete
+" }}}
+
+" spell {{{
+"   move to misspelled words via            ]s and [s
+"   change word under cursor via            z=
+"   add word under cursor to dictionary     zg
+"   remove word from dictionary via         zw
+" to auto download spell, this should be the def site
+" when vim starts first disable :set nospell and then enable :set spell
+let g:spellfile_URL = 'http://ftp.vim.org/vim/runtime/spell'
+set spell          " enable spellcheck
+set spelllang=en   " spellcheck language
+" set spelllang+=bg  " spellcheck language
+"set spellfile=... " place to store additional words
+
+" augroup SaneSpellCheckHi
+"   autocmd!
+"   autocmd BufEnter * :hi clear SpellBad
+"   autocmd BufEnter * :hi SpellBad cterm=underline
+"   autocmd BufEnter * :hi clear SpellRare
+"   autocmd BufEnter * :hi SpellRare cterm=underline
+"   autocmd BufEnter * :hi clear SpellCap
+"   autocmd BufEnter * :hi SpellCap cterm=none
+"   autocmd BufEnter * :hi clear SpellLocal
+"   autocmd BufEnter * :hi SpellLocal
+"   cterm=underline
+" augroup END
+" }}}
+
+" indentation {{{
+" resource https://vim.fandom.com/wiki/Indenting_source_code
+" set amount of spaces for indentation
+let b:indent=4
+
+" indentation without hard tabs
+set expandtab             " convert tabs to 'softtabstop' amount of spaces
+let &shiftwidth=b:indent  " affects when pressing >>, << or == and auto indentation
+let &softtabstop=b:indent " affects <TAB> or <BS>;
+" let &tabstop=b:indent   " not recommended as may alter view of other editors
+" }}}
+
+" makefile {{{
+" ctags {{{
+" C + ] or g]: jump to tag underneath
+" C + o: jump back
+" C + |: jump back to tag
+" C + w }: open preview window with location of tag definition
+" C + w C + ]: open definition in horizontal split
+nnoremap gmT :silent make! tags <bar>redraw!<cr>
+" }}}
+
+" file vise targets
+nnoremap gmm :silent make! run FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap gmd :silent make! doctest FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap gmt :silent make! unittest FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap gml :silent make! lint FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap gmf :silent make! format FILE=%<bar>redraw!<bar>copen<cr>
+
+augroup QuickFixListBottomHack
+  autocmd!
+  autocmd FileType qf wincmd L
+augroup END
+
+" quickfix open/close mappings
+nnoremap go :cclose<cr>
+nnoremap gO :copen<cr>
+" }}}
+
+" built in terminal >=vim-8.1 {{{
+if has('nvim')
+  nnoremap <leader><cr> :vsplit <bar> :term<cr>
+else
+  set termwinkey=<C-X>
+  nnoremap <leader><cr> :vert terminal<CR>
+endif
+tnoremap <C-X>n <C-X>N
+tnoremap <C-X><C-N> <C-X>N
+" }}}
+
+" buffers and splits {{{
+" cheatsheet
+" ctrl + w _ " Max out the height of the current split
+" ctrl + w | "Max out the width of the current split
+" ctrl + w = "Normalize all split sizes, which is very handy when resizing terminal
+" Ctrl+W R "Swap top/bottom or left/right split
+" Ctrl+W T "Break out current window into a new tabview
+" Ctrl+W o "Close every window in the current tabview but the current on
+set splitright
+set switchbuf=useopen
+set hidden
+nnoremap gbd :bprevious<CR> :bdelete #<CR>
+nnoremap gbl :ls<CR>
+nnoremap gbb :ls<CR>:b
+nnoremap gb :b
+let buf_num = 1
+let buf_count = 50
+while buf_num <= buf_count
+  execute "nnoremap " . buf_num . "gb :vert sbuffer" . buf_num . "\<CR>"
+  let buf_num += 1
+endwhile
+" }}}
+
+" diff {{{
+if &diff
+    " diff mode ignore white spaces
+    set diffopt+=iwhite
+
+    " put/obtain line cursor is on
+    nnoremap gdp V:diffput<cr>
+    nnoremap gdo V:diffget<cr>
+    vnoremap gdp <esc>gv:diffput<cr>
+    vnoremap gdo <esc>gv:diffget<cr>
+
+    " undo the other, inactive window
+    nnoremap gdu :wincmd w<cr>:normal u<cr>:wincmd w<cr>
+
+    " recalculate differences
+    nnoremap gdr :diffupdate<cr>
+endif
+" }}}
+
+" gitgutter {{{
+let g:gitgutter_map_keys = 0    " prevent gitgutter to apply any default mappings
+
+let g:gitgutter_sign_added              = '+'
+let g:gitgutter_sign_modified           = '>'
+let g:gitgutter_sign_removed            = 'd'
+let g:gitgutter_sign_removed_first_line = '^'
+let g:gitgutter_sign_modified_removed   = '<'
+let g:gitgutter_max_signs               = -1
+
+" Jump between hunks
+nmap ghn <Plug>(GitGutterNextHunk)
+nmap ghp <Plug>(GitGutterPrevHunk)
+
+" Hunk-add and hunk-revert for chunk staging
+nmap ghs <Plug>(GitGutterStageHunk)
+nmap ghu <Plug>(GitGutterUndoHunk)
+
+" preview hunk
+nmap ghP <Plug>(GitGutterPreviewHunk)
+
+" open vimdiff of current buffer
+function! GitGutterDiffOrigToggle()
+  if &diff
+    +clo
+  else
+    GitGutterDiffOrig
+  endif
+endfunction
+nnoremap <expr> ghD &diff ? ':+clo<CR>' : ':GitGutterDiffOrig<CR>'
+
+" update signes when saving a file
+autocmd! BufWritePost * GitGutter
+" }}}
+
+" lightline, gitbranch, lightline-bufferline
+set laststatus=2    " needed to show lightline
+set noshowmode      " lightline already shows vim mode
+
+" integrate git gutter
+function! LightlineGitGutter()
+  if !get(g:, 'gitgutter_enabled', 0) || strlen(gitbranch#name()) == 0
+    return ''
+  endif
+  let [ l:added, l:modified, l:removed ] = GitGutterGetHunkSummary()
+  return printf('+%d ~%d -%d', l:added, l:modified, l:removed)
+endfunction
+
+" with integrated gutter and gitbranchname
+" buffers shown in tabline via lightline-buffer
+set showtabline=2
+
+let g:lightline#bufferline#show_number  = 1
+let g:lightline#bufferline#shorten_path = 1
+let g:lightline#bufferline#unnamed      = '[No Name]'
+
+let g:lightline = {'active': {}, 'component_function': {}, 'tabline': {}, 'component_type': {}, 'component_expand': {}}
+call extend(g:lightline.active, { 'left': [ ['mode', 'paste'], ['readonly', 'filename', 'modified'], ['gitbranch', 'gitstatus' ] ]  })
+call extend(g:lightline.active, { 'right': [ ['percent'], ['fileformat', 'fileencoding', 'filetype'] ]  })
+call extend(g:lightline.component_function, { 'gitbranch': 'gitbranch#name', 'gitstatus': 'LightlineGitGutter',  })
+call extend(g:lightline.tabline, { 'left': [['buffers']] })
+call extend(g:lightline.component_type, { 'buffers': 'tabsel' })
+call extend(g:lightline.component_expand, {'buffers': 'lightline#bufferline#buffers'})
+" }}}
+
+" ctrlp {{{
+" fuzzy search files
+let g:ctrlp_custom_ignore = {
+      \ 'dir': '\v[\/](\.git|__pycache__|\.dummies|legacy|scalarfield_collapse)$',
+      \ 'file': '\v\.(pyc|mod|png)$' }
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_show_hidden = 0
+let g:ctrlp_use_caching = 1
+nnoremap <leader>b :CtrlPBuffer<cr>
+nnoremap <leader>] :CtrlPTag<cr>
+nnoremap <leader>m :CtrlPModified<cr>
+" }}}
+
+" auto-pairs {{{
+" let g:AutoPairsFlyMode = 0
+" let g:AutoPairsShortcutBackInsert = '<M-b>'
+" System Shortcuts
+" <CR>  : Insert new indented line after return if cursor in blank brackets or quotes.
+" <BS>  : Delete brackets in pair
+" <M-p> : Toggle Autopairs (g:AutoPairsShortcutToggle)
+" <M-e> : Fast Wrap (g:AutoPairsShortcutFastWrap)
+" <M-n> : Jump to next closed pair (g:AutoPairsShortcutJump)
+" <M-b> : BackInsert (g:AutoPairsShortcutBackInsert)
+
+" If <M-p> <M-e> or <M-n> conflict with another keys or want to bind to another keys, add
+" let g:AutoPairsShortcutToggle = '<another key>'
+" to .vimrc, if the key is empty string '', then the shortcut will be disabled.
+" }}}
+
+" vim-slime {{{
+if has('nvim')
+  let g:slime_target = "neovim"
+else
+  let g:slime_target = "vimterminal"
+endif
+let g:slime_no_mappings = 1
+let g:slime_python_ipython = 1
+let g:slime_vimterminal_config = {"vertical": 1, "term_finish": "close"}
+let g:slime_cell_delimiter = "#[[:blank:]]*%%"
+nnoremap <leader>so o# %%<esc>k
+nnoremap <leader>sO O# %%<esc>j
+nmap <leader>sl <Plug>SlimeLineSend
+xmap <leader>sr <Plug>SlimeRegionSend
+nmap <leader>sr <Plug>SlimeParagraphSend
+nmap <leader>si <Plug>SlimeSendCell
+nmap <leader>sf <Plug>SlimeConfig
+" }}}
+
+" jedi-vim {{{
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#goto_assignments_command = "<leader>ga"
+let g:jedi#goto_command = "<leader>gd"
+let g:jedi#goto_stubs_command = "<leader>gs"
+let g:jedi#documentation_command = "K"
+let g:jedi#rename_command = "<leader>gr"
+let g:jedi#usages_command = "<leader>gu"
+let g:jedi#goto_definitions_command = ""
+let g:jedi#use_splits_not_buffers = "right"
+let g:jedi#popup_on_dot = 0
+let g:jedi#popup_select_first = 1
+let g:jedi#show_call_signatures = 0
+nnoremap <leader>gi :Pyimport
+let g:jedi#added_sys_path = ['./lib', './src', '../nrpytutorial/']
+" }}}
+
+" local-vim {{{
+source $HOME/.vim/local.vim
+" }}}
+
+" colorscheme {{{
+set background=dark
+" set background=light
+
+" solarized8_high, solarized8, solarized8_low, solarized_flat
+" colorscheme solarized8_high
+
+colorscheme sonokai
+
+" colorscheme molokai
+" colorscheme codedark
+" colorscheme PaperColor
+
+" fallback
+" colorscheme desert
+" }}}
+
+" sensible {{{
+" 'backspace': Backspace through anything in insert mode.
+" 'incsearch': Start searching before pressing enter.
+" 'listchars': Makes :set list (visible whitespace) prettier.
+" 'scrolloff': Always show at least one line above/below the cursor.
+" 'autoread': Autoload file changes. You can undo by pressing u.
+" runtime! macros/matchit.vim: Load the version of matchit.vim that ships with Vim.
+" }}}
+
+" commentary {{{
+" `gcc`: comment out a line (takes a count)
+" `gc`: to comment out the target of a motion, e.g. `gcap` to comment out a paragraph)
+" `gc`: in visual mode to comment out the selection
+" `gc`: in operator pending mode to target a comment
+" `:7,17Commentary`: use it as a command
+" `:g/TODO/Commentary`: use as a global invocation
+" adjust for concrete filetype via
+" autocmd FileType apache setlocal commentstring=#\ %s
+" }}}
+
+" polyglot {{{
+" markdown
+let g:vim_markdown_folding_style_pythonic = 1
+let g:vim_markdown_override_foldtext = 0
+let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_toc_autofit = 1
+let g:vim_markdown_emphasis_multiline = 0
+let g:tex_conceal = ""
+let g:vim_markdown_math = 1
+let g:vim_markdown_conceal = 2
+let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_math = 1
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_new_list_item_indent = 0
+let g:vim_markdown_autowrite = 1
+autocmd! FileType markdown,md setlocal commentstring=<!--\ %s\ -->
+
+" python
+let g:python_highlight_all = 1
+" }}}
+
+" surround {{{
+" `cs"'`: change "Hello" to 'Hello'
+" `cs'<q>`: change 'Hello' to <q>Hello</q>
+" `cst"`: change <q>Hello</q> to "Hello"
+" `ds"`: remove double quaotes in Hello
+" `ysiw]`: surround word under cursor, `iw` is a text object
+" `cs[}`: change surrounding brackets
+" `yssb`: wrap line in parentheses
+" `ds{`: remove line paranthesis
+" }}}
+
+" sneak {{{
+" `sab`: move cursor immediately if singe match, or highlighted other matches
+" `;`: go to next match
+" `3;`: got to 3rd match
+" C-O or ``: jump back to starting point
+" `s<CR>`: repeat last sneak search
+" `S`: sneak backwards
+" `yszxy]`: surround in brackets up to 'xy'
+" `gUz\}`: to upper case text from curssor until literal text \}
+let g:sneak#label = 1
+" }}}
+
 let g:python3_host_prog = '/tool/pandora64/bin/python3.7'
 
 lua	require('nvim-treesitter.configs').setup{highlight={enable=true}}
