@@ -572,7 +572,7 @@ call extend(g:lightline.component_expand, {'buffers': 'lightline#bufferline#buff
 " ctrlp {{{
 " fuzzy search files
 let g:ctrlp_custom_ignore = {
-      \ 'dir': '\v[\/](\.git|__pycache__|\.dummies|legacy|scalarfield_collapse)$',
+      \ 'dir': '\v[\/](\.git|__pycache__|\.dummies|legacy|scalarfield_collapse|bin)$',
       \ 'file': '\v\.(pyc|mod|png)$' }
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_show_hidden = 0
@@ -629,7 +629,7 @@ let g:jedi#goto_definitions_command = ""
 let g:jedi#use_splits_not_buffers = "right"
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 1
-let g:jedi#show_call_signatures = 0
+let g:jedi#show_call_signatures = 2
 nnoremap <leader>gi :Pyimport
 let g:jedi#added_sys_path = ['./lib', './src', '../nrpytutorial/']
 " }}}
