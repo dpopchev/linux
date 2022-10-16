@@ -70,12 +70,5 @@ local lsp_flags = {
 require('lspconfig')['jedi_language_server'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
-    settings = {
-        jedi_language_server = {
-            workspace = {
-                extra_paths = './lib/'
-                }
-            }
-        }
 }
 EOF

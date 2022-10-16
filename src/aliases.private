@@ -21,10 +21,12 @@ alias gd='git config --global --list | grep =diff'
 alias gs='git config --global --list | grep =status'
 alias gst='git config --global --list | grep =stash'
 alias gu='git config --global --list | grep "'\\.u\\w='"'
-alias v='vim'
+alias vpy="PYTHONPATH='${PYTHONPATH}:./lib' vim"
+alias nvpy="PYTHONPATH='${PYTHONPATH}:./lib' nvim"
 alias vi='vim'
 alias p='/tool/pandora64/bin/python3.7'
 alias ip='p -m IPython'
+
 
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
