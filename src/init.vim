@@ -27,7 +27,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'haringsrob/nvim_context_vt'
 call plug#end()
 
-source /home/dpopche1/.vimrc
+source $HOME/.vimrc
 
 lua << EOF
 require('which-key').setup{}
