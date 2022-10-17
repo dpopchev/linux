@@ -26,13 +26,12 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/cmp-spell'
 Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
+Plug 'lukas-reineke/cmp-under-comparator'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'haringsrob/nvim_context_vt'
+Plug 'f3fora/cmp-spell'
 call plug#end()
 
 source $HOME/.vimrc
@@ -51,65 +50,107 @@ require('nvim-treesitter.configs').setup{
 }
 
 -- Set up nvim-cmp.
-local cmp = require'cmp'
-
+local cmp = require 'cmp'
 cmp.setup({
-snippet = {
-  -- REQUIRED - you must specify a snippet engine
-  expand = function(args)
-    vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-    -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-    -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-    -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-  end,
-},
-window = {
-  -- completion = cmp.config.window.bordered(),
-  -- documentation = cmp.config.window.bordered(),
-},
-mapping = cmp.mapping.preset.insert({
-  ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-  ['<C-f>'] = cmp.mapping.scroll_docs(4),
-  ['<C-Space>'] = cmp.mapping.complete(),
-  ['<C-e>'] = cmp.mapping.abort(),
-  ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-}),
-sources = cmp.config.sources({
-  { name = 'nvim_lsp' },
-  { name = 'vsnip' }, -- For vsnip users.
-  -- { name = 'luasnip' }, -- For luasnip users.
-  -- { name = 'ultisnips' }, -- For ultisnips users.
-  -- { name = 'snippy' }, -- For snippy users.
-}, {
-  { name = 'buffer' },
-})
+    snippet = {
+        expand = function(args)
+        -- For `vsnip`, uncomment the following.
+        -- vim.fn["vsnip#anonymous"](args.body)
+        -- For `luasnip`, uncomment the following.
+        -- require('luasnip').lsp_expand(args.body)
+        -- For snippy, uncomment the following.
+        -- require('snippy').expand_snippet(args.body)
+        -- For `ultisnips`
+        -- vim.fn["UltiSnips#Anon"](args.body)
+        end,
+    },
+  formatting = {
+      format = function(entry, vim_item)
+          -- Kind icons
+          vim_item.kind = string.format("%s", vim_item.kind) --Concatonate the icons with name of the item-kind
+          vim_item.menu = ({
+          nvim_lsp = "[LSP]",
+          spell = "[Spellings]",
+          buffer = "[Buffer]",
+          ultisnips = "[Snip]",
+          treesitter = "[Treesitter]",
+          calc = "[Calculator]",
+          nvim_lua = "[Lua]",
+          path = "[Path]",
+          nvim_lsp_signature_help = "[Signature]",
+          cmdline = "[Vim Command]"
+          })[entry.source.name]
+          return vim_item
+      end,
+      },
+  mapping = {
+    ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
+    ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
+    ['<C-M-k>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-M-j>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    ['<C-y>'] = cmp.config.disable,
+    ['<C-e>'] = cmp.mapping({
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
+    }),
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
+  },
+  completion = {
+      keyword_length = 3,
+  },
+  matching = {
+      disallow_fuzzy_matching = false,
+  },
+  sources = cmp.config.sources(
+  {
+      { name = 'nvim_lsp' },
+      -- For ultisnips users
+      -- { name = 'ultisnips' },
+      -- For vsnip users, uncomment the following.
+      -- { name = 'vsnip' },
+      -- For luasnip users, uncomment the following.
+      -- { name = 'luasnip' },
+      -- For snippy users, uncomment the following.
+      -- { name = 'snippy' },
+  },
+  {
+      { name = 'buffer' },
+  },
+  {
+      { name = 'nvim_lsp_signature_help' },
+  },
+  {
+      { name = 'path' },
+  },
+  {
+      { name = 'spell' },
+  }),
+    sorting = {
+            comparators = {
+                cmp.config.compare.offset,
+                cmp.config.compare.exact,
+                cmp.config.compare.score,
+                require "cmp-under-comparator".under,
+                cmp.config.compare.kind,
+                cmp.config.compare.sort_text,
+                cmp.config.compare.length,
+                cmp.config.compare.order,
+            },
+        },
 })
 
--- Set configuration for specific filetype.
-cmp.setup.filetype('gitcommit', {
-sources = cmp.config.sources({
-  { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-}, {
-  { name = 'buffer' },
-})
-})
-
--- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline({ '/', '?' }, {
-mapping = cmp.mapping.preset.cmdline(),
-sources = {
-  { name = 'buffer' }
-}
-})
-
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
-mapping = cmp.mapping.preset.cmdline(),
-sources = cmp.config.sources({
-  { name = 'path' }
-}, {
-  { name = 'cmdline' }
+    sources = cmp.config.sources({
+    { name = 'path'  },
+    { name = 'cmdline'  },
+    })
 })
+
+cmp.setup.cmdline('/', {
+    sources = {
+        { name = 'buffer'  },
+    }
 })
 
 require('nvim-lsp-installer').setup{}
