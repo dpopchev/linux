@@ -36,8 +36,8 @@ require('nvim-treesitter.configs').setup{
         enable=true,
         additional_vim_regex_highlighting = true
         },
-    indent = {enable=true},
-    incremental_selection = {enable = true}
+    --indent = {enable=true},
+    --incremental_selection = {enable = true}
 }
 require('nvim-lsp-installer').setup{}
 -- Mappings.
@@ -81,5 +81,11 @@ local lsp_flags = {
 require('lspconfig')['jedi_language_server'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
+    root_dir = require("lspconfig/util").root_pattern(".git"),
+    init_options = {
+            workspace = {
+                extraPaths = {'./lib'}
+            }
+        }
 }
 EOF

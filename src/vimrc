@@ -42,7 +42,7 @@ let g:PaperColor_Theme_Options = {
 " }}}
 
 " sonokai {{{
-packadd! sonokai
+" packadd! sonokai
 " default, atlantis, andromeda, shusia, maia, espresso
 let g:sonokai_style = 'maia'
 
