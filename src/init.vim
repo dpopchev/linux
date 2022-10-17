@@ -19,20 +19,31 @@ Plug 'jpalardy/vim-slime'
 Plug 'justinmk/vim-sneak'
 Plug 'lifepillar/vim-solarized8'
 Plug 'nelstrom/vim-visual-star-search'
+Plug 'folke/which-key.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'neovim/nvim-lspconfig'
+Plug 'haringsrob/nvim_context_vt'
 call plug#end()
 
 source /home/dpopche1/.vimrc
 
 lua << EOF
-require('nvim-treesitter.configs').setup{highlight={enable=true}}
+require('which-key').setup{}
+require('nvim-treesitter.configs').setup{
+    highlight={
+        enable=true,
+        additional_vim_regex_highlighting = true
+        },
+    indent = {enable=true},
+    incremental_selection = {enable = true}
+}
 require('nvim-lsp-installer').setup{}
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '<leader>ge', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
@@ -46,21 +57,21 @@ local on_attach = function(client, bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
+  vim.keymap.set('n', '<leader>ga', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', '<leader>gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', '<leader>gK', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', '<leader>gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<leader>gk', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<leader>gwa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<leader>gwr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<leader>gwl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+  vim.keymap.set('n', '<leader>gt', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<leader>gr', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<leader>gc', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '<leader>gu', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<leader>gf', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
 local lsp_flags = {

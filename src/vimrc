@@ -280,6 +280,19 @@ set concealcursor="inc"
 
 " ctrl + space insertes last inserted text, disable it
 inoremap <c-@> <nop>
+
+" better indent
+vnoremap < <gv
+vnoremap > >gv
+
+" paste over currently selected text without yanking it
+vnoremap p "_dP
+
+" resizing panes
+nnoremap <Left> :vertical resize +1<CR>
+nnoremap <Right> :vertical resize -1<CR>
+nnoremap <Up> :resize -1<CR>
+nnoremap <Down> :resize +1<CR>
 " }}}
 
 " search {{{
@@ -290,7 +303,10 @@ set ignorecase  " ignore case when searching
 set smartcase   " automatically switch to case-sensitive when search
 set magic       " for regular expressions turn magic on
 nnoremap <C-l> :nohlsearch<CR><esc>
-" nnoremap / /\v
+
+" center search results
+nnoremap n nzz
+nnoremap N Nzz
 " }}}
 
 " indentline {{{
@@ -622,7 +638,7 @@ let g:jedi#completions_command = "<C-Space>"
 let g:jedi#goto_assignments_command = "<leader>ga"
 let g:jedi#goto_command = "<leader>gd"
 let g:jedi#goto_stubs_command = "<leader>gs"
-let g:jedi#documentation_command = "K"
+let g:jedi#documentation_command = "<leader>gK"
 let g:jedi#rename_command = "<leader>gr"
 let g:jedi#usages_command = "<leader>gu"
 let g:jedi#goto_definitions_command = ""
@@ -630,7 +646,7 @@ let g:jedi#use_splits_not_buffers = "right"
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 1
 let g:jedi#show_call_signatures = 2
-nnoremap <leader>gi :Pyimport
+nnoremap <leader>gI :Pyimport
 let g:jedi#added_sys_path = ['./lib', './src', '../nrpytutorial/']
 " }}}
 
