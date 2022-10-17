@@ -31,6 +31,7 @@ Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'haringsrob/nvim_context_vt'
 Plug 'f3fora/cmp-spell'
+Plug 'klen/nvim-test'
 call plug#end()
 
 source $HOME/.vimrc
@@ -202,5 +203,12 @@ require('lspconfig')['jedi_language_server'].setup{
                 extraPaths = {'./lib'}
             }
         }
+}
+
+require('nvim-test').setup{}
+require('nvim-test.runners.pytest'):setup{
+    command = 'pytest-3',
+    args = { "-rf"  },
+    env = { PYTHONPATH = './lib'  },
 }
 EOF
