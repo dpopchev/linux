@@ -397,7 +397,7 @@ let &undodir=join(auxDump, ",")    " store undo files
 " C-X C-V: vim command
 
 set complete+=kspell " use currently active spell checking
-set completeopt=menuone,longest,preview
+set completeopt=menuone,longest
 set omnifunc=syntaxcomplete#Complete
 " }}}
 
