@@ -217,4 +217,12 @@ adapters = {
     }
 })
 
+local envs = {}
+envs['PYTHONPATH'] = '$PYTHONPATH:./lib'
+local run_test = function()
+    require("neotest").run.run({ env = envs })
+end
+
+vim.keymap.set('n', '<F4>', run_test)
+
 EOF
