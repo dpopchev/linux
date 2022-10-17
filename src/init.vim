@@ -31,7 +31,11 @@ Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'haringsrob/nvim_context_vt'
 Plug 'f3fora/cmp-spell'
-Plug 'klen/nvim-test'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'antoinemadec/FixCursorHold.nvim'
+Plug 'nvim-neotest/neotest'
+Plug 'nvim-neotest/neotest-python'
 call plug#end()
 
 source $HOME/.vimrc
@@ -205,10 +209,12 @@ require('lspconfig')['jedi_language_server'].setup{
         }
 }
 
-require('nvim-test').setup{}
-require('nvim-test.runners.pytest'):setup{
-    command = 'pytest-3',
-    args = { "-rf"  },
-    env = { PYTHONPATH = './lib'  },
-}
+require("neotest").setup({
+adapters = {
+    require("neotest-python")({
+    runner = 'pytest'
+    })
+    }
+})
+
 EOF
