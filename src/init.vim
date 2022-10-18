@@ -219,7 +219,9 @@ require('lspconfig')['jedi_language_server'].setup{
 require("neotest").setup({
 adapters = {
     require("neotest-python")({
-        runner = "pytest"
+        runner = "pytest",
+        python = vim.g.python3_host_prog,
+        args = {'--collect-only'}
     })
     }
 })
