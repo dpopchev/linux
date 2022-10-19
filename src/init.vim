@@ -212,7 +212,6 @@ require('lspconfig')['jedi_language_server'].setup{
 -- local run_test = function()
 --     require("neotest").run.run()
 -- end
---
 -- vim.keymap.set('n', '<F4>', run_test)
 -- require("neotest").setup({
 -- adapters = {
