@@ -38,6 +38,9 @@ Plug 'nvim-neotest/neotest-python'
 call plug#end()
 
 source $HOME/.vimrc
+set spell!
+set spell!
+autocmd! TermOpen * setlocal nospell
 
 lua << EOF
 require('which-key').setup{}
