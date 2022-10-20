@@ -206,27 +206,23 @@ require('lspconfig')['jedi_language_server'].setup{
     root_dir = require("lspconfig/util").root_pattern(".git"),
     init_options = {
             workspace = {
-                extraPaths = {'./lib', './src', './tests'}
+                extraPaths = {}
             }
         }
 }
-
-require("neotest").setup({
-adapters = {
-    require("neotest-python")({
-    runner = 'pytest',
-    python = vim.g.python3_host_prog,
-    args = { '-rf' }
-    })
-    },
-})
-
-local envs = {}
-envs['PYTHONPATH'] = '$PYTHONPATH:./lib:./src:./tests'
-local run_test = function()
-    require("neotest").run.run()
-end
-
-vim.keymap.set('n', '<F4>', run_test)
-
+-- local envs = {}
+-- envs['PYTHONPATH'] = '$PYTHONPATH:./lib:./src:./tests'
+-- local run_test = function()
+--     require("neotest").run.run()
+-- end
+-- vim.keymap.set('n', '<F4>', run_test)
+-- require("neotest").setup({
+-- adapters = {
+--     require("neotest-python")({
+--         runner = "pytest",
+--         python = vim.g.python3_host_prog,
+--         args = {'--collect-only'}
+--     })
+--     }
+-- })
 EOF
