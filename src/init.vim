@@ -42,6 +42,13 @@ set spell!
 set spell!
 autocmd! TermOpen * setlocal nospell
 
+nnoremap <leader>nt <cmd>lua require("neotest").run.run()<cr>
+nnoremap <leader>nT <cmd>lua require("neotest").run.run(vim.fn.expand("%"))<cr>
+nnoremap <leader>no <cmd>lua require("neotest").output.open({ enter = true })<CR>
+nnoremap <leader>nO <cmd>lua require("neotest").summary.toggle()<cr>
+nnoremap <leader>n[ <cmd>lua require("neotest").jump.prev({ status = "failed" })<CR>
+nnoremap <leader>n] <cmd>lua require("neotest").jump.next({ status = "failed" })<CR>
+
 lua << EOF
 require('which-key').setup{}
 require('nvim-treesitter.configs').setup{
@@ -78,11 +85,11 @@ cmp.setup({
           nvim_lsp = "[LSP]",
           spell = "[Spellings]",
           buffer = "[Buffer]",
-          ultisnips = "[Snip]",
+--          ultisnips = "[Snip]",
           treesitter = "[Treesitter]",
-          calc = "[Calculator]",
-          nvim_lua = "[Lua]",
-          path = "[Path]",
+--          calc = "[Calculator]",
+--          nvim_lua = "[Lua]",
+--          path = "[Path]",
           nvim_lsp_signature_help = "[Signature]",
           cmdline = "[Vim Command]"
           })[entry.source.name]
@@ -94,7 +101,7 @@ cmp.setup({
     ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
     ['<C-M-k>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<C-M-j>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+--    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<C-y>'] = cmp.config.disable,
     ['<C-e>'] = cmp.mapping({
       i = cmp.mapping.abort(),
@@ -103,7 +110,7 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm({ select = false }),
   },
   completion = {
-      keyword_length = 3,
+      keyword_length = 1,
   },
   matching = {
       disallow_fuzzy_matching = false,
@@ -134,6 +141,7 @@ cmp.setup({
   }),
     sorting = {
             comparators = {
+                cmp.config.compare.order,
                 cmp.config.compare.offset,
                 cmp.config.compare.exact,
                 cmp.config.compare.score,
@@ -141,7 +149,6 @@ cmp.setup({
                 cmp.config.compare.kind,
                 cmp.config.compare.sort_text,
                 cmp.config.compare.length,
-                cmp.config.compare.order,
             },
         },
 })
@@ -210,19 +217,18 @@ require('lspconfig')['jedi_language_server'].setup{
             }
         }
 }
+require("neotest").setup({
+adapters = {
+    require("neotest-python")({
+        runner = "pytest",
+        python = vim.g.python3_host_prog,
+        args = {'-rf'}
+    })
+    }
+})
 -- local envs = {}
 -- envs['PYTHONPATH'] = '$PYTHONPATH:./lib:./src:./tests'
--- local run_test = function()
+-- local neotest_run_test = function()
 --     require("neotest").run.run()
 -- end
--- vim.keymap.set('n', '<F4>', run_test)
--- require("neotest").setup({
--- adapters = {
---     require("neotest-python")({
---         runner = "pytest",
---         python = vim.g.python3_host_prog,
---         args = {'--collect-only'}
---     })
---     }
--- })
 EOF

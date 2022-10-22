@@ -24,7 +24,7 @@ alias gu='git config --global --list | grep "'\\.u\\w='"'
 alias vpy="PYTHONPATH='${PYTHONPATH}:./lib' vim"
 alias nvpy="PYTHONPATH='${PYTHONPATH}:./lib' nvim"
 alias vi='vim'
-alias p='/tool/pandora64/bin/python3.7'
+alias p='python'
 alias ip='p -m IPython'
 
 
@@ -39,7 +39,7 @@ alias rm='rm --interactive=always --recursive'
 
 alias lshead='ls -lt | head'
 alias lstail='ls -lt | tail'
-alias tree="tree -I '__init__.py|__pycache__'"
+alias tree="tree -I '__init__.py|__pycache__|*egg-info'"
 
 alias h='history'
 alias hgrep='history | grep -i'
