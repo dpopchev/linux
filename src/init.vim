@@ -218,6 +218,13 @@ require('lspconfig')['jedi_language_server'].setup{
         }
 }
 require("neotest").setup({
+icons = {
+    failed = "F",
+    passed = "P",
+    running = "R",
+    skipped = "S",
+    unknown = "U"
+    },
 adapters = {
     require("neotest-python")({
         runner = "pytest",
