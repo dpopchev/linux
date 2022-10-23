@@ -233,6 +233,9 @@ adapters = {
     })
     }
 })
+require('nvim_context_vt').setup({
+  min_rows = 25,
+})
 -- local envs = {}
 -- envs['PYTHONPATH'] = '$PYTHONPATH:./lib:./src:./tests'
 -- local neotest_run_test = function()
