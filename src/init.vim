@@ -35,6 +35,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'nvim-neotest/neotest'
 Plug 'nvim-neotest/neotest-python'
+Plug 'lewis6991/spellsitter.nvim'
 call plug#end()
 
 source $HOME/.vimrc
@@ -241,4 +242,5 @@ require('nvim_context_vt').setup({
 -- local neotest_run_test = function()
 --     require("neotest").run.run()
 -- end
+require('spellsitter').setup()
 EOF
