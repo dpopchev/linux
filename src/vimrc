@@ -452,8 +452,8 @@ nnoremap gmT :silent make! tags <bar>redraw!<cr>
 
 " file vise targets
 nnoremap gmm :silent make! run FILE=%<bar>redraw!<bar>copen<cr>
-nnoremap gmd :silent make! doctest FILE=%<bar>redraw!<bar>copen<cr>
-nnoremap gmt :silent make! unittest FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap gmd :silent make! doctests FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap gmt :silent make! unittests FILE=%<bar>redraw!<bar>copen<cr>
 nnoremap gml :silent make! lint FILE=%<bar>redraw!<bar>copen<cr>
 nnoremap gmf :silent make! format FILE=%<bar>redraw!<bar>copen<cr>
 
