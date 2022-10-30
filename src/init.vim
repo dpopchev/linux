@@ -44,6 +44,8 @@ set spell!
 autocmd! TermOpen * setlocal nospell
 
 nnoremap <leader>nt <cmd>lua require("neotest").run.run()<cr>
+nnoremap <leader>ns <cmd>lua require("neotest").run.stop()<cr>
+nnoremap <leader>na <cmd>lua require("neotest").run.attach()<cr>
 nnoremap <leader>nT <cmd>lua require("neotest").run.run(vim.fn.expand("%"))<cr>
 nnoremap <leader>no <cmd>lua require("neotest").output.open({ enter = true })<CR>
 nnoremap <leader>nO <cmd>lua require("neotest").summary.toggle()<cr>
