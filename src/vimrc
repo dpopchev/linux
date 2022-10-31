@@ -531,8 +531,8 @@ let g:gitgutter_sign_modified_removed   = '<'
 let g:gitgutter_max_signs               = -1
 
 " Jump between hunks
-nmap ghn <Plug>(GitGutterNextHunk)
-nmap ghp <Plug>(GitGutterPrevHunk)
+nmap ghn <Plug>(GitGutterNextHunk)zz
+nmap ghp <Plug>(GitGutterPrevHunk)zz
 
 " Hunk-add and hunk-revert for chunk staging
 nmap ghs <Plug>(GitGutterStageHunk)
