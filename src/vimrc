@@ -271,7 +271,10 @@ nnoremap gk :call DelEmptyLineAbove()<CR>
 
 nnoremap <leader>ro :set readonly!<cr>
 
+" remap esc key
 inoremap kj <esc>l
+vnoremap <Tab> <Esc>gV
+onoremap <Tab> <Esc>
 
 set conceallevel=2
 set concealcursor="inc"
