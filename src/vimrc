@@ -272,10 +272,10 @@ nnoremap gk :call DelEmptyLineAbove()<CR>
 nnoremap <leader>ro :set readonly!<cr>
 
 " remap esc key
-" inoremap kj <esc>l
-" inoremap jk <esc>l
+inoremap kj <esc>l
+inoremap jk <esc>l
 " inoremap jw <esc>l
-inoremap wj <esc>l
+" inoremap wj <esc>l
 " gV is to prevent automatic reselection
 vnoremap <Tab> <Esc>gV
 " cancel any operator pending command, e.g. y
