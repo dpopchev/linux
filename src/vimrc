@@ -277,15 +277,11 @@ nnoremap <leader>ro :set readonly!<cr>
 " inoremap jw <esc>l
 inoremap wj <esc>l
 " gV is to prevent automatic reselection
-" vnoremap <Tab> <Esc>gV
-" vnoremap jw <Esc>gV
-vnoremap wj <Esc>gV
+vnoremap <Tab> <Esc>gV
 " cancel any operator pending command, e.g. y
-" onoremap <Tab> <Esc>
-onoremap wj <Esc>
+onoremap <Tab> <Esc>
 " cancel any command that was entered
-" cnoremap <Tab> <C-C><Esc>
-cnoremap wj <C-C><Esc>
+cnoremap <Tab> <C-C><Esc>
 
 set conceallevel=2
 set concealcursor="inc"
