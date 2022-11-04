@@ -15,8 +15,8 @@ alias vimrc='vim ~/.vimrc'
 alias nvimrc='nvim ~/.config/nvim/init.vim'
 
 alias g='git'
-alias p='python'
-alias ip='p -m IPython'
+alias p='python3'
+alias ip='p -m IPython --colors Linux'
 
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
