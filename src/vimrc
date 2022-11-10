@@ -316,6 +316,7 @@ nnoremap <C-l> :nohlsearch<CR><esc>
 
 nnoremap g:s :s/<C-r><C-W>/
 vnoremap g:s :s/<C-r><C-W>/
+nnoremap g:S :%s/<C-r><C-W>/
 
 " center search results
 nnoremap n nzz
