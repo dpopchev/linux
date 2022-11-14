@@ -36,6 +36,7 @@ Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'nvim-neotest/neotest'
 Plug 'nvim-neotest/neotest-python'
 Plug 'lewis6991/spellsitter.nvim'
+Plug 'rhysd/conflict-marker.vim'
 call plug#end()
 
 source $HOME/.vimrc
@@ -43,6 +44,21 @@ autocmd! TermOpen * setlocal nospell nonumber norelativenumber
 " dangling akward workaround
 " set spell!
 " set spell!
+
+" Default values
+" let g:conflict_marker_begin = '^<<<<<<< \@='
+" let g:conflict_marker_common_ancestors = '^||||||| .*$'
+" let g:conflict_marker_separator = '^=======$'
+" let g:conflict_marker_end   = '^>>>>>>> \@='
+" let g:conflict_marker_enable_highlight = 0
+" let g:conflict_marker_highlight_group = 'Error'
+" [/]x to jump around
+" let g:conflict_marker_enable_mappings = 0
+" to keep use:
+" - ct: theirs
+" - co: ours
+" - cn: none
+" - cb: both
 
 nnoremap <leader>nt <cmd>lua require("neotest").run.run()<cr>
 nnoremap <leader>ns <cmd>lua require("neotest").run.stop()<cr>
