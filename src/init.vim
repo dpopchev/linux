@@ -41,7 +41,7 @@ call plug#end()
 source $HOME/.vimrc
 set spell!
 set spell!
-autocmd! TermOpen * setlocal nospell
+autocmd! TermOpen * setlocal nospell nonumber norelativenumber
 
 nnoremap <leader>nt <cmd>lua require("neotest").run.run()<cr>
 nnoremap <leader>ns <cmd>lua require("neotest").run.stop()<cr>
