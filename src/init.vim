@@ -14,7 +14,6 @@ Plug 'tpope/vim-surround'
 Plug 'itchyny/vim-gitbranch'
 Plug 'airblade/vim-gitgutter'
 Plug 'azabiong/vim-highlighter'
-Plug 'sheerun/vim-polyglot'
 Plug 'justinmk/vim-sneak'
 Plug 'lifepillar/vim-solarized8'
 Plug 'nelstrom/vim-visual-star-search'
@@ -70,7 +69,7 @@ nnoremap <leader>n[ <cmd>lua require("neotest").jump.prev({ status = "failed" })
 nnoremap <leader>n] <cmd>lua require("neotest").jump.next({ status = "failed" })<CR>
 
 lua << EOF
-require('which-key').setup{}
+require('which-key').setup({})
 require('nvim-treesitter.configs').setup{
     ensure_installed = { "python" },
     auto_install = false,
@@ -186,7 +185,7 @@ cmp.setup.cmdline('/', {
     }
 })
 
-require('nvim-lsp-installer').setup{}
+require('nvim-lsp-installer').setup({})
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
@@ -226,7 +225,7 @@ local lsp_flags = {
   -- This is the default in Nvim 0.7+
   debounce_text_changes = 150,
 }
-require('lspconfig')['jedi_language_server'].setup{
+require('lspconfig')['jedi_language_server'].setup({
     capabilities = capabilities,
     on_attach = on_attach,
     flags = lsp_flags,
@@ -236,7 +235,10 @@ require('lspconfig')['jedi_language_server'].setup{
                 extraPaths = {}
             }
         }
-}
+})
+
+require('lspconfig')['marksman'].setup({})
+
 require("neotest").setup({
 icons = {
     failed = "F",
