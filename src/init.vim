@@ -68,6 +68,13 @@ nnoremap <leader>nO <cmd>lua require("neotest").summary.toggle()<cr>
 nnoremap <leader>n[ <cmd>lua require("neotest").jump.prev({ status = "failed" })<CR>
 nnoremap <leader>n] <cmd>lua require("neotest").jump.next({ status = "failed" })<CR>
 
+let g:loaded_python3_provider = 1
+if !empty(expand(glob('.venv/bin/python')))
+    let g:python3_host_prog = fnamemodify(expand('%:p:h'), ':p') .. '.venv/bin/python'
+else
+    let g:python3_host_prog = 'python3'
+endif
+
 lua << EOF
 require('which-key').setup({})
 require('nvim-treesitter.configs').setup{
@@ -232,7 +239,8 @@ require('lspconfig')['jedi_language_server'].setup({
     root_dir = require("lspconfig/util").root_pattern(".git"),
     init_options = {
             workspace = {
-                extraPaths = {}
+                extraPaths = {},
+                environmentPath = vim.g.python3_host_prog
             }
         }
 })
