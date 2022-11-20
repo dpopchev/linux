@@ -36,6 +36,7 @@ Plug 'nvim-neotest/neotest'
 Plug 'nvim-neotest/neotest-python'
 Plug 'lewis6991/spellsitter.nvim'
 Plug 'rhysd/conflict-marker.vim'
+Plug 'Konfekt/vim-wsl-copy-paste'
 call plug#end()
 
 source $HOME/.vimrc
