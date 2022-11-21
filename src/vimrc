@@ -611,6 +611,13 @@ let g:ctrlp_use_caching = 1
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>] :CtrlPTag<cr>
 nnoremap <leader>m :CtrlPModified<cr>
+let g:ctrlp_prompt_mappings = {
+            \ 'PrtSelectMove("j")':   ['<c-n>'],
+            \ 'PrtSelectMove("k")':   ['<c-p>'],
+            \ 'PrtHistory(-1)':       ['<down>'],
+            \ 'PrtHistory(1)':        ['<up>'],
+            \
+            \ }
 " }}}
 
 " auto-pairs {{{
