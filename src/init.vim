@@ -260,7 +260,7 @@ adapters = {
     require("neotest-python")({
         runner = "pytest",
         python = vim.g.python3_host_prog,
-        args = {'-rfE', '-vv', '-l'}
+        args = {'-q', '-rfE', '-l'}
     })
     }
 })
