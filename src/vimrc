@@ -165,7 +165,9 @@ autocmd! FileType,BufWinEnter * setlocal fo-=o fo+=r fo+=b fo+=1 fo+=p
 
 set display=lastline    " display as much as possible of a line
 
-" set cursorline  " highlichg current line via colorscheme
+" highlight current line number via colorscheme
+set cursorline
+set cursorlineopt=number
 
 " paste insert mode control
 nnoremap ++ :set invpaste<cr>
