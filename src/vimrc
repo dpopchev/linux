@@ -351,13 +351,17 @@ nnoremap g<CR>  :Hi<<CR>
 
 " create scratch buffer {{{
 " scratch.vim
-let g:scratch_no_mappings = 1
+" make it displayed on the right
 let g:scratch_top = 0
 let g:scratch_horizontal = 0
-let g:scratch_insert_autohide = 0
 let g:scratch_height = 85
+
+let g:scratch_insert_autohide = 0
+
 let g:scratch_persistence_file = '.scratch.vim'
 let g:scratch_filetype = 'markdown'
+
+let g:scratch_no_mappings = 1
 nmap gss :ScratchPreview<cr>
 nmap gsi <plug>(scratch-insert-reuse)
 nmap gsC <plug>(scratch-insert-clear)
