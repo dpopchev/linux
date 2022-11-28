@@ -356,7 +356,7 @@ let g:scratch_top = 0
 let g:scratch_horizontal = 0
 let g:scratch_height = 60
 
-let g:scratch_autohide = 0
+" let g:scratch_autohide = &hidden
 let g:scratch_insert_autohide = 0
 
 let g:scratch_persistence_file = '.scratch.vim'
@@ -460,6 +460,7 @@ set expandtab             " convert tabs to 'softtabstop' amount of spaces
 let &shiftwidth=b:indent  " affects when pressing >>, << or == and auto indentation
 let &softtabstop=b:indent " affects <TAB> or <BS>;
 " let &tabstop=b:indent   " not recommended as may alter view of other editors
+
 function! InsertHalfShiftwidth()
     return repeat(' ', &shiftwidth/2)
 endfunction
