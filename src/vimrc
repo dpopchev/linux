@@ -460,6 +460,10 @@ set expandtab             " convert tabs to 'softtabstop' amount of spaces
 let &shiftwidth=b:indent  " affects when pressing >>, << or == and auto indentation
 let &softtabstop=b:indent " affects <TAB> or <BS>;
 " let &tabstop=b:indent   " not recommended as may alter view of other editors
+function! InsertHalfShiftwidth()
+    return repeat(' ', &shiftwidth/2)
+endfunction
+inoremap <S-tab> <C-R>=InsertHalfShiftwidth()<cr>
 " }}}
 
 " makefile {{{
