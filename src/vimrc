@@ -1,12 +1,12 @@
 " colorscheme misc pre-configs {{{
 if has('termguicolors')
-  set termguicolors
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set t_Co=256
-  set t_ut=
-  set t_TI=
-  set t_TE=
+set termguicolors
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+set t_Co=256
+set t_ut=
+set t_TI=
+set t_TE=
 endif
 " }}}
 
@@ -30,15 +30,15 @@ let g:codedark_transparent=0
 
 " papercolor {{{
 let g:PaperColor_Theme_Options = {
-      \   'theme': {
-      \     'default': {
-      \       'transparent_background': 0,
-      \       'override' : {
-      \       'linenumber_bg': ['#080808', '232']
-      \       }
-      \     }
-      \   }
-      \ }
+  \   'theme': {
+  \     'default': {
+  \       'transparent_background': 0,
+  \       'override' : {
+  \       'linenumber_bg': ['#080808', '232']
+  \       }
+  \     }
+  \   }
+  \ }
 " }}}
 
 " sonokai {{{
@@ -198,8 +198,10 @@ nnoremap <leader>i i <esc>r
 nnoremap <leader>a a <esc>r
 vnoremap <leader>e "ey
 nnoremap <leader><leader>e "ep
+nnoremap <leader><leader>E "eP
 vnoremap <leader>h "hy
 nnoremap <leader><leader>h "hp
+nnoremap <leader><leader>H "hP
 
 nnoremap <leader>cb :let &background = ( &background == "dark"? "light" : "dark" )<CR>
 " nnoremap <leader>cs :execute ( g:colors_name == "selenized_bw" ? "colorscheme selenized" : "colorscheme selenized_bw" ) <CR>
