@@ -6,7 +6,7 @@ Plug 'jasoncodes/ctrlp-modified.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'itchyny/lightline.vim'
-Plug 'tpope/vim-repeat'
+Plug 'kylechui/nvim-surround'
 Plug 'mtth/scratch.vim'
 Plug 'tpope/vim-sensible'
 Plug 'sainnhe/sonokai'
@@ -37,6 +37,8 @@ Plug 'nvim-neotest/neotest-python'
 Plug 'lewis6991/spellsitter.nvim'
 Plug 'rhysd/conflict-marker.vim'
 Plug 'Konfekt/vim-wsl-copy-paste'
+Plug 'kana/vim-textobj-user'
+Plug 'beloglazov/vim-textobj-quotes'
 call plug#end()
 
 source $HOME/.vimrc
@@ -274,5 +276,6 @@ require('nvim_context_vt').setup({
 -- local neotest_run_test = function()
 --     require("neotest").run.run()
 -- end
-require('spellsitter').setup()
+require('spellsitter').setup({})
+require("nvim-surround").setup({})
 EOF
