@@ -62,12 +62,12 @@ autocmd! TermOpen * setlocal nospell nonumber norelativenumber
 " - cn: none
 " - cb: both
 
-nnoremap <leader>nt <cmd>lua require("neotest").run.run()<cr>
-nnoremap <leader>ns <cmd>lua require("neotest").run.stop()<cr>
+nnoremap <leader>nt <cmd>lua require("neotest").run.run({extra_args={'--pdb'}})<cr>
+nnoremap <leader>nT <cmd>lua require("neotest").run.stop()<cr>
 nnoremap <leader>na <cmd>lua require("neotest").run.attach()<cr>
-nnoremap <leader>nT <cmd>lua require("neotest").run.run(vim.fn.expand("%"))<cr>
 nnoremap <leader>no <cmd>lua require("neotest").output.open({ enter = true })<CR>
-nnoremap <leader>nO <cmd>lua require("neotest").summary.toggle()<cr>
+nnoremap <leader>nn <cmd>lua require("neotest").run.run()<cr>
+nnoremap <leader>nN <cmd>lua require("neotest").run.run(vim.fn.expand("%"))<cr>
 nnoremap <leader>n[ <cmd>lua require("neotest").jump.prev({ status = "failed" })<CR>
 nnoremap <leader>n] <cmd>lua require("neotest").jump.next({ status = "failed" })<CR>
 
@@ -266,6 +266,21 @@ adapters = {
     })
     }
 })
+
+local group = vim.api.nvim_create_augroup("NeotestConfig", {})
+vim.api.nvim_create_autocmd("FileType", {
+pattern = "neotest-output,neotest-attach",
+group = group,
+callback = function(opts)
+  vim.keymap.set("n", "q", function()
+    pcall(vim.api.nvim_win_close, 0, true)
+  end, {
+    buffer = opts.buf,
+  })
+end,
+})
+
+
 require('nvim_context_vt').setup({
   min_rows = 1,
   disable_virtual_lines=true,
