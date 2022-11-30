@@ -62,7 +62,7 @@ autocmd! TermOpen * setlocal nospell nonumber norelativenumber
 " - cn: none
 " - cb: both
 
-nnoremap <leader>nt <cmd>lua require("neotest").run.run({extra_args={'--pdb'}})<cr>
+nnoremap <leader>nt <cmd>lua require("neotest").run.run({extra_args={'--pdb', '-vvv'}})<cr>
 nnoremap <leader>nT <cmd>lua require("neotest").run.stop()<cr>
 nnoremap <leader>na <cmd>lua require("neotest").run.attach()<cr>
 nnoremap <leader>no <cmd>lua require("neotest").output.open({ enter = true })<CR>
