@@ -196,12 +196,6 @@ nnoremap <leader>Q :q!<cr>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>i i <esc>r
 nnoremap <leader>a a <esc>r
-vnoremap <leader>e "ey
-nnoremap <leader><leader>e "ep
-nnoremap <leader><leader>E "eP
-vnoremap <leader>h "hy
-nnoremap <leader><leader>h "hp
-nnoremap <leader><leader>H "hP
 
 nnoremap <leader>cb :let &background = ( &background == "dark"? "light" : "dark" )<CR>
 " nnoremap <leader>cs :execute ( g:colors_name == "selenized_bw" ? "colorscheme selenized" : "colorscheme selenized_bw" ) <CR>
