@@ -295,5 +295,5 @@ require('nvim_context_vt').setup({
 -- end
 require('spellsitter').setup({})
 require("nvim-surround").setup({})
-require('lsp_signature').setup({hint_prefix='', padding='', toggle_key='<C-k>'})
+require('lsp_signature').setup({hint_prefix='[ARG]', padding='', toggle_key='<C-k>'})
 EOF
