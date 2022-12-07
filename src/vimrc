@@ -361,7 +361,7 @@ let g:scratch_height = 60
 " let g:scratch_autohide = &hidden
 let g:scratch_insert_autohide = 0
 
-let g:scratch_persistence_file = '.scratch.vim'
+let g:scratch_persistence_file = '.scratch.md'
 let g:scratch_filetype = 'markdown'
 
 let g:scratch_no_mappings = 1

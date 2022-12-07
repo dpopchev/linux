@@ -39,6 +39,7 @@ Plug 'rhysd/conflict-marker.vim'
 Plug 'Konfekt/vim-wsl-copy-paste'
 Plug 'kana/vim-textobj-user'
 Plug 'beloglazov/vim-textobj-quotes'
+Plug 'ray-x/lsp_signature.nvim'
 call plug#end()
 
 source $HOME/.vimrc
@@ -140,7 +141,7 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm({ select = false }),
   },
   completion = {
-      keyword_length = 1,
+      keyword_length = 3,
   },
   matching = {
       disallow_fuzzy_matching = false,
@@ -294,4 +295,5 @@ require('nvim_context_vt').setup({
 -- end
 require('spellsitter').setup({})
 require("nvim-surround").setup({})
+require('lsp_signature').setup({hint_prefix='', padding='', toggle_key='<C-k>'})
 EOF
