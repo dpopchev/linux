@@ -70,8 +70,8 @@ nnoremap <leader>na <cmd>lua require("neotest").run.attach()<cr>
 nnoremap <leader>no <cmd>lua require("neotest").output.open({ enter = true })<CR>
 nnoremap <leader>nn <cmd>lua require("neotest").run.run()<cr>
 nnoremap <leader>nN <cmd>lua require("neotest").run.run(vim.fn.expand("%"))<cr>
-nnoremap <leader>n[ <cmd>lua require("neotest").jump.prev({ status = "failed" })<CR>
-nnoremap <leader>n] <cmd>lua require("neotest").jump.next({ status = "failed" })<CR>
+nnoremap [n <cmd>lua require("neotest").jump.prev({ status = "failed" })<CR>
+nnoremap ]n <cmd>lua require("neotest").jump.next({ status = "failed" })<CR>
 
 let g:loaded_python3_provider = 1
 if !empty(expand(glob('.venv/bin/python')))
