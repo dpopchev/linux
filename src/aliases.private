@@ -14,10 +14,6 @@ alias nvimgitconfig='nvim ~/.gitconfig'
 alias vimrc='vim ~/.vimrc'
 alias nvimrc='nvim ~/.config/nvim/init.vim'
 
-alias g='git'
-alias p='python3'
-alias ip='p -m IPython --colors Linux'
-
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
 alias less='less -R'
@@ -31,7 +27,6 @@ alias lshead='ls -lt | head'
 alias lstail='ls -lt | tail'
 alias tree="tree -I '__init__.py|__pycache__|*egg-info'"
 
-alias h='history'
 alias hgrep='history | grep -i'
 
 alias diff_ignore_blanks="diff --ignore-tab-expansion --ignore-space-change --ignore-all-space --ignore-blank-lines --expand-tabs"
