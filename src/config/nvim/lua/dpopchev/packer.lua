@@ -11,4 +11,13 @@ return require('packer').startup(function(use)
 		'nvim-telescope/telescope.nvim', tag = '0.1.0',
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
+
+	use({
+		'rose-pine/neovim',
+		as = 'rose-pine',
+		config = function()
+			require('rose-pine').setup({dark_variant='moon'})
+			vim.cmd('colorscheme rose-pine')
+		end
+	})
 end)
