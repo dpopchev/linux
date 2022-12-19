@@ -50,7 +50,7 @@ vnoremap <Tab> <Esc>gV
 " cancel any operator pending command, e.g. y
 onoremap <Tab> <Esc>
 " cancel any command that was entered
-cnoremap <Tab> <C-C><Esc>
+" cnoremap <Tab> <C-C><Esc>
 
 " make buffer read only
 nnoremap <leader>ro :set readonly!<cr>
