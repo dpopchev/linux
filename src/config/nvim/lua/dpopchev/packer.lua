@@ -56,12 +56,18 @@ return require('packer').startup(function(use)
         end
     }
 
-    use ({
-        'itchyny/lightline.vim',
+    use {
+        'ojroques/nvim-hardline',
         config = function()
-            require('lightline.vim').setup({})
+            require('hardline').setup {
+                bufferline = true,
+                bufferline_settings = {
+                    exclude_terminal = false,
+                    show_index = true
+                }
+            }
         end
-    })
+    }
 
 
 end)
