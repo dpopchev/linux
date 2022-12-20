@@ -56,13 +56,12 @@ return require('packer').startup(function(use)
         end
     }
 
-    use {
-        'feline-nvim/feline.nvim',
-        branch = '0.5-compat',
+    use ({
+        'itchyny/lightline.vim',
         config = function()
-            vim.api.nvim_command('set termguicolors')
-            require('feline').setup()
+            require('lightline.vim').setup({})
         end
-    }
+    })
+
 
 end)
