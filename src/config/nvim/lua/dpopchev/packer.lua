@@ -13,11 +13,12 @@ return require('packer').startup(function(use)
     }
 
     use({
-        'rose-pine/neovim',
-        as = 'rose-pine',
+        'sainnhe/sonokai',
         config = function()
-            require('rose-pine').setup({dark_variant='moon'})
-            vim.cmd('colorscheme rose-pine')
+            vim.g.sonokai_style = 'maia'
+            vim.g.sonokai_cursor = 'auto'
+            vim.g.sonokai_better_performance = 1
+            vim.cmd('colorscheme sonokai')
         end
     })
 
