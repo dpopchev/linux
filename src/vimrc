@@ -149,6 +149,10 @@ inoremap <c-@> <nop>
 vnoremap < <gv
 vnoremap > >gv
 
+" ==> move selected line/block in visual mode
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
 " ==> pane resizing control
 nnoremap <Left> :vertical resize +1<CR>
 nnoremap <Right> :vertical resize -1<CR>
@@ -209,6 +213,9 @@ set hidden
 nnoremap gbd :bprevious<CR> :bdelete #<CR>
 nnoremap gbl :ls<CR>
 nnoremap gbb :ls<CR>:b
+
+nnoremap H :bprevious<cr>
+nnoremap L :bnext<cr>
 
 " ==> makefile
 nnoremap gmm :make run FILE=%<bar>redraw!<bar>copen<cr>
