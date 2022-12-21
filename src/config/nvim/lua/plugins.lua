@@ -13,4 +13,11 @@ return require('packer').startup(function(use)
             vim.cmd "colorscheme sonokai"
         end,
     }
+
+    use {
+        "folke/which-key.nvim",
+        config = function()
+            require('config.whichkey').setup()
+        end
+    }
 end)
