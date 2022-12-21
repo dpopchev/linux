@@ -253,3 +253,6 @@ if &diff
     " recalculate differences
     nnoremap gdr :diffupdate<cr>
 endif
+
+" ==> paste over visual selection without yanking it back
+vnoremap p "_dP
