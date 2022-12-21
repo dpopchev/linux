@@ -1,78 +1,80 @@
-" leader
-" ======
+" ==> set leader
 " '/' is the default;
 " ',' is a common alternative
 let mapleader="\<space>"
 
-" netrw shortcut
+" ==> netrw shortcut
 nnoremap <leader>pv :Ex<cr>
 
+" ==> easy quit/write
 nnoremap <leader>q :q<cr>
 nnoremap <leader>Q :q!<cr>
 nnoremap <leader>w :w<cr>
+
+" ==> easy insert/append
 nnoremap <leader>i i <esc>r
 nnoremap <leader>a a <esc>r
 
-" add/remove empyt lines around cursor line
+" ==> add/remove blank lines around cursor line
 nnoremap <leader>j m`o<esc>``
 nnoremap <leader>k m`O<esc>``
 nnoremap gj m`:+g/\m^\s*$/d<cr>``:noh<cr>
 nnoremap gk m`:-g/\m^\s*$/d<cr>``:noh<cr>
 
-" editor
-" ======
-" line numbering column
+" ==> line numbering
 set number
 set relativenumber
 
-" alternate line numbering per mode
+" ==> alternate line numbering per mode
 " set relativenumber nonumber
 " autocmd! InsertEnter * :setlocal norelativenumber number
 " autocmd! InsertLeave * :setlocal relativenumber  nonumber
 
-" trailing text in all directions
+" ==> screen lines
 set scrolloff=3
 set sidescrolloff=3
+set display=lastline
 
-" text width and end of line control
+" ==> text width
 let textThreshold = 80
 let &textwidth = textThreshold
-let &colorcolumn = textThreshold+1
+let &colorcolumn = textThreshold
 set nowrap
 set linebreak
 
-" see :h 'fo-table'
+" ==> format options, see :h fo-table
 autocmd! FileType,BufWinEnter * setlocal fo-=o fo+=r fo+=b fo+=1 fo+=p
 
-" display as much as possible of a line
-set display=lastline
-
-" highlight current line number via colorscheme
+" ==> highlight current line number via colorscheme
 set cursorline
 set cursorlineopt=number
 
-" paste insert mode control
+" ==> toggle insert mode
 nnoremap ++ :set invpaste<cr>
 
-" visual guides for blank characters
+" ==> visual guides for blank characters
 set list listchars=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
 
-set noruler
+" ==> show (partial) command in in the last line of the screen
 set showcmd
+
+" ==> set command-line completion in an enhanced mode
 set wildmenu
-set title
+set wildchar=<C-N>
+
+" ==> disable error bells
 set noerrorbells
 set novisualbell
 
-" control highlighting matching brackets
+" ==> control highlighting matching brackets
 set showmatch
 " set matchtime=5
 " set matchpairs+=<:>
 
-" enable mouse only in normal mode
+" ==> enable mouse only in normal mode
 set mouse=
 
-" remap esc key
+" ==> remap esc key
 inoremap kj <esc>l
 inoremap jk <esc>l
 " inoremap jw <esc>l
@@ -82,12 +84,12 @@ vnoremap <Tab> <Esc>gV
 " cancel any operator pending command, e.g. y
 onoremap <Tab> <Esc>
 " cancel any command that was entered
-" cnoremap <Tab> <C-C><Esc>
+cnoremap <Tab> <C-C><Esc>
 
-" make buffer read only
+" ==> toggle read only mode
 nnoremap <leader>ro :set readonly!<cr>
 
-" trim trailing spaces and blank lines at end of the file
+" ==> trim trailing spaces and blank lines at end of the file
 function! Preserve(command)
 	" Preparation: save last search, and cursor position.
 	let _s = @/
@@ -107,24 +109,26 @@ augroup TrimBlanks
 	autocmd BufWritePre * call Preserve("%s#\\($\\n\\s\*\\)\\+\\%$##e")
 augroup END
 
+" ==> conceal level contrl
 set conceallevel=2
 set concealcursor="inc"
 " autocmd! BufEnter * setlocal conceallevel=1
 " autocmd! BufEnter * setlocal concealcursor=n
 
-" ctrl + space insertes last inserted text, disable it
+" ==> force disable ctrl + space
 inoremap <c-@> <nop>
 
-" better indent
+" ==> better indent visual selection
 vnoremap < <gv
 vnoremap > >gv
 
-" resizing panes
+" ==> pane resizing control
 nnoremap <Left> :vertical resize +1<CR>
 nnoremap <Right> :vertical resize -1<CR>
 nnoremap <Up> :resize -1<CR>
 nnoremap <Down> :resize +1<CR>
 
+" ==> search config
 " resource https://vim.fandom.com/wiki/Searching
 set hlsearch    " enable search highlighting
 set incsearch   " incremental search that shows partial matches
@@ -135,12 +139,12 @@ nnoremap <C-l> :nohlsearch<CR><esc>
 nnoremap n nzz
 nnoremap N Nzz
 
-" search and replace word under curssor
+" ==> search and replace word under curssor
 nnoremap gs/ :s/<C-r><C-W>/
 nnoremap gss :&&<cr>
 nnoremap gsS :%s/<C-r><C-W>/
 
-" spell and completation
+" ==> spell and completation
 set complete+=kspell
 set completeopt=menuone,longest
 set omnifunc=syntaxcomplete#Complete
@@ -149,7 +153,7 @@ set spell
 set spelllang=en
 " set spelllang+=bg  " spellcheck language
 
-" indentation without hard tabs
+" ==> indentation without hard tabs
 " resource https://vim.fandom.com/wiki/Indenting_source_code
 let b:indent=4
 set expandtab             " convert tabs to 'softtabstop' amount of spaces
@@ -162,16 +166,14 @@ function! InsertHalfShiftwidth()
 endfunction
 inoremap <S-tab> <C-R>=InsertHalfShiftwidth()<cr>
 
-" buffers
+" ==> buffers
 set splitright
 set hidden
 nnoremap gbd :bprevious<CR> :bdelete #<CR>
 nnoremap gbl :ls<CR>
 nnoremap gbb :ls<CR>:b
-nnoremap gbj :b
 
-" makefile
-" ========
+" ==> makefile
 nnoremap gmm :make run FILE=%<bar>redraw!<bar>copen<cr>
 nnoremap gmd :make doctests FILE=%<bar>redraw!<bar>copen<cr>
 nnoremap gmt :make unittests FILE=%<bar>redraw!<bar>copen<cr>
@@ -181,8 +183,7 @@ nnoremap gmo :cclose<cr>
 nnoremap gmO :copen<cr>
 autocmd! FileType qf wincmd L
 
-" terminal
-" ========
+" ==> terminal
 if has('nvim')
     nnoremap <leader><cr> :vsplit <bar> :term<cr>
 else
@@ -192,15 +193,13 @@ endif
 tnoremap <C-X>n <C-X>N
 tnoremap <C-X><C-N> <C-X>N
 
-" auxiliary files
-" ===============
+" ==> auxiliary files
 let auxDump=[ $HOME."/.vim/tmp/", $HOME."/.tmp/", $HOME."/tmp/", "/tmp/" ]
 let &backupdir=join(auxDump, ",")  " store backup files
 let &dir=join(auxDump, ",")        " store swap files
 let &undodir=join(auxDump, ",")    " store undo files
 
-" diff
-" ====
+" ==> diff mode goodies
 if &diff
     " diff mode ignore white spaces
     set diffopt+=iwhite
