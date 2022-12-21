@@ -20,4 +20,11 @@ return require('packer').startup(function(use)
             require('config.whichkey').setup()
         end
     }
+
+    use {
+        'ojroques/nvim-hardline',
+        config = function()
+            require('config.hardline').setup()
+        end
+    }
 end)
