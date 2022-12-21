@@ -1,3 +1,16 @@
+" ==> disable backup vi compatibility, if not already set
+if &compatible
+    set nocompatible
+endif
+
+" ==> guard load filetype plugin with syntax
+if !(exists('g:did_load_filetypes') && exists('g:did_load_ftplugin') && exists('g:did_indent_on'))
+    filetype plugin indent on
+endif
+if has('syntax') && !exists('g:syntax_on')
+    syntax enable
+endif
+
 " ==> enable colors in terminal
 set termguicolors
 
