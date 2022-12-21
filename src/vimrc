@@ -14,6 +14,11 @@ endif
 " ==> enable colors in terminal
 set termguicolors
 
+" Allow color schemes to do bright colors without forcing bold.
+if &t_Co == 8 && $TERM !~# '^Eterm'
+    set t_Co=16
+endif
+
 " ==> set leader
 " '/' is the default;
 " ',' is a common alternative
@@ -158,6 +163,16 @@ set magic       " for regular expressions turn magic on
 nnoremap <C-l> :nohlsearch<CR><esc>
 nnoremap n nzz
 nnoremap N Nzz
+
+" Use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<C-L>', 'n') ==# ''
+    nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+endif
+
+" ==> encoding
+if &encoding ==# 'latin1' && has('gui_running')
+    set encoding=utf-8
+endif
 
 " ==> search and replace word under curssor
 nnoremap gs/ :s/<C-r><C-W>/
