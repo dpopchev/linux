@@ -1,3 +1,6 @@
+" ==> enable colors in terminal
+set termguicolors
+
 " ==> set leader
 " '/' is the default;
 " ',' is a common alternative
@@ -39,11 +42,15 @@ set display=lastline
 let textThreshold = 80
 let &textwidth = textThreshold
 let &colorcolumn = textThreshold
-set nowrap
-set linebreak
+
+" ==> access system clipboard
+set clipboard=unnamedplus
 
 " ==> format options, see :h fo-table
 autocmd! FileType,BufWinEnter * setlocal fo-=o fo+=r fo+=b fo+=1 fo+=p
+set nowrap
+set linebreak
+set breakindent
 
 " ==> highlight current line number via colorscheme
 set cursorline
