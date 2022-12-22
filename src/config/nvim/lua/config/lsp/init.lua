@@ -2,7 +2,15 @@ local M = {}
 
 local servers = {
     jedi_language_server = {},
-    sumneko_lua = {},
+    sumneko_lua = {
+        settings = {
+            Lua = {
+                diagnostics = {
+                    globals = { 'vim'}
+                }
+            }
+        }
+    },
 }
 
 local function on_attach(client, bufnr)
