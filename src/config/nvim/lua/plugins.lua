@@ -49,4 +49,8 @@ return require('packer').startup(function(use)
         end,
     }
 
+    use {
+        'unblevable/quick-scope',
+    }
+
 end)
