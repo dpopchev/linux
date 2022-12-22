@@ -5,7 +5,7 @@ function M.setup()
     local conf = {
         bufferline = true,
         bufferline_settings = {
-            show_index = true
+            show_index = false
         }
     }
 
