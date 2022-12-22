@@ -6,7 +6,7 @@ function M.setup()
     local conf = {
         ensure_installed = {'help', 'lua', 'python', 'markdown', 'vim' },
         sync_install = false,
-        auto_install = true,
+        auto_install = false,
         highlight = {
             enable = true,
             -- Setting this to true will run `:h syntax` and tree-sitter at the same time.

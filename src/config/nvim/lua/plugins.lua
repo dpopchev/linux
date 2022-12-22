@@ -42,7 +42,7 @@ return require('packer').startup(function(use)
     use {
         "nvim-treesitter/nvim-treesitter",
         opt = true,
-        event = "BufRead",
+        event = 'BufReadPre',
         run = ":TSUpdate",
         config = function()
             require("config.treesitter").setup()
@@ -63,4 +63,16 @@ return require('packer').startup(function(use)
         end,
     }
 
+    use {
+        "neovim/nvim-lspconfig",
+        opt = true,
+        event = "BufRead",
+        wants = { "nvim-lsp-installer" },
+        config = function()
+            require("config.lsp").setup()
+        end,
+        requires = {
+            "williamboman/nvim-lsp-installer",
+        },
+    }
 end)
