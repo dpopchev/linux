@@ -51,6 +51,9 @@ return require('packer').startup(function(use)
 
     use {
         'unblevable/quick-scope',
+        config = function()
+            require("config.quick_scope").setup()
+        end
     }
 
 end)
