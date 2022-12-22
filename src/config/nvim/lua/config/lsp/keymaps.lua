@@ -6,6 +6,8 @@ local function keymappings(client, bufnr)
     local opts = { noremap = true, silent = false, buffer = bufnr }
     local keymap = vim.keymap.set
 
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
     keymap("n", "K", vim.lsp.buf.hover, opts)
     keymap("n", "[d", vim.diagnostic.goto_prev, opts)
     keymap("n", "]d", vim.diagnostic.goto_next, opts)
@@ -19,7 +21,8 @@ local function keymappings(client, bufnr)
             a = { vim.lsp.buf.code_action, "Code Action" },
             d = { vim.diagnostic.open_float, "Line Diagnostics" },
             i = { '<cmd>LspInfo<cr>', "Lsp Info" },
-            q = { vim.diagnostic.setloclist, "Local list" },
+            q = { vim.diagnostic.setloclist, "Diagnostics Local list" },
+            u = { vim.lsp.buf.references, "List symbol usage/references"},
         },
     }
 
