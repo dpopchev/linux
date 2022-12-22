@@ -13,11 +13,11 @@ function M.setup(servers, options)
             end)
 
             if not server:is_installed() then
-                vim.apin.nvim_echo("Installing " .. server.name)
+                print("Installing " .. server.name)
                 server:install()
             end
         else
-            vim.apin.nvim_echo("Error " .. server.name)
+            print("Error " .. server.name)
         end
     end
 end
