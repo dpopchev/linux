@@ -29,9 +29,27 @@ return require('packer').startup(function(use)
     }
 
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.0',
-        requires = { {'nvim-lua/plenary.nvim'} }
+        'nvim-telescope/telescope.nvim',
+        tag = '0.1.0',
+        requires = { {'nvim-lua/plenary.nvim'} },
+        config = function()
+            require('config.telescope').setup()
+        end
     }
 
     use { 'chaoren/vim-wordmotion' }
+
+    use {
+        "nvim-treesitter/nvim-treesitter",
+        opt = true,
+        event = "BufRead",
+        run = ":TSUpdate",
+        config = function()
+            require("config.treesitter").setup()
+        end,
+        requires = {
+            { "nvim-treesitter/nvim-treesitter-textobjects" },
+        },
+    }
+
 end)
