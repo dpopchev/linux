@@ -14,6 +14,7 @@
 " ==> enable colors in terminal
 if has('termguicolors')
     set termguicolors
+    set background=dark
 endif
 
 " Allow color schemes to do bright colors without forcing bold.
