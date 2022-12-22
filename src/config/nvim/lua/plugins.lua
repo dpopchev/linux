@@ -56,4 +56,11 @@ return require('packer').startup(function(use)
         end
     }
 
+    use {
+        "windwp/nvim-autopairs",
+        config = function()
+            require("config.autopairs").setup()
+        end,
+    }
+
 end)
