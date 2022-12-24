@@ -28,7 +28,7 @@ endif
 let mapleader="\<space>"
 
 " ==> netrw shortcut
-nnoremap <leader>pv :Ex<cr>
+nnoremap <leader>ev :Ex<cr>
 
 " ==> easy quit/write
 nnoremap <leader>q :q<cr>
