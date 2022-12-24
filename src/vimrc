@@ -264,3 +264,6 @@ endif
 
 " ==> paste over visual selection without yanking it back
 vnoremap p "_dP
+
+" ==> open help files in vertical split
+autocmd! FileType help wincmd L
