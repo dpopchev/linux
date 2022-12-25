@@ -186,10 +186,12 @@ nnoremap gs/ :s/<C-r><C-W>/
 nnoremap gss :&&<cr>
 nnoremap gsS :%s/<C-r><C-W>/
 
-" ==> spell and completation
+" ==> completation
 set complete+=kspell
-set completeopt=menuone,longest
+set completeopt=menuone,preview,noselect
 set omnifunc=syntaxcomplete#Complete
+
+" ==> spelling
 let g:spellfile_URL = 'http://ftp.vim.org/vim/runtime/spell'
 set spell
 set spelllang=en
