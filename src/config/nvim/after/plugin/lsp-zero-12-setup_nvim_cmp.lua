@@ -15,9 +15,10 @@ end
 
 local function get_sources()
     local sources = {
-        {name = 'path'}, -- cmp-path, based on filesystem
-        {name = 'nvim_lsp', keyword_length = 3}, -- cmp-nvim-lsp, data send by LSP
         {name = 'buffer', keyword_length = 3}, -- cmp-buffer, data from buffers
+        {name = 'nvim_lsp', keyword_length = 3}, -- cmp-nvim-lsp, data send by LSP
+        {name = 'path'}, -- cmp-path, based on filesystem
+        {name= 'spell'}, -- cmp-spell, spell suggestions
         {name = 'luasnip', keyword_length = 2}, -- cmp_luasnip, snippet suggestions
     }
     return sources
