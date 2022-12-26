@@ -1,9 +1,9 @@
 SHELL := /usr/bin/env bash
 
-## ----------------------------------------------------------------------------
-## Makefile to rule distribution of Linux configurations I use.
-## The goal is to create soft links to assure keeping track of changes in git.
-## Use with: make <target>
+### ---------------------------------------------------------------------------
+### Makefile to rule distribution of Linux configurations I use.
+### The goal is to create soft links to assure keeping track of changes in git.
+### Use with: make <target>
 
 SRC := src
 
@@ -21,12 +21,11 @@ PRINT_STEP = printf -- ">>>> step: $(1)\n"
 PRINT_CLEAN = printf -- "---- clean: $(1)\n"
 
 .DEFAULT_GOAL: help
-.PHONY: help ## show this help menu
+.PHONY: help ### show this help menu
 help:
-	@sed -nr '/#{2}/{s/\.PHONY: /-- /; s/#{2} /: /; p;}' ${MAKEFILE_LIST}
+	@sed -nr '/#{3}/{s/\.PHONY: /-- /; s/#{3} /: /; p;}' ${MAKEFILE_LIST}
 
-ALL :=
-CLEAN_ALL :=
+
 
 # general approach is to backup target and replace with soft link
 $(HOME)/.%: $(SRC)/%
