@@ -1,6 +1,6 @@
 SHELL := /usr/bin/env bash
 
-## -----------------------------------------------------------------------------
+## ----------------------------------------------------------------------------
 ## Makefile to rule distribution of Linux configurations I use.
 ## The goal is to create soft links to assure keeping track of changes in git.
 ## Use with: make <target>
