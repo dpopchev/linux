@@ -1,15 +1,32 @@
 local lsp = require('lsp-zero')
-
 local cmp = require('cmp')
-local cmp_mappings = lsp.defaults.cmp_mappings({
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-})
 
--- disable completion with tab
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
+local function get_mappings()
+    local mappings = lsp.defaults.cmp_mappings({
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.abort(),
+    })
+
+    mappings['<Tab>'] = nil
+    mappings['<S-Tab>'] = nil
+
+    return mappings
+end
+
+local function get_sources()
+    local sources = {
+        {name = 'path'}, -- cmp-path, based on filesystem
+        {name = 'nvim_lsp', keyword_length = 3}, -- cmp-nvim-lsp, data send by LSP
+        {name = 'buffer', keyword_length = 3}, -- cmp-buffer, data from buffers
+        {name = 'luasnip', keyword_length = 2}, -- cmp_luasnip, snippet suggestions
+    }
+    return sources
+end
+
+local mappings = get_mappings()
+local sources = get_sources()
 
 lsp.setup_nvim_cmp({
-    mapping = cmp_mappings
+    mapping = mappings,
+    sources = sources
 })
