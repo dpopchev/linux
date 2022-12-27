@@ -1,43 +1,69 @@
-SHELL := /usr/bin/env bash
-
 ### ---------------------------------------------------------------------------
 ### Makefile to rule distribution of Linux configurations I use.
 ### The goal is to create soft links to assure keeping track of changes in git.
 ### Use with: make <target>
 
+SHELL := /usr/bin/env bash
+
 SRC := src
 
+DUMMIES := .dummies
+$(DUMMIES):
+	mkdir --parents $@
+	@$(call APPEND_GITIGNORE,$@/)
+
+HOME := ${HOME}
+CONFIG := config
+
 # utilities
-BACKUP = [[ ! -e $(1) ]] || yes | cp --backup=numbered --recursive "$(1)" "$(1).bak"; true
-RM_LINK = [[ ! -L $(1) ]] || unlink "$(1)"
-RM_FILE = [[ ! -f $(1) ]] || rm --force --recursive "$(1)"
-RM_DIR = [[ ! -d $(1) ]] || rm --force --recursive "$(1)"
+BACKUP = test ! -e "$(1)" || yes \
+	 | mv --no-target-directory --backup=numbered "$(1)" "$(1).bak"; true
 LN = ln -s $(realpath $(1)) $2
 MKDIR = mkdir --parents "$(1)"
+RESTORE = test ! -e "$(1)" || yes | mv "$(1)" "$(2)"; true
+FIND_LATEST_BACKUP = find $(dir $(1)) -maxdepth 1 \
+		     | grep -P $(notdir $(1)).bak\(~\d~\)\? | sort | head -n1
+RM_FILE = rm --force $(1)
+RM_DIR = rm --force --recursive $(1)
 DOWNLOAD = wget --quiet --directory-prefix=$(1)/ $(2) --output-file=/dev/null
 GIT = git clone --quiet --depth 1 "$(1)" > /dev/null; true
-PRINT_DONE = printf -- "++++ done: $(1)\n"
-PRINT_STEP = printf -- ">>>> step: $(1)\n"
-PRINT_CLEAN = printf -- "---- clean: $(1)\n"
+APPEND_GITIGNORE = grep --quiet --line-regexp --fixed-strings $(1) .gitignore 2> /dev/null || echo $(1) >> .gitignore
+MSG_BACKUP = printf -- ">>>> backup: $(1)\n"
+MSG_INSTALL = printf -- "++++ install: $(1)\n"
+MSG_DONE = printf -- "!!!! done: $(1)\n"
+MSG_CLEAN = printf -- "---- clean: $(1)\n"
 
 .DEFAULT_GOAL: help
 .PHONY: help ### show this help menu
 help:
 	@sed -nr '/#{3}/{s/\.PHONY: /-- /; s/#{3} /: /; p;}' ${MAKEFILE_LIST}
 
+VIM_SRC := $(SRC)/vimrc
+VIM_DST := $(VIM_SRC:$(SRC)/%=$(HOME)/.%)
+VIM_HOME := $(HOME)/.vim
+VIM_DUMMY := $(VIM_SRC:$(SRC)/%=$(DUMMIES)/%.dummy)
+$(VIM_DUMMY): | $(DUMMIES)
+	@$(call MSG_BACKUP,$(VIM_DST))
+	@$(call BACKUP,$(VIM_DST))
+	@$(call BACKUP,$(VIM_HOME))
+	@$(call MSG_INSTALL,$(VIM_SRC) and $(VIM_HOME))
+	@$(call LN,$(VIM_SRC),$(VIM_DST))
+	@$(call MKDIR,$(VIM_HOME)/tmp)
+	@touch $@
 
+.PHONY: install-vim ### install vim8 config
+install-vim: $(VIM_DUMMY)
+	@$(call MSG_DONE,$@)
 
-# general approach is to backup target and replace with soft link
-$(HOME)/.%: $(SRC)/%
-	@$(call PRINT_STEP,backup present $(notdir $@))
-	@$(call BACKUP,$@)
-	@$(call PRINT_CLEAN,link $(notdir $@))
-	@$(call RM_LINK,$@)
-	@$(call PRINT_CLEAN,file/dir $(notdir $@))
-	@$(call RM_FILE,$@)
-	@$(call RM_DIR,$@)
-	@$(call PRINT_STEP,replace $(notdir $@))
-	@$(call LN,$<,$@)
+VIM_DST_BAK := $(shell $(call FIND_LATEST_BACKUP,$(VIM_DST)))
+VIM_HOME_BAK := $(shell $(call FIND_LATEST_BACKUP,$(VIM_HOME)))
+.PHONY: uninstall-vim ### rm vim8 config
+uninstall-vim:
+	@$(call RM_FILE,$(VIM_DST))
+	@$(call RM_DIR,$(VIM_HOME))
+	@$(call RESTORE,$(VIM_DST_BAK),$(VIM_DST))
+	@$(call RESTORE,$(VIM_HOME_BAK),$(VIM_HOME))
+	@$(call RM_FILE,$(VIM_DUMMY))
 
 .PHONY: aliases.private ## bash aliases, rm with clean_<target>
 ALL += aliases.private
