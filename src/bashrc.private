@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # some of the complicated stuff are adopted from Gentoo bashrc, available online
 
 # Test for an interactive shell.  There is no need to set anything
@@ -87,185 +89,11 @@ else
         esac
 fi
 
-# functions for quick PATH manipulation
-PATH_remove() {
-    # remove argument from PATH
-    # return 0 if successful or otherwise if not
-
-    # exit code variable
-    r=0;
-
-    # will remove a single path at a time
-    if [[ $# -ne 1 ]]; then
-        echo "please provide only one path";
-        r=1;
-    fi;
-
-    # unify
-    _PATH=":${PATH}:";
-
-    # remove argument
-    _PATH="${_PATH//:$1:/:}";
-
-    # remove residual characters
-    _PATH="${_PATH%:}";
-    _PATH="${_PATH#:}";
-
-    # overwrite
-    PATH="${_PATH}";
-
-    return $r
-}
-
-PATH_append() {
-    # append argument to PATH
-    # return 0 if successful or otherwise if not
-
-    # exit code variable
-    r=0;
-
-    # will append single path at a time
-    if [[ $# -ne 1 ]]; then
-        echo "please provide only one path";
-        r=1;
-    fi;
-
-    # check if path is valid
-    if [[ $r -eq 0 ]] && [[ ! -d $1 ]]; then
-        echo "path $1 does not exist";
-        r=1;
-    fi;
-
-    # make sure we will not duplicate before appending
-    if [[ $r -eq 0 ]]; then
-        PATH_remove $1;
-        PATH="${PATH}:${1}";
-    fi;
-
-    return $r
-}
-
-PATH_preappend() {
-    # pre-append argument to PATH
-    # return 0 if successful or otherwise if not
-
-    # exit code variable
-    r=0;
-
-    # will pre-append single path at a time
-    if [[ $# -ne 1 ]]; then
-        echo "please provide only one path";
-        r=1;
-    fi;
-
-    # check if path is valid
-    if [[ $r -eq 0 ]] && [[ ! -d $1 ]]; then
-        echo "path $1 does not exist";
-        r=1;
-    fi;
-
-    # make sure we will not duplicate before pre-appending
-    if [[ $r -eq 0 ]]; then
-        PATH_remove $1;
-        PATH="${1}:${PATH}";
-    fi;
-
-    return $r
-}
-
-# functions for quick CDPATH manipulation
-CDPATH_remove() {
-    # remove argument from CDPATH
-    # return 0 if successful or otherwise if not
-
-    # exit code variable
-    r=0;
-
-    # will remove a single path at a time
-    if [[ $# -ne 1 ]]; then
-        echo "please provide only one path";
-        r=1;
-    fi;
-
-    # unify
-    _CDPATH=":${CDPATH}:";
-
-    # remove argument
-    _CDPATH="${_CDPATH//:$1:/:}";
-
-    # remove residual characters
-    _CDPATH="${_CDPATH%:}";
-    _CDPATH="${_CDPATH#:}";
-
-    # overwrite
-    CDPATH="${_CDPATH}";
-
-    return $r
-}
-
-CDPATH_append() {
-    # append argument to CDPATH
-    # return 0 if successful or otherwise if not
-
-    # exit code variable
-    r=0;
-
-    # will append single path at a time
-    if [[ $# -ne 1 ]]; then
-        echo "please provide only one path";
-        r=1;
-    fi;
-
-    # check if path is valid
-    if [[ $r -eq 0 ]] && [[ ! -d $1 ]]; then
-        echo "path $1 does not exist";
-        r=1;
-    fi;
-
-    # make sure we will not duplicate before appending
-    if [[ $r -eq 0 ]]; then
-        CDPATH_remove $1;
-        CDPATH="${CDPATH}:${1}";
-    fi;
-
-    return $r
-}
-
-CDPATH_preappend() {
-    # pre-append argument to CDPATH
-    # return 0 if successful or otherwise if not
-
-    # exit code variable
-    r=0;
-
-    # will pre-append single path at a time
-    if [[ $# -ne 1 ]]; then
-        echo "please provide only one path";
-        r=1;
-    fi;
-
-    # check if path is valid
-    if [[ $r -eq 0 ]] && [[ ! -d $1 ]]; then
-        echo "path $1 does not exist";
-        r=1;
-    fi;
-
-    # make sure we will not duplicate before pre-appending
-    if [[ $r -eq 0 ]]; then
-        CDPATH_remove $1;
-        CDPATH="${1}:${CDPATH}";
-    fi;
-
-    return $r
-}
-
 CDPATH=".:${HOME}/projects:${HOME}"
-
 
 function join_by { local IFS="$1"; shift; echo "$*"; }
 
 ps1_status() {
-
     local exitcode=$?
     local attr_reset='\001\033[00m\002'
     local attr_light_red='\001\033[91m\002'
@@ -297,7 +125,6 @@ ps1_status() {
 }
 
 ps1_user_hostname() {
-
     local attr_reset='\001\033[00m\002'
     local attr_bold_green='\001\033[01;32m\002'
 
@@ -316,7 +143,6 @@ ps1_cwd() {
 }
 
 ps1_git_branch() {
-
     local attr_reset='\001\033[00m\002'
     local attr_cyan='\001\033[36m\002'
     local attr_bold_blue='\001\033[01;34m\002'
