@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# preappend/append/remove functions source: https://stackoverflow.com/a/24522107
 # SYNOPSIS: field_prepend varName fieldVal [sep]
 #   SEP defaults to ':'
 # Note: Forces fieldVal into the first position, if already present.
