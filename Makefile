@@ -34,20 +34,17 @@ help:
 	@sed -nr '/#{3}/{s/\.PHONY: /-- /; s/#{3} /: /; p;}' ${MAKEFILE_LIST}
 
 CONFIGS := vimrc
-CONFIGS += aliases.private bashrc.private bashrc.utils
-CONIFGS += inputrc
-CONIFGS += ctags
-CONIFGS += gitconfig
+CONFIGS += aliases.private bashrc.private bashrc.utils inputrc
+CONFIGS += ctags
+CONFIGS += gitconfig
 
 CONFIGS_SRC := $(addprefix $(SRC)/,$(CONFIGS))
+
+CONFIGS += nvim
+CONFIGS_SRC += $(SRC)/config/nvim
+
 CONFIGS_DST := $(patsubst $(SRC)/%,$(HOME)/.%,$(CONFIGS_SRC))
 CONFIGS_BAK := $(foreach config,$(CONFIGS_DST),$(shell $(call FIND_LATEST_BACKUP,$(config))))
-
-INSTALL := $(addprefix install-,$(CONFIGS))
-INSTALL += install-vim-home
-.PHONY: $(INSTALL)
-$(INSTALL): install-%: $(DUMMIES)/%.dummy
-	@$(call MSG_DONE,$@)
 
 print-configs:
 	@echo $(CONFIGS)
