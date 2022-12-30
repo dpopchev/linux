@@ -101,8 +101,8 @@ uninstall-vim: uninstall-vimrc uninstall-vim-home
 	@$(call MSG_DONE,$@)
 
 .PHONY: install-bash uninstall-bash
-install-bash: install-aliases.private install-bashrc.private install-bashrc.utils
+install-bash: install-aliases.private install-bashrc.private install-bashrc.utils install-inputrc
 	@$(call MSG_DONE,$@)
 
-uninstall-bash: uninstall-aliases.private uninstall-bashrc.private uninstall-bashrc.utils
+uninstall-bash: uninstall-aliases.private uninstall-bashrc.private uninstall-bashrc.utils uninstall-inputrc
 	@$(call MSG_DONE,$@)
