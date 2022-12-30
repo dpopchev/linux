@@ -6,28 +6,23 @@
 SHELL := /usr/bin/env bash
 
 SRC := src
+HOME := ${HOME}
 
 DUMMIES := .dummies
 $(DUMMIES):
 	mkdir --parents $@
 	@$(call APPEND_GITIGNORE,$@)
 
-HOME := ${HOME}
-CONFIG := config
-
 # utilities
 BACKUP = test ! -e '$(1)' || mv --force --no-target-directory --backup=numbered '$(1)' '$(1).bak'; true
 RESTORE = test ! -e '$(1)' || mv --force '$(1)' '$(2)'; true
 MKDIR = mkdir --parents '$(1)'
 LN = ln -s '$(realpath $(1))' '$(2)'
-RM = rm --force --recursive '$(1)'
+RM = rm --force '$(1)'
+RM_DIR = rm --force --recursive '$(1)'
 FIND_LATEST_BACKUP = find $(dir $(1)) -maxdepth 1 \
 		     | grep -P $(notdir $(1)).bak\(~\d~\)\? | sort | head -n1
-
-DOWNLOAD = wget --quiet --directory-prefix=$(1)/ $(2) --output-file=/dev/null
-GIT = git clone --quiet --depth 1 "$(1)" > /dev/null; true
 APPEND_GITIGNORE = grep --quiet --line-regexp --fixed-strings $(1) .gitignore 2> /dev/null || echo $(1) >> .gitignore
-
 MSG_BACKUP = printf -- ">>>> backup: $(1)\n"
 MSG_INSTALL = printf -- "++++ install: $(1)\n"
 MSG_DONE = printf -- "!!!! done: $(1)\n"
