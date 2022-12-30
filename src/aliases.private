@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+alias g="git"
+
 alias ealiases='${EDITOR} ~/.aliases.private'
 alias sourcealiases='source ~/.aliases.private'
 

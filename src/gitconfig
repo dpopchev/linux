@@ -1,47 +1,33 @@
 # This is Git's per-user configuration file.
+[difftool]
+        prompt = true
 [diff]
-        tool = vimdiff
+        tool = nvimdiff
 [merge]
-        tool = vimdiff
+        tool = nvimdiff
+[difftool "nvimdiff"]
+        cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [alias]
         co = checkout
-        cob = checkout -b
         br = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
         s = status --short --branch
         ss = status
         a = add
         d = diff
-        ds = diff --staged
-        dh = diff HEAD
-        dd = difftool --tool=vimdiff --no-prompt
-        us = reset HEAD
-        uu = checkout --
-        st = stash push --message
-        stl = stash list
-        stp = stash pop
-        sta = stash apply
-        std = stash drop
-        c = commit --message 'duty message, commit staged'
-        cc = commit --all --message 'duty message, stage and commit'
-        cca = !git add --all && git commit --message 'duty message, add all and commit'
-        cm = commit --message
-        ccm = commit --all --message
+        c = commit --message
         ca = commit --amend --no-edit
-        cca = commit --all --amend --no-edit
+        C = commit --message 'duty message, commit staged'
+        CC = commit --all --message 'duty message, stage all and commit'
         p = push
-        rv = remote --verbose
         ll = log --oneline
         last = log -1 HEAD --stat
         lg = log --pretty=pretty-log --abbrev-commit -30
-        gl = config --global --list
-        main = !git checkout $(git remote show origin | sed -nr 's/HEAD branch: (\\w+)/\\1/p')
+        master = !git checkout $(git remote show origin | sed -nr 's/HEAD branch: (\\w+)/\\1/p')
         sweep = !git main && git fetch --prune && git branch -v --merged | sed -rn 's/^[[:blank:]]*([[:alnum:]\\/-]+)[[:blank:]]+\\w{7}[[:blank:]]+\\[gone\\][[:graph:][:blank:]]*/\\1/p' | xargs git branch -d
         f = !git fetch && git checkout
-        here = '!git init . && git add . && git commit --allow-empty -m "Initialize repository"'
+        gl = config --global --list
 [pretty]
         pretty-log = format:%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]
 [filter "gitignore"]
     clean = "sed '/#[[:blank:]]*gitignore[[:blank:]]*$/'d"
     smudge = cat
-[include]
-    path = .gitconfig.local
