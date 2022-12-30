@@ -58,6 +58,13 @@ print-destinations:
 print-backups:
 	@echo $(CONFIGS_BAK)
 
+INSTALL := $(addprefix install-,$(CONFIGS))
+INSTALL += install-vim-home
+
+.PHONY: $(INSTALL)
+$(INSTALL): install-%: $(DUMMIES)/%.dummy
+	@$(call MSG_DONE,$@)
+
 $(DUMMIES)/%.dummy: | $(DUMMIES)
 	@$(call MSG_BACKUP,$(filter %$*,$(CONFIGS_DST)))
 	@$(call BACKUP,$(filter %$*,$(CONFIGS_DST)))
