@@ -89,76 +89,10 @@ else
         esac
 fi
 
-CDPATH=".:${HOME}/projects:${HOME}"
+source ~/.bashrc.utils
 
-function join_by { local IFS="$1"; shift; echo "$*"; }
-
-ps1_status() {
-    local exitcode=$?
-    local attr_reset='\001\033[00m\002'
-    local attr_light_red='\001\033[91m\002'
-    local attr_yellow='\001\033[93m\002'
-
-    local -a result
-
-    if [[ $exitcode == 0 ]]; then
-        # command succeed, no worries
-        result+=()
-    else
-        result+=("${attr_light_red}")
-        result+=("${exitcode}")
-        result+=("${attr_reset}")
-    fi
-
-    local suspended_jobs=$(jobs -s | wc -l)
-    if [[ $suspended_jobs == 0 ]]; then
-        # no suspended jobs, no worries
-        result+=()
-    else
-        result+=("${attr_yellow}")
-        result+=("${suspended_jobs}")
-        result+=("${attr_reset}")
-    fi
-
-    local IFS=' '
-    echo -e "${result[*]}"
-}
-
-ps1_user_hostname() {
-    local attr_reset='\001\033[00m\002'
-    local attr_bold_green='\001\033[01;32m\002'
-
-    local result="${attr_bold_green}\u@\h${attr_reset}"
-
-    # echo -e ${result@P}
-}
-
-ps1_cwd() {
-    local attr_reset='\001\033[00m\002'
-    local attr_bold_blue='\001\033[01;34m\002'
-
-    local result="${attr_bold_blue}\w${attr_reset}"
-
-    # echo -e ${result@P}
-}
-
-ps1_git_branch() {
-    local attr_reset='\001\033[00m\002'
-    local attr_cyan='\001\033[36m\002'
-    local attr_bold_blue='\001\033[01;34m\002'
-
-    local branches
-
-    local result
-    if branches=$(git branch 2>/dev/null); then
-        local branch=$(echo "$branches" | sed -rn 's/^[[:blank:]]*\*[[:blank:]]+([a-zA-Z0-9/-]+)/(\1)/p')
-        result="${attr_cyan}${branch}${attr_reset}${attr_bold_blue} \$${attr_reset}"
-    else
-        result="${attr_bold_blue}\$${attr_reset}"
-    fi
-
-    echo -e ${result}
-}
+field_prepend CDPATH ${HOME}
+field_prepend CDPATH ${HOME}/projects
 
 # show the closes directory parent in the PS1
 PROMPT_DIRTRIM=2
@@ -193,13 +127,6 @@ done
 unset FILES_SOURCE
 unset sourcefile
 
-declare -a PATH_CLEAN_FROM
-for pathclean in ${PATH_CLEAN_FROM[@]}; do
-    [[ ! -d $pathclean ]] && PATH_remove "$pathclean"
-done
-unset PATH_CLEAN_FROM
-unset pathclean
-
 # nice bash features
 shopt -s autocd
 shopt -s cdspell
@@ -218,43 +145,9 @@ export EDITOR='nvim'
 export VISUAL='nvim'
 export PAGER='less -R'
 
-# ex - archive extractor
-# usage: ex <file>
-ex ()
-{
-  if [ -f $1 ] ; then
-    case $1 in
-      *.tar.bz2)   tar xjf $1   ;;
-      *.tar.gz)    tar xzf $1   ;;
-      *.bz2)       bunzip2 $1   ;;
-      *.rar)       unrar x $1     ;;
-      *.gz)        gunzip $1    ;;
-      *.tar)       tar xf $1    ;;
-      *.tbz2)      tar xjf $1   ;;
-      *.tgz)       tar xzf $1   ;;
-      *.zip)       unzip $1     ;;
-      *.Z)         uncompress $1;;
-      *.7z)        7z x $1      ;;
-      *)           echo "'$1' cannot be extracted via ex()" ;;
-    esac
-  else
-    echo "'$1' is not a valid file"
-  fi
-}
-
-PATH_preappend ~/.local/bin/
-
-# https://wiki.archlinux.org/title/SSH_keys#SSH_agents
-# make sure ssh-agent process runs at a time
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
-fi
-if [[ ! "$SSH_AUTH_SOCK" ]]; then
-    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
-fi
+field_prepend PATH ~/.local/bin
 
 # do not blink in red background when missing something
 # https://stackoverflow.com/a/65839614
 # LS_COLORS=$(echo $LS_COLORS | sed -E 's/:(or|mi)=[^:]+/:\1=03/g')
 LS_COLORS=$(echo $LS_COLORS | sed -E 's/:(or|mi)=[^:]+/:\1=02/g')
-# below should be ignored by git by filter

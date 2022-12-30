@@ -1,18 +1,13 @@
 #!/usr/bin/env bash
 
-alias vimaliases='vim ~/.aliases.private'
-alias nvimaliases='nvim ~/.aliases.private'
+alias ealiases='${EDITOR} ~/.aliases.private'
 alias sourcealiases='source ~/.aliases.private'
 
-alias vimbashrc='vim ~/.bashrc.private'
-alias nvimbashrc='nvim ~/.bashrc.private'
+alias ebashrc='${EDITOR} ~/.bashrc.private'
 alias sourcebashrc='source ~/.bashrc.private'
 
-alias vimgitconfig='vim ~/.gitconfig'
-alias nvimgitconfig='nvim ~/.gitconfig'
-
-alias vimrc='vim ~/.vimrc'
-alias nvimrc='nvim ~/.config/nvim/init.vim'
+alias evimrc='${EDITOR} ~/.vimrc'
+alias envimrc='${EDITOR} ~/.config/nvim/init.lua'
 
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
@@ -33,4 +28,3 @@ alias diff_ignore_blanks="diff --ignore-tab-expansion --ignore-space-change --ig
 
 alias diffpatch="diff -u"
 alias patch="patch -u -b"
-# below should be ignored by git via filter
