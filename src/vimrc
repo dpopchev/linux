@@ -36,8 +36,8 @@ nnoremap <leader>Q :q!<cr>
 nnoremap <leader>w :w<cr>
 
 " ==> easy insert/append
-nnoremap <leader>i i <esc>r
-nnoremap <leader>a a <esc>r
+nnoremap <leader>i i+<esc>r
+nnoremap <leader>a a+<esc>r
 
 " ==> add/remove blank lines around cursor line
 nnoremap <leader>j m`o<esc>``
