@@ -240,17 +240,19 @@ endif
 tnoremap <C-X>n <C-X>N
 tnoremap <C-X><C-N> <C-X>N
 
-augroup neovim_terminal
-    autocmd!
-    " Enter Terminal-mode (insert) automatically
-    autocmd TermOpen * startinsert
-    " Disables number lines on terminal buffers
-    autocmd TermOpen * :set nonumber norelativenumber
-    " allows you to use Ctrl-c on terminal window
-    autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
-    " disable spelling
-    autocmd TermOpen * :set nospell
-augroup END
+if has('nvim')
+    augroup neovim_terminal
+        autocmd!
+        " Enter Terminal-mode (insert) automatically
+        autocmd TermOpen * startinsert
+        " Disables number lines on terminal buffers
+        autocmd TermOpen * :set nonumber norelativenumber
+        " allows you to use Ctrl-c on terminal window
+        autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
+        " disable spelling
+        autocmd TermOpen * :set nospell
+    augroup END
+endif
 
 " ==> auxiliary files
 let auxDump=[ $HOME."/.vim/tmp/", $HOME."/.tmp/", $HOME."/tmp/", "/tmp/" ]
