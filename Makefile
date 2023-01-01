@@ -2,7 +2,6 @@
 ### Makefile to rule distribution of Linux configurations I use.
 ### The goal is to create soft links to assure keeping track of changes in git.
 ### Use with: make <target>
-
 SHELL := /usr/bin/env bash
 
 SRC := src
@@ -33,12 +32,7 @@ MSG_CLEAN = printf -- "---- clean: $(1)\n"
 help:
 	@sed -nr '/#{3}/{s/\.PHONY: /-- /; s/#{3} /: /; p;}' ${MAKEFILE_LIST}
 
-CONFIGS := vimrc
-CONFIGS += bashrc.private
-CONFIGS += inputrc
-CONFIGS += ctags
-CONFIGS += gitconfig
-
+CONFIGS = $(shell ls -Iconfig $(SRC))
 CONFIGS_SRC := $(addprefix $(SRC)/,$(CONFIGS))
 
 CONFIGS += nvim
@@ -50,63 +44,70 @@ CONFIGS_SRC += $(SRC)/config/bashrc.d
 CONFIGS_DST := $(patsubst $(SRC)/%,$(HOME)/.%,$(CONFIGS_SRC))
 CONFIGS_BAK := $(foreach config,$(CONFIGS_DST),$(shell $(call FIND_LATEST_BACKUP,$(config))))
 
+.PHONY: print-configs ### print configurations names
 print-configs:
 	@echo $(CONFIGS)
 
+.PHONY: print-sources ### print full configuration paths
 print-sources:
 	@echo $(CONFIGS_SRC)
 
+.PHONY: print-destinations ### print configurations destination paths
 print-destinations:
 	@echo $(CONFIGS_DST)
 
+.PHONY: print-backups ### print found latest backups, if existing, per destination
 print-backups:
 	@echo $(CONFIGS_BAK)
 
 INSTALL := $(addprefix install-,$(CONFIGS))
 INSTALL += install-vim-home
-
 .PHONY: $(INSTALL)
 $(INSTALL): install-%: $(DUMMIES)/%.dummy
 	@$(call MSG_DONE,$@)
 
 $(DUMMIES)/%.dummy: | $(DUMMIES)
 	@$(call MSG_BACKUP,$(filter %$*,$(CONFIGS_DST)))
-	@$(call BACKUP,$(filter %$*,$(CONFIGS_DST)))
+	$(call BACKUP,$(filter %$*,$(CONFIGS_DST)))
 	@$(call MSG_INSTALL,$*)
-	@$(call LN,$(filter %$*,$(CONFIGS_SRC)),$(filter %$*,$(CONFIGS_DST)))
-	@touch $@
-
-VIM_HOME := $(HOME)/.vim
-$(DUMMIES)/vim-home.dummy: | $(DUMMIES)
-	@$(call MSG_BACKUP,$(VIM_HOME))
-	@$(call BACKUP,$(VIM_HOME))
-	@$(call MSG_INSTALL,$*)
-	mkdir --parents $(VIM_HOME)/tmp
+	$(call LN,$(filter %$*,$(CONFIGS_SRC)),$(filter %$*,$(CONFIGS_DST)))
 	@touch $@
 
 UNINSTALL := $(addprefix uninstall-,$(CONFIGS))
 .PHONY: $(UNINSTALL)
 $(UNINSTALL): uninstall-%:
-	@$(call RM,$(filter %$*,$(CONFIGS_DST)))
-	@$(call RESTORE,$(shell $(call FIND_LATEST_BACKUP,$(filter %$*,$(CONFIGS_DST)))),$(filter %$*,$(CONFIGS_DST)))
-	@$(call RM,$(DUMMIES)/$*.dummy)
+	$(call RM,$(filter %$*,$(CONFIGS_DST)))
+	$(call RESTORE,$(shell $(call FIND_LATEST_BACKUP,$(filter %$*,$(CONFIGS_DST)))),$(filter %$*,$(CONFIGS_DST)))
+	$(call RM,$(DUMMIES)/$*.dummy)
 
-.PHONY: install-vim
-install-vim: install-vimrc install-vim-home
-	@$(call MSG_DONE,$@)
+VIM_HOME := $(HOME)/.vim
+$(DUMMIES)/vim-home.dummy: | $(DUMMIES)
+	@$(call MSG_BACKUP,$(VIM_HOME))
+	$(call BACKUP,$(VIM_HOME))
+	@$(call MSG_INSTALL,$*)
+	mkdir --parents $(VIM_HOME)/tmp
+	@touch $@
 
-.PHONY: uninstall-vim-home uninstall-vim
+.PHONY: uninstall-vim-home
 uninstall-vim-home:
 	@$(call RM_DIR,$(VIM_HOME))
 	@$(call RESTORE,$(shell $(call FIND_LATEST_BACKUP,$(VIM_HOME))),$(VIM_HOME))
 	@$(call RM,$(DUMMIES)/vim-home.dummy)
 
+.PHONY: install-vim ### vim8 config; vimrc and .vim/ dir under user home
+install-vim: install-vimrc install-vim-home
+	@$(call MSG_DONE,$@)
+
+.PHONY: uninstall-vim
 uninstall-vim: uninstall-vimrc uninstall-vim-home
 	@$(call MSG_DONE,$@)
 
-.PHONY: install-bash uninstall-bash
-install-bash: install-bashrc.private install-bashrc.d
+.PHONY: install-bashrc ### bashrc.private and bashrc.d under config user home
+install-bashrc: install-bashrc.private install-bashrc.d
 	@$(call MSG_DONE,$@)
 
-uninstall-bash: uninstall-bashrc.private uninstall-bashrc.d
+.PHONY: uninstall-bashrc
+uninstall-bashrc: uninstall-bashrc.private uninstall-bashrc.d
 	@$(call MSG_DONE,$@)
+
+.PHONY: install-nvim ### neovim0.8 config
