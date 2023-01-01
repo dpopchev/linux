@@ -34,7 +34,8 @@ help:
 	@sed -nr '/#{3}/{s/\.PHONY: /-- /; s/#{3} /: /; p;}' ${MAKEFILE_LIST}
 
 CONFIGS := vimrc
-CONFIGS += aliases.private bashrc.private bashrc.utils inputrc
+CONFIGS += bashrc.private
+CONFIGS += inputrc
 CONFIGS += ctags
 CONFIGS += gitconfig
 
@@ -42,6 +43,9 @@ CONFIGS_SRC := $(addprefix $(SRC)/,$(CONFIGS))
 
 CONFIGS += nvim
 CONFIGS_SRC += $(SRC)/config/nvim
+
+CONFIGS += bashrc.d
+CONFIGS_SRC += $(SRC)/config/bashrc.d
 
 CONFIGS_DST := $(patsubst $(SRC)/%,$(HOME)/.%,$(CONFIGS_SRC))
 CONFIGS_BAK := $(foreach config,$(CONFIGS_DST),$(shell $(call FIND_LATEST_BACKUP,$(config))))
@@ -101,8 +105,8 @@ uninstall-vim: uninstall-vimrc uninstall-vim-home
 	@$(call MSG_DONE,$@)
 
 .PHONY: install-bash uninstall-bash
-install-bash: install-aliases.private install-bashrc.private install-bashrc.utils install-inputrc
+install-bash: install-bashrc.private install-bashrc.d
 	@$(call MSG_DONE,$@)
 
-uninstall-bash: uninstall-aliases.private uninstall-bashrc.private uninstall-bashrc.utils uninstall-inputrc
+uninstall-bash: uninstall-bashrc.private uninstall-bashrc.d
 	@$(call MSG_DONE,$@)
