@@ -36,8 +36,11 @@ nnoremap <leader>Q :q!<cr>
 nnoremap <leader>w :w<cr>
 
 " ==> easy insert/append
-nnoremap <leader>i i+<esc>r
-nnoremap <leader>a a+<esc>r
+function! RepeatChar(char, count)
+    return repeat(a:char, a:count)
+endfunction
+nnoremap s :<C-U>exec "normal i".RepeatChar(nr2char(getchar()), v:count1)<CR>
+nnoremap S :<C-U>exec "normal a".RepeatChar(nr2char(getchar()), v:count1)<CR>
 
 " ==> add/remove blank lines around cursor line
 nnoremap <leader>j m`o<esc>``
