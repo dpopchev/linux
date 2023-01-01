@@ -115,7 +115,7 @@ onoremap <Tab> <Esc>
 cnoremap <Tab> <C-C><Esc>
 
 " ==> toggle read only mode
-nnoremap <leader>ro :set readonly!<cr>
+nnoremap -- :set readonly!<cr>
 
 " ==> trim trailing spaces and blank lines at end of the file
 function! Preserve(command)
