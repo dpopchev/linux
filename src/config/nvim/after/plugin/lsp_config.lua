@@ -3,32 +3,116 @@ local mason_lspconfig = require('mason-lspconfig')
 local lspconfig = require('lspconfig')
 local whichkey = require("which-key")
 local cmp = require("cmp")
+local luasnip = require('luasnip')
 
 local function get_cmp_conf()
-    local conf = {
-        mapping = cmp.mapping.preset.insert({
-            ['<C-b>'] = cmp.mapping.scroll_docs(-3),
-            ['<C-f>'] = cmp.mapping.scroll_docs(3),
-            ['<C-o>'] = cmp.mapping.complete(),
-            ['<C-e>'] = cmp.mapping.abort(),
-            ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-        }),
-        snippet = {
-            expand = function(args)
-                require('luasnip').lsp_expand(args.body)
-            end,
-        },
-        sources = cmp.config.sources({
-            { name = 'nvim_lsp', },
-            { name = 'luasnip' },
-        }, {
-            { name = 'buffer' },
-        }),
+    local select_opts = {behavior = cmp.SelectBehavior.Select}
+
+    -- see https://github.com/VonHeikemen/lsp-zero.nvim/wiki/Under-the-hood
+    local mapping = cmp.mapping.preset.insert({
+        -- scroll up and down in the completion documentation
+        ['<C-f>'] = cmp.mapping.scroll_docs(5),
+        ['<C-u>'] = cmp.mapping.scroll_docs(-5),
+        -- go to next placeholder in the snippet
+        ['<C-d>'] = cmp.mapping(function(fallback)
+            if luasnip.jumpable(1) then
+                luasnip.jump(1)
+            else
+                fallback()
+            end
+        end, {'i', 's'}),
+        -- go to previous placeholder in the snippet
+        ['<C-b>'] = cmp.mapping(function(fallback)
+            if luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, {'i', 's'}),
+        -- toggle completion
+        ['<C-e>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.close()
+                fallback()
+            else
+                cmp.complete()
+            end
+        end),
+        -- confirm selection
+        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-o>'] = cmp.mapping.complete(),
+        -- navigate items on the list
+        ['<Up>'] = cmp.mapping.select_prev_item(select_opts),
+        ['<Down>'] = cmp.mapping.select_next_item(select_opts),
+        ['<C-p>'] = cmp.mapping.select_prev_item(select_opts),
+        ['<C-n>'] = cmp.mapping.select_next_item(select_opts),
+    })
+
+    local completeopt = {'longest', 'menuone'}
+    vim.opt.completeopt = completeopt
+    local completion = {completeopt = table.concat(completeopt, ',')}
+
+    local snippet ={
+        expand = function(args)
+            luasnip.lsp_expand(args.body)
+        end,
     }
+
+    local sources = cmp.config.sources({
+        { name = 'nvim_lsp', },
+        { name = 'luasnip' },
+        { name = 'buffer' },
+    })
+
+    local window = {
+        documentation = vim.tbl_deep_extend( 'force',
+        cmp.config.window.bordered(),
+        { max_height = 15, max_width = 60, }
+        )
+    }
+
+    local formatting = {
+        fields = {'abbr', 'menu', 'kind'},
+        format = function(entry, item)
+            local short_name = {
+                nvim_lsp = 'LSP',
+                nvim_lua = 'nvim'
+            }
+
+            local menu_name = short_name[entry.source.name] or entry.source.name
+
+            item.menu = string.format('[%s]', menu_name)
+            return item
+        end,
+    }
+
+    local sorting = {
+        comparators = {
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            require "cmp-under-comparator".under,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+        },
+    }
+
+    local conf = {
+        mapping = mapping,
+        completion = completion,
+        snippet = snippet,
+        sources = sources,
+        window = window,
+        formatting = formatting,
+        sorting = sorting
+    }
+
     return conf
 end
 
-local function lsp_settings()
+local function set_lsp_settings()
     local sign = function(opts)
         vim.fn.sign_define(opts.name, {
             texthl = opts.name,
@@ -134,7 +218,7 @@ local function lsp_attach(client, bufnr)
 
     -- Use LSP as the handler for formatexpr.
     -- See `:help formatexpr` for more information.
-    vim.api.nvim_buf_set_option(0, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+    vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
 
     lsp_keymaps(client, bufnr)
 
@@ -154,8 +238,6 @@ local function get_sumneko_settings()
                 -- Make the server aware of Neovim runtime files
                 library = {
                     vim.api.nvim_get_runtime_file("", true),
-                    [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-                    [vim.fn.stdpath "config" .. "/lua"] = true,
                 },
             },
             -- Do not send telemetry data containing a randomized but unique identifier
@@ -175,14 +257,15 @@ local function collect_server_settings()
 end
 
 local function get_servers()
-    local _servers = {}
-    for server, _ in pairs(collect_server_settings()) do
-        table.insert(_servers, server)
+    local servers = {}
+    local server_settings = collect_server_settings()
+    for server, _ in pairs(server_settings) do
+        table.insert(servers, server)
     end
-    return _servers
+    return servers
 end
 
-lsp_settings()
+set_lsp_settings()
 
 mason.setup({})
 mason_lspconfig.setup({
@@ -191,9 +274,6 @@ mason_lspconfig.setup({
 
 local server_settings = collect_server_settings()
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-require("luasnip.loaders.from_vscode").lazy_load()
-cmp.setup(get_cmp_conf())
 
 mason_lspconfig.setup_handlers({
     function(server_name)
@@ -204,3 +284,13 @@ mason_lspconfig.setup_handlers({
         })
     end
 })
+
+luasnip.config.set_config({
+    region_check_events = 'InsertEnter',
+    delete_check_events = 'InsertLeave'
+})
+
+require('luasnip.loaders.from_vscode').lazy_load()
+
+local cmp_conf = get_cmp_conf()
+cmp.setup(cmp_conf)

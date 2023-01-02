@@ -191,7 +191,7 @@ nnoremap gsS :%s/<C-r><C-W>/
 
 " ==> completation
 set complete+=kspell
-set completeopt=menuone,preview,noselect
+set completeopt=longest,menuone
 set omnifunc=syntaxcomplete#Complete
 
 " ==> spelling
