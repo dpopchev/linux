@@ -53,4 +53,14 @@ return require('packer').startup(function(use)
         "lukas-reineke/cmp-under-comparator"
     }
 
+    use {
+        "nvim-neotest/neotest",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            "antoinemadec/FixCursorHold.nvim",
+            "nvim-neotest/neotest-python"
+        }
+    }
+
 end)
