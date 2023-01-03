@@ -247,8 +247,8 @@ if has('nvim')
     augroup neovim_terminal
         autocmd!
         " Enter Terminal-mode (insert) automatically
-        " autocmd TermOpen * startinsert
-        autocmd TermOpen * lua if vim.startswith(vim.api.nvim_buf_get_name(0), "term://") then vim.cmd("startinsert") end
+        " autocmd TermOpen * startinsert " will fail neotest run
+        autocmd TermOpen * if nvim_buf_get_name(0) =~# '^term://.*' | startinsert | endif
         " Disables number lines on terminal buffers
         autocmd TermOpen * :set nonumber norelativenumber
         " allows you to use Ctrl-c on terminal window
