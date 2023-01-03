@@ -44,6 +44,6 @@ end
 
 gitsigns.setup({
     signcolumn = signcolumn,
-    numhl = true,
+    numhl = numhl,
     on_attach = on_attach
 })
