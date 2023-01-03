@@ -14,10 +14,9 @@
         ss = status
         a = add
         d = diff
-        c = commit --message
+        cm = commit --message
         ca = commit --amend --no-edit
-        C = commit --message 'duty message, commit staged'
-        CC = commit --all --message 'duty message, stage all and commit'
+        cc = commit --message 'duty message'
         p = push
         ll = log --oneline
         last = log -1 HEAD --stat
