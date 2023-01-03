@@ -63,4 +63,6 @@ return require('packer').startup(function(use)
         }
     }
 
+    use "wellle/targets.vim"
+
 end)
