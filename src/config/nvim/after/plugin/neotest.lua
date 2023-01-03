@@ -22,10 +22,17 @@ local icons = {
     skipped = 'S',
     unknown = 'U'
 }
+local output = {
+    enabled = true,
+    enter = true,
+    auto_close = true,
+    open_on_run = false
+}
 
 neotest.setup( {
     adapters = adapters,
-    icons = icons
+    icons = icons,
+    output = output
 })
 
 local map = function(m, lhs, rhs)
@@ -33,12 +40,12 @@ local map = function(m, lhs, rhs)
     vim.keymap.set(m, lhs, rhs, opts)
 end
 
-map('n', '<leader>nn', '<cmd> lua require("neotest").run.run()<cr>')
-map('n', '<leader>nd', '<cmd> lua require("neotest").run.run({extra_args={"--pdb"}})<cr>')
-map('n', '<leader>nN', '<cmd> lua require("neotest").run.run(vim.fn.expand("%"))<cr>')
-map('n', '<leader>nc', '<cmd> lua require("neotest").run.stop()<cr>')
-map('n', '<leader>na', '<cmd> lua require("neotest").run.attach()<cr>')
-map('n', '<leader>ns', '<cmd> lua require("neotest").output.open({enter=false})<cr>')
-map('n', '<leader>nS', '<cmd> lua require("neotest").output_panel.toggle()<cr>')
-map('n', ']n', '<cmd>lua require("neotest").jump.next({ status = "failed" })<CR>')
-map('n', '[n', '<cmd>lua require("neotest").jump.prev({ status = "failed" })<CR>')
+map('n', '<leader>nn', function() vim.cmd('lua require("neotest").run.run()') end)
+map('n', '<leader>nd', function() vim.cmd('lua require("neotest").run.run({extra_args={"--pdb"}})') end)
+map('n', '<leader>nN', function() vim.cmd('lua require("neotest").run.run(vim.fn.expand("%"))') end)
+map('n', '<leader>nc', function() vim.cmd('lua require("neotest").run.stop()') end)
+map('n', '<leader>na', function() vim.cmd('lua require("neotest").run.attach()') end)
+map('n', '<leader>no', function() vim.cmd('lua require("neotest").output.open({enter=true,auto_close=true})') end)
+map('n', '<leader>nO', function() vim.cmd('lua require("neotest").output_panel.toggle()') end)
+map('n', ']n', function() vim.cmd('lua require("neotest").jump_next.toggle({ status = "failed" })') end)
+map('n', '[n', function() vim.cmd('lua require("neotest").jump_prev.toggle({ status = "failed" })') end)
