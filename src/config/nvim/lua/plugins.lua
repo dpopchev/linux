@@ -65,4 +65,6 @@ return require('packer').startup(function(use)
 
     use "wellle/targets.vim"
 
+    use 'lewis6991/gitsigns.nvim'
+
 end)
