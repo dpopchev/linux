@@ -20,7 +20,7 @@ local incremental_selection = {
 }
 
 local conf = {
-    ensure_installed = {'help', 'lua', 'python', 'markdown', 'vim' },
+    ensure_installed = {'help', 'lua', 'python', 'markdown', 'markdown_inline', 'vim' },
     sync_install = false,
     auto_install = false,
     highlight = highlight,
