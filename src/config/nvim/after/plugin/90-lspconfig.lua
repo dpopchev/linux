@@ -6,7 +6,7 @@ local cmp = require("cmp")
 local luasnip = require('luasnip')
 
 local function get_cmp_conf()
-    local select_opts = {behavior = cmp.SelectBehavior.Select}
+    local select_opts = {behavior = cmp.SelectBehavior.Replace, }
 
     -- see https://github.com/VonHeikemen/lsp-zero.nvim/wiki/Under-the-hood
     local mapping = cmp.mapping.preset.insert({
@@ -42,8 +42,6 @@ local function get_cmp_conf()
         ['<C-y>'] = cmp.mapping.confirm({ select = true }),
         ['<C-o>'] = cmp.mapping.complete(),
         -- navigate items on the list
-        ['<Up>'] = cmp.mapping.select_prev_item(select_opts),
-        ['<Down>'] = cmp.mapping.select_next_item(select_opts),
         ['<C-p>'] = cmp.mapping.select_prev_item(select_opts),
         ['<C-n>'] = cmp.mapping.select_next_item(select_opts),
     })
