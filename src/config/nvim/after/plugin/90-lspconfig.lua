@@ -99,6 +99,8 @@ local function get_cmp_conf()
         },
     }
 
+    local matching = { disallow_fuzzy_matching = false }
+
     local conf = {
         mapping = mapping,
         completion = completion,
@@ -106,7 +108,8 @@ local function get_cmp_conf()
         sources = sources,
         window = window,
         formatting = formatting,
-        sorting = sorting
+        sorting = sorting,
+        matching = matching
     }
 
     return conf
@@ -256,7 +259,7 @@ local function get_sumneko_settings()
             },
         },
     }
-    common[settings] = settings
+    common['settings'] = settings
     return common
 end
 

@@ -32,6 +32,18 @@ return require('packer').startup(function(use)
         run = ":TSUpdate",
     }
 
+    use {
+        'nvim-treesitter/nvim-treesitter-context',
+        requires = "nvim-treesitter/nvim-treesitter"
+
+    }
+
+    use {
+        'haringsrob/nvim_context_vt',
+        requires = "nvim-treesitter/nvim-treesitter"
+
+    }
+
     use 'tpope/vim-fugitive'
 
     use 'mbbill/undotree'
@@ -68,5 +80,13 @@ return require('packer').startup(function(use)
     use 'lewis6991/gitsigns.nvim'
 
     use 'mtth/scratch.vim'
+
+    use 'Konfekt/vim-wsl-copy-paste'
+
+    use 'rhysd/conflict-marker.vim'
+
+    use 'nelstrom/vim-visual-star-search'
+
+    use 'ray-x/lsp_signature.nvim'
 
 end)
