@@ -48,7 +48,8 @@ local function get_cmp_conf()
         ['<C-n>'] = cmp.mapping.select_next_item(select_opts),
     })
 
-    local completeopt = {'longest', 'menuone'}
+    -- local completeopt = {'longest', 'menuone'}
+    local completeopt = {'menu', 'menuone', 'noselect'}
     vim.opt.completeopt = completeopt
     local completion = {completeopt = table.concat(completeopt, ',')}
 
@@ -231,6 +232,17 @@ local function lsp_attach(client, bufnr)
 end
 
 local function get_common_server_settings()
+
+    luasnip.config.set_config({
+        region_check_events = 'InsertEnter',
+        delete_check_events = 'InsertLeave'
+    })
+
+    require('luasnip.loaders.from_vscode').lazy_load()
+
+    local cmp_conf = get_cmp_conf()
+    cmp.setup(cmp_conf)
+
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
     return {
         on_attach = lsp_attach,
@@ -299,13 +311,3 @@ mason_lspconfig.setup_handlers({
         lspconfig[server_name].setup(server_settings[server_name])
     end
 })
-
-luasnip.config.set_config({
-    region_check_events = 'InsertEnter',
-    delete_check_events = 'InsertLeave'
-})
-
-require('luasnip.loaders.from_vscode').lazy_load()
-
-local cmp_conf = get_cmp_conf()
-cmp.setup(cmp_conf)
