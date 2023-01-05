@@ -22,7 +22,7 @@
         last = log -1 HEAD --stat
         lg = log --pretty=pretty-log --abbrev-commit -30
         master = !git checkout $(git remote show origin | sed -nr 's/HEAD branch: (\\w+)/\\1/p')
-        sweep = !git main && git fetch --prune && git branch -v --merged | sed -rn 's/^[[:blank:]]*([[:alnum:]\\/-]+)[[:blank:]]+\\w{7}[[:blank:]]+\\[gone\\][[:graph:][:blank:]]*/\\1/p' | xargs git branch -d
+        sweep = !git master && git fetch --prune && git branch -v --merged | sed -rn 's/^[[:blank:]]*([[:alnum:]\\/-]+)[[:blank:]]+\\w{7}[[:blank:]]+\\[gone\\][[:graph:][:blank:]]*/\\1/p' | xargs git branch -d
         f = !git fetch && git checkout
         gl = config --global --list
 [pretty]
