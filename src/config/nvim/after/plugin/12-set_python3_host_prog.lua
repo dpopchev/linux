@@ -9,3 +9,4 @@ local function set_python3_host_prog()
 end
 
 vim.g.python3_host_prog = set_python3_host_prog()
+print(vim.g.python3_host_prog)

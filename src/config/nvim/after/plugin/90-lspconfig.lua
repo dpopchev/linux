@@ -227,7 +227,17 @@ local function lsp_attach(client, bufnr)
     end, {desc = 'Format buffer with language server'})
 end
 
+local function get_common_server_settings()
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    return {
+        on_attach = lsp_attach,
+        capabilities = capabilities,
+        root_dir = require("lspconfig/util").root_pattern(".git")
+    }
+end
+
 local function get_sumneko_settings()
+    local common = get_common_server_settings()
     local settings = {
         Lua = {
             diagnostics = {
@@ -246,13 +256,20 @@ local function get_sumneko_settings()
             },
         },
     }
-    return settings
+    common[settings] = settings
+    return common
+end
+
+local function get_jedi_language_server_settings()
+    local common = get_common_server_settings()
+    common['init_options'] = { workspace = { environmentPath = vim.g.python3_host_prog } }
+    return common
 end
 
 local function collect_server_settings()
     return {
         sumneko_lua = get_sumneko_settings(),
-        jedi_language_server = {}
+        jedi_language_server = get_jedi_language_server_settings()
     }
 end
 
@@ -273,15 +290,10 @@ mason_lspconfig.setup({
 })
 
 local server_settings = collect_server_settings()
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 mason_lspconfig.setup_handlers({
     function(server_name)
-        lspconfig[server_name].setup({
-            on_attach = lsp_attach,
-            settings = server_settings[server_name],
-            capabilities = capabilities
-        })
+        lspconfig[server_name].setup(server_settings[server_name])
     end
 })
 
