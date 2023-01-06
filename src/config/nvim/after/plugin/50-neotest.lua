@@ -47,5 +47,5 @@ map('n', '<leader>nc', function() vim.cmd('lua require("neotest").run.stop()') e
 map('n', '<leader>na', function() vim.cmd('lua require("neotest").run.attach()') end)
 map('n', '<leader>no', function() vim.cmd('lua require("neotest").output.open()') end)
 map('n', '<leader>nO', function() vim.cmd('lua require("neotest").output_panel.toggle()') end)
-map('n', ']n', function() vim.cmd('lua require("neotest").jump_next.toggle({ status = "failed" })') end)
-map('n', '[n', function() vim.cmd('lua require("neotest").jump_prev.toggle({ status = "failed" })') end)
+map('n', '[n', function() vim.cmd('lua require("neotest").jump.prev({ status = "failed" })') end)
+map('n', ']n', function() vim.cmd('lua require("neotest").jump.next({ status = "failed" })') end)
