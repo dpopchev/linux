@@ -48,6 +48,7 @@ end
 
 map('n', '<leader>nn', function() vim.cmd('lua require("neotest").run.run()') end)
 map('n', '<leader>nd', function() vim.cmd('lua require("neotest").run.run({extra_args={"--pdb"}})') end)
+map('n', '<leader>nv', function() vim.cmd('lua require("neotest").run.run({extra_args={"-vvv", "--showlocals"}})') end)
 map('n', '<leader>nN', function() vim.cmd('lua require("neotest").run.run(vim.fn.expand("%"))') end)
 map('n', '<leader>nc', function() vim.cmd('lua require("neotest").run.stop()') end)
 map('n', '<leader>na', function() vim.cmd('lua require("neotest").run.attach()') end)
