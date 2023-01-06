@@ -29,10 +29,16 @@ local output = {
     open_on_run = false
 }
 
+local quickfix = {
+    enabled = false,
+    open = false
+}
+
 neotest.setup( {
     adapters = adapters,
     icons = icons,
-    output = output
+    output = output,
+    quickfix = quickfix
 })
 
 local map = function(m, lhs, rhs)
