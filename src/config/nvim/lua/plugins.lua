@@ -28,20 +28,13 @@ return require('packer').startup(function(use)
     use 'numToStr/Comment.nvim'
 
     use {
-        "nvim-treesitter/nvim-treesitter",
-        run = ":TSUpdate",
-    }
-
-    use {
-        'nvim-treesitter/nvim-treesitter-context',
-        requires = "nvim-treesitter/nvim-treesitter"
-
-    }
-
-    use {
         'haringsrob/nvim_context_vt',
-        requires = "nvim-treesitter/nvim-treesitter"
-
+        'nvim-treesitter/nvim-treesitter-context',
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        requires = {
+            "nvim-treesitter/nvim-treesitter",
+            run = ":TSUpdate",
+        },
     }
 
     use 'tpope/vim-fugitive'
@@ -88,6 +81,8 @@ return require('packer').startup(function(use)
     use 'nelstrom/vim-visual-star-search'
 
     use 'ray-x/lsp_signature.nvim'
+
+    use 'AndrewRadev/linediff.vim'
 
     use 'github/copilot.vim'
 
