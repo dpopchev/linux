@@ -80,8 +80,6 @@ return require('packer').startup(function(use)
 
     use 'nelstrom/vim-visual-star-search'
 
-    use 'ray-x/lsp_signature.nvim'
-
     use 'AndrewRadev/linediff.vim'
 
     use 'github/copilot.vim'
