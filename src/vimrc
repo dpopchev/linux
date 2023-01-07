@@ -219,6 +219,7 @@ set hidden
 nnoremap gbd :bprevious<CR> :bdelete #<CR>
 nnoremap gbl :ls<CR>
 nnoremap gbb :ls<CR>:b
+nnoremap gbf :tab sball<cr>
 
 nnoremap H :bprevious<cr>
 nnoremap L :bnext<cr>
@@ -287,3 +288,13 @@ vnoremap p "_dP
 
 " ==> open help files in vertical split
 autocmd! FileType help wincmd L
+
+" ==> align vim command line with terminal maps
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <M-b> <S-Left>
+cnoremap <M-f> <S-Right>
