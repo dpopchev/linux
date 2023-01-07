@@ -220,6 +220,7 @@ nnoremap gbd :bprevious<CR> :bdelete #<CR>
 nnoremap gbl :ls<CR>
 nnoremap gbb :ls<CR>:b
 nnoremap gbf :tab sball<cr>
+nnoremap gbn :vnew<CR>
 
 nnoremap H :bprevious<cr>
 nnoremap L :bnext<cr>
