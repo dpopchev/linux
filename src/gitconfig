@@ -16,7 +16,7 @@
         d = diff
         cm = commit --message
         ca = commit --amend --no-edit
-        cc = commit --message 'duty message'
+        cc = commit --message 'chore: duty message for small self-explanatory changes'
         p = push
         ll = log --oneline
         last = log -1 HEAD --stat
