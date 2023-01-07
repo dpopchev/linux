@@ -292,8 +292,8 @@ autocmd! FileType help wincmd L
 " ==> align vim command line with terminal maps
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
+" cnoremap <C-p> <Up>
+" cnoremap <C-n> <Down>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
 cnoremap <M-b> <S-Left>
