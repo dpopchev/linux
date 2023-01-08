@@ -5,6 +5,7 @@ vim.g.scratch_height = 60
 vim.g.scratch_persistence_file = '.scratch.vim'
 
 vim.g.scratch_no_mappings = 1
+vim.keymap.set('n', 'gs', '<Nop>', {noremap = true, silent = false})
 vim.cmd [[ nnoremap <leader>si :ScratchInsert<cr> ]]
 vim.cmd [[ vnoremap <leader>si :ScratchSelection<cr> ]]
 vim.cmd [[ nnoremap <leader>ss :ScratchPreview<cr> ]]
