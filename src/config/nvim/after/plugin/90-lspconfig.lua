@@ -189,8 +189,7 @@ local function lsp_keymaps(client, bufnr)
         l = {
             name = "Code",
             r = { vim.lsp.buf.rename, "Rename" },
-            a = { vim.lsp.buf.code_action, "Code Action" },
-            A = { vim.lsp.buf.range_code_action, "Range Code Action" },
+            a = { function() vim.lsp.buf.code_action({apply=true}) end, "Code Action" },
             d = { vim.diagnostic.open_float, "Line Diagnostics" },
             i = { '<cmd>LspInfo<cr>', "Lsp Info" },
             q = { vim.diagnostic.setloclist, "Diagnostics Local list" },
