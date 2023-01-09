@@ -4,8 +4,8 @@ alias g="git"
 
 alias edit='${EDITOR}'
 
-alias ealiases='${EDITOR} ~/.aliases.private'
-alias sourcealiases='source ~/.aliases.private'
+alias ealiases='${EDITOR} ~/.config/bashrc.d/.aliases.private'
+alias sourcealiases='source ~/.config/bashrc.d/.aliases.private'
 
 alias ebashrc='${EDITOR} ~/.bashrc.private'
 alias sourcebashrc='source ~/.bashrc.private'
