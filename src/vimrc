@@ -269,7 +269,7 @@ let &undodir=join(auxDump, ",")    " store undo files
 " ==> diff mode goodies
 if &diff
     " diff mode ignore white spaces
-    set diffopt+=iwhite
+    set diffopt+=iwhiteall
 
     " put/obtain line cursor is on
     nnoremap gdp V:diffput<cr>
