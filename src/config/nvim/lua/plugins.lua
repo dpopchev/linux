@@ -37,10 +37,9 @@ return require('packer').startup(function(use)
         },
     }
 
-    use {
-        'christoomey/vim-conflicted',
-        requires = {'tpope/vim-fugitive'}
-    }
+    use 'tpope/vim-fugitive'
+
+    use { 'akinsho/git-conflict.nvim', tag="*" }
 
     use 'mbbill/undotree'
 
