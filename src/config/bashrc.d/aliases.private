@@ -4,8 +4,8 @@ alias g="git"
 
 alias edit='${EDITOR}'
 
-alias ealiases='${EDITOR} ~/.config/bashrc.d/.aliases.private'
-alias sourcealiases='source ~/.config/bashrc.d/.aliases.private'
+alias ealiases='${EDITOR} ~/.config/bashrc.d/aliases.private'
+alias sourcealiases='source ~/.config/bashrc.d/aliases.private'
 
 alias ebashrc='${EDITOR} ~/.bashrc.private'
 alias sourcebashrc='source ~/.bashrc.private'
@@ -34,3 +34,5 @@ alias diff_ignore_blanks="diff --ignore-tab-expansion --ignore-space-change --ig
 
 alias diffpatch="diff -u"
 alias patch="patch -u -b"
+
+alias econflict='${EDITOR} +Conflicted -w'

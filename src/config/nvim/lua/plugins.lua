@@ -37,7 +37,10 @@ return require('packer').startup(function(use)
         },
     }
 
-    use 'tpope/vim-fugitive'
+    use {
+        'christoomey/vim-conflicted',
+        requires = {'tpope/vim-fugitive'}
+    }
 
     use 'mbbill/undotree'
 
@@ -75,8 +78,6 @@ return require('packer').startup(function(use)
     use 'mtth/scratch.vim'
 
     use 'Konfekt/vim-wsl-copy-paste'
-
-    use 'rhysd/conflict-marker.vim'
 
     use 'nelstrom/vim-visual-star-search'
 
