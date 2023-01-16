@@ -2,6 +2,10 @@
 
 LOGFILE="${HOME}/.local/var/log/backup.log"
 
+help () {
+    echo "usage: PASSPHRASE='pass'; "
+}
+
 log () {
     local logdir=$(dirname ${LOGFILE})
     [ ! -d "${logdir}" ] && mkdir --parents ${logdir}
