@@ -3,7 +3,12 @@
 LOGFILE="${HOME}/.local/var/log/backup.log"
 
 help () {
-    echo "usage: PASSPHRASE='pass'; "
+    echo "expecting external variables"
+    echo "-- BACKUP_USER, remote host user"
+    echo "-- BACKUP_HOST, remote host"
+    echo "-- BACKUP_PASS, passphrase to be used"
+    echo "-- BACKUP_TARGETS, path-like variable listing backup targets"
+    echo "Find log at: ${LOGFILE}"
 }
 
 log () {
