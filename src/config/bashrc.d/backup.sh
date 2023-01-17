@@ -51,4 +51,11 @@ backup_dir () {
     fi
 }
 
-backup_dir
+log "INFO" "Backup starting" 1
+
+if [[ -f ${CONFIG} ]]; then
+    source "${CONFIG}"
+else
+    log "ERROR" "Config file missing ${CONFIG}" 1
+    exit 2
+fi
