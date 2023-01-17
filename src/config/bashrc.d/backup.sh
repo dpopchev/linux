@@ -20,11 +20,13 @@ log () {
 }
 
 backup () {
+    log 'INFO -- Starting backup'
     local day=$(date +%U-%A)
-    local arguments=()
-    # arguments+=(-a --delete --quite --inplace)
-    # arguments+=(--backup --backup-dir=${DST}/${day})
-    # arguments+=(${SRC})
-    arguments+=('-T' '5')
-    wget ${arguments[*]} 192.168.1.99:5001
+    local options=('-a' '--delete' '--quiet')
+    wget ${arguments[*]} ${BACKUP_HOST}:5001 >> ${LOGFILE} 2>&1
+    if [[ $? -eq 0 ]]; then
+        log 'INFO -- backup succeed'
+    else
+        log 'ERROR -- backup failed'
+    fi
 }
