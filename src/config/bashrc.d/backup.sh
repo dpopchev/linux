@@ -1,16 +1,7 @@
 #!/usr/bin/env bash
 
 LOGFILE="${HOME}/.local/var/log/backup.log"
-
-help () {
-    echo "expecting external variables"
-    echo "-- BACKUP_USER, remote host user"
-    echo "-- BACKUP_HOST, remote host"
-    echo "-- BACKUP_DIR, remote host"
-    echo "-- BACKUP_PASS, passphrase to be used"
-    echo "-- BACKUP_TARGETS, path-like variable listing backup targets"
-    echo "Find log at: ${LOGFILE}"
-}
+CONFIG="${HOME}/.backuprc"
 
 log () {
     local logdir=$(dirname ${LOGFILE})
