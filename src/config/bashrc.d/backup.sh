@@ -16,8 +16,16 @@ log () {
     local logdir=$(dirname ${LOGFILE})
     [ ! -d "${logdir}" ] && mkdir --parents ${logdir}
 
+    local message="$1 -- $2"
+
     local timestamp=$(date "+%d-%m-%Y %H:%M:%S")
-    printf "${timestamp} -- ${*}\n" >> ${LOGFILE}
+    local log_message="${timestamp} -- ${message}\n"
+
+    printf "${log_message}" >> ${LOGFILE}
+
+    [[ ! -z $3 ]] && notify-send "backup.sh -- ${message}"
+}
+
 }
 
 backup_dir () {
