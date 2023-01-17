@@ -26,6 +26,15 @@ log () {
     [[ ! -z $3 ]] && notify-send "backup.sh -- ${message}"
 }
 
+usage () {
+    echo "Simple backup shell rsync wrapper"
+    echo "Config file location: ${CONFIG}"
+    echo "-- BACKUP_USER, remote host user"
+    echo "-- BACKUP_HOST, remote host"
+    echo "-- BACKUP_DIR, remote host"
+    echo "-- BACKUP_PASS, passphrase to be used"
+    echo "-- BACKUP_TARGETS, array of absolute paths to backup"
+    echo "Find log at: ${LOGFILE}"
 }
 
 backup_dir () {
