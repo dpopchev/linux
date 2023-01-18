@@ -75,7 +75,6 @@ else
     exit 2
 fi
 
-set -x
 for pair in "${BACKUP_TARGETS[@]}"; do
     while IFS=',' read -r method target; do
         ${method} $(realpath -s ${target})
