@@ -6,11 +6,11 @@ CONFIG="${HOME}/.backuprc"
 usage () {
     echo "Simple backup shell rsync wrapper"
     echo "Config file location: ${CONFIG}"
-    echo "-- BACKUP_USER, remote host user"
-    echo "-- BACKUP_HOST, remote host"
-    echo "-- BACKUP_DIR, remote host"
-    echo "-- BACKUP_PASS, passphrase to be used"
-    echo "-- BACKUP_TARGETS, array of absolute paths to backup"
+    echo "-- PASSFILE, passphrase to be used"
+    echo "-- RHOST, remote host"
+    echo "-- RUSER, remote host user"
+    echo "-- RHOME, remote host"
+    echo "-- BACKUP_TARGETS, tuples (operation,absolutepath) array;"
     echo "Find log at: ${LOGFILE}"
 }
 
