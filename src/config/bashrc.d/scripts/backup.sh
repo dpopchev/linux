@@ -2,6 +2,7 @@
 
 LOGFILE="${HOME}/.local/var/log/backup.log"
 CONFIG="${HOME}/.backuprc"
+SCRIPT=$(basename "$0")
 
 usage () {
     echo "Simple backup shell rsync wrapper"
@@ -29,7 +30,7 @@ log () {
 }
 
 sync () {
-    log "INFO" "$0 for $1"
+    log "INFO" "${SCRIPT} for $1"
 
     local day=$(date +%U-%A)
     local options=('-a' '--delete' '--quiet')
@@ -39,13 +40,13 @@ sync () {
         rsync ${options[*]} ${1} "${rhost}:${RHOME}/" >> ${LOGFILE} 2>&1
 
     if [[ $? -eq 0 ]]; then
-        log "INFO" "$0 succeed"
+        log "INFO" "${SCRIPT} succeed"
     else
-        log "ERROR" "backup failed"
+        log "ERROR" "$0 failed"
     fi
 }
 
-log "INFO" "Starting $0" 1
+log "INFO" "Starting ${SCRIPT}" 1
 
 if [[ -f ${CONFIG} ]]; then
     source "${CONFIG}"
