@@ -28,21 +28,24 @@ log () {
     [[ ! -z $3 ]] && notify-send "backup.sh -- ${message}"
 }
 
-backup_dir () {
-    log "INFO -- Starting backup_dir for ${1}"
+sync () {
+    log "INFO" "$0 for $1"
+
     local day=$(date +%U-%A)
     local options=('-a' '--delete' '--quiet')
+    local rhost="${RUSER}@${RHOST}"
 
-    rsync "${arguments[*]}" "${1}" "${BACKUP_USER}@${BACKUP_HOST}:${BACKUP_DIR}" >> ${LOGFILE} 2>&1
+    sshpass -f ${PASSFILE} \
+        rsync ${options[*]} ${1} "${rhost}:${RHOME}/" >> ${LOGFILE} 2>&1
 
     if [[ $? -eq 0 ]]; then
-        log 'INFO -- backup succeed'
+        log "INFO" "$0 succeed"
     else
-        log 'ERROR -- backup failed'
+        log "ERROR" "backup failed"
     fi
 }
 
-log "INFO" "Backup starting" 1
+log "INFO" "Starting $0" 1
 
 if [[ -f ${CONFIG} ]]; then
     source "${CONFIG}"
@@ -50,3 +53,9 @@ else
     log "ERROR" "Config file missing ${CONFIG}" 1
     exit 2
 fi
+
+for pair in "${BACKUP_TARGETS[@]}"; do
+    while IFS=',' read -r method target; do
+        ${method} ${target}
+    done <<< "${pair}"
+done
