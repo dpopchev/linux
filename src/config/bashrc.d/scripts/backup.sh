@@ -57,6 +57,8 @@ fi
 
 for pair in "${BACKUP_TARGETS[@]}"; do
     while IFS=',' read -r method target; do
-        ${method} ${target}
+        ${method} $(realpath -s ${target})
     done <<< "${pair}"
 done
+
+exit 0
