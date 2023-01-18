@@ -86,9 +86,9 @@ else
     esac
 fi
 
-for sh in ~/.config/bashrc.d/* ; do
-    [[ -r ${sh} ]] && source "${sh}"
-done
+while read -d $'\0' file; do
+    source "$file"
+done < <(find $HOME/.config/bashrc.d/ -maxdepth 1 -type f -print0)
 
 # needs field_prepend from user home bashrc.d/utils.sh
 field_prepend CDPATH ${HOME}
