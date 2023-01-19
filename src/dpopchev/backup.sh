@@ -21,12 +21,12 @@ log () {
 
     local message="$1 -- $2"
 
-    local timestamp=$(date "+%d-%m-%Y %H:%M:%S")
+    local timestamp=$(date "+%d/%m/%Y %H:%M:%S")
     local log_message="${timestamp} -- ${message}\n"
 
     printf "${log_message}" >> ${LOGFILE}
 
-    [[ ! -z $3 ]] && notify-send "backup.sh -- ${message}"
+    [[ ! -z $3 ]] && notify-send "${SCRIPT} -- ${message}"
 }
 
 sync_only () {
@@ -35,7 +35,7 @@ sync_only () {
     local options=("${ROPTIONS[@]}")
 
     sshpass -f ${PASSFILE} \
-        rsync ${options[*]} "${1}" "${RDESTINATION}" 2> ${LOGFILE}
+        rsync --dry-run ${options[*]} "${1}" "${RDESTINATION}" 2> ${LOGFILE}
 
     if [[ $? -eq 0 ]]; then
         log "INFO" "${SCRIPT} ${FUNCNAME[*]} succeed"
