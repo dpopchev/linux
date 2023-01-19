@@ -35,7 +35,7 @@ sync_only () {
     local options=("${ROPTIONS[@]}")
 
     sshpass -f ${PASSFILE} \
-        rsync --dry-run ${options[*]} "${1}" "${RDESTINATION}" 2> ${LOGFILE}
+        rsync ${options[*]} "${1}" "${RDESTINATION}" 2>> ${LOGFILE}
 
     if [[ $? -eq 0 ]]; then
         log "INFO" "${SCRIPT} ${FUNCNAME[*]} succeed"
@@ -54,7 +54,7 @@ sync_diff () {
     options+=("--backup-dir=diffs/diff-${timestamp}")
 
     sshpass -f ${PASSFILE} \
-        rsync --dry-run ${options[*]} "${1}" "${RDESTINATION}" 2> ${LOGFILE}
+        rsync ${options[*]} "${1}" "${RDESTINATION}" 2>> ${LOGFILE}
 
     if [[ $? -eq 0 ]]; then
         log "INFO" "${SCRIPT} ${FUNCNAME[*]} succeed"
