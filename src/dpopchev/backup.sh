@@ -29,14 +29,13 @@ log () {
     [[ ! -z $3 ]] && notify-send "backup.sh -- ${message}"
 }
 
-sync () {
+sync_only () {
     log "INFO" "${FUNCNAME[*]} for $1"
 
-    local options=('-a' '--delete' '--quiet' '--stats')
-    local rhost="${RUSER}@${RHOST}"
+    local options=("${ROPTIONS[@]}")
 
     sshpass -f ${PASSFILE} \
-        rsync ${options[*]} "${1}" "${rhost}:${RHOME}/" >> ${LOGFILE} 2>&1
+        rsync ${options[*]} "${1}" "${RDESTINATION}" 2> ${LOGFILE}
 
     if [[ $? -eq 0 ]]; then
         log "INFO" "${SCRIPT} ${FUNCNAME[*]} succeed"
@@ -48,15 +47,14 @@ sync () {
 sync_diff () {
     log "INFO" "${FUNCNAME[*]} for $1"
 
-    local timestamp=$(date +%U-%A-%H)
-    local options=('-a' '--delete' '--quiet' '--stats')
+    local options=("${ROPTIONS[@]}")
     options+=('--inplace' '--backup')
+
+    local timestamp=$(date +%U-%A-%H)
     options+=("--backup-dir=diffs/diff-${timestamp}")
 
-    local rhost="${RUSER}@${RHOST}"
-
     sshpass -f ${PASSFILE} \
-        rsync ${options[*]} "${1}" "${rhost}:${RHOME}/" >> ${LOGFILE} 2>&1
+        rsync --dry-run ${options[*]} "${1}" "${RDESTINATION}" 2> ${LOGFILE}
 
     if [[ $? -eq 0 ]]; then
         log "INFO" "${SCRIPT} ${FUNCNAME[*]} succeed"
@@ -64,7 +62,6 @@ sync_diff () {
         log "ERROR" "$0 ${FUNCNAME[*]} failed" 1
     fi
 }
-
 
 log "INFO" "Starting ${SCRIPT}" 1
 
@@ -75,7 +72,9 @@ else
     exit 2
 fi
 
-set -x
+RDESTINATION="${RUSER}@${RHOST}:${RHOME}/"
+ROPTIONS=('-a' '--delete' '--quiet' '--stats' "--log-file=${LOGFILE}")
+
 for pair in "${BACKUP_TARGETS[@]}"; do
     while IFS=',' read -r method target; do
         ${method} "$(realpath -s "${target}")"
