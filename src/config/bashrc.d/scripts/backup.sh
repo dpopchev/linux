@@ -32,11 +32,11 @@ log () {
 sync () {
     log "INFO" "${FUNCNAME[*]} for $1"
 
-    local options=('-a' '--delete' '--quiet')
+    local options=('-a' '--delete' '--quiet' '--stats')
     local rhost="${RUSER}@${RHOST}"
 
     sshpass -f ${PASSFILE} \
-        rsync ${options[*]} ${1} "${rhost}:${RHOME}/" >> ${LOGFILE} 2>&1
+        rsync ${options[*]} "${1}" "${rhost}:${RHOME}/" >> ${LOGFILE} 2>&1
 
     if [[ $? -eq 0 ]]; then
         log "INFO" "${SCRIPT} ${FUNCNAME[*]} succeed"
@@ -49,14 +49,14 @@ sync_diff () {
     log "INFO" "${FUNCNAME[*]} for $1"
 
     local timestamp=$(date +%U-%A-%H)
-    local options=('-a' '--delete' '--quiet')
+    local options=('-a' '--delete' '--quiet' '--stats')
     options+=('--inplace' '--backup')
     options+=("--backup-dir=diffs/diff-${timestamp}")
 
     local rhost="${RUSER}@${RHOST}"
 
     sshpass -f ${PASSFILE} \
-        rsync ${options[*]} ${1} "${rhost}:${RHOME}/" >> ${LOGFILE} 2>&1
+        rsync ${options[*]} "${1}" "${rhost}:${RHOME}/" >> ${LOGFILE} 2>&1
 
     if [[ $? -eq 0 ]]; then
         log "INFO" "${SCRIPT} ${FUNCNAME[*]} succeed"
@@ -75,9 +75,10 @@ else
     exit 2
 fi
 
+set -x
 for pair in "${BACKUP_TARGETS[@]}"; do
     while IFS=',' read -r method target; do
-        ${method} $(realpath -s ${target})
+        ${method} "$(realpath -s "${target}")"
     done <<< "${pair}"
 done
 
