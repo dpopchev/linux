@@ -228,8 +228,8 @@ nnoremap L :bnext<cr>
 
 " ==> makefile
 nnoremap gmm :make run FILE=%<bar>redraw!<bar>copen<cr>
-nnoremap gmd :make doctests FILE=%<bar>redraw!<bar>copen<cr>
-nnoremap gmt :make unittests FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap gmd :make doctest FILE=%<bar>redraw!<bar>copen<cr>
+nnoremap gmt :make unittest FILE=%<bar>redraw!<bar>copen<cr>
 nnoremap gml :make lint FILE=%<bar>redraw!<bar>copen<cr>
 nnoremap gmf :make format FILE=%<bar>redraw!<bar>copen<cr>
 nnoremap gmo :cclose<cr>
