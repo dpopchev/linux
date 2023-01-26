@@ -82,8 +82,6 @@ return require('packer').startup(function(use)
 
     use 'AndrewRadev/linediff.vim'
 
-    use 'github/copilot.vim'
-
     use {'hkupty/iron.nvim'}
 
 end)
