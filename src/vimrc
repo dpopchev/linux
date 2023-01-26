@@ -149,6 +149,8 @@ set concealcursor="inc"
 
 " ==> force disable ctrl + space
 inoremap <c-@> <nop>
+inoremap <c-space> <nop>
+nnoremap <c-space> <nop>
 
 " ==> better indent visual selection
 vnoremap < <gv
