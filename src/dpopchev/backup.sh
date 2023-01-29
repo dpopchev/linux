@@ -73,6 +73,11 @@ else
 fi
 
 RDESTINATION="${RUSER}@${RHOST}:${RHOME}/"
+if ping -c1 -w3 -q "${RHOST}" > /dev/null 2>&1; then
+    log "ERROR" "${RHOST} not reachable" 1
+    exit 1
+fi
+
 ROPTIONS=('-a' '--delete' '--quiet' '--stats' "--log-file=${LOGFILE}")
 
 for pair in "${BACKUP_TARGETS[@]}"; do
