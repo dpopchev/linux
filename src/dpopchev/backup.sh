@@ -73,7 +73,7 @@ else
 fi
 
 RDESTINATION="${RUSER}@${RHOST}:${RHOME}/"
-if ping -c1 -w3 -q "${RHOST}" > /dev/null 2>&1; then
+if ! ping -c1 -w3 -q "${RHOST}" > /dev/null 2>&1; then
     log "ERROR" "${RHOST} not reachable" 1
     exit 1
 fi
