@@ -84,4 +84,6 @@ return require('packer').startup(function(use)
 
     use {'hkupty/iron.nvim'}
 
+    use {'aklt/plantuml-syntax'}
+
 end)
