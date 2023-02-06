@@ -1,113 +1,198 @@
-### ---------------------------------------------------------------------------
-### Makefile to rule distribution of Linux configurations I use.
-### The goal is to create soft links to assure keeping track of changes in git.
-### Use with: make <target>
-SHELL := /usr/bin/env bash
+MAKEFLAGS += --warn-undefined-variables
 
-SRC := src
-HOME := ${HOME}
+SHELL := bash
+.SHELLFLAGS := -eu -o pipefail -c
 
-DUMMIES := .dummies
-$(DUMMIES):
-	mkdir --parents $@
-	@$(call APPEND_GITIGNORE,$@)
+.DELETE_ON_ERROR:
+.SUFFIXES:
 
-# utilities
-BACKUP = test ! -e '$(1)' || mv --force --no-target-directory --backup=numbered '$(1)' '$(1).bak'; true
-RESTORE = test ! -e '$(1)' || mv --force '$(1)' '$(2)'; true
-MKDIR = mkdir --parents '$(1)'
-LN = ln -s '$(realpath $(1))' '$(2)'
-RM = rm --force '$(1)'
-RM_DIR = rm --force --recursive '$(1)'
-FIND_LATEST_BACKUP = find $(dir $(1)) -maxdepth 1 \
-		     | grep -P $(notdir $(1)).bak\(~\d~\)\? | sort | head -n1
-APPEND_GITIGNORE = grep --quiet --line-regexp --fixed-strings $(1) .gitignore 2> /dev/null || echo $(1) >> .gitignore
-MSG_BACKUP = printf -- ">>>> backup: $(1)\n"
-MSG_INSTALL = printf -- "++++ install: $(1)\n"
-MSG_DONE = printf -- "!!!! done: $(1)\n"
-MSG_CLEAN = printf -- "---- clean: $(1)\n"
+.DEFAULT_GOAL := help
 
-.DEFAULT_GOAL: help
-.PHONY: help ### show this help menu
+.PHONY: help ### show this menu
 help:
-	@sed -nr '/#{3}/{s/\.PHONY: /-- /; s/#{3} /: /; p;}' ${MAKEFILE_LIST}
+	@sed -nr '/#{3}/{s/\.PHONY:/--/; s/\ *#{3}/:/; p;}' ${MAKEFILE_LIST}
 
-CONFIGS = $(shell ls -Iconfig $(SRC))
-CONFIGS_SRC := $(addprefix $(SRC)/,$(CONFIGS))
+FORCE:
 
-CONFIGS += nvim
-CONFIGS_SRC += $(SRC)/config/nvim
+reveal-%: FORCE
+	@echo $($*)
 
-CONFIGS += bashrc.d
-CONFIGS_SRC += $(SRC)/config/bashrc.d
+append-gitignore-%: FORCE
+	@grep --quiet --line-regexp --fixed-strings $* .gitignore 2> /dev/null \
+		|| echo $* >> .gitignore
 
-CONFIGS_DST := $(patsubst $(SRC)/%,$(HOME)/.%,$(CONFIGS_SRC))
-CONFIGS_BAK := $(foreach config,$(CONFIGS_DST),$(shell $(call FIND_LATEST_BACKUP,$(config))))
+remove-gitignore-%: FORCE
+	sed --in-place '/$*/d' .gitignore
 
-.PHONY: print-configs ### print configurations names
-print-configs:
-	@echo $(CONFIGS)
+src-dir := src
+src-config-dir := $(src-dir)/config
+src-xfce4-dir := $(src-config-dir)/xfce4
 
-.PHONY: print-sources ### print full configuration paths
-print-sources:
-	@echo $(CONFIGS_SRC)
+stamp-dir := .stamps
+stamp-backup-dir := $(stamp-dir)/backups
+stamp-install-dir := $(stamp-dir)/installs
+stamp-uninstall-dir := $(stamp-dir)/uninstalls
 
-.PHONY: print-destinations ### print configurations destination paths
-print-destinations:
-	@echo $(CONFIGS_DST)
+$(stamp-dir) $(stamp-backup-dir) $(stamp-install-dir) $(stamp-uninstall-dir):
+	@mkdir --parents $@
 
-.PHONY: print-backups ### print found latest backups, if existing, per destination
-print-backups:
-	@echo $(CONFIGS_BAK)
+.PHONY: stampdir
+stampdir: $(stamp-dir) append-gitignore-$(stamp-dir)/
 
-INSTALL := $(addprefix install-,$(CONFIGS))
-INSTALL += install-vim-home
-.PHONY: $(INSTALL)
-$(INSTALL): install-%: $(DUMMIES)/%.dummy
-	@$(call MSG_DONE,$@)
+all-srcs := $(wildcard $(src-dir)/*)
+all-srcs := $(filter-out $(src-config-dir),$(all-srcs))
+all-srcs += $(wildcard $(src-config-dir)/*)
+all-srcs := $(filter-out $(src-xfce4-dir),$(all-srcs))
+all-srcs += $(wildcard $(src-xfce4-dir)/*)
 
-$(DUMMIES)/%.dummy: | $(DUMMIES)
-	@$(call MSG_BACKUP,$(filter %$*,$(CONFIGS_DST)))
-	$(call BACKUP,$(filter %$*,$(CONFIGS_DST)))
-	@$(call MSG_INSTALL,$*)
-	$(call LN,$(filter %$*,$(CONFIGS_SRC)),$(filter %$*,$(CONFIGS_DST)))
+all-dsts := $(subst $(src-dir)/,${HOME}/.,$(all-srcs))
+
+restore-%: FORCE
+
+backup-suffix := dpopchevbak
+$(stamp-backup-dir)/%.stamp: | $(stamp-backup-dir)
+	@if [[ -e $(filter %$*,$(all-dsts)) ]]; then \
+		echo '-- backup $(filter %$*,$(all-dsts))'; \
+		mv --force --no-target-directory --backup=numbered \
+		$(filter %$*,$(all-dsts)) $(filter %$*,$(all-dsts)).$(backup-suffix); \
+	fi
+	@mkdir --parents $(dir $@)
+	@rm --force $(stamp-uninstall-dir)/$*.stamp
 	@touch $@
 
-UNINSTALL := $(addprefix uninstall-,$(CONFIGS))
-.PHONY: $(UNINSTALL)
-$(UNINSTALL): uninstall-%:
-	$(call RM,$(filter %$*,$(CONFIGS_DST)))
-	$(call RESTORE,$(shell $(call FIND_LATEST_BACKUP,$(filter %$*,$(CONFIGS_DST)))),$(filter %$*,$(CONFIGS_DST)))
-	$(call RM,$(DUMMIES)/$*.dummy)
-
-VIM_HOME := $(HOME)/.vim
-$(DUMMIES)/vim-home.dummy: | $(DUMMIES)
-	@$(call MSG_BACKUP,$(VIM_HOME))
-	$(call BACKUP,$(VIM_HOME))
-	@$(call MSG_INSTALL,$*)
-	mkdir --parents $(VIM_HOME)/tmp
+$(stamp-install-dir)/%.stamp: | $(stamp-install-dir)
+	@echo '-- install $(notdir $*)'
+	@mkdir --parents $(dir $(filter %$*,$(all-dsts)))
+	@ln -s $(realpath $(filter %$*,$(all-srcs))) $(filter %$*,$(all-dsts))
+	@mkdir --parents $(dir $@)
 	@touch $@
 
-.PHONY: uninstall-vim-home
-uninstall-vim-home:
-	@$(call RM_DIR,$(VIM_HOME))
-	@$(call RESTORE,$(shell $(call FIND_LATEST_BACKUP,$(VIM_HOME))),$(VIM_HOME))
-	@$(call RM,$(DUMMIES)/vim-home.dummy)
+$(stamp-uninstall-dir)/%.stamp: | $(stamp-uninstall-dir)
+	@if [[ ! -e $(stamp-install-dir)/$*.stamp ]]; then\
+		echo '-- cannot proceed, installation stamp missing for $(notdir $*)'; \
+		exit 2;\
+	fi
+	@rm --force $(filter %$*,$(all-dsts))
+	@if [[ -e $(filter %$*,$(all-dsts)).$(backup-suffix) ]]; then \
+		echo '-- restore $*'; \
+		mv --force \
+		$(filter %$*,$(all-dsts)).$(backup-suffix) $(filter %$*,$(all-dsts)); \
+	else \
+		echo '-- no backup found $*'; \
+		echo '---- restore manually by looking up at $(dir $(filter %$*,$(all-dsts)))'; \
+		echo '---- for files with extension of the form $(backup-suffix).~\d~'; \
+	fi
+	@rm --force $(stamp-install-dir)/$*.stamp
+	@rm --force $(stamp-backup-dir)/$*.stamp
 
-.PHONY: install-vim ### vim8 config; vimrc and .vim/ dir under user home
-install-vim: install-vimrc install-vim-home
-	@$(call MSG_DONE,$@)
+all-install-goals :=
+all-uninstall-goals :=
 
+bash-srcs := bashrc.private config/bashrc.d
+bash-stamps := $(bash-srcs:=.stamp)
+bash-steps := $(addprefix $(stamp-backup-dir)/,$(bash-stamps))
+bash-steps += $(addprefix $(stamp-install-dir)/,$(bash-stamps))
+
+all-install-goals += install-bash
+.PHONY: install-bash ### bashrc.private and config/bashrc.d
+install-bash: $(bash-steps)
+
+all-uninstall-goals += uninstall-bash
+.PHONY: uninstall-bash
+uninstall-bash: $(addprefix $(stamp-uninstall-dir)/,$(bash-stamps))
+
+single-srcs := ctags gitconfig inputrc dpopchev
+
+single-install-goals := $(addprefix install-,$(single-srcs))
+all-install-goals += $(single-install-goals)
+.PHONY: $(single-install-goals)
+$(single-install-goals): install-%: $(stamp-backup-dir)/%.stamp $(stamp-install-dir)/%.stamp
+
+single-uninstall-goals := $(addprefix uninstall-,$(single-srcs))
+all-uninstall-goals += $(single-uninstall-goals)
+.PHONY: $(single-uninstall-goals)
+$(single-uninstall-goals): uninstall-%: $(stamp-uninstall-dir)/%.stamp
+
+vim-home := $(HOME)/.vim
+vim-srcs := vimrc
+vim-stamps := $(vim-srcs:=.stamp)
+vim-steps := $(addprefix $(stamp-backup-dir)/,$(vim-stamps))
+vim-steps += $(addprefix $(stamp-install-dir)/,$(vim-stamps))
+
+all-install-goals += install-vim
+.PHONY: install-vim ### vimrc and $(HOME)/.vim
+install-vim: $(vim-steps)
+	@if [[ -e $(vim-home) ]]; then\
+		mv --force --no-target-directory --backup=numbered \
+		$(vim-home) $(vim-home).$(backup-suffix);\
+	fi
+	@mkdir --parents $(vim-home)/tmp
+
+all-uninstall-goals += uninstall-vim
 .PHONY: uninstall-vim
-uninstall-vim: uninstall-vimrc uninstall-vim-home
-	@$(call MSG_DONE,$@)
+uninstall-vim: $(addprefix $(stamp-uninstall-dir)/,$(vim-stamps))
+	@rm --force --recursive $(vim-home)/
+	@if [[ -e $(vim-home).$(backup-suffix) ]]; then\
+		mv --force --no-target-directory --backup=numbered $(vim-home).$(backup-suffix) $(vim-home);\
+	fi
 
-.PHONY: install-bashrc ### bashrc.private and bashrc.d under config user home
-install-bashrc: install-bashrc.private install-bashrc.d
-	@$(call MSG_DONE,$@)
+nvim-srcs := config/nvim
+nvim-stamps := $(nvim-srcs:=.stamp)
+nvim-steps := $(addprefix $(stamp-backup-dir)/,$(nvim-stamps))
+nvim-steps += $(addprefix $(stamp-install-dir)/,$(nvim-stamps))
+nvim-steps += install-vim
 
-.PHONY: uninstall-bashrc
-uninstall-bashrc: uninstall-bashrc.private uninstall-bashrc.d
-	@$(call MSG_DONE,$@)
+all-install-goals += install-nvim
+.PHONY: install-nvim ### vim and neovim specific
+install-nvim: $(nvim-steps)
 
-.PHONY: install-nvim ### neovim0.8 config
+all-uninstall-goals += uninstall-nvim
+.PHONY: uninstall-nvim
+uninstall-nvim: $(addprefix $(stamp-uninstall-dir)/,$(nvim-stamps)) uninstall-vim
+
+i3-config-srcs := config/i3
+i3-config-stamp := $(i3-config-srcs:=.stamp)
+i3-config-steps := $(addprefix $(stamp-backup-dir)/,$(i3-config-stamp))
+i3-config-steps += $(addprefix $(stamp-install-dir)/,$(i3-config-stamp))
+
+.PHONY: install-i3-config
+install-i3-config: $(i3-config-steps)
+
+.PHONY: uninstall-i3-config
+uninstall-i3-config: $(addprefix $(stamp-uninstall-dir)/,$(i3-config-stamp))
+
+i3-status-srcs := config/i3status
+i3-status-stamp := $(i3-status-srcs:=.stamp)
+i3-status-steps := $(addprefix $(stamp-backup-dir)/,$(i3-status-stamp))
+i3-status-steps +=$(addprefix $(stamp-install-dir)/,$(i3-status-stamp))
+
+.PHONY: install-i3-status
+install-i3-status: $(i3-status-steps)
+
+.PHONY: uninstall-i3-status
+uninstall-i3-status: $(addprefix $(stamp-uninstall-dir)/,$(i3-status-stamp))
+
+all-install-goals += install-i3
+.PHONY: install-i3 ### configs for i3 and i3status
+install-i3: install-i3-config install-i3-status
+
+all-uninstall-goals += uninstall-i3
+.PHONY: uninstall-i3
+uninstall-i3: uninstall-i3-config uninstall-i3-status
+
+xfce4-terminal-srcs := config/xfce4/terminal
+xfce4-terminal-stamps := $(xfce4-terminal-srcs:=.stamp)
+xfce4-terminal-steps := $(addprefix $(stamp-backup-dir)/,$(xfce4-terminal-stamps))
+xfce4-terminal-steps += $(addprefix $(stamp-install-dir)/,$(xfce4-terminal-stamps))
+
+.PHONY: install-xfce4-terminal
+install-xfce4-terminal: $(xfce4-terminal-steps)
+
+.PHONY: uninstall-xfce4-terminal
+uninstall-xfce4-terminal: $(addprefix $(stamp-uninstall-dir)/,$(xfce4-terminal-stamps))
+
+.PHONY: install ### install all at once
+install: $(all-install-goals)
+
+.PHONY: uninstall ### uninstall all at once
+uninstall: $(all-uninstall-goals)

@@ -3,3 +3,4 @@ packer_compiled.lua
 .dummies
 .dummies/
 .luarc.json
+.stamps/
