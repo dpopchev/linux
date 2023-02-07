@@ -34,3 +34,5 @@ alias diff_ignore_blanks="diff --ignore-tab-expansion --ignore-space-change --ig
 
 alias diffpatch="diff -u"
 alias patch="patch -u -b"
+
+alias groot='cd $(git root)'

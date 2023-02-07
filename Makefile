@@ -27,6 +27,7 @@ remove-gitignore-%: FORCE
 src-dir := src
 src-config-dir := $(src-dir)/config
 src-xfce4-dir := $(src-config-dir)/xfce4
+src-xresources-dir := $(src-config-dir)/Xresources.d
 
 stamp-dir := .stamps
 stamp-backup-dir := $(stamp-dir)/backups
@@ -44,6 +45,8 @@ all-srcs := $(filter-out $(src-config-dir),$(all-srcs))
 all-srcs += $(wildcard $(src-config-dir)/*)
 all-srcs := $(filter-out $(src-xfce4-dir),$(all-srcs))
 all-srcs += $(wildcard $(src-xfce4-dir)/*)
+all-srcs := $(filter-out $(src-xresources-dir)/,$(all-srcs))
+all-srcs += $(wildcard $(src-xresources-dir)/*)
 
 all-dsts := $(subst $(src-dir)/,${HOME}/.,$(all-srcs))
 
@@ -190,6 +193,22 @@ install-xfce4-terminal: $(xfce4-terminal-steps)
 
 .PHONY: uninstall-xfce4-terminal
 uninstall-xfce4-terminal: $(addprefix $(stamp-uninstall-dir)/,$(xfce4-terminal-stamps))
+
+xresources-conf := $(HOME)/.Xresources
+xresources-home := $(HOME)/.config/Xresources.d
+xresources-xft-srcs := config/Xresources.d/xft
+xresources-xft-stamps := $(xresources-xft-srcs:=.stamp)
+xresources-xft-steps := $(addprefix $(stamp-backup-dir)/,$(xresources-xft-stamps))
+xresources-xft-steps += $(addprefix $(stamp-install-dir)/,$(xresources-xft-stamps))
+
+.PHONY: install-xresources-xft
+install-xresources-xft: $(xresources-xft-steps)
+	@grep --quiet --line-regexp --fixed-strings xft $(xresources-conf) 2> /dev/null \
+		|| echo '#include "$(xresources-home)/xft"' >> $(xresources-conf)
+
+.PHONY: uninstall-xresources-xft
+uninstall-xresources-xft: $(addprefix $(stamp-uninstall-dir)/,$(xresources-xft-stamps))
+	@sed --in-place '/xft/d' $(xresources-conf)
 
 .PHONY: install ### install all at once
 install: $(all-install-goals)

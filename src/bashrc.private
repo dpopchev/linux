@@ -91,8 +91,8 @@ while read -d $'\0' file; do
 done < <(find $HOME/.config/bashrc.d/ -maxdepth 1 -type f -print0)
 
 # needs field_prepend from user home bashrc.d/utils.sh
-field_prepend CDPATH ${HOME}
-field_prepend CDPATH ${HOME}/projects
+prepend_field CDPATH ${HOME}
+prepend_field CDPATH ${HOME}/projects
 
 # show the closes directory parent in the PS1
 PROMPT_DIRTRIM=2
@@ -133,4 +133,4 @@ export EDITOR='nvim'
 export VISUAL='nvim'
 export PAGER='less -R'
 
-field_prepend PATH ~/.local/bin
+prepend_field PATH ~/.local/bin
