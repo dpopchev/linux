@@ -51,7 +51,7 @@ nnoremap gk m`:-g/\m^\s*$/d<cr>``:noh<cr>
 " ==> line numbering
 set number
 set relativenumber
-set signcolumn=number
+" set signcolumn=number
 
 " ==> alternate line numbering per mode
 " set relativenumber nonumber
