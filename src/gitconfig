@@ -25,6 +25,7 @@
         sweep = !git master && git fetch --prune && git branch -v --merged | sed -rn 's/^[[:blank:]]*([[:alnum:]\\/-]+)[[:blank:]]+\\w{7}[[:blank:]]+\\[gone\\][[:graph:][:blank:]]*/\\1/p' | xargs git branch -d
         f = !git fetch && git checkout
         gl = config --global --list
+        root = rev-parse --show-toplevel
 [pretty]
         pretty-log = format:%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]
 [filter "gitignore"]

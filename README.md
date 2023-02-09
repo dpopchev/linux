@@ -1,15 +1,34 @@
-# Introduction
+# linux
 
-Place to store general purpose valuable configs.
+Collection of configurations to easily distribute when needed.
 
-# Usage
+## Quick start
 
+```bash
+git clone https://github.com/dpopchev/linux.git
+cd linux
+make install
 ```
-make # prints help
-make all # does all targets
-make clean # cleans up installation
+
+## Overview
+
+Under `src` you can find typical tree structure for `Linux` user home.
+
+The project provides interface via `make` and its goals to install/uninstall
+configurations.
+
+Installation goals are formed as `install-<configname>` and have uninstall counterpart.
+
+### Requirements
+
+GNU/make and its [standard utilities](https://www.gnu.org/software/make/manual/make.html#Utilities-in-Makefiles)
+
+### Installation
+
+See `Quick start` or `Usage` below for detailed.
+
+### Installation goals
+
+```bash
+make help
 ```
-
-# Caveats
-
-__SSL_INIT__ is printed, and cannot be suppressed for now, when urxvt plugins are downloaded via `wget`
