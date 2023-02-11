@@ -37,4 +37,4 @@ alias patch="patch -u -b"
 
 alias groot='cd $(git root)'
 
-alias sshagent='ssh-add -l || eval $(ssh-agent -s); ssh-add ~/.ssh/*_id'
+alias sshagent='ssh-add -l || eval $(ssh-agent -s); ssh-add -t 120 ~/.ssh/*_id'
