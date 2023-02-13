@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 alias g="git"
+alias gitemail='git config user.email ""'
+alias gituser='git config user.name "Dimitar Popchev"'
 
 alias edit='${EDITOR}'
 
