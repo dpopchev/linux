@@ -280,7 +280,7 @@ end
 
 local function collect_server_settings()
     return {
-        sumneko_lua = get_sumneko_settings(),
+        lua_ls = get_sumneko_settings(),
         jedi_language_server = get_jedi_language_server_settings()
     }
 end
