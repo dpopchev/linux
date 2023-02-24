@@ -76,7 +76,7 @@ return require('packer').startup(function(use)
 
     use 'mtth/scratch.vim'
 
-    use 'Konfekt/vim-wsl-copy-paste'
+    -- use 'Konfekt/vim-wsl-copy-paste'
 
     use 'nelstrom/vim-visual-star-search'
 
