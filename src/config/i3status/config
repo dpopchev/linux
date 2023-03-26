@@ -14,17 +14,17 @@ general {
         color_bad = "#ff5555"
 }
 
+order += "load"
+load {
+        format = "[%1min %5min %15min]"
+        max_threshold = "5.0"
+}
+
 order += "cpu_usage"
 cpu_usage {
         format = "CPU %usage"
         degraded_threshold = 75
         max_threshold = 90
-}
-
-order += "load"
-load {
-        format = "[%1min %5min %15min]"
-        max_threshold = "5.0"
 }
 
 order += 'cpu_temperature 0'
