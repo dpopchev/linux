@@ -68,6 +68,10 @@ bindsym $mod+d exec --no-startup-id dmenu_run
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
+# picture-in-pciture made visiable to all worskapces and without border
+for_window [title="Picture-in-Picture"] sticky enable
+for_window [title="Picture-in-Picture"] border pixel 0
+
 set $aleft h
 set $adown j
 set $aup k
