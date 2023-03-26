@@ -14,6 +14,12 @@ general {
         color_bad = "#ff5555"
 }
 
+order += 'disk /'
+disk "/" {
+        format = "HDD %avail"
+        low_threshold = 10
+}
+
 order += "cpu_usage"
 cpu_usage {
         format = "CPU %usage"
@@ -32,12 +38,6 @@ memory {
         format = "RAM %percentage_used"
         threshold_degraded = 25
         threshold_critical = 10
-}
-
-order += 'disk /'
-disk "/" {
-        format = "Disk %avail"
-        low_threshold = 10
 }
 
 order += "battery all"
