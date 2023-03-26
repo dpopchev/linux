@@ -14,6 +14,33 @@ general {
         color_bad = "#ff5555"
 }
 
+order += "cpu_usage"
+cpu_usage {
+        format = "CPU %usage"
+        degraded_threshold = 75
+        max_threshold = 90
+}
+
+order += "load"
+load {
+        format = "[%1min %5min %15min]"
+        max_threshold = "5.0"
+}
+
+order += 'cpu_temperature 0'
+cpu_temperature 0 {
+        format="CPU %degrees °C"
+        max_threshold = 75
+}
+
+order += 'memory'
+memory {
+        format = "RAM %percentage_used"
+        threshold_degraded = 25
+        threshold_critical = 10
+}
+
+
 order += 'disk /'
 disk "/" {
         format = "HDD %avail"
@@ -60,26 +87,6 @@ battery 1 {
         status_bat = 'BAT'
         status_unk = 'UNK'
         status_full = 'FULL'
-}
-
-order += "cpu_usage"
-cpu_usage {
-        format = "CPU %usage"
-        degraded_threshold = 75
-        max_threshold = 90
-}
-
-order += "load"
-load {
-        format = "Load %1min %5min %15min"
-        max_threshold = "5.0"
-}
-
-order += 'memory'
-memory {
-        format = "RAM %percentage_used"
-        threshold_degraded = 25
-        threshold_critical = 10
 }
 
 order += "tztime local"
