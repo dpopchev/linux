@@ -40,23 +40,10 @@ memory {
         threshold_critical = 10
 }
 
-
 order += 'disk /'
 disk "/" {
         format = "HDD %avail"
         low_threshold = 10
-}
-
-order += "wireless _first_"
-wireless _first_ {
-        format_up = "W: %essid"
-        format_down = "W: down"
-}
-
-order += "ethernet _first_"
-ethernet _first_ {
-        format_up = "E: %ip"
-        format_down = "E: down"
 }
 
 order += "battery 0"
@@ -88,6 +75,19 @@ battery 1 {
         status_unk = 'UNK'
         status_full = 'FULL'
 }
+
+order += "wireless _first_"
+wireless _first_ {
+        format_up = "W: %essid"
+        format_down = "W: down"
+}
+
+order += "ethernet _first_"
+ethernet _first_ {
+        format_up = "E: %ip"
+        format_down = "E: down"
+}
+
 
 order += "tztime local"
 tztime local {
