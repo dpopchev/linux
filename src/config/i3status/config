@@ -20,6 +20,12 @@ disk "/" {
         low_threshold = 10
 }
 
+order += "wireless _first_"
+wireless _first_ {
+        format_up = "W: %essid"
+        format_down = "W: down"
+}
+
 order += "cpu_usage"
 cpu_usage {
         format = "CPU %usage"
@@ -53,12 +59,6 @@ battery all {
         status_bat = 'BAT'
         status_unk = 'UNK'
         status_full = 'FULL'
-}
-
-order += "wireless _first_"
-wireless _first_ {
-        format_up = "WiFi %quality (%bitrate)"
-        format_down = "W: down"
 }
 
 order += "ethernet _first_"
