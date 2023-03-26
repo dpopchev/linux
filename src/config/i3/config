@@ -84,6 +84,10 @@ bindsym $mod+Shift+$adown move down
 bindsym $mod+Shift+$aup move up
 bindsym $mod+Shift+$aright move right
 
+# toggle split direction for each window
+default_orientation vertical
+for_window [class="^"] split toggle
+
 # split in horizontal orientation
 bindsym $mod+Shift+v split h
 
