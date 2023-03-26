@@ -26,6 +26,12 @@ wireless _first_ {
         format_down = "W: down"
 }
 
+order += "ethernet _first_"
+ethernet _first_ {
+        format_up = "E: %ip"
+        format_down = "E: down"
+}
+
 order += "cpu_usage"
 cpu_usage {
         format = "CPU %usage"
@@ -59,12 +65,6 @@ battery all {
         status_bat = 'BAT'
         status_unk = 'UNK'
         status_full = 'FULL'
-}
-
-order += "ethernet _first_"
-ethernet _first_ {
-        format_up = "E: %ip (%speed)"
-        format_down = "E: down"
 }
 
 order += "tztime local"
