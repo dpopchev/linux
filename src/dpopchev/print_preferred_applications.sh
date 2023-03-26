@@ -2,8 +2,12 @@
 
 declare -A APPS
 
-APPS[tlp]='Service for laptop power management and battery threshold'
-APPS[xfce4-power-manager]='power manager with settings, enables brightness buttons'
+APPS[tlp]='Service for laptop power management and battery threshold, see tlpui'
+APPS[dmenu]='Program launcher'
+APPS[i3lock]='Screen locker'
+APPS[i3status]='Status bar generator'
+APPS[xss-lock]='Interface hooking up locker to screen saver'
+APPS[brightnessctl]='Read and control device brightness'
 
 print_apps(){
     for app in "${!APPS[@]}"; do
