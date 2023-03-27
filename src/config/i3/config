@@ -98,7 +98,7 @@ default_orientation vertical
 for_window [class="^"] split toggle
 
 # split in horizontal orientation
-bindsym $mod+Shift+v split h
+bindsym $mod+g split h
 
 # split in vertical orientation
 bindsym $mod+v split v
