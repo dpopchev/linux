@@ -104,7 +104,7 @@ all-uninstall-goals += uninstall-bash
 .PHONY: uninstall-bash
 uninstall-bash: $(addprefix $(stamp-uninstall-dir)/,$(bash-stamps))
 
-single-srcs := ctags gitconfig inputrc dpopchev
+single-srcs := ctags gitconfig inputrc dpopchev xxkbrc
 
 single-install-goals := $(addprefix install-,$(single-srcs))
 all-install-goals += $(single-install-goals)

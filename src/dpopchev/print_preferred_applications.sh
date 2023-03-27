@@ -10,6 +10,7 @@ APPS[xss-lock]='Interface hooking up locker to screen saver'
 APPS[brightnessctl]='Read and control device brightness'
 APPS[dunst]='Lightweight replacement for notification daemon'
 APPS[arandr]='xrandr front end'
+APPS[xxkb]='Indicator keyboard layout and keep track set per window'
 
 print_apps(){
     for app in "${!APPS[@]}"; do

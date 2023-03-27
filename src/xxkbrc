@@ -1,0 +1,35 @@
+XXkb.mainwindow.enable: yes
+XXkb.mainwindow.appicon: no
+XXkb.mainwindow.type: tray
+XXkb.mainwindow.in_tray: true
+XXkb.mainwindow.border.width: 0
+XXkb.mainwindow.border.color: white
+XXkb.mainwindow.geometry: 20x16+0+0
+XXkb.mainwindow.label.enable: yes
+XXkb.mainwindow.label.text.1: us
+XXkb.mainwindow.label.text.2: bg
+XXkb.mainwindow.label.background: #000000
+XXkb.mainwindow.label.foreground: gray
+XXkb.mainwindow.label.font: -misc-*-r-*-16-*
+
+XXkb.controls.focusout: no
+XXkb.controls.two_state: no
+XXkb.controls.add_when_start: yes
+XXkb.controls.add_when_create: yes
+XXkb.controls.add_when_change: no
+
+XXkb.group.alt: 2
+XXkb.group.base: 1
+
+XXkb.button.enable: no
+/* XXkb.button.border.width: 0 */
+/* XXkb.button.border.color: #777777 */
+/* XXkb.button.geometry: 15x12+50+0 */
+/* XXkb.button.label.enable: true */
+/* XXkb.button.label.font: -misc-*-r-*-16-* */
+/* XXkb.button.label.background: #222222 */
+/* XXkb.button.label.foreground: gray */
+/* XXkb.button.label.text.1: us */
+/* XXkb.button.label.text.2: bg */
+
+XXkb.bell.enable: no
