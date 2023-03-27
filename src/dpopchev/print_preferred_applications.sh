@@ -11,6 +11,7 @@ APPS[brightnessctl]='Read and control device brightness'
 APPS[dunst]='Lightweight replacement for notification daemon'
 APPS[arandr]='xrandr front end'
 APPS[xxkb]='Indicator keyboard layout and keep track set per window'
+APPS[redshift]='Manage red color depending on day/time'
 
 print_apps(){
     for app in "${!APPS[@]}"; do
