@@ -167,7 +167,7 @@ uninstall-i3-config: $(addprefix $(stamp-uninstall-dir)/,$(i3-config-stamp))
 i3-status-srcs := config/i3status
 i3-status-stamp := $(i3-status-srcs:=.stamp)
 i3-status-steps := $(addprefix $(stamp-backup-dir)/,$(i3-status-stamp))
-i3-status-steps +=$(addprefix $(stamp-install-dir)/,$(i3-status-stamp))
+i3-status-steps += $(addprefix $(stamp-install-dir)/,$(i3-status-stamp))
 
 .PHONY: install-i3-status
 install-i3-status: $(i3-status-steps)
