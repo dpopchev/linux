@@ -14,12 +14,12 @@ general {
         color_bad = "#ff5555"
 }
 
-order += "cpu_usage"
-cpu_usage {
-        format = "CPU %usage"
-        degraded_threshold = 75
-        max_threshold = 90
+order += 'cpu_temperature 0'
+cpu_temperature 0 {
+        format="CPU %degrees °C"
+        max_threshold = 75
 }
+
 
 order += "load"
 load {
@@ -27,10 +27,11 @@ load {
         max_threshold = "5.0"
 }
 
-order += 'cpu_temperature 0'
-cpu_temperature 0 {
-        format="CPU %degrees °C"
-        max_threshold = 75
+order += "cpu_usage"
+cpu_usage {
+        format = "CPU %usage"
+        degraded_threshold = 75
+        max_threshold = 90
 }
 
 order += 'memory'
