@@ -36,6 +36,7 @@ bindsym $mod+BackSpace exec --no-startup-id xset s activate
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+exec --no-startup-id bash ~/.dpopchev/disable_touchpad.sh
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
