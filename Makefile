@@ -164,6 +164,17 @@ install-i3-config: $(i3-config-steps)
 .PHONY: uninstall-i3-config
 uninstall-i3-config: $(addprefix $(stamp-uninstall-dir)/,$(i3-config-stamp))
 
+redshift-config-srcs := config/redshift.conf
+redshift-config-stamp := $(redshift-config-srcs:=.stamp)
+redshift-config-steps := $(addprefix $(stamp-backup-dir)/,$(redshift-config-stamp))
+redshift-config-steps += $(addprefix $(stamp-install-dir)/,$(redshift-config-stamp))
+
+.PHONY: install-redshift-config
+install-redshift-config: $(redshift-config-steps)
+
+.PHONY: uninstall-redshift-config
+uninstall-redshift-config: $(addprefix $(stamp-uninstall-dir)/,$(redshift-config-stamp))
+
 i3-status-srcs := config/i3status
 i3-status-stamp := $(i3-status-srcs:=.stamp)
 i3-status-steps := $(addprefix $(stamp-backup-dir)/,$(i3-status-stamp))
