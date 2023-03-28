@@ -36,6 +36,7 @@ bindsym $mod+BackSpace exec --no-startup-id xset s activate
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 exec --no-startup-id redshift
+exec --no-startup-id /usr/bin/lxqt-policykit-agent
 exec_always --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ 1
 exec_always --no-startup-id bash ~/.dpopchev/disable_touchpad.sh
 exec_always --no-startup-id setxkbmap -layout us,bg -option grp:alt_shift_toggle
