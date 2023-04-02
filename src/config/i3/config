@@ -40,6 +40,7 @@ exec --no-startup-id /usr/bin/lxqt-policykit-agent
 exec_always --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ 1
 exec_always --no-startup-id setxkbmap -layout us,bg -option grp:alt_shift_toggle
 exec_always --no-startup-id killall xxkb; xxkb
+exec_always --no-startup-id sudo rmmod uvcvideo
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -49,6 +50,7 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 5%-
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s +5%
+bindsym XF86Display exec --no-startup-id bash ~/.dpopchev/toggle_kernel_module.sh uvcvideo
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
