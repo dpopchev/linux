@@ -198,8 +198,8 @@ bindsym $mod+r mode "resize"
 
 set $mode_display External Screen (c,C) USB-C ON/OFF
 mode "$mode_display" {
-    bindsym c exec --no-startup-id bash ~/.dpopchev/xscreenlayout.sh 'DP-1' 'ON', mode "default"
-    bindsym Shift+c exec --no-startup-id bash ~/.dpopchev/xscreenlayout.sh 'DP-1' 'OFF', mode "default"
+    bindsym c exec --no-startup-id bash ~/.dpopchev/apply_xscreenlayout.sh 'DP-1' 'ON', mode "default"
+    bindsym Shift+c exec --no-startup-id bash ~/.dpopchev/apply_xscreenlayout.sh 'DP-1' 'OFF', mode "default"
 
     # back to normal: Enter or Escape or $mod+r
     bindsym Return mode "default"
