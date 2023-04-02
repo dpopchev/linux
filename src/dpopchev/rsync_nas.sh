@@ -52,4 +52,6 @@ notify-send "$scriptname: starting, see $logfile"
 cat /dev/null > $logfile
 sshpass -f ${PASSFILE} rsync "${rsync_opts[@]}" "${normalized_srcs[*]}" "${destination}"
 
+notify-send "$scriptname: finished, see $logfile"
+
 exit 0
