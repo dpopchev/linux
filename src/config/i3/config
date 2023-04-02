@@ -96,8 +96,8 @@ bindsym $mod+Shift+$aup move up
 bindsym $mod+Shift+$aright move right
 
 # toggle split direction for each window
-default_orientation vertical
-for_window [class="^"] split toggle
+default_orientation horizontal
+# for_window [class="^"] split toggle
 
 # split in horizontal orientation
 bindsym $mod+g split h
