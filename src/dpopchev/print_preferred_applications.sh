@@ -15,10 +15,6 @@ APPS[redshift]='Manage red color depending on day/time'
 APPS[lxqt-policykit]='Policy kit agent'
 APPS[sshpass]='Non interactive way to run ssh keyboard interactive pass auth mode'
 
-print_apps(){
-    for app in "${!APPS[@]}"; do
-        echo "$app: ${APPS[$app]}"
-    done
-}
-
-print_apps
+for app in "${!APPS[@]}"; do
+    echo "$app: ${APPS[$app]}"
+done
