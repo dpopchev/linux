@@ -47,7 +47,7 @@ disk "/" {
 
 order += "battery 0"
 battery 0 {
-        format = "BAT0 %status %percentage"
+        format = "%status0 %percentage"
         format_down = 'BAT0 Missing'
         last_full_capacity = true
         hide_seconds = true
@@ -62,7 +62,7 @@ battery 0 {
 
 order += "battery 1"
 battery 1 {
-        format = "BAT1 %status %percentage"
+        format = "%status1 %percentage"
         format_down = 'BAT1 Missing'
         last_full_capacity = true
         hide_seconds = true
