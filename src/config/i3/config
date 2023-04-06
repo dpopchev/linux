@@ -29,7 +29,7 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-# exec --no-startup-id xss-lock --transfer-sleep-lock -- bash ~/.dpopchev/lock.sh
+exec --no-startup-id xss-lock --transfer-sleep-lock -- bash ~/.dpopchev/lock.sh
 exec_always --no-startup-id killall xidlehook; bash ~/.dpopchev/start_xidlehook.sh
 bindsym $mod+BackSpace exec --no-startup-id xset s activate
 
