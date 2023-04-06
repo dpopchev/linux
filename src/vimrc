@@ -263,6 +263,8 @@ if has('nvim')
     augroup END
 endif
 
+autocmd! FileType i3config :set nospell
+
 " ==> auxiliary files
 let auxDump=[ $HOME."/.vim/tmp/", $HOME."/.tmp/", $HOME."/tmp/", "/tmp/" ]
 let &backupdir=join(auxDump, ",")  " store backup files
