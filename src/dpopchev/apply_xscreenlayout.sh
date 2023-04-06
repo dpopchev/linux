@@ -1,28 +1,31 @@
 #!/usr/bin/env bash
 
-LAPTOP='eDP-1'
-EXTERNAL="$1"
-MODE="$2"
+laptop='eDP-1'
+external="$1"
+desired_state="${2^^}"
 
-if xrandr --query | grep -q "$EXTERNAL disconnected"; then
-    notify-send "$EXTERNAL is disconnected"
+if [[ $desired_state == 'OFF' ]]; then
+    xrandr --output $laptop --auto --primary --output $external --off
     exit 0
 fi
 
-case $MODE in
-    ON | on)
-        xrandr --output "$LAPTOP" --primary --mode 1920x1080 --pos 2560x360 --rotate normal \
-            --output "$EXTERNAL" --mode 2560x1440 --pos 0x0 --rotate normal
-        notify-send "$EXTERNAL is ON"
-        ;;
-    OFF | off)
-        xrandr --output "$LAPTOP" --primary --mode 1920x1080 --pos 0x0 --rotate normal \
-            --output "$EXTERNAL" --off
-        notify-send "$EXTERNAL is OFF"
+get_expected_resolution () {
+    echo $(xrandr --output "$1" --auto --dryrun | \
+        grep -iP "$1" | grep -oP '\d+x\d+')
+}
+
+external_resolution=$(get_expected_resolution $external)
+laptop_resolution=$(get_expected_resolution $laptop)
+laptop_offset=$(echo $laptop_resolution | sed -rn 's/([0-9]+)x[0-9]+/\1/p')
+
+case $external_resolution in
+    3840x2160)
+        scale=0.8
         ;;
     *)
-        notify-send "$MODE is unknown screen layout"
+        scale=1
         ;;
 esac
 
-exit 0
+xrandr --output $laptop --primary --auto --pos 0x0 \
+    --output $external --auto --scale ${scale}x${scale} --pos ${laptop_offset}x0 --rotate normal
