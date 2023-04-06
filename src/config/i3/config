@@ -53,6 +53,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 5%-
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s +5%
 bindsym XF86Display exec --no-startup-id bash ~/.dpopchev/toggle_kernel_module.sh uvcvideo
 bindsym Shift+XF86Display exec --no-startup-id sudo rmmod uvcvideo
+bindsym XF86Tools exec --no-startup-id bash ~/.dpopchev/tools_dmenu.sh
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
