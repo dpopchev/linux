@@ -42,6 +42,7 @@ exec_always --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ 1
 exec_always --no-startup-id setxkbmap -layout us,bg -option grp:alt_shift_toggle
 exec_always --no-startup-id killall xxkb; xxkb
 exec_always --no-startup-id sudo rmmod uvcvideo
+exec_always --no-startup-id killall dunst; dunst
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
