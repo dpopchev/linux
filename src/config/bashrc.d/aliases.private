@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+alias vim='nvim'
+
 alias g="git"
 alias gitemail='git config user.email ""'
 alias gituser='git config user.name "Dimitar Popchev"'
