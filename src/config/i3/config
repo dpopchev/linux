@@ -51,6 +51,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 5%-
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s +5%
 bindsym XF86Display exec --no-startup-id bash ~/.dpopchev/toggle_kernel_module.sh uvcvideo
+bindsym Shift+XF86Display exec --no-startup-id sudo rmmod uvcvideo
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -207,6 +208,8 @@ mode "$mode_display" {
     bindsym XF86Favorites mode "default"
 }
 bindsym XF86Favorites mode "$mode_display"
+bindsym Shift+XF86Favorites exec --no-startup-id  xrandr --output eDP-1 --primary --auto --pos 0x0 \
+    --output DP-1 --off --output HDMI-1 --off --output DP-2 --off --output HDMI-2 --off
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
