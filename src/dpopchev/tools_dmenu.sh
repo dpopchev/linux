@@ -8,4 +8,4 @@ for entry in $tools_home/*; do
     entries+=($entry)
 done
 
-printf '%s\n' "${entries[@]}" | dmenu | xargs -i bash "${tools_home}/{}.sh"
+printf '%s\n' "${entries[@]}" | dmenu -l 8 | xargs -i bash "${tools_home}/{}.sh"
