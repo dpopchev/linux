@@ -59,7 +59,7 @@ bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s +5%
 
 # camera
 bindsym XF86Display exec --no-startup-id bash ~/.dpopchev/toggle_kernel_module.sh uvcvideo
-bindsym Shift+XF86Display exec --no-startup-id sudo rmmod uvcvideo; notify-send 'Force unload uvcvideo'
+bindsym Shift+XF86Display exec --no-startup-id bash ~/.dpopchev/force_unload_camera.sh
 
 # tools
 bindsym XF86Tools exec --no-startup-id bash ~/.dpopchev/tools_dmenu.sh
