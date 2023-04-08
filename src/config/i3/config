@@ -63,6 +63,7 @@ bindsym Shift+XF86Display exec --no-startup-id bash ~/.dpopchev/force_unload_cam
 
 # tools
 bindsym XF86Tools exec --no-startup-id bash ~/.dpopchev/tools_dmenu.sh
+bindsym Shift+$mod+Return exec --no-startup-id bash ~/.dpopchev/tools_dmenu.sh
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
