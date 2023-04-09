@@ -14,5 +14,5 @@ for user in ${users[@]}; do
 	display=":$(ls /tmp/.X11-unix/* | sed 's#/tmp/.X11-unix/X##' | head -n 1)"
 	uid=$(id -u $user)
 	sudo -i -u $user bash -c 'bash ~/.dpopchev/rsync_nas.sh'
-	sudo -u $user DISPLAY=$display DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$uid/bus notify-send "$group: triggered, see local log"
+	sudo -u $user DISPLAY=$display DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$uid/bus notify-send "$group: auto backup, see local log"
 done
