@@ -43,6 +43,7 @@ exec_always --no-startup-id setxkbmap -layout us,bg -option grp:alt_shift_toggle
 exec_always --no-startup-id killall xxkb; xxkb
 exec_always --no-startup-id sudo rmmod uvcvideo
 exec_always --no-startup-id killall dunst; dunst
+exec_always --no-startup-id autotiling --limit 2
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -64,7 +65,7 @@ bindsym Shift+XF86Display exec --no-startup-id bash ~/.dpopchev/force_unload_cam
 
 # tools
 bindsym XF86Tools exec --no-startup-id bash ~/.dpopchev/tools_dmenu.sh
-bindsym Shift+$mod+Return exec --no-startup-id bash ~/.dpopchev/tools_dmenu.sh
+bindsym $mod+Shift+d exec --no-startup-id bash ~/.dpopchev/tools_dmenu.sh
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -110,7 +111,7 @@ bindsym $mod+Shift+$aup move up
 bindsym $mod+Shift+$aright move right
 
 # toggle split direction for each window
-default_orientation horizontal
+default_orientation auto
 # for_window [class="^"] split toggle
 
 # split in horizontal orientation
