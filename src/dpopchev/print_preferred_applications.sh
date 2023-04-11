@@ -14,6 +14,8 @@ APPS[xxkb]='Indicator keyboard layout and keep track set per window'
 APPS[redshift]='Manage red color depending on day/time'
 APPS[lxqt-policykit]='Policy kit agent'
 APPS[sshpass]='Non interactive way to run ssh keyboard interactive pass auth mode'
+APPS[xidlehook]='General purpose replacement for xautolock with better options'
+APPS[autotiling]='Switch layout split h/v depending on currently focused window dimensions'
 
 for app in "${!APPS[@]}"; do
     echo "$app: ${APPS[$app]}"
