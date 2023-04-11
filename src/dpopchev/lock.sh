@@ -20,6 +20,6 @@ background=$(make_temp_image)
 make_screenshot $background
 pixelate_screenshot $background
 
-i3lock --nofork -i $background
+i3lock --show-failed-attempts --nofork --image $background
 
 trap 'rm -f $background' EXIT
