@@ -15,6 +15,6 @@ xidlehook \
     'brightnessctl -r; bash ~/.dpopchev/lock.sh' \
     '' \
   `# Finally, suspend an hour after it locks` \
-  --timer 900 \
+  --timer 20 \
     'systemctl suspend' \
     ''
