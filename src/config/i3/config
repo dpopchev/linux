@@ -57,7 +57,9 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 
 # brightness
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 5%-
+bindsym Shift+XF86MonBrightnessDown exec --no-startup-id brightnessctl s 50%
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s +5%
+bindsym Shift+XF86MonBrightnessUp exec --no-startup-id brightnessctl s 100%
 
 # camera
 bindsym XF86Display exec --no-startup-id bash ~/.dpopchev/toggle_kernel_module.sh uvcvideo
