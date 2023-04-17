@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-systemctl halt
+sudo systemctl halt
