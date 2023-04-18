@@ -205,6 +205,17 @@ install-xfce4-terminal: $(xfce4-terminal-steps)
 .PHONY: uninstall-xfce4-terminal
 uninstall-xfce4-terminal: $(addprefix $(stamp-uninstall-dir)/,$(xfce4-terminal-stamps))
 
+alacritty-terminal-srcs := config/alacritty
+alacritty-terminal-stamps := $(alacritty-terminal-srcs:=.stamp)
+alacritty-terminal-steps := $(addprefix $(stamp-backup-dir)/,$(alacritty-terminal-stamps))
+alacritty-terminal-steps += $(addprefix $(stamp-install-dir)/,$(alacritty-terminal-stamps))
+
+.PHONY: install-alacritty-terminal
+install-alacritty-terminal: $(alacritty-terminal-steps)
+
+.PHONY: uninstall-alacritty-terminal
+uninstall-alacritty-terminal: $(addprefix $(stamp-uninstall-dir)/,$(alacritty-terminal-stamps))
+
 xresources-conf := $(HOME)/.Xresources
 xresources-home := $(HOME)/.config/Xresources.d
 xresources-xft-srcs := config/Xresources.d/xft
