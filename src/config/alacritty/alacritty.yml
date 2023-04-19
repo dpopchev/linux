@@ -8,8 +8,8 @@
 #
 # All imports must either be absolute paths starting with `/`, or paths relative
 # to the user's home directory starting with `~/`.
-#import:
-#  - /path/to/alacritty.yml
+import:
+ - /home/dimitar/projects/alacritty-theme/themes/monokai_pro.yaml
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.
@@ -151,7 +151,7 @@ font:
     #style: Bold Italic
 
   # Point size
-  size: 12
+  size: 13
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -737,31 +737,31 @@ key_bindings:
   #- { key: F,      mods: Control,       mode: Vi|~Search, action: ScrollPageDown          }
   #- { key: U,      mods: Control,       mode: Vi|~Search, action: ScrollHalfPageUp        }
   #- { key: D,      mods: Control,
-colors:
-  # Default colors
-  primary:
-    background: '#2D2A2E'
-    foreground: '#FCFCFA'
-
-  # Normal colors
-  normal:
-    black: '#403E41'
-    red: '#FF6188'
-    green: '#A9DC76'
-    yellow: '#FFD866'
-    blue: '#FC9867'
-    magenta: '#AB9DF2'
-    cyan: '#78DCE8'
-    white: '#FCFCFA'
-
-  # Bright colors
-  bright:
-    black: '#727072'
-    red: '#FF6188'
-    green: '#A9DC76'
-    yellow: '#FFD866'
-    blue: '#FC9867'
-    magenta: '#AB9DF2'
-    cyan: '#78DCE8'
-    white: '#FCFCFA'
-theme: Monokai-Pro
+# colors:
+#   # Default colors
+#   primary:
+#     background: '#2D2A2E'
+#     foreground: '#FCFCFA'
+#
+#   # Normal colors
+#   normal:
+#     black: '#403E41'
+#     red: '#FF6188'
+#     green: '#A9DC76'
+#     yellow: '#FFD866'
+#     blue: '#FC9867'
+#     magenta: '#AB9DF2'
+#     cyan: '#78DCE8'
+#     white: '#FCFCFA'
+#
+#   # Bright colors
+#   bright:
+#     black: '#727072'
+#     red: '#FF6188'
+#     green: '#A9DC76'
+#     yellow: '#FFD866'
+#     blue: '#FC9867'
+#     magenta: '#AB9DF2'
+#     cyan: '#78DCE8'
+#     white: '#FCFCFA'
+# theme: Monokai-Pro
