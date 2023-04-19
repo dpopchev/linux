@@ -129,6 +129,7 @@ stty -ixon
 stty -ixoff
 
 # some important vairbales
+export TERMINAL='alacritty'
 export EDITOR='nvim'
 export VISUAL='nvim'
 export PAGER='less -R'
