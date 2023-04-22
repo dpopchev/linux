@@ -20,7 +20,7 @@ laptop_offset=$(echo $laptop_resolution | sed -rn 's/([0-9]+)x[0-9]+/\1/p')
 
 case $external_resolution in
     3840x2160)
-        scale=0.8
+        scale=1
         ;;
     *)
         scale=1
