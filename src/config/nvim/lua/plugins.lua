@@ -82,7 +82,7 @@ return require('packer').startup(function(use)
 
     use 'AndrewRadev/linediff.vim'
 
-    use {'hkupty/iron.nvim'}
+    -- use {'hkupty/iron.nvim'}
 
     use {'aklt/plantuml-syntax'}
 
