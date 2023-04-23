@@ -47,6 +47,8 @@ exec_always --no-startup-id killall xxkb; xxkb
 exec_always --no-startup-id sudo rmmod uvcvideo
 exec_always --no-startup-id killall dunst; dunst
 exec_always --no-startup-id autotiling --limit 2
+# disable middle button click on the the trackpad
+exec_always --no-startup-id xinput set-button-map 11 1 0
 
 # audio control
 exec_always --no-startup-id start-pulseaudio-x11
