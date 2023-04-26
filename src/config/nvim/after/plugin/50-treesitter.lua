@@ -85,7 +85,7 @@ local textobjects = {
 }
 
 local conf = {
-    ensure_installed = {'help', 'lua', 'python', 'markdown', 'markdown_inline', 'vim' },
+    ensure_installed = {'vimdoc', 'lua', 'python', 'markdown', 'markdown_inline', 'vim' },
     sync_install = false,
     auto_install = false,
     highlight = highlight,
