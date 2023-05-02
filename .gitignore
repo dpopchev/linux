@@ -4,3 +4,4 @@ packer_compiled.lua
 .dummies/
 .luarc.json
 .stamps/
+src/config/tmux/plugins/

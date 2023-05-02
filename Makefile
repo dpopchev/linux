@@ -164,6 +164,17 @@ install-i3-config: $(i3-config-steps)
 .PHONY: uninstall-i3-config
 uninstall-i3-config: $(addprefix $(stamp-uninstall-dir)/,$(i3-config-stamp))
 
+tmux-config-srcs := config/tmux
+tmux-config-stamp := $(tmux-config-srcs:=.stamp)
+tmux-config-steps := $(addprefix $(stamp-backup-dir)/,$(tmux-config-stamp))
+tmux-config-steps += $(addprefix $(stamp-install-dir)/,$(tmux-config-stamp))
+
+.PHONY: install-tmux-config
+install-tmux-config: $(tmux-config-steps)
+
+.PHONY: uninstall-tmux-config
+uninstall-tmux-config: $(addprefix $(stamp-uninstall-dir)/,$(tmux-config-stamp))
+
 redshift-config-srcs := config/redshift.conf
 redshift-config-stamp := $(redshift-config-srcs:=.stamp)
 redshift-config-steps := $(addprefix $(stamp-backup-dir)/,$(redshift-config-stamp))
