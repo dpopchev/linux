@@ -17,6 +17,8 @@ APPS[sshpass]='Non interactive way to run ssh keyboard interactive pass auth mod
 APPS[xidlehook]='General purpose replacement for xautolock with better options'
 APPS[autotiling]='Switch layout split h/v depending on currently focused window dimensions'
 APPS[alacritty]='Modern terminal emulator written in rust'
+APPS[xclip]='clipboard manager for linux'
+APPS[tmux]='terminal multiplexer'
 
 for app in "${!APPS[@]}"; do
     echo "$app: ${APPS[$app]}"
