@@ -306,7 +306,8 @@ cnoremap <M-b> <S-Left>
 cnoremap <M-f> <S-Right>
 
 if has_key(environ(), 'TMUX')
-    augroup tmux_something
+    augroup tmux_status_toggle
+        autocmd!
         autocmd VimResume  * call system('tmux set status off')
         autocmd VimEnter   * call system('tmux set status off')
         autocmd VimLeave   * call system('tmux set status on')
