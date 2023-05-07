@@ -310,6 +310,6 @@ if has_key(environ(), 'TMUX')
     augroup tmux_status_toggle
         autocmd!
         autocmd! VimEnter,VimResume * silent !tmux set status off
-        autocmd! VimLeave,VimSuspend * silent !tmux set status on
+        autocmd! VimLeave,VimSuspend * call jobstart('tmux set status on', {'detach': 1})
     augroup END
 endif
