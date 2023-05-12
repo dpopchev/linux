@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 alias vim='nvim'
+alias v='nvim'
+
+alias t='tmux'
 
 alias g="git"
 alias gitemail='git config user.email ""'
