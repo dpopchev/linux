@@ -306,7 +306,7 @@ cnoremap <M-b> <S-Left>
 cnoremap <M-f> <S-Right>
 
 " https://github.com/neovim/neovim/issues/21856
-if has_key(environ(), 'TMUX')
+if 0 && has_key(environ(), 'TMUX')
     augroup tmux_status_toggle
         autocmd!
         autocmd! VimEnter,VimResume * silent !tmux set status off
