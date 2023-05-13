@@ -41,7 +41,7 @@ return require('packer').startup(function(use)
 
     use { 'akinsho/git-conflict.nvim', tag="*" }
 
-    use 'mbbill/undotree'
+    -- use 'mbbill/undotree'
 
     use 'azabiong/vim-highlighter'
 
@@ -70,7 +70,7 @@ return require('packer').startup(function(use)
         }
     }
 
-    use "wellle/targets.vim"
+    -- use "wellle/targets.vim"
 
     use 'lewis6991/gitsigns.nvim'
 
