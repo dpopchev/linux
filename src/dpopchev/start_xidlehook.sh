@@ -9,7 +9,7 @@ xidlehook \
     '' \
     '' \
     --timer 10 \
-    'brightnessctl -r; bash ~/.dpopchev/lock.sh' \
+    'bash ~/.dpopchev/lock.sh' \
     '' \
     --timer 1800 \
     'systemctl suspend' \
