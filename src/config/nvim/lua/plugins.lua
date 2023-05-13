@@ -30,7 +30,7 @@ return require('packer').startup(function(use)
     use {
         'haringsrob/nvim_context_vt',
         'nvim-treesitter/nvim-treesitter-context',
-        'nvim-treesitter/nvim-treesitter-textobjects',
+        -- 'nvim-treesitter/nvim-treesitter-textobjects',
         requires = {
             "nvim-treesitter/nvim-treesitter",
             run = ":TSUpdate",
@@ -70,7 +70,7 @@ return require('packer').startup(function(use)
         }
     }
 
-    -- use "wellle/targets.vim"
+    use "wellle/targets.vim"
 
     use 'lewis6991/gitsigns.nvim'
 
