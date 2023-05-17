@@ -86,6 +86,4 @@ return require('packer').startup(function(use)
 
     use {'aklt/plantuml-syntax'}
 
-    use {"folke/zen-mode.nvim"}
-
 end)
