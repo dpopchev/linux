@@ -174,6 +174,7 @@ local function lsp_keymaps(client, bufnr)
     end
 
     map("n", "K", vim.lsp.buf.hover)
+    map("n", "<leader>K", vim.lsp.buf.signature_help)
 
     local keymap_g = {
         name = "Goto",
