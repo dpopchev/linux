@@ -139,6 +139,8 @@ augroup TrimBlanks
     autocmd BufWritePre * call Preserve("%s/\\S\\zs\ \\+$//e")
     autocmd BufWritePre * call Preserve("%s/\\S\\zs\t\\+$//e")
     autocmd BufWritePre * call Preserve("%s#\\($\\n\\s\*\\)\\+\\%$##e")
+    autocmd BufWritePre * call Preserve("%s/\\s\\+$//e")
+    autocmd BufWritePre * call Preserve("normal gg=G")
 augroup END
 
 " ==> conceal level contrl
