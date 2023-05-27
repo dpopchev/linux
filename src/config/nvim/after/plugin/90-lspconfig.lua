@@ -203,7 +203,7 @@ local function lsp_keymaps(client, bufnr)
     end
 
     whichkey.register(keymap_l, { buffer = bufnr, prefix = "<leader>" })
-
+    map("v", '<leader>la', function() vim.lsp.buf.code_action() end)
     map('n', 'gl', vim.diagnostic.open_float)
     map("n", "[d", vim.diagnostic.goto_prev)
     map("n", "]d", vim.diagnostic.goto_next)
