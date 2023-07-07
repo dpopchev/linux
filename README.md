@@ -1,34 +1,19 @@
 # linux
 
-Collection of configurations to easily distribute when needed.
+Collection of configurations to distribute.
 
-## Quick start
+`src/` content is distributed in between different repos listed below;
 
-```bash
-git clone https://github.com/dpopchev/linux.git
-cd linux
-make install
-```
+## Content
 
-## Overview
-
-Under `src` you can find typical tree structure for `Linux` user home.
-
-The project provides interface via `make` and its goals to install/uninstall
-configurations.
-
-Installation goals are formed as `install-<configname>` and have uninstall counterpart.
-
-### Requirements
-
-GNU/make and its [standard utilities](https://www.gnu.org/software/make/manual/make.html#Utilities-in-Makefiles)
-
-### Installation
-
-See `Quick start` or `Usage` below for detailed.
-
-### Installation goals
-
-```bash
-make help
-```
+- [linux-alacritty](https://github.com/dpopchev/linux-alacritty)
+- [linux-bash](https://github.com/dpopchev/linux-bash)
+- [linux-ctags](https://github.com/dpopchev/linux-ctags)
+- [linux-git](https://github.com/dpopchev/linux-git)
+- [linux-i3](https://github.com/dpopchev/linux-i3)
+- [linux-readline](https://github.com/dpopchev/linux-readline)
+- [linux-redshift](https://github.com/dpopchev/linux-redshift)
+- [linux-tmux](https://github.com/dpopchev/linux-tmux)
+- [linux-vim](https://github.com/dpopchev/linux-vim)
+- [linux-xresources](https://github.com/dpopchev/linux-xresources)
+- [linux-xxkb](https://github.com/dpopchev/linux-xxkb)
