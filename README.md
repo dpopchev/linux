@@ -17,3 +17,4 @@ Collection of configurations to distribute.
 - [linux-vim](https://github.com/dpopchev/linux-vim)
 - [linux-xresources](https://github.com/dpopchev/linux-xresources)
 - [linux-xxkb](https://github.com/dpopchev/linux-xxkb)
+- [linux-gentoo](https://github.com/dpopchev/linux-gentoo)
