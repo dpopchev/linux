@@ -1,6 +1,6 @@
 # linux
 
-Collection of configurations to distribute.
+Collection of scripts to enjoy.
 
 `src/` content is distributed in between different repos listed below;
 
