@@ -1,7 +1,8 @@
-.scratch.vim
-packer_compiled.lua
 .dummies
 .dummies/
 .luarc.json
+.scratch.vim
+.stamps
 .stamps/
+packer_compiled.lua
 src/config/tmux/plugins/
