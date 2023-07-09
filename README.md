@@ -4,6 +4,13 @@ Collection of scripts to enjoy.
 
 `src/` content is distributed in between different repos listed below;
 
+## Quickstart
+
+```
+git clone https://github.com/dpopchev/linux.git 
+cd linux
+```
+
 ## Content
 
 - [linux-alacritty](https://github.com/dpopchev/linux-alacritty)
