@@ -190,7 +190,7 @@ if &encoding ==# 'latin1' && has('gui_running')
 endif
 
 " ==> search and replace word under curssor
-nnoremap gs/ :s/<C-r><C-W>/
+nnoremap gs/ :s//
 nnoremap gss :&&<cr>
 nnoremap gsS :%s/<C-r><C-W>/
 
