@@ -1,7 +1,0 @@
---python-kinds=-i
---exclude=doc/*
---exclude=.dummies/*
---exclude=.git/*
---exclude=legacy/*
---exclude=*/__pycache__/*
---exclude=.pytest_cache/*
