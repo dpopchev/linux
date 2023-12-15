@@ -1,17 +1,15 @@
 # linux
 
-Collection of scripts to enjoy.
+Collection of `Linux` related repositories and scripts to make my life easier.
 
-`src/` content is distributed in between different repos listed below;
-
-## Quickstart
+## Install
 
 ```
-git clone https://github.com/dpopchev/linux.git 
+git clone https://github.com/dpopchev/linux.git
 cd linux
 ```
 
-## Content
+## Related repos
 
 - [linux-alacritty](https://github.com/dpopchev/linux-alacritty)
 - [linux-bash](https://github.com/dpopchev/linux-bash)
