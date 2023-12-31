@@ -23,4 +23,4 @@ cd linux
 - [linux-xresources](https://github.com/dpopchev/linux-xresources)
 - [linux-xxkb](https://github.com/dpopchev/linux-xxkb)
 - [linux-gentoo](https://github.com/dpopchev/linux-gentoo)
-- [linux-backup](https://github.com/dpopchev/linux-backup)
+- [linux-snapshot](https://github.com/dpopchev/linux-snapshot)
