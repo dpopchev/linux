@@ -25,3 +25,5 @@ cd linux
 - [linux-xresources](https://github.com/dpopchev/linux-xresources)
 - [linux-xxkb](https://github.com/dpopchev/linux-xxkb)
 - [linux-gentoo](https://github.com/dpopchev/linux-gentoo)
+- [linux-qtile](https://github.com/dpopchev/linux-qtile)
+- [linux-xmonad](https://github.com/dpopchev/linux-xmonad)
