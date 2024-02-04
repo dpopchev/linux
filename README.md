@@ -7,7 +7,7 @@ Collection of scripts to enjoy.
 ## Quickstart
 
 ```
-git clone https://github.com/dpopchev/linux.git 
+git clone https://github.com/dpopchev/linux.git
 cd linux
 ```
 
