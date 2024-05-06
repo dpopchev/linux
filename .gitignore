@@ -6,3 +6,4 @@
 .stamps/
 packer_compiled.lua
 src/config/tmux/plugins/
+.venv/
