@@ -1,5 +1,5 @@
 - name: My first play
-  hosts: myhosts
+  hosts: local
   tasks:
    - name: Ping my hosts
      ansible.builtin.ping:
@@ -7,3 +7,8 @@
    - name: Print message
      ansible.builtin.debug:
       msg: Hello world
+
+- name: Set up
+  hosts: local
+  roles:
+    - bash
