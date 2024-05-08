@@ -2,4 +2,26 @@
   package:
     name: bash
     state: present
-  become: yes
+  become: true
+
+- name: check for existing configs
+  stat:
+    path: "~/{{ item.dest }}"
+  register: configs_stats
+  loop: "{{ configs }}"
+
+- name: backup existing configs
+  copy:
+    src: "{{ item.stat.path }}"
+    dest: "{{ item.stat.path }}.{{ bksuffix }}"
+    follow: true
+  loop: "{{ configs_stats.results }}"
+  when: item.stat.exists
+
+- name: symlink configs
+  file:
+    src: "{{ ansible_env.PWD }}/roles/bash/files/{{ item.src }}"
+    dest: "~/{{ item.dest }}"
+    state: link
+    force: true
+  loop: "{{ configs }}"
