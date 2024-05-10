@@ -1,0 +1,7 @@
+- name: Set up
+  hosts: local
+  roles:
+    - role: bash
+      vars:
+        configs:
+          - {src: 'bashrc.private', dest: '.bashrc.private'}
