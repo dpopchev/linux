@@ -1,0 +1,2 @@
+configs:
+- {src: 'bashrc.private', dest: '~/.bashrc.private'}
