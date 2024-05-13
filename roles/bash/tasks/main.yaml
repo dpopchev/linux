@@ -6,7 +6,7 @@
   become: true
 
 - name: check for existing configs
-  tags: backup-bash
+  tags: config-bash
   stat: path="{{ item.dest }}"
   loop: "{{ configs }}"
   loop_control:
@@ -14,7 +14,7 @@
   register: configschecks
 
 - name: backup existing configs
-  tags: backup-bash
+  tags: config-bash
   copy:
     src: "{{ item.stat.path }}"
     dest: "{{ item.stat.path }}.{{ bksuffix }}"
