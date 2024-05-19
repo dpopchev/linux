@@ -6,6 +6,10 @@ main_dotfile:
 
 dotdir: ~/.config/bashrc.d
 
-bash_completion:
-  src: bash_completion
-  dest: "{{ dotdir }}/bash_completion"
+dotfiles:
+  - bash_completion:
+    src: bash_completion
+    dest: "{{ dotdir }}/bash_completion"
+  - history:
+    src: history_config
+    dest: "{{ dotdir }}/history_config"
