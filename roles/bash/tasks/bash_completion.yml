@@ -3,3 +3,12 @@
   package:
     state: latest
     name: bash-completion
+
+- name: enable bash completion
+  tags: setup
+  file:
+    src: "{{ configs_home }}/{{ bash_completion.src }}"
+    dest: "{{ bash_completion.dest }}"
+    state: link
+    force: true
+    follow: false
