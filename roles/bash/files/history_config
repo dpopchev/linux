@@ -27,7 +27,7 @@ export HISTTIMEFORMAT='%F %T '
 # add `history -n` to force reload it from the fail at every command, e.g.
 # PROMPT_COMMAND='history -a; history -n'
 shopt -s histappend
-PROMPT_COMMAND='history -a'
+export PROMPT_COMMAND='history -a'
 
 # Write a multi line command in a single line
 shopt -s cmdhist
