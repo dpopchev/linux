@@ -1,0 +1,113 @@
+#!/usr/bin/env bash
+
+ex() {
+    # ex - archive extractor
+    # usage: ex <file>
+    if [[ -f "$1" ]] ; then
+        case "$1" in
+            *.tar.bz2)   tar xjf "$1"   ;;
+            *.tar.gz)    tar xzf "$1"   ;;
+            *.bz2)       bunzip2 "$1"   ;;
+            *.rar)       unrar x "$1"     ;;
+            *.gz)        gunzip "$1"    ;;
+            *.tar)       tar xf "$1"    ;;
+            *.tbz2)      tar xjf "$1"   ;;
+            *.tgz)       tar xzf "$1"   ;;
+            *.zip)       unzip "$1"     ;;
+            *.Z)         uncompress "$1";;
+            *.7z)        7z x "$1"      ;;
+            *)           echo "'$1' cannot be extracted via ex()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+function join_by {
+    # join list of items using the first argument passed to the function
+    local IFS="$1"; shift; echo "$*";
+}
+
+function scale_dpi {
+    # pass multiplier to scale the current dpi,
+    # e.g. scale_dpi 2 would update Xft.dpi from 96 to 192
+    local dpi=$(xdpyinfo | grep dots | grep -P -o '\b\d+')
+    local new_dpi=$(printf "%.0f" $(bc -l <<< "${dpi}*$1"))
+    echo "Xft.dpi: ${new_dpi}" | xrdb -merge
+}
+
+jcd(){
+    # jump into directory matching partial pattern passed as argument
+    local IFS=$'\n'; select subdir in $(find -type d -name "$1*"); do
+    cd "$subdir"
+    break
+done;
+}
+
+function make_passfile {
+    # create a passfile with permisions 600 under ~/.ssh
+    # pass passfile name as first argument
+    # and password value as second
+    local passfile_home=$HOME/.ssh
+
+    if [[ $# -eq 0 ]]; then
+        echo 'syntax: make_passfile <fname> <passphrase>'
+        echo "description: make a passfile into $passfile_home containing passphrase"
+        return 1
+    fi
+
+    local passfile="$passfile_home/$1.pass"
+    local passphrase="$2"
+
+    if [[ -f $passfile ]]; then
+        echo "File $passfile already exists"
+        return 17
+    fi
+
+    echo "$passphrase" > "$passfile"
+    chmod 600 "${passfile}"
+}
+
+prepend_field() {
+    # preappend functions source: https://stackoverflow.com/a/24522107
+    # SYNOPSIS: field_prepend varName fieldVal [sep]
+    #   SEP defaults to ':'
+    # Note: Forces fieldVal into the first position, if already present.
+    #       Duplicates are removed, too.
+    # EXAMPLE: field_prepend PATH /usr/local/bin
+    local varName=$1 fieldVal=$2 IFS=${3:-':'} auxArr
+    read -ra auxArr <<< "${!varName}"
+    for i in "${!auxArr[@]}"; do
+        [[ ${auxArr[i]} == "$fieldVal" ]] && unset auxArr[i]
+    done
+    auxArr=("$fieldVal" "${auxArr[@]}")
+    printf -v "$varName" '%s' "${auxArr[*]}"
+}
+
+append_field() {
+    # SYNOPSIS: field_append varName fieldVal [sep]
+    #   SEP defaults to ':'
+    # Note: Forces fieldVal into the last position, if already present.
+    #       Duplicates are removed, too.
+    # EXAMPLE: field_append PATH /usr/local/bin
+    local varName=$1 fieldVal=$2 IFS=${3:-':'} auxArr
+    read -ra auxArr <<< "${!varName}"
+    for i in "${!auxArr[@]}"; do
+        [[ ${auxArr[i]} == "$fieldVal" ]] && unset auxArr[i]
+    done
+    auxArr+=("$fieldVal")
+    printf -v "$varName" '%s' "${auxArr[*]}"
+}
+
+remove_field() {
+    # SYNOPSIS: field_remove varName fieldVal [sep]
+    #   SEP defaults to ':'
+    # Note: Duplicates are removed, too.
+    # EXAMPLE: field_remove PATH /usr/local/bin
+    local varName=$1 fieldVal=$2 IFS=${3:-':'} auxArr
+    read -ra auxArr <<< "${!varName}"
+    for i in "${!auxArr[@]}"; do
+        [[ ${auxArr[i]} == "$fieldVal" ]] && unset auxArr[i]
+    done
+    printf -v "$varName" '%s' "${auxArr[*]}"
+}
