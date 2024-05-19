@@ -1,14 +1,4 @@
 - hosts: local
-  become: true
-  pre_tasks:
-    - name: pre-run, update package cache
-      tags: always
-      changed_when: false
-      package:
-          upgrade: true
-          update_cache: true
-
-- hosts: all
-  tags: bash
+  tags: base
   roles:
-    - bash
+    - base
