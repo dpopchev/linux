@@ -4,33 +4,7 @@
     state: latest
     name: bash
 
-- name: check for existing configs
-  tags: setup
-  stat: path="{{ item.dest }}"
-  loop: "{{ configs }}"
-  loop_control:
-    label: "{{ item.dest }}"
-  register: configschecks
-
-- name: backup existing configs
-  tags: setup
-  copy:
-    src: "{{ item.stat.path }}"
-    dest: "{{ item.stat.path }}.{{ bksuffix }}"
-    follow: true
-  when: item.stat.exists
-  loop: "{{ configschecks.results }}"
-  loop_control:
-    label: "{{ item.item.dest }}"
-
-- name: symlink configs
-  tags: setup
-  file:
-    src: "{{ configs_home }}/{{ item.src }}"
-    dest: "{{ item.dest }}"
-    state: link
-    force: true
-    follow: false
-  loop: "{{ configs }}"
-  loop_control:
-    label: "{{ item.dest }}"
+- block:
+  - import_tasks: main_dotfile.yml
+  - import_tasks: dotdir.yml
+  - import_tasks: bash_completion.yml
