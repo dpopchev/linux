@@ -1,0 +1,36 @@
+- name: install latest package
+  tags: packages, bash
+  package:
+    state: latest
+    name: bash
+
+- name: check for existing configs
+  tags: setup, bash
+  stat: path="{{ item.dest }}"
+  loop: "{{ bash_configs }}"
+  loop_control:
+    label: "{{ item.dest }}"
+  register: configschecks
+
+- name: backup existing configs
+  tags: setup, bash
+  copy:
+    src: "{{ item.stat.path }}"
+    dest: "{{ item.stat.path }}.{{ bksuffix }}"
+    follow: true
+  when: item.stat.exists
+  loop: "{{ configschecks.results }}"
+  loop_control:
+    label: "{{ item.item.dest }}"
+
+- name: symlink configs
+  tags: setup, bash
+  file:
+    src: "{{ configs_home }}/bash/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: true
+    follow: false
+  loop: "{{ bash_configs }}"
+  loop_control:
+    label: "{{ item.dest }}"
