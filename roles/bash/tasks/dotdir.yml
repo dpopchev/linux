@@ -1,4 +1,17 @@
-- name: create dotdir
+- name: check for existing dotdir
+  tags: setup
+  stat: path="{{ dotdir }}"
+  register: check_result
+
+- name: backup existing dotdir
+  tags: setup
+  copy:
+    src: "{{ dotdir }}"
+    dest: "{{ dotdir }}.{{ bksuffix }}"
+    follow: true
+  when: check_result.stat.exists
+
+- name: create new dotdir
   tags: setup
   file:
     path: "{{ dotdir }}"

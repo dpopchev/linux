@@ -9,10 +9,13 @@ dotdir: ~/.config/bashrc.d
 dotfiles:
   - bash_completion:
     src: bash_completion
-    dest: "{{ dotdir }}/bash_completion"
+    dest: "{{ dotdir }}/10_bash_completion"
   - history:
     src: history_config
-    dest: "{{ dotdir }}/history_config"
+    dest: "{{ dotdir }}/01_history_config"
   - features:
     src: features
-    dest: "{{ dotdir }}/features"
+    dest: "{{ dotdir }}/02_features"
+  - aliases:
+    src: aliases.private
+    dest: "{{ dotdir }}/20_aliases.private"
