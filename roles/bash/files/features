@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# nice bash features
+shopt -s autocd
+shopt -s cdspell
+shopt -s checkjobs
+shopt -s dirspell
