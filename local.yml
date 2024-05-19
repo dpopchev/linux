@@ -1,4 +1,4 @@
 - hosts: local
-  tags: base
+  tags: bash
   roles:
-    - base
+    - bash
