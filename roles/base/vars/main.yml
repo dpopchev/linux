@@ -1,0 +1,4 @@
+configs_home: "{{ role_path }}/configs"
+
+bash_configs:
+- {src: 'bashrc.private', dest: '~/.bashrc.private'}
