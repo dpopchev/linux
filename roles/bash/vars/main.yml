@@ -19,3 +19,6 @@ dotfiles:
   - aliases:
     src: aliases.private
     dest: "{{ dotdir }}/20_aliases.private"
+  - utils:
+    src: utils
+    dest: "{{ dotdir }}/21_utils"
