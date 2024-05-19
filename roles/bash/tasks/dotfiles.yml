@@ -4,7 +4,7 @@
     state: latest
     name: bash-completion
 
-- name: enable bash configurations
+- name: bash configuration
   tags: setup
   file:
     src: "{{ configs_home }}/{{ item.src }}"
