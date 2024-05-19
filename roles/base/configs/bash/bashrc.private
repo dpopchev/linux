@@ -1,3 +1,5 @@
+# /usr/bin/env bash
+
 # Gentoo bashrc is used as base
 # https://gitweb.gentoo.org/repo/gentoo.git/tree/app-shells/bash/files/bashrc
 # alternative variant:

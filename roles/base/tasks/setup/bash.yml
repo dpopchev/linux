@@ -1,10 +1,10 @@
-- name: install latest package
+- name: install latest bash package
   tags: packages, bash
   package:
     state: latest
     name: bash
 
-- name: check for existing configs
+- name: check for existing bash configs
   tags: setup, bash
   stat: path="{{ item.dest }}"
   loop: "{{ bash_configs }}"
@@ -12,7 +12,7 @@
     label: "{{ item.dest }}"
   register: configschecks
 
-- name: backup existing configs
+- name: backup existing bash configs
   tags: setup, bash
   copy:
     src: "{{ item.stat.path }}"
@@ -23,7 +23,7 @@
   loop_control:
     label: "{{ item.item.dest }}"
 
-- name: symlink configs
+- name: symlink bash configs
   tags: setup, bash
   file:
     src: "{{ configs_home }}/bash/{{ item.src }}"
