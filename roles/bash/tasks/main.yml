@@ -1,11 +1,11 @@
 - name: install latest package
-  tags: packages, bash
+  tags: packages
   package:
     state: latest
     name: bash
 
 - name: check for existing configs
-  tags: setup, bash
+  tags: setup
   stat: path="{{ item.dest }}"
   loop: "{{ configs }}"
   loop_control:
@@ -13,7 +13,7 @@
   register: configschecks
 
 - name: backup existing configs
-  tags: setup, bash
+  tags: setup
   copy:
     src: "{{ item.stat.path }}"
     dest: "{{ item.stat.path }}.{{ bksuffix }}"
@@ -24,7 +24,7 @@
     label: "{{ item.item.dest }}"
 
 - name: symlink configs
-  tags: setup, bash
+  tags: setup
   file:
     src: "{{ configs_home }}/{{ item.src }}"
     dest: "{{ item.dest }}"
