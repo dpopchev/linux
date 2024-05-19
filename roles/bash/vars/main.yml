@@ -5,3 +5,7 @@ main_dotfile:
   dest: ~/.bashrc.private
 
 dotdir: ~/.config/bashrc.d
+
+bash_completion:
+  src: bash_completion
+  dest: "{{ dotdir }}/bash_completion"
