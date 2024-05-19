@@ -13,3 +13,6 @@ dotfiles:
   - history:
     src: history_config
     dest: "{{ dotdir }}/history_config"
+  - features:
+    src: features
+    dest: "{{ dotdir }}/features"
