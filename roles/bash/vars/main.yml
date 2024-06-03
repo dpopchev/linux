@@ -22,3 +22,6 @@ dotfiles:
   - utils:
     src: utils
     dest: "{{ dotdir }}/21_utils"
+  - ps1:
+    src: riced_ps1
+    dest: "{{ dotdir }}/99_riced_ps1"
