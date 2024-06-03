@@ -76,17 +76,28 @@ get_jobs_statuses() {
     return 0
 }
 
+get_exitstatus() {
+    local -r exitcode=$?
+    if [[ $exitcode == 0 ]]; then
+        echo -n ''
+        return 0
+    fi
+
+    echo "$exitcode"
+}
+
 jobs_status() {
     IFS=',' read -r -a statuses <<< $(get_jobs_statuses)
 
     local -a status
+    if [[ ! -z ${statuses[1]} ]]; then
+        status+=("${statuses[1]};")
+    fi
+
     if [[ ${statuses[0]} -gt 0 ]]; then
         status+=("${statuses[0]};")
     fi
 
-    if [[ ! -z ${statuses[1]} ]]; then
-        status+=("${statuses[1]};")
-    fi
 
     IFS=' ' echo "[${status[*]}]"
     return 0
@@ -138,40 +149,87 @@ git_status() {
     return 0
 }
 
+
 # Set colorful PS1 only on colorful terminals.
 # dircolors --print-database uses its own built-in database instead of using /etc/DIR_COLORS.  Try to use the external file first to take advantage of user additions.
 # We run dircolors directly due to its changes in file syntax and
 # terminal name patching.
-# use_color=false
-# if type -P dircolors >/dev/null ; then
-#     # Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
-#     LS_COLORS=
-#     if [[ -f ~/.dir_colors ]] ; then
-#         eval "$(dircolors -b ~/.dir_colors)"
-#     elif [[ -f /etc/DIR_COLORS ]] ; then
-#         eval "$(dircolors -b /etc/DIR_COLORS)"
-#     else
-#         eval "$(dircolors -b)"
-#     fi
-#     # Note: We always evaluate the LS_COLORS setting even when it's the
-#     # default.  If it isn't set, then `ls` will only colorize by default
-#     # based on file attributes and ignore extensions (even the compiled
-#     # in defaults of dircolors). #583814
-#     if [[ -n ${LS_COLORS:+set} ]] ; then
-#         use_color=true
-#     else
-#         # Delete it if it's empty as it's useless in that case.
-#         unset LS_COLORS
-#     fi
-# else
-#     # Some systems (e.g. BSD & embedded) don't typically come with
-#     # dircolors so we need to hardcode some terminals in here.
-#     case ${TERM} in
-#         [aEkx]term*|rxvt*|gnome*|konsole*|screen|tmux|cons25|*color) use_color=true;;
-#     esac
-# fi
-#
-# # show the closes directory parent in the PS1
-# export PROMPT_DIRTRIM=2
-#
-# unset use_color
+use_color=false
+if type -P dircolors >/dev/null ; then
+    # Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
+    LS_COLORS=
+    if [[ -f ~/.dir_colors ]] ; then
+        eval "$(dircolors -b ~/.dir_colors)"
+    elif [[ -f /etc/DIR_COLORS ]] ; then
+        eval "$(dircolors -b /etc/DIR_COLORS)"
+    else
+        eval "$(dircolors -b)"
+    fi
+    # Note: We always evaluate the LS_COLORS setting even when it's the
+    # default.  If it isn't set, then `ls` will only colorize by default
+    # based on file attributes and ignore extensions (even the compiled
+    # in defaults of dircolors). #583814
+    if [[ -n ${LS_COLORS:+set} ]] ; then
+        use_color=true
+    else
+        # Delete it if it's empty as it's useless in that case.
+        unset LS_COLORS
+    fi
+else
+    # Some systems (e.g. BSD & embedded) don't typically come with
+    # dircolors so we need to hardcode some terminals in here.
+    case ${TERM} in
+        [aEkx]term*|rxvt*|gnome*|konsole*|screen|tmux|cons25|*color) use_color=true;;
+    esac
+fi
+
+print_exitcode(){
+    local -r exitcode=$1
+
+    if [[ $exitcode -eq 0 ]]; then
+        return 0
+    fi
+
+    echo -n "$exitcode"
+}
+
+lower_rightprompt() {
+    local -r exitcode=$1
+    printf "%*s" $COLUMNS $(print_exitcode $exitcode)
+}
+
+upper_rightprompt() {
+    printf "%*s" $COLUMNS "$(git_status) $(jobs_status)"
+}
+
+# show the closes directory parent in the PS1
+PROMPT_DIRTRIM=2
+PROMPT_COMMAND='last_exitcode=$?'
+if ${use_color} ; then
+    if [[ ${EUID} == 0 ]] ; then
+        # user is root
+        PS1+='\[\033[01;31m\]\h\[\033[01;34m\] \w \$\[\033[00m\] '
+    else
+        # user is NOT root
+        # PS1+='$(ps1_status)$(ps1_user_hostname) $(ps1_cwd) $(ps1_git_branch) '
+        [[ -n $TMUX ]] && hostname='tmux'
+        PS1='\[$(tput sc; upper_rightprompt; tput rc)\]${hostname:-\h}:\w\n'
+        PS1+='\[$(tput sc; lower_rightprompt $last_exitcode; tput rc)\]\u \$ '
+        # PS1+='${hostname:-\h} \W
+        # $(ps1_status)\001\033[01;32m\002 \u @ ${hostname:-\h}\001\033[00m\002 \001\033[01;34m\002 \W \001\033[00m\002 $(ps1_git_branch) '
+        # PS1+='$(ps1_status)
+        # \001\033[01;32m\002
+        # \u@
+        # ${hostname:-\h}
+        # \001\033[00m\002
+        # \001\033[01;34m\002
+        # \W
+        # \001\033[00m\002
+        # $(ps1_git_branch) '
+    fi
+else
+    # show root@ when we don't have colors
+    PS1+='\u@\h \w \$ '
+fi
+
+unset use_color
