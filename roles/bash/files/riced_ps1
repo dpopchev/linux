@@ -1,0 +1,177 @@
+#!/usr/bin/env bash
+
+apply_foreground() {
+    # apply foreground with name on text
+    # name is first argument
+    # text is second
+
+    local -r name="$1"; shift;
+    local -r text="$*"
+
+    local default='0;39'
+    local code=
+    case "${name,,}" in
+        black) code='0;30' ;;
+        red) code='0;31' ;;
+        green) code='0;32' ;;
+        yellow) code='0;33' ;;
+        blue) code='0;34' ;;
+        magenta) code='0;35' ;;
+        cyan) code='0;36' ;;
+        light_grey) code='0;37' ;;
+        dark_grey) code='0;90' ;;
+        light_red) code='0;91' ;;
+        light_green) code='0;92' ;;
+        light_yellow) code='0;93' ;;
+        light_blue) code='0;94' ;;
+        light_magenta) code='0;95' ;;
+        light_cyan) code='0;96' ;;
+        white) code='0;97' ;;
+        *) code=${default};;
+    esac
+
+    echo -e "\e[${code}m${text}\e[0m"
+}
+
+apply_background() {
+    # apply background with name on text
+    # name is first argument
+    # text is second
+
+    local -r name="$1"; shift;
+    local -r text="$*"
+
+    local default='0;49'
+    local code=
+    case "${name,,}" in
+        black) code='0;40' ;;
+        red) code='0;41' ;;
+        green) code='0;42' ;;
+        yellow) code='0;43' ;;
+        blue) code='0;44' ;;
+        magenta) code='0;45' ;;
+        cyan) code='0;46' ;;
+        light_grey) code='0;47' ;;
+        dark_grey) code='0;100' ;;
+        light_red) code='0;101' ;;
+        light_green) code='0;102' ;;
+        light_yellow) code='0;103' ;;
+        light_blue) code='0;104' ;;
+        light_magenta) code='0;105' ;;
+        light_cyan) code='0;106' ;;
+        white) code='0;107' ;;
+        *) code=${default};;
+    esac
+
+    echo -e "\e[${code}m${text}\e[0m"
+    return 0
+}
+
+get_jobs_statuses() {
+    # echo comma separated status of jobs in current session
+    # "<SUSPENDED JOBS COUNT>,<LOAD AVERAGE>"
+    local -r suspended_count=$(jobs -s | wc -l)
+    local -r load=$(cat /proc/loadavg | grep -Po '(\d+\.\d+\ )+' | sed -rn 's/ +$//p')
+    echo "${suspended_count},${load}"
+    return 0
+}
+
+jobs_status() {
+    IFS=',' read -r -a statuses <<< $(get_jobs_statuses)
+
+    local -a status
+    if [[ ${statuses[0]} -gt 0 ]]; then
+        status+=("${statuses[0]};")
+    fi
+
+    if [[ ! -z ${statuses[1]} ]]; then
+        status+=("${statuses[1]};")
+    fi
+
+    IFS=' ' echo "[${status[*]}]"
+    return 0
+}
+
+get_git_status() {
+    # echo comma separated status of git
+    # "<BRANCH NAME>,<UNTRACKED COUNT>,<MODIFIED COUNT>,<STAGED COUNT>,<STASH COUNT>"
+    local -r branch=$(git branch 2>/dev/null | grep '^*' | colrm 1 2)
+    local -r staged_count=$(git status --porcelain 2>/dev/null | grep -i '^[am]' | wc -l)
+    local -r modified_count=$(git status --porcelain 2>/dev/null | grep -i '^ [am]' | wc -l)
+    local -r untracked_count=$(git status --porcelain 2>/dev/null | grep -i '^??' | wc -l)
+    local -r stash_count=$(git stash list 2>/dev/null | wc -l)
+
+    echo "$branch,$untracked_count,$modified_count,$staged_count,$stash_count"
+    return 0
+}
+
+git_status() {
+    IFS=',' read -ra statuses <<< $(get_git_status)
+
+    local -a status
+    if [[ -z ${statuses[0]} ]]; then
+        echo -n ''
+        return 0
+    fi
+
+    if [[ ! -z ${statuses[0]} ]]; then
+        status+=("${statuses[0]};")
+    fi
+
+    if [[ ${statuses[1]} -gt 0 ]]; then
+        status+=("U ${statuses[1]};")
+    fi
+
+    if [[ ${statuses[2]} -gt 0 ]]; then
+        status+=("M ${statuses[2]};")
+    fi
+
+    if [[ ${statuses[3]} -gt 0 ]]; then
+        status+=("S ${statuses[3]};")
+    fi
+
+    if [[ ${statuses[4]} -gt 0 ]]; then
+        status+=("ST ${statuses[4]};")
+    fi
+
+    IFS=' ' echo "[${status[*]}]"
+    return 0
+}
+
+# Set colorful PS1 only on colorful terminals.
+# dircolors --print-database uses its own built-in database instead of using /etc/DIR_COLORS.  Try to use the external file first to take advantage of user additions.
+# We run dircolors directly due to its changes in file syntax and
+# terminal name patching.
+# use_color=false
+# if type -P dircolors >/dev/null ; then
+#     # Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
+#     LS_COLORS=
+#     if [[ -f ~/.dir_colors ]] ; then
+#         eval "$(dircolors -b ~/.dir_colors)"
+#     elif [[ -f /etc/DIR_COLORS ]] ; then
+#         eval "$(dircolors -b /etc/DIR_COLORS)"
+#     else
+#         eval "$(dircolors -b)"
+#     fi
+#     # Note: We always evaluate the LS_COLORS setting even when it's the
+#     # default.  If it isn't set, then `ls` will only colorize by default
+#     # based on file attributes and ignore extensions (even the compiled
+#     # in defaults of dircolors). #583814
+#     if [[ -n ${LS_COLORS:+set} ]] ; then
+#         use_color=true
+#     else
+#         # Delete it if it's empty as it's useless in that case.
+#         unset LS_COLORS
+#     fi
+# else
+#     # Some systems (e.g. BSD & embedded) don't typically come with
+#     # dircolors so we need to hardcode some terminals in here.
+#     case ${TERM} in
+#         [aEkx]term*|rxvt*|gnome*|konsole*|screen|tmux|cons25|*color) use_color=true;;
+#     esac
+# fi
+#
+# # show the closes directory parent in the PS1
+# export PROMPT_DIRTRIM=2
+#
+# unset use_color
