@@ -34,7 +34,8 @@ apply_foreground() {
         *) code=${default};;
     esac
 
-    echo -ne "\001\033[${code}m\002${text}\001\033[0m\002"
+    echo -n "\033[${code}m${text}\033[0m"
+    return 0
 }
 
 apply_background() {
@@ -67,7 +68,7 @@ apply_background() {
         *) code=${default};;
     esac
 
-    echo -ne "\001\033[${code}m\002${text}\001\033[0m\002"
+    echo -n "\033[${code}m${text}\033[0m"
     return 0
 }
 
@@ -84,7 +85,7 @@ get_jobs_statuses() {
     # "<SUSPENDED JOBS COUNT>,<LOAD AVERAGE>"
     local -r suspended_count=$(get_suspended_jobs_count)
     local -r load=$(get_loadavg)
-    echo "${suspended_count},${load}"
+    echo -n "${suspended_count},${load}"
     return 0
 }
 
@@ -100,20 +101,21 @@ print_jobs_status() {
         status+=("${statuses[0]};")
     fi
 
-    IFS=' ' echo "[${status[*]}]"
+    IFS=' ' echo -n "[${status[*]}]"
     return 0
 }
 
 get_git_status() {
     # echo comma separated status of git
-    # "<BRANCH NAME>,<UNTRACKED COUNT>,<MODIFIED COUNT>,<STAGED COUNT>,<STASH COUNT>"
+    # "<BRANCH NAME>,<UNTRACKED COUNT>,<DELETED_COUNT>,<MODIFIED COUNT>,<STAGED COUNT>,<STASH COUNT>"
     local -r branch=$(git branch 2>/dev/null | grep '^*' | colrm 1 2)
-    local -r staged_count=$(git status --porcelain 2>/dev/null | grep -i '^[am]' | wc -l)
-    local -r modified_count=$(git status --porcelain 2>/dev/null | grep -i '^ [am]' | wc -l)
+    local -r staged_count=$(git status --porcelain 2>/dev/null | grep -Pi '^[am]' | wc -l)
+    local -r modified_count=$(git status --porcelain 2>/dev/null | grep -Pi '^[am\ ][am]' | wc -l)
+    local -r deleted_count=$(git status --porcelain 2>/dev/null | grep -Pi '^ [d]' | wc -l)
     local -r untracked_count=$(git status --porcelain 2>/dev/null | grep -i '^??' | wc -l)
     local -r stash_count=$(git stash list 2>/dev/null | wc -l)
 
-    echo "$branch,$untracked_count,$modified_count,$staged_count,$stash_count"
+    echo -n "$branch,$untracked_count,$deleted_count,$modified_count,$staged_count,$stash_count"
     return 0
 }
 
@@ -127,30 +129,50 @@ git_status() {
         return 0
     fi
 
+    # branch
     if [[ ! -z ${statuses[0]} ]]; then
-        status+=("${statuses[0]};")
+        status+=($(apply_foreground blue "${statuses[0]};"))
     fi
 
-    if [[ ${statuses[1]} -gt 0 ]]; then
-        status+=("U:${statuses[1]};")
-    fi
-
-    if [[ ${statuses[2]} -gt 0 ]]; then
-        status+=("M:${statuses[2]};")
-    fi
-
-    if [[ ${statuses[3]} -gt 0 ]]; then
-        status+=("S:${statuses[3]};")
-    fi
-
+    # staged count
     if [[ ${statuses[4]} -gt 0 ]]; then
-        status+=("ST:${statuses[4]};")
+        status+=($(apply_foreground green "S;"))
     fi
 
-    IFS=' ' echo "[${status[*]}]"
+    # modified count
+    if [[ ${statuses[3]} -gt 0 ]]; then
+        status+=($(apply_foreground yellow "M;"))
+    fi
+
+    # deleted count
+    if [[ ${statuses[2]} -gt 0 ]]; then
+        status+=($(apply_foreground red "D;"))
+    fi
+
+    # untracked count
+    if [[ ${statuses[1]} -gt 0 ]]; then
+        status+=($(apply_foreground magenta "U;"))
+    fi
+
+    # stashed count
+    if [[ ${statuses[5]} -gt 0 ]]; then
+        status+=($(apply_foreground light_magenta "ST;"))
+    fi
+
+    IFS=' ' echo -n "[${status[*]}]"
     return 0
 }
 
+print_exitcode(){
+    local -r exitcode=$1
+
+    if [[ $exitcode -eq 0 ]]; then
+        return 0
+    fi
+
+    echo -n $(apply_foreground red "$exitcode")
+    return 0
+}
 
 # Set colorful PS1 only on colorful terminals.
 # dircolors --print-database uses its own built-in database instead of using /etc/DIR_COLORS.  Try to use the external file first to take advantage of user additions.
@@ -185,14 +207,16 @@ else
     esac
 fi
 
-print_exitcode(){
-    local -r exitcode=$1
+rightalign_git_exitcode(){
+    local -r exitcode="$1"
+    local -a statuses
+    statuses+=("$(git_status)")
+    statuses+=("$(print_exitcode $exitcode)")
 
-    if [[ $exitcode -eq 0 ]]; then
-        return 0
-    fi
-
-    echo -n "$exitcode"
+    # when using colors we need to compensate https://superuser.com/a/517110
+    local -r len_string=$(echo -en ${statuses[*]} | sed 's/\x1b\[[0-9;]*m//g' | wc -c)
+    local -r len_colored_string=$(echo -en ${statuses[*]} | wc -c)
+    IFS=' ' printf '%*b' $(($COLUMNS+$len_colored_string-$len_string)) "${statuses[*]}"
 }
 
 lower_rightprompt() {
