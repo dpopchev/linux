@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+PS1PROFILE="${PS1PROFILE:-dpopchev}"
+
 apply_foreground() {
     # apply foreground with name on text
     # name is first argument
@@ -67,11 +69,19 @@ apply_background() {
     return 0
 }
 
+get_loadavg(){
+    cat /proc/loadavg | grep -Po '(\d+\.\d+\ )+' | sed -rn 's/\s+$//p'
+}
+
+get_suspended_jobs_count(){
+    jobs -s | wc -l
+}
+
 get_jobs_statuses() {
     # echo comma separated status of jobs in current session
     # "<SUSPENDED JOBS COUNT>,<LOAD AVERAGE>"
-    local -r suspended_count=$(jobs -s | wc -l)
-    local -r load=$(cat /proc/loadavg | grep -Po '(\d+\.\d+\ )+' | sed -rn 's/ +$//p')
+    local -r suspended_count=$(get_suspended_jobs_count)
+    local -r load=$(get_loadavg)
     echo "${suspended_count},${load}"
     return 0
 }
