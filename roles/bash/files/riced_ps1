@@ -34,7 +34,7 @@ apply_foreground() {
         *) code=${default};;
     esac
 
-    echo -ne "\e[${code}m${text}\e[0m"
+    echo -ne "\001\033[${code}m\002${text}\001\033[0m\002"
 }
 
 apply_background() {
@@ -67,7 +67,7 @@ apply_background() {
         *) code=${default};;
     esac
 
-    echo -ne "\e[${code}m${text}\e[0m"
+    echo -ne "\001\033[${code}m\002${text}\001\033[0m\002"
     return 0
 }
 
