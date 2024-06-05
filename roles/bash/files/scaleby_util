@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+function scale_dpi {
+    # pass multiplier to scale the current dpi,
+    # e.g. scale_dpi 2 would update Xft.dpi from 96 to 192
+    local dpi=$(xdpyinfo | grep dots | grep -P -o '\b\d+')
+    local new_dpi=$(printf "%.0f" $(bc -l <<< "${dpi}*$1"))
+    echo "Xft.dpi: ${new_dpi}" | xrdb -merge
+}

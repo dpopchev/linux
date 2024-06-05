@@ -19,9 +19,27 @@ dotfiles:
   - aliases:
     src: aliases.private
     dest: "{{ dotdir }}/20_aliases.private"
-  - utils:
-    src: utils
-    dest: "{{ dotdir }}/21_utils"
+  - pathlike_utils:
+    src: pathlike_utils
+    dest: "{{ dotdir }}/21_pathlike_utils"
+  - termcolors_util:
+    src: termcolors_util
+    dest: "{{ dotdir }}/23_termcolors_util"
+  - archive_utils:
+    src: archive_utils
+    dest: "{{ dotdir }}/23_archive_utils"
+  - joinby_util:
+    src: joinby_util
+    dest: "{{ dotdir }}/23_joinby_util"
+  - scaleby_util:
+    src: scaleby_util
+    dest: "{{ dotdir }}/23_scaleby_util"
+  - jumpcd_util:
+    src: jumpcd_util
+    dest: "{{ dotdir }}/23_jumpcd_util"
+  - mkpassfile_util:
+    src: mkpassfile_util
+    dest: "{{ dotdir }}/23_mkpassfile_util"
   - ps1:
     src: riced_ps1
     dest: "{{ dotdir }}/99_riced_ps1"

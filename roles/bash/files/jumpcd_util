@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+jcd(){
+    # jump into directory matching partial pattern passed as argument
+    local IFS=$'\n'; select subdir in $(find -type d -name "$1*"); do
+        cd "$subdir"
+        break
+    done;
+}
