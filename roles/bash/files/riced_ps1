@@ -170,7 +170,18 @@ print_exitcode(){
         return 0
     fi
 
-    echo -n $(apply_foreground red "$exitcode")
+    echo -n $(apply_foreground light_red "$exitcode")
+    return 0
+}
+
+print_suspended_jobs_count(){
+    local -r count=$(get_suspended_jobs_count)
+
+    if [[ $count -eq 0 ]]; then
+        return 0
+    fi
+
+    echo -n $(apply_foreground light_yellow "$count")
     return 0
 }
 
@@ -210,6 +221,7 @@ fi
 rightalign_git_exitcode(){
     local -r exitcode="$1"
     local -a statuses
+    statuses+=("$(print_suspended_jobs_count)")
     statuses+=("$(git_status)")
     statuses+=("$(print_exitcode $exitcode)")
 
@@ -239,7 +251,7 @@ if ${use_color} ; then
             dp1)
                 PROMPT_COMMAND='last_exitcode=$?'
                 PROMPT_DIRTRIM=2
-                PS1='\[$(tput sc; rightalign_git_exitcode $last_exitcode; tput rc)\]\u@\h \$ '
+                PS1='\[$(tput sc; rightalign_git_exitcode $last_exitcode; tput rc)\]'$(apply_foreground green '\h')' \w '$(apply_foreground blue '\$')' '
                 ;;
             dp2)
                 PROMPT_COMMAND='last_exitcode=$?'
