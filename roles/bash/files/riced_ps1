@@ -131,7 +131,7 @@ git_status() {
 
     # branch
     if [[ ! -z ${statuses[0]} ]]; then
-        status+=($(apply_foreground blue "${statuses[0]};"))
+        status+=($(apply_foreground cyan "${statuses[0]};"))
     fi
 
     # staged count
