@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+iatest=$(expr index "$-" i)
+
 # nice bash features
 shopt -s autocd
 shopt -s cdspell
@@ -9,3 +11,13 @@ shopt -s dirspell
 # Check the window size after each command and, if necessary, update the values
 # of LINES and COLUMNS
 shopt -s checkwinsize
+
+# Note: bind used instead of sticking these in .inputrc
+if [[ $iatest > 0 ]]; then
+    # Disable the bell
+    bind "set bell-style visible"
+    # Ignore case on auto-completion
+    bind "set completion-ignore-case on"
+    # Show auto-completion list automatically, without double tab
+    bind "set show-all-if-ambiguous On"
+fi
