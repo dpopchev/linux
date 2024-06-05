@@ -251,7 +251,7 @@ if ${use_color} ; then
             dp1)
                 PROMPT_COMMAND='last_exitcode=$?'
                 PROMPT_DIRTRIM=2
-                PS1='\[$(tput sc; rightalign_git_exitcode $last_exitcode; tput rc)\]'$(apply_foreground green '\h')' \w '$(apply_foreground blue '\$')' '
+                PS1='\[$(tput sc; rightalign_git_exitcode $last_exitcode; tput rc)\]'$(apply_foreground green '\033[1m\h')' \w '$(apply_foreground blue '\033[1m\$')' '
                 ;;
             dp2)
                 PROMPT_COMMAND='last_exitcode=$?'
