@@ -2,17 +2,30 @@
 
 Collection of `Linux` related repositories and scripts to make my life easier.
 
-## Install
+## Installation
+
+### Requirements
+
+Get `ansible` or just copy as you see fit.
+
+### Install
 
 ```
 git clone https://github.com/dpopchev/linux.git
-cd linux
+ansible-playbook local.yml
+```
+
+## Usage
+
+### Tags
+
+```
+ansible-playbook --list-tags local.yml
 ```
 
 ## Related repos
 
 - [linux-alacritty](https://github.com/dpopchev/linux-alacritty)
-- [linux-bash](https://github.com/dpopchev/linux-bash)
 - [linux-ctags](https://github.com/dpopchev/linux-ctags)
 - [linux-git](https://github.com/dpopchev/linux-git)
 - [linux-i3](https://github.com/dpopchev/linux-i3)
