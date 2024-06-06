@@ -1,5 +1,5 @@
 - name: install latest package
-  tags: packages
+  tags: [packages, bash-packages]
   package:
     state: latest
     name: bash

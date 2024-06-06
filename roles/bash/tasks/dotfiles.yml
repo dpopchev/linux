@@ -1,11 +1,11 @@
 - name: install bash completion package
-  tags: packages
+  tags: [packages, bash-packages]
   package:
     state: latest
     name: bash-completion
 
 - name: symlink bash configurations
-  tags: setup
+  tags: [setup, bash-setup]
   file:
     src: "{{ configs_home }}/{{ item.src }}"
     dest: "{{ item.dest }}"

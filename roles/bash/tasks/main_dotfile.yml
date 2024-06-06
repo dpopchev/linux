@@ -1,10 +1,10 @@
 - name: check for existing main dotfile
-  tags: setup
+  tags: [setup, bash-setup]
   stat: path="{{ main_dotfile.dest }}"
   register: check_result
 
 - name: backup existing main dotfile
-  tags: setup
+  tags: [setup, bash-setup]
   copy:
     src: "{{ main_dotfile.dest }}"
     dest: "{{ main_dotfile.dest }}.{{ bksuffix }}"
@@ -12,7 +12,7 @@
   when: check_result.stat.exists
 
 - name: symlink main dotfile
-  tags: setup
+  tags: [setup, bash-setup]
   file:
     src: "{{ configs_home }}/{{ main_dotfile.src }}"
     dest: "{{ main_dotfile.dest }}"
