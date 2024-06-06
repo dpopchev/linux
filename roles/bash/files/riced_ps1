@@ -185,6 +185,41 @@ print_suspended_jobs_count(){
     return 0
 }
 
+rightalign_git_exitcode(){
+    local -r exitcode="$1"
+    local -a statuses
+    statuses+=("$(print_suspended_jobs_count)")
+    statuses+=("$(git_status)")
+    statuses+=("$(print_exitcode $exitcode)")
+
+    # when using colors we need to compensate https://superuser.com/a/517110
+    local -r len_string=$(echo -en ${statuses[*]} | sed 's/\x1b\[[0-9;]*m//g' | wc -c)
+    local -r len_colored_string=$(echo -en ${statuses[*]} | wc -c)
+    IFS=' ' printf '%*b' $(($COLUMNS+$len_colored_string-$len_string)) "${statuses[*]}"
+}
+
+lower_rightprompt() {
+    local -r exitcode=$1
+    printf "%*s" $COLUMNS $(print_exitcode $exitcode)
+}
+
+upper_rightprompt() {
+    printf "%*s" $COLUMNS "$(git_status) $(print_jobs_status)"
+}
+
+# Change the window title of X terminals
+case ${TERM} in
+    [aEkx]term*|rxvt*|gnome*|konsole*|interix|tmux*)
+        PS1='\[\033]0;\u@\h:\w\007\]'
+        ;;
+    screen*)
+        PS1='\[\033_\u@\h:\w\033\\\]'
+        ;;
+    *)
+        unset PS1
+        ;;
+esac
+
 # Set colorful PS1 only on colorful terminals.
 # dircolors --print-database uses its own built-in database instead of using /etc/DIR_COLORS.  Try to use the external file first to take advantage of user additions.
 # We run dircolors directly due to its changes in file syntax and
@@ -217,28 +252,6 @@ else
         [aEkx]term*|rxvt*|gnome*|konsole*|screen|tmux|cons25|*color) use_color=true;;
     esac
 fi
-
-rightalign_git_exitcode(){
-    local -r exitcode="$1"
-    local -a statuses
-    statuses+=("$(print_suspended_jobs_count)")
-    statuses+=("$(git_status)")
-    statuses+=("$(print_exitcode $exitcode)")
-
-    # when using colors we need to compensate https://superuser.com/a/517110
-    local -r len_string=$(echo -en ${statuses[*]} | sed 's/\x1b\[[0-9;]*m//g' | wc -c)
-    local -r len_colored_string=$(echo -en ${statuses[*]} | wc -c)
-    IFS=' ' printf '%*b' $(($COLUMNS+$len_colored_string-$len_string)) "${statuses[*]}"
-}
-
-lower_rightprompt() {
-    local -r exitcode=$1
-    printf "%*s" $COLUMNS $(print_exitcode $exitcode)
-}
-
-upper_rightprompt() {
-    printf "%*s" $COLUMNS "$(git_status) $(print_jobs_status)"
-}
 
 if ${use_color} ; then
     if [[ ${EUID} == 0 ]] ; then
