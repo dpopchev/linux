@@ -9,37 +9,37 @@ dotdir: ~/.config/bashrc.d
 dotfiles:
   - bash_completion:
     src: bash_completion
-    dest: "{{ dotdir }}/10_bash_completion"
+    dest: "{{ dotdir }}/05_bash_completion"
   - history:
     src: history_config
-    dest: "{{ dotdir }}/01_history_config"
+    dest: "{{ dotdir }}/05_history_config"
   - features:
     src: features
-    dest: "{{ dotdir }}/02_features"
+    dest: "{{ dotdir }}/01_features"
   - aliases:
     src: aliases.private
-    dest: "{{ dotdir }}/20_aliases.private"
+    dest: "{{ dotdir }}/10_aliases.private"
   - pathlike_utils:
     src: pathlike_utils
-    dest: "{{ dotdir }}/21_pathlike_utils"
+    dest: "{{ dotdir }}/25_pathlike_utils"
   - termcolors_util:
     src: termcolors_util
-    dest: "{{ dotdir }}/23_termcolors_util"
+    dest: "{{ dotdir }}/25_termcolors_util"
   - archive_utils:
     src: archive_utils
-    dest: "{{ dotdir }}/23_archive_utils"
+    dest: "{{ dotdir }}/25_archive_utils"
   - joinby_util:
     src: joinby_util
-    dest: "{{ dotdir }}/23_joinby_util"
+    dest: "{{ dotdir }}/25_joinby_util"
   - scaleby_util:
     src: scaleby_util
-    dest: "{{ dotdir }}/23_scaleby_util"
+    dest: "{{ dotdir }}/25_scaleby_util"
   - jumpcd_util:
     src: jumpcd_util
-    dest: "{{ dotdir }}/23_jumpcd_util"
+    dest: "{{ dotdir }}/25_jumpcd_util"
   - mkpassfile_util:
     src: mkpassfile_util
-    dest: "{{ dotdir }}/23_mkpassfile_util"
+    dest: "{{ dotdir }}/25_mkpassfile_util"
   - ps1:
     src: riced_ps1
     dest: "{{ dotdir }}/99_riced_ps1"
