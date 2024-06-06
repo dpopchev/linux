@@ -16,6 +16,10 @@ shopt -s dirspell
 
 # Check the window size after each command and, if necessary, update the values
 # of LINES and COLUMNS
+# Bash won't get SIGWINCH if another process is in the foreground.
+# Enable checkwinsize so that bash will check the terminal size when
+# it regains control.  #65623
+# http://cnswww.cns.cwru.edu/~chet/bash/FAQ (E11)
 shopt -s checkwinsize
 
 # Disable completion when the input buffer is empty.  i.e. Hitting tab
