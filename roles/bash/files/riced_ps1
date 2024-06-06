@@ -167,10 +167,11 @@ print_exitcode(){
     local -r exitcode=$1
 
     if [[ $exitcode -eq 0 ]]; then
+        echo -n ''
         return 0
     fi
 
-    echo -n $(apply_foreground light_red "$exitcode")
+    apply_foreground light_red "$exitcode"
     return 0
 }
 
@@ -178,6 +179,7 @@ print_suspended_jobs_count(){
     local -r count=$(get_suspended_jobs_count)
 
     if [[ $count -eq 0 ]]; then
+        echo ''
         return 0
     fi
 
@@ -189,8 +191,8 @@ rightalign_git_exitcode(){
     local -r exitcode="$1"
     local -a statuses
     statuses+=("$(print_suspended_jobs_count)")
-    statuses+=("$(git_status)")
     statuses+=("$(print_exitcode $exitcode)")
+    statuses+=("$(git_status)")
 
     # when using colors we need to compensate https://superuser.com/a/517110
     local -r len_string=$(echo -en ${statuses[*]} | sed 's/\x1b\[[0-9;]*m//g' | wc -c)
@@ -264,7 +266,7 @@ if ${use_color} ; then
             dp1)
                 PROMPT_COMMAND='last_exitcode=$?'
                 PROMPT_DIRTRIM=2
-                PS1='\[$(tput sc; rightalign_git_exitcode $last_exitcode; tput rc)\]'$(apply_foreground green '\033[1m\h')' \w '$(apply_foreground blue '\033[1m\$')' '
+                PS1='\[$(tput sc; rightalign_git_exitcode $last_exitcode; tput rc)\]\[\033[01;32m\]\h\[\033[01;34m\]\[\033[00m\] \w \[\033[01;34m\]\$\[\033[00m\] '
                 ;;
             dp2)
                 PROMPT_COMMAND='last_exitcode=$?'
