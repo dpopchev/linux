@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-iatest=$(expr index "$-" i)
+# Test for an interactive shell.  There is no need to set anything
+# past this point for scp and rcp, and it's important to refrain from
+# outputting anything in those cases.
+if [[ $- != *i* ]] ; then
+    # Shell is non-interactive.  Be done now!
+    return
+fi
 
 # nice bash features
 shopt -s autocd
@@ -12,12 +18,47 @@ shopt -s dirspell
 # of LINES and COLUMNS
 shopt -s checkwinsize
 
+# Disable completion when the input buffer is empty.  i.e. Hitting tab
+# and waiting a long time for bash to expand all of $PATH.
+shopt -s no_empty_cmd_completion
+
 # Note: bind used instead of sticking these in .inputrc
-if [[ $iatest > 0 ]]; then
-    # Disable the bell
-    bind "set bell-style visible"
-    # Ignore case on auto-completion
-    bind "set completion-ignore-case on"
-    # Show auto-completion list automatically, without double tab
-    bind "set show-all-if-ambiguous On"
-fi
+bind "set bell-style visible"
+bind "set blink-matching-paren on"
+bind "set colored-completion-prefix on"
+bind "set colored-stats on"
+
+bind "set completion-ignore-case on"
+bind "set completion-map-case on"
+bind "set completion-prefix-display-length 3"
+bind "set completion-query-items 50"
+# bind "set convert-meta on"
+# bind "set disable-completion off"
+bind "set editing-mode emacs"
+bind "set enable-meta-key on"
+# bind "set history-preserve-point off"
+# bind "set history-size -1"
+# bind "set input-meta off"
+# bind "set mark-directories on"
+# bind "set mark-modified-lines off"
+bind "set mark-symlinked-directories on"
+# bind "set match-hidden-files on"
+# bind "set menu-complete-display-prefix off"
+# bind "set page-completions on"
+bind "set show-all-if-ambiguous on"
+bind "set show-all-if-unmodified on"
+# bind "set show-mode-in-prompt off"
+bind "set skip-completed-text on"
+# bind "set vi-cmd-mode-string (cmd)"
+# bind "set vi-ins-mode-string (ins)"
+bind "set visible-stats on"
+
+bind '"\C-p": history-search-backward'
+bind '"\C-n": history-search-forward'
+
+# bind '"\e-\t": complete'
+# bind '"\t": menu-complete'
+# bind '"\t[Z": menu-complete-backward'
+
+bind 'set bind-tty-special-chars off'
+bind '"\C-w": backward-kill-word'
