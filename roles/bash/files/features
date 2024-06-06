@@ -66,3 +66,5 @@ bind '"\C-n": history-search-forward'
 
 bind 'set bind-tty-special-chars off'
 bind '"\C-w": backward-kill-word'
+
+bind 'set horizontal-scroll-mode off'
