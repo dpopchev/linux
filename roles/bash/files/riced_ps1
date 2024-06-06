@@ -266,7 +266,8 @@ if ${use_color} ; then
             dp1)
                 PROMPT_COMMAND='last_exitcode=$?'
                 PROMPT_DIRTRIM=2
-                PS1='\[$(tput sc; rightalign_git_exitcode $last_exitcode; tput rc)\]\[\033[01;32m\]\h\[\033[01;34m\]\[\033[00m\] \w \[\033[01;34m\]\$\[\033[00m\] '
+                [[ -n $TMUX ]] && hostname='tmux'
+                PS1='\[$(tput sc; rightalign_git_exitcode $last_exitcode; tput rc)\]\[\033[01;32m\]'${hostname:-"\\h"}'\[\033[01;34m\]\[\033[00m\] \w \[\033[01;34m\]\$\[\033[00m\] '
                 ;;
             dp2)
                 PROMPT_COMMAND='last_exitcode=$?'
@@ -287,4 +288,4 @@ else
     PS1+='\u@\h \w \$ '
 fi
 
-unset use_color
+unset use_color hostname
