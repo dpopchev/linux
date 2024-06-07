@@ -1,0 +1,8 @@
+- name: symlink main dotfile
+  tags: [setup, alacritty-setup]
+  file:
+    src: "{{ configs_home }}/{{ main_dotfile.src }}"
+    dest: "{{ main_dotfile.dest }}"
+    state: link
+    force: true
+    follow: false

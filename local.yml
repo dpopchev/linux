@@ -1,4 +1,7 @@
 - hosts: local
   tags: bash
   roles:
-    - bash
+    - role: bash
+      tags: bash
+    - role: alacritty
+      tags: alacritty
