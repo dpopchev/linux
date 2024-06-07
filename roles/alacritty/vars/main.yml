@@ -1,0 +1,7 @@
+configs_home: "{{ role_path }}/files"
+
+dotdir: ~/.config/alacritty/
+
+main_dotfile:
+  src: alacritty.toml
+  dest: "{{ dotdir }}/alacritty.toml"
