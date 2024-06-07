@@ -1,0 +1,9 @@
+- name: install latest package
+  tags: [packages, git-packages]
+  package:
+    state: latest
+    name: git
+
+- block:
+  - import_tasks: gitconfig.yml
+  - import_tasks: gitattributes.yml
