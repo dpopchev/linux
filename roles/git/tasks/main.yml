@@ -7,3 +7,4 @@
 - block:
   - import_tasks: gitconfig.yml
   - import_tasks: gitattributes.yml
+  - import_tasks: aliases.yml
