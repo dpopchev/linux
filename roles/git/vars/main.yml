@@ -1,0 +1,14 @@
+configs_home: "{{ role_path }}/files"
+
+config:
+  src: gitconfig
+  dest: ~/.gitconfig
+
+attributes:
+  src: gitattributes
+  dest: ~/.gitattributes
+
+aliases:
+  - bash:
+    src: aliases.sh
+    dest: ~/.config/bashrc.d/git.aliases
