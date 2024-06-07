@@ -25,8 +25,6 @@ ansible-playbook --list-tags local.yml
 
 ## Related repos
 
-- [linux-alacritty](https://github.com/dpopchev/linux-alacritty)
-- [linux-ctags](https://github.com/dpopchev/linux-ctags)
 - [linux-git](https://github.com/dpopchev/linux-git)
 - [linux-i3](https://github.com/dpopchev/linux-i3)
 - [linux-readline](https://github.com/dpopchev/linux-readline)
