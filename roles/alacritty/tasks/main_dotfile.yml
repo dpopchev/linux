@@ -1,4 +1,4 @@
-- name: symlink main dotfile
+- name: "symlink {{ main_dotfile.src }}"
   tags: [setup, alacritty-setup]
   file:
     src: "{{ configs_home }}/{{ main_dotfile.src }}"
