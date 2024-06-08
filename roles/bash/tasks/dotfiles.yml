@@ -4,7 +4,7 @@
     state: latest
     name: bash-completion
 
-- name: symlink bash configurations
+- name: symlink configurations
   tags: [setup, bash-setup]
   file:
     src: "{{ configs_home }}/{{ item.src }}"

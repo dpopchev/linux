@@ -1,4 +1,4 @@
-- name: check for existing main dotfile
+- name: check for existing one
   tags: [setup, bash-setup]
   stat: path="{{ main_dotfile.dest }}"
   register: check_result

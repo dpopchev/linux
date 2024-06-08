@@ -1,9 +1,9 @@
-- name: check for existing main dotfile
+- name: check for existing dotfile
   tags: [setup, git-setup]
   stat: path="{{ attributes.dest }}"
   register: check_result
 
-- name: backup existing main dotfile
+- name: backup existing  dotfile
   tags: [setup, git-setup]
   copy:
     src: "{{ attributes.dest }}"
@@ -11,7 +11,7 @@
     follow: true
   when: check_result.stat.exists
 
-- name: symlink main dotfile
+- name: symlink dotfile
   tags: [setup, git-setup]
   file:
     src: "{{ configs_home }}/{{ attributes.src }}"
