@@ -1,6 +1,6 @@
 configs_home: "{{ role_path }}/files"
 
-config:
+main_dotfile:
   src: gitconfig
   dest: ~/.gitconfig
 
