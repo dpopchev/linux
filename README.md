@@ -25,7 +25,6 @@ ansible-playbook --list-tags local.yml
 
 ## Related repos
 
-- [linux-git](https://github.com/dpopchev/linux-git)
 - [linux-i3](https://github.com/dpopchev/linux-i3)
 - [linux-readline](https://github.com/dpopchev/linux-readline)
 - [linux-redshift](https://github.com/dpopchev/linux-redshift)
