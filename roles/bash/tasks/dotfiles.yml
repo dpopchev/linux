@@ -14,4 +14,4 @@
     follow: false
   loop: "{{ dotfiles }}"
   loop_control:
-    label: "{{ item.src }}"
+    label: "{{ item.dest }}"
