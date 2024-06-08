@@ -11,7 +11,7 @@
     follow: true
   when: check_result.stat.exists
 
-- name: "symlink {{ attributes.src }}"
+- name: "symlink {{ attributes.dest }}"
   tags: [setup, git-setup]
   file:
     src: "{{ configs_home }}/{{ attributes.src }}"
