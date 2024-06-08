@@ -1,9 +1,9 @@
-- name: check for existing main dotfile
+- name: "check for existing {{ main_dotfile.dest }}"
   tags: [setup, readline-setup]
   stat: path="{{ config.dest }}"
   register: check_result
 
-- name: backup existing main dotfile
+- name: "backup {{ main_dotfile.dest }} if exists"
   tags: [setup, readline-setup]
   copy:
     src: "{{ config.dest }}"
@@ -11,7 +11,7 @@
     follow: true
   when: check_result.stat.exists
 
-- name: symlink main dotfile
+- name: "symlink {{ main_dotfile.src }}"
   tags: [setup, readline-setup]
   file:
     src: "{{ configs_home }}/{{ config.src }}"
