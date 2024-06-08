@@ -8,3 +8,6 @@
 
     - role: alacritty
       tags: alacritty
+
+    - role: readline
+      tags: [readline, never]

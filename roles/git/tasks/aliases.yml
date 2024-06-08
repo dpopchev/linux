@@ -1,4 +1,4 @@
-- name: symlink git aliases
+- name: symlink aliases
   tags: [setup, git-setup]
   file:
     src: "{{ configs_home }}/{{ item.src }}"
