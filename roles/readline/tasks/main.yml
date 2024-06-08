@@ -1,2 +1,2 @@
 - block:
-  - import_tasks: inputrc.yml
+  - import_tasks: main_dotfile.yml
