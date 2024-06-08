@@ -11,3 +11,6 @@
 
     - role: readline
       tags: [readline, never]
+
+    - role: redshift
+      tags: [redshift, never]
