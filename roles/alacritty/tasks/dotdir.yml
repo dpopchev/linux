@@ -3,7 +3,7 @@
   stat: path="{{ dotdir }}"
   register: check_result
 
-- name: "backup {{ dotdir }}, if exists"
+- name: "backup {{ dotdir }} if exists"
   tags: [setup, alacritty-setup]
   copy:
     src: "{{ dotdir }}"

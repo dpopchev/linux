@@ -1,9 +1,9 @@
-- name: check for existing dotdir
+- name: "check for existing {{ dotdir }}"
   tags: [setup, bash-setup]
   stat: path="{{ dotdir }}"
   register: check_result
 
-- name: backup existing dotdir
+- name: "backup {{ dotdir }} if exists"
   tags: [setup, bash-setup]
   copy:
     src: "{{ dotdir }}"
@@ -11,7 +11,7 @@
     follow: true
   when: check_result.stat.exists
 
-- name: create new dotdir
+- name: "create new {{ dotdir }}"
   tags: [setup, bash-setup]
   file:
     path: "{{ dotdir }}"
