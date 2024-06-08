@@ -19,14 +19,27 @@ ansible-playbook local.yml
 
 ### Tags
 
+See available tags
+
 ```
 ansible-playbook --list-tags local.yml
+```
+
+#### Run default roles tasks
+
+```
+ansible-playbook local.yml
+```
+
+#### Run all roles tasks
+
+```
+ansible-playbook local.yml --tags 'all,never'
 ```
 
 ## Related repos
 
 - [linux-i3](https://github.com/dpopchev/linux-i3)
-- [linux-redshift](https://github.com/dpopchev/linux-redshift)
 - [linux-tmux](https://github.com/dpopchev/linux-tmux)
 - [linux-vim](https://github.com/dpopchev/linux-vim)
 - [linux-xresources](https://github.com/dpopchev/linux-xresources)
