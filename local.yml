@@ -1,5 +1,4 @@
 - hosts: local
-  tags: bash
   roles:
     - role: git
       tags: git
