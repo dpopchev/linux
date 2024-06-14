@@ -1,0 +1,12 @@
+- name: "check for existing {{ target }}"
+  tags: always
+  stat: path="{{ target }}"
+  register: check_result
+
+- name: "backup {{ target }} if exists"
+  tags: always
+  copy:
+    src: "{{ target }}"
+    dest: "{{ target }}.{{ bksuffix }}"
+    follow: true
+  when: check_result.stat.exists
