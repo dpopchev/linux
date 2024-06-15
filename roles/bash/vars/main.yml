@@ -1,8 +1,8 @@
-configs_home: "{{ role_path }}/files"
+role_files: "{{ role_path }}/files"
 
 main_dotfile:
-  src: bashrc.private
-  dest: ~/.bashrc.private
+  src: "{{ role_files }}/bash_profile"
+  dest: ~/.bash_profile
 
 dotdir: ~/.config/bashrc.d
 
