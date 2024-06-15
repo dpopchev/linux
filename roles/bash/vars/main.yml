@@ -4,13 +4,13 @@ role_resource:
   profile: "{{ role_files }}/profile"
   bashrc: "{{ role_files }}/bashrc"
 
-main_dotfile:
-  src: "{{ role_resource }}/bash_profile"
-  dest: ~/.bash_profile
-
 dotdir:
   profile: "{{ dphome }}/profile"
   bashrc: "{{ dphome }}/bashrc"
+
+main_dotfile:
+  src: "{{ role_resource }}/bash_profile"
+  dest: ~/.bash_profile
 
 profile_dotfiles:
   - path:
