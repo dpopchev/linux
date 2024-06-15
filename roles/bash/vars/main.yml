@@ -73,3 +73,7 @@ bashrc_dotfiles:
   - name: ps1
     src: "{{ role_resource.bashrc }}/riced_ps1"
     dest: "{{ dotdir.bashrc }}/riced_ps1"
+
+bashrc_ps1profile:
+  src: "{{ role_resource.bashrc }}/ps1profile"
+  dest: "{{ dotdir.profile }}/ps1profile"
