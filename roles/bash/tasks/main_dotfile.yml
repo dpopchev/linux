@@ -1,15 +1,9 @@
-- name: "check for existing {{ main_dotfile.dest }}"
+- name: "ensure not overwriting existing {{ main_dotfile.dest }}"
   tags: [setup, bash-setup]
-  stat: path="{{ main_dotfile.dest }}"
-  register: check_result
-
-- name: "backup {{ main_dotfile.dest }} if exists"
-  tags: [setup, bash-setup]
-  copy:
-    src: "{{ main_dotfile.dest }}"
-    dest: "{{ main_dotfile.dest }}.{{ bksuffix }}"
-    follow: true
-  when: check_result.stat.exists
+  include_role:
+    name: backup
+  vars:
+    target: "{{ main_dotfile.dest }}"
 
 - name: "symlink {{ main_dotfile.dest }}"
   tags: [setup, bash-setup]
