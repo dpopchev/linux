@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+[[ -r ~/.profile ]] && source ~/.profile
+
+rcfile=
+for rcfile in ~/.config/dpopchev/profile/*; do
+    [[ -r ${rcfile} ]] && source "${rcfile}"
+done
+
+[[ -r ~/.bashrc ]] && source ~/.bashrc
+
+[[ -r ~/.bashrc.private ]] && source ~/.bashrc.private
+
+unset rcfile

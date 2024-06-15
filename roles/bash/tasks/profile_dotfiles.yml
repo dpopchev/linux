@@ -1,0 +1,16 @@
+- name: "create {{ dotdir.profile }}"
+  tags: [setup, bash-setup]
+  file:
+    path: "{{ dotdir.profile }}"
+    state: directory
+
+- name: install profile dotfiles
+  tags: [setup, bash-setup]
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    force: true
+    follow: false
+  loop: "{{ profile_dotfiles }}"
+  loop_control:
+    label: "{{ item.dest }}"

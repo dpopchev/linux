@@ -1,10 +1,36 @@
 role_files: "{{ role_path }}/files"
 
+role_resource:
+  profile: "{{ role_files }}/profile"
+  bashrc: "{{ role_files }}/bashrc"
+
 main_dotfile:
-  src: "{{ role_files }}/bash_profile"
+  src: "{{ role_resource }}/bash_profile"
   dest: ~/.bash_profile
 
-dotdir: ~/.config/bashrc.d
+dotdir:
+  profile: "{{ dphome }}/profile"
+  bashrc: "{{ dphome }}/bashrc"
+
+profile_dotfiles:
+  - path:
+    src: "{{ role_resource.profile }}/path"
+    dest: "{{ dotdir.profile }}/path"
+  - pager:
+    src: "{{ role_resource.profile }}/pager"
+    dest: "{{ dotdir.profile }}/pager"
+  - editor:
+    src: "{{ role_resource.profile }}/editor"
+    dest: "{{ dotdir.profile }}/editor"
+  - visual:
+    src: "{{ role_resource.profile }}/visual"
+    dest: "{{ dotdir.profile }}/visual"
+  - browser:
+    src: "{{ role_resource.profile }}/browser"
+    dest: "{{ dotdir.profile }}/browser"
+  - terminal:
+    src: "{{ role_resource.profile }}/terminal"
+    dest: "{{ dotdir.profile }}/terminal"
 
 dotfiles:
   - bash_completion:
