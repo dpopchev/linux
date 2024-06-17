@@ -1,0 +1,9 @@
+role_files: "{{ role_path }}/files"
+
+role_resource:
+  profile: "{{ role_files }}/profile"
+  bashrc: "{{ role_files }}/bashrc"
+
+dotdir:
+  profile: "{{ dphome }}/profile"
+  bashrc: "{{ dphome }}/bashrc"

@@ -39,3 +39,9 @@
     dest: "{{ bashrc_ps1profile.dest }}"
     force: true
     follow: false
+
+- name: install bash completion package
+  tags: [packages, bash-packages]
+  package:
+    state: latest
+    name: bash-completion
