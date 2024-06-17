@@ -1,0 +1,19 @@
+profile_dotfiles:
+  - name: path
+    src: "{{ role_resource.profile }}/path"
+    dest: "{{ dotdir.profile }}/path"
+  - name: pager
+    src: "{{ role_resource.profile }}/pager"
+    dest: "{{ dotdir.profile }}/pager"
+  - name: editor
+    src: "{{ role_resource.profile }}/editor"
+    dest: "{{ dotdir.profile }}/editor"
+  - name: visual
+    src: "{{ role_resource.profile }}/visual"
+    dest: "{{ dotdir.profile }}/visual"
+  - name: browser
+    src: "{{ role_resource.profile }}/browser"
+    dest: "{{ dotdir.profile }}/browser"
+  - name: terminal
+    src: "{{ role_resource.profile }}/terminal"
+    dest: "{{ dotdir.profile }}/terminal"

@@ -1,5 +1,0 @@
-- name: "create {{ dotdir.profile }}"
-  tags: [setup, bash-setup]
-  file:
-    path: "{{ dotdir.profile }}"
-    state: directory
