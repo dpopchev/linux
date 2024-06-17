@@ -22,14 +22,27 @@ additional `never` tag attached to them.
 
 Roles follow a general structure:
 
-- `tasks/main.yml` governs the corresponding task execution order
+- `tasks/main.yml` governs task execution order
 - `tasks/TASK_NAME.yml` particular step to achieve a state
+- `vars/main/TASK_NAME.yml` variables associated with the tasks
+- `files/TASK_NAME/*` files the task would copy or symlink
 
 ### Roles
 
 #### bash
 
-k
+`bash` shell setup starts dogmatically with `~/.bash_profile` sourcing in order:
+
+1. `~/.profile`
+1. anything on first level `~/.config/dpopchev/profile`
+1. `~/.bashrc`
+1. `~/.bashrc.private`
+
+It will source first existing `~/.profile` and then go over
+`~/.config/dpopchev/profile/*`. The latter provides mechanism to populate
+environment with variables such as `EDITOR`, or user-specific ones like
+`PS1PROFILE`, which is used to select a `PS` profile found into
+`~/.config/dpopchev/bashrc/riced_ps1`.
 
 ### Tags
 
