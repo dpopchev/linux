@@ -17,6 +17,20 @@ ansible-playbook local.yml
 
 ## Usage
 
+Each has associated tag. Some roles need to be run explicitly, i.e. they have
+additional `never` tag attached to them.
+
+Roles follow a general structure:
+
+- `tasks/main.yml` governs the corresponding task execution order
+- `tasks/TASK_NAME.yml` particular step to achieve a state
+
+### Roles
+
+#### bash
+
+k
+
 ### Tags
 
 See available tags
