@@ -34,7 +34,7 @@ Roles follow a general structure:
 `bash` shell setup starts dogmatically with `~/.bash_profile` sourcing in order:
 
 1. `~/.profile`
-1. anything on first level `~/.config/dpopchev/profile`
+1. `~/.config/dpopchev/profile`
 1. `~/.bashrc`
 1. `~/.bashrc.private`
 
@@ -43,6 +43,9 @@ It will source first existing `~/.profile` and then go over
 environment with variables such as `EDITOR`, or user-specific ones like
 `PS1PROFILE`, which is used to select a `PS` profile found into
 `~/.config/dpopchev/bashrc/riced_ps1`.
+
+`~/.bashrc.private` will source `~/.config/dpopchev/bashrc/*` for interactive
+shells and populate environment with user defined functions, aliases and such.
 
 ### Tags
 
