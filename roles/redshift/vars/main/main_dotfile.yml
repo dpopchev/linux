@@ -1,0 +1,3 @@
+main_dotfile:
+  src: "{{ role_resource.redshift }}/redshift.conf"
+  dest: ~/.config/redshift.conf
