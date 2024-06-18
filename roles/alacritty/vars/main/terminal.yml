@@ -1,0 +1,3 @@
+terminal:
+  src: "{{ role_resource.terminal }}/terminal"
+  dest: "{{ dphome }}/profile/terminal"

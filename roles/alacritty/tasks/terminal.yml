@@ -1,0 +1,7 @@
+- name: "make i3 sensible treminal trough {{ terminal.dest }}"
+  tags: [setup, alacritty-setup]
+  copy:
+    src: "{{ terminal.src }}"
+    dest: "{{ terminal.dest }}"
+    force: true
+    follow: false
