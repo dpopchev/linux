@@ -1,0 +1,4 @@
+aliases:
+  - name: bash
+    src: "{{ role_resource.aliases }}/aliases.sh"
+    dest: "{{ dphome }}/bashrc/git.aliases"

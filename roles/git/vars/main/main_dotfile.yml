@@ -1,0 +1,3 @@
+main_dotfile:
+  src: "{{ role_resource.gitconfig }}/gitconfig"
+  dest: ~/.gitconfig
