@@ -1,0 +1,21 @@
+- name: "check for existing {{ main_dotfile.dest }}"
+  tags: [setup, readline-setup]
+  stat: path="{{ main_dotfile.dest }}"
+  register: check_result
+
+- name: "backup {{ main_dotfile.dest }} if exists"
+  tags: [setup, readline-setup]
+  copy:
+    src: "{{ main_dotfile.dest }}"
+    dest: "{{ main_dotfile.dest }}.{{ bksuffix }}"
+    follow: true
+  when: check_result.stat.exists
+
+- name: "symlink {{ main_dotfile.dest }}"
+  tags: [setup, readline-setup]
+  file:
+    src: "{{ configs_home }}/{{ main_dotfile.src }}"
+    dest: "{{ main_dotfile.dest }}"
+    state: link
+    force: true
+    follow: false
