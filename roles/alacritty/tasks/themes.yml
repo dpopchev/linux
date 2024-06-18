@@ -1,0 +1,7 @@
+- name: get themes
+  tags: [packages, alacritty-packages]
+  git:
+    repo: https://github.com/alacritty/alacritty-theme.git
+    dest: "{{ dotdir }}/../alacritty-themes"
+    depth: 1
+  ignore_errors: true

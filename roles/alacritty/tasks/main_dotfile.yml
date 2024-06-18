@@ -1,7 +1,14 @@
+- name: "ensure not overwriting existing {{ main_dotfile.dest }}"
+  tags: [setup, alacritty-setup]
+  include_role:
+    name: backup
+  vars:
+    target: "{{ main_dotfile.dest }}"
+
 - name: "symlink {{ main_dotfile.dest }}"
   tags: [setup, alacritty-setup]
   file:
-    src: "{{ configs_home }}/{{ main_dotfile.src }}"
+    src: "{{ main_dotfile.src }}"
     dest: "{{ main_dotfile.dest }}"
     state: link
     force: true
