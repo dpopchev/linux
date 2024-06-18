@@ -1,0 +1,4 @@
+role_files: "{{ role_path }}/files"
+
+role_resource:
+  redshift: "{{ role_files }}"
