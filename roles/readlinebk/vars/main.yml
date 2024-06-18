@@ -1,5 +1,0 @@
-configs_home: "{{ role_path }}/files"
-
-main_dotfile:
-  src: inputrc
-  dest: ~/.inputrc
