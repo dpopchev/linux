@@ -6,4 +6,5 @@
 
 - block:
   - import_tasks: main_dotfile.yml
-  - import_tasks: dotfiles.yml
+  - import_tasks: gitattributes_dotfile.yml
+  - import_tasks: aliases.yml

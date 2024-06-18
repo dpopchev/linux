@@ -1,3 +1,0 @@
-- block:
-  - import_tasks: gitattributes.yml
-  - import_tasks: aliases.yml

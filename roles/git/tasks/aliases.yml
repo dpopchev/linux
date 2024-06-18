@@ -1,7 +1,7 @@
 - name: symlink aliases
   tags: [setup, git-setup]
   file:
-    src: "{{ configs_home }}/{{ item.src }}"
+    src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
     force: true
