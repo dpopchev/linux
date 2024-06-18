@@ -5,6 +5,12 @@
   vars:
     target: "{{ main_dotfile.dest }}"
 
+- name: "ensure destination path {{ main_dotfile.dest | dirname }} exists"
+  tags: [setup, alacritty-setup]
+  file:
+    path: "{{ main_dotfile.dest | dirname }}"
+    state: directory
+
 - name: "symlink {{ main_dotfile.dest }}"
   tags: [setup, alacritty-setup]
   file:
