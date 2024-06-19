@@ -5,6 +5,5 @@
     name: bash
 
 - block:
-  - import_tasks: main_dotfile.yml
-  - import_tasks: profile_dotfiles.yml
-  - import_tasks: bashrc_dotfiles.yml
+  - import_tasks: profile.yml
+  - import_tasks: bashrc.yml

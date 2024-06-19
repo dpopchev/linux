@@ -1,3 +1,7 @@
+profile:
+  src: "{{ role_resource.profile }}/profile"
+  dest: ~/.bash_profile
+
 profile_dotfiles:
   - name: path
     src: "{{ role_resource.profile }}/path"
