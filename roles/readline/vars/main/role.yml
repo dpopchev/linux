@@ -1,4 +1,4 @@
 role_files: "{{ role_path }}/files"
 
 role_resource:
-  readline: "{{ role_files }}"
+  inputrc: "{{ role_files }}/inputrc"
