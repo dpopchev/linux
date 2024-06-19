@@ -1,5 +1,5 @@
 profile:
-  src: "{{ role_resource.profile }}/profile"
+  src: "{{ role_resource.profile }}/bash_profile"
   dest: ~/.bash_profile
 
 profile_dotfiles:
