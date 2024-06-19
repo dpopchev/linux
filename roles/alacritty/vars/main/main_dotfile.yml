@@ -1,5 +1,0 @@
-dotdir: ~/.config/alacritty
-
-main_dotfile:
-  src: "{{ role_resource.alacritty }}/alacritty.toml"
-  dest: "{{ dotdir }}/alacritty.toml"

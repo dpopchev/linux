@@ -5,6 +5,6 @@
     name: alacritty
 
 - block:
-  - import_tasks: main_dotfile.yml
+  - import_tasks: configuration.yml
   - import_tasks: themes.yml
   - import_tasks: terminal.yml

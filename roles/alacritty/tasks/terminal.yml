@@ -1,4 +1,4 @@
-- name: "ensure destination path for {{ terminal.dest }} exists"
+- name: "ensure destination path {{ terminal.dest }} exists"
   tags: [setup, alacritty-setup]
   include_role:
     name: mkparents
