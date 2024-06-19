@@ -1,3 +1,13 @@
+- name: "ensure destination path {{ item.dest }} exists"
+  tags: [setup, git-setup]
+  include_role:
+    name: mkparents
+  vars:
+    target: "{{ item.dest }}"
+  loop: "{{ aliases }}"
+  loop_control:
+    label: "{{ item.dest }}"
+
 - name: symlink aliases
   tags: [setup, git-setup]
   file:
