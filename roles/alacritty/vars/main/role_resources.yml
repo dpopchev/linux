@@ -1,5 +1,0 @@
-role_files: "{{ role_path }}/files"
-
-role_resource:
-  alacritty: "{{ role_files }}"
-  terminal: "{{ role_files }}"

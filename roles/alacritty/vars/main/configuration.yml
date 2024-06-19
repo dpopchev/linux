@@ -1,0 +1,3 @@
+configuration:
+  src: "{{ role_resource.configuration }}/alacritty.toml"
+  dest: ~/.config/alacritty/alacritty.toml

@@ -1,0 +1,7 @@
+dotdir: "~/.config/alacritty"
+
+role_files: "{{ role_path }}/files"
+
+role_resource:
+  configuration: "{{ role_files }}/configuration"
+  terminal: "{{ role_files }}/terminal"
