@@ -1,8 +1,2 @@
-- name: install latest package
-  tags: [packages, redshift-packages]
-  package:
-    state: latest
-    name: redshift
-
 - block:
-  - import_tasks: main_dotfile.yml
+  - import_tasks: configuration.yml
