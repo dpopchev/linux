@@ -12,7 +12,7 @@ Get `ansible` or just copy as you see fit.
 
 ```
 git clone https://github.com/dpopchev/linux.git
-ansible-playbook local.yml
+ansible-playbook local.yml -K
 ```
 
 ## Usage
