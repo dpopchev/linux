@@ -1,6 +1,0 @@
-role_files: "{{ role_path }}/files"
-
-role_resource:
-  gitconfig: "{{ role_files }}"
-  gitattributes: "{{ role_files }}"
-  aliases: "{{ role_files }}"
