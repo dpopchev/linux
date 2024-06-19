@@ -1,4 +1,11 @@
-- name: "make i3 sensible treminal trough {{ terminal.dest }}"
+- name: "ensure destination path for {{ terminal.dest }} exists"
+  tags: [setup, alacritty-setup]
+  include_role:
+    name: mkparents
+  vars:
+    target: "{{ terminal.dest }}"
+
+- name: "make alacritty a i3-sensible-treminal trough {{ terminal.dest }}"
   tags: [setup, alacritty-setup]
   copy:
     src: "{{ terminal.src }}"
