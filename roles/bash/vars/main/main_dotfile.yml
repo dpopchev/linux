@@ -1,3 +1,0 @@
-main_dotfile:
-  src: "{{ role_resource.profile }}/bash_profile"
-  dest: ~/.bash_profile
