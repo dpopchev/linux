@@ -3,6 +3,7 @@
   package:
     state: latest
     name: git
+  become: true
 
 - block:
   - import_tasks: gitconfig.yml

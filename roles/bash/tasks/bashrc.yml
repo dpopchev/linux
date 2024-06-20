@@ -45,3 +45,4 @@
   package:
     state: latest
     name: bash-completion
+  become: true

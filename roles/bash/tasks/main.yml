@@ -3,6 +3,7 @@
   package:
     state: latest
     name: bash
+  become: true
 
 - block:
   - import_tasks: profile.yml
