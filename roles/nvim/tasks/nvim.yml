@@ -1,2 +1,21 @@
-- name: "create {{ dotdir.neovim }}"
+- name: "create {{ dotdir.nvim }}"
   tags: [setup, nvim-setup]
+  file:
+    path: "{{ dotdir.nvim }}"
+    state: directory
+
+- name: "ensure not overwriting existing {{ nvim.dest }}"
+  tags: [setup, nvim-setup]
+  include_role:
+    name: backup
+  vars:
+    target: "{{ nvim.dest }}"
+
+- name: "symlink {{ nvim.dest }}"
+  tags: [setup, nvim-setup]
+  file:
+    src: "{{ nvim.src }}"
+    dest: "{{ nvim.dest }}"
+    state: link
+    force: true
+    follow: false

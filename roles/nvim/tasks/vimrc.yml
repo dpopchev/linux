@@ -18,5 +18,5 @@
   tags: [setup, nvim-setup]
   file:
     path: "{{ dotdir.vimrc }}"
-    state: directoyr
+    state: directory
 
