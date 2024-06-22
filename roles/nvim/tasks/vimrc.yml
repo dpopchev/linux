@@ -1,0 +1,15 @@
+- name: "ensure not overwriting existing {{ vimrc.dest }}"
+  tags: [setup, nvim-setup]
+  include_role:
+    name: backup
+  vars:
+    target: "{{ vimrc.dest }}"
+
+- name: "symlink {{ vimrc.dest }}"
+  tags: [setup, nvim-setup]
+  file:
+    src: "{{ vimrc.src }}"
+    dest: "{{ vimrc.dest }}"
+    state: link
+    force: true
+    follow: false
