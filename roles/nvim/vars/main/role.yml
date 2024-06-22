@@ -3,7 +3,10 @@ role_files: "{{ role_path }}/files"
 role_resource:
   vimrc: "{{ role_files }}/vimrc"
   nvim: "{{ role_files }}/nvim"
+  plugins: "{{ role_files }}/plugins"
 
 dotdir:
   vimrc: ~/.vim
   nvim: ~/.config/nvim
+  lua: ~/.config/nvim/lua
+  plugins: ~/.config/nvim/lua/plugins
