@@ -8,3 +8,4 @@
 - block:
   - import_tasks: vimrc.yml
   - import_tasks: nvim.yml
+  - import_tasks: plugins.yml

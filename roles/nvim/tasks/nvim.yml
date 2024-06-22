@@ -1,3 +1,10 @@
+- name: install clipboard provider
+  tags: [packages, nvim-packages]
+  package:
+    state: latest
+    name: xsel
+  become: true
+
 - name: "create {{ dotdir.nvim }}"
   tags: [setup, nvim-setup]
   file:
@@ -19,3 +26,21 @@
     state: link
     force: true
     follow: false
+
+- name: "create {{ dotdir.lua }}"
+  tags: [setup, nvim-setup]
+  file:
+    path: "{{ dotdir.lua }}"
+    state: directory
+
+- name: "create {{ dotdir.plugins }}"
+  tags: [setup, nvim-setup]
+  file:
+    path: "{{ dotdir.plugins }}"
+    state: directory
+
+- name: "create plugins setup stub"
+  tags: [setup, nvim-setup]
+  file:
+    path: "{{ plugins_setup.dest }}"
+    state: touch
