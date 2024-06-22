@@ -13,3 +13,10 @@
     state: link
     force: true
     follow: false
+
+- name: "create {{ dotdir.vimrc }}"
+  tags: [setup, nvim-setup]
+  file:
+    path: "{{ dotdir.vimrc }}"
+    state: directoyr
+
