@@ -17,8 +17,6 @@ if has('termguicolors')
     set termguicolors
 endif
 
-set background=dark
-
 " Allow color schemes to do bright colors without forcing bold.
 if &t_Co == 8 && $TERM !~# '^Eterm'
     set t_Co=16
@@ -181,10 +179,10 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
 " ==> pane resizing control
-nnoremap <Left> :vertical resize +1<CR>
-nnoremap <Right> :vertical resize -1<CR>
-nnoremap <Up> :resize -1<CR>
-nnoremap <Down> :resize +1<CR>
+"nnoremap <Left> :vertical resize +1<CR>
+"nnoremap <Right> :vertical resize -1<CR>
+"nnoremap <Up> :resize -1<CR>
+"nnoremap <Down> :resize +1<CR>
 
 " ==> search config
 " resource https://vim.fandom.com/wiki/Searching
@@ -194,8 +192,8 @@ set ignorecase  " ignore case when searching
 set smartcase   " automatically switch to case-sensitive when search
 set magic       " for regular expressions turn magic on
 nnoremap <C-l> :nohlsearch<CR><esc>
-nnoremap n n
-nnoremap N N
+"nnoremap n n
+"nnoremap N N
 
 " Use <C-L> to clear the highlighting of :set hlsearch.
 if maparg('<C-L>', 'n') ==# ''
@@ -223,7 +221,7 @@ set spell
 set spelllang=en
 " set spelllang+=bg  " spellcheck language
 
-autocmd! FileType i3config :set nospell
+"autocmd! FileType i3config :set nospell
 
 " ==> indentation without hard tabs
 " resource https://vim.fandom.com/wiki/Indenting_source_code
@@ -233,10 +231,10 @@ let &shiftwidth=b:indent  " affects when pressing >>, << or == and auto indentat
 let &softtabstop=b:indent " affects <TAB> or <BS>;
 " let &tabstop=b:indent   " not recommended as may alter view of other editors
 
-function! InsertHalfShiftwidth()
-    return repeat(' ', &shiftwidth/2)
-endfunction
-inoremap <S-tab> <C-R>=InsertHalfShiftwidth()<cr>
+"function! InsertHalfShiftwidth()
+"    return repeat(' ', &shiftwidth/2)
+"endfunction
+"inoremap <S-tab> <C-R>=InsertHalfShiftwidth()<cr>
 
 " ==> buffers
 set splitright
@@ -263,30 +261,29 @@ nnoremap gmO :copen<cr>
 autocmd! FileType qf wincmd L
 
 " ==> terminal
-if has('nvim')
-    nnoremap <leader><cr> :vsplit <bar> :term<cr>
-else
-    set termwinkey=<C-X>
-    nnoremap <leader><cr> :vert terminal<CR>
-endif
-tnoremap <C-X>n <C-X>N
-tnoremap <C-X><C-N> <C-X>N
-
-if has('nvim')
-    augroup neovim_terminal
-        autocmd!
-        " Enter Terminal-mode (insert) automatically
-        " autocmd TermOpen * startinsert " will fail neotest run
-        autocmd TermOpen * if nvim_buf_get_name(0) =~# '^term://.*' | startinsert | endif
-        " Disables number lines on terminal buffers
-        autocmd TermOpen * :set nonumber norelativenumber
-        " allows you to use Ctrl-c on terminal window
-        autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
-        " disable spelling
-        autocmd TermOpen * :set nospell
-    augroup END
-endif
-
+"if has('nvim')
+"    nnoremap <leader><cr> :vsplit <bar> :term<cr>
+"else
+"    set termwinkey=<C-X>
+"    nnoremap <leader><cr> :vert terminal<CR>
+"endif
+"tnoremap <C-X>n <C-X>N
+"tnoremap <C-X><C-N> <C-X>N
+"
+"if has('nvim')
+"    augroup neovim_terminal
+"        autocmd!
+"        " Enter Terminal-mode (insert) automatically
+"        " autocmd TermOpen * startinsert " will fail neotest run
+"        autocmd TermOpen * if nvim_buf_get_name(0) =~# '^term://.*' | startinsert | endif
+"        " Disables number lines on terminal buffers
+"        autocmd TermOpen * :set nonumber norelativenumber
+"        " allows you to use Ctrl-c on terminal window
+"        autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
+"        " disable spelling
+"        autocmd TermOpen * :set nospell
+"    augroup END
+"endif
 
 " ==> auxiliary files
 let auxDump=[ $HOME."/.vim/tmp/", $HOME."/.tmp/", $HOME."/tmp/", "/tmp/" ]
@@ -328,14 +325,16 @@ cnoremap <C-f> <Right>
 cnoremap <M-b> <S-Left>
 cnoremap <M-f> <S-Right>
 
+" ==> a tmux config
 " https://github.com/neovim/neovim/issues/21856
-if 0 && has_key(environ(), 'TMUX')
-    augroup tmux_status_toggle
-        autocmd!
-        autocmd! VimEnter,VimResume * silent !tmux set status off
-        autocmd! VimLeave,VimSuspend * call jobstart('tmux set status on', {'detach': 1})
-    augroup END
-endif
+"if 0 && has_key(environ(), 'TMUX')
+"    augroup tmux_status_toggle
+"        autocmd!
+"        autocmd! VimEnter,VimResume * silent !tmux set status off
+"        autocmd! VimLeave,VimSuspend * call jobstart('tmux set status on', {'detach': 1})
+"    augroup END
+"endif
 
+" ==> quick cell separation when editing python notebook
 nnoremap <leader>o o# %%<esc>o<esc>
 nnoremap <leader>O O# %%<esc>o<esc>
