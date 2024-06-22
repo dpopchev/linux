@@ -2,7 +2,7 @@
   tags: [packages, nvim-packages]
   package:
     state: latest
-    name: nvim
+    name: neovim
   become: true
 
 - block:
