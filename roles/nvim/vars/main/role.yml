@@ -1,0 +1,8 @@
+role_files: "{{ role_path }}/files"
+
+role_resource:
+  vimrc: "{{ role_files }}/vimrc"
+
+dotdir:
+  vimrc: ~/.vim
+  nvim: ~/.config/nvim

@@ -1,0 +1,9 @@
+- name: install latest package
+  tags: [packages, nvim-packages]
+  package:
+    state: latest
+    name: nvim
+  become: true
+
+- block:
+  - import_tasks: vimrc.yml
