@@ -7,3 +7,4 @@
 
 - block:
   - import_tasks: vimrc.yml
+  - import_tasks: neovim.yml
