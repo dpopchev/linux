@@ -230,6 +230,7 @@ set expandtab             " convert tabs to 'softtabstop' amount of spaces
 let &shiftwidth=b:indent  " affects when pressing >>, << or == and auto indentation
 let &softtabstop=b:indent " affects <TAB> or <BS>;
 " let &tabstop=b:indent   " not recommended as may alter view of other editors
+set smartindent
 
 "function! InsertHalfShiftwidth()
 "    return repeat(' ', &shiftwidth/2)
@@ -338,3 +339,6 @@ cnoremap <M-f> <S-Right>
 " ==> quick cell separation when editing python notebook
 nnoremap <leader>o o# %%<esc>o<esc>
 nnoremap <leader>O O# %%<esc>o<esc>
+
+"Preview substitutions live, as you type!
+set inccommand=split
