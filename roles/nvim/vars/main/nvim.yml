@@ -1,0 +1,3 @@
+nvim:
+  src: "{{ role_resource.nvim }}/init.lua"
+  dest: "{{ dotdir.nvim }}/init.lua"
