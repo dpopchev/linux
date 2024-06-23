@@ -1,0 +1,15 @@
+- name: "ensure not overwriting existing {{ plugins_setup.dest }}"
+  tags: [setup, nvim-setup]
+  include_role:
+    name: backup
+  vars:
+    target: "{{ plugins_setup.dest }}"
+
+- name: "symlink plugins setup {{ plugins_setup.dest }}"
+  tags: [setup, nvim-setup]
+  file:
+    src: "{{ plugins_setup.src }}"
+    dest: "{{ plugins_setup.dest }}"
+    state: link
+    force: true
+    follow: false
