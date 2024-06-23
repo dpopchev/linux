@@ -12,3 +12,6 @@ plugins_dotfiles:
   - name: which_key
     src: "{{ role_resource.plugins }}/which_key.lua"
     dest: "{{ dotdir.plugins }}/which_key.lua"
+  - name: telescope
+    src: "{{ role_resource.plugins }}/telescope.lua"
+    dest: "{{ dotdir.plugins }}/telescope.lua"
