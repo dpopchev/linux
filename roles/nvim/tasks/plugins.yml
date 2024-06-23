@@ -13,3 +13,15 @@
     state: link
     force: true
     follow: false
+
+- name: "symlink plugins dotfiles"
+  tags: [setup, nvim-setup]
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: true
+    follow: false
+  loop: "{{ plugins_dotfiles }}"
+  loop_control:
+    label: "{{ item.dest }}"

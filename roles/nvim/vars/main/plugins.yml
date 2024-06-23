@@ -1,3 +1,11 @@
 plugins_setup:
   src: "{{ role_resource.plugins }}/plugins_setup.lua"
   dest: "{{ dotdir.lua }}/plugins_setup.lua"
+
+plugins_dotfiles:
+  - name: comment
+    src: "{{ role_resource.plugins }}/comment.lua"
+    dest: "{{ dotdir.plugins }}/comment.lua"
+  - name: gitsigns
+    src: "{{ role_resource.plugins }}/gitsigns.lua"
+    dest: "{{ dotdir.plugins }}/gitsigns.lua"
