@@ -20,3 +20,8 @@
     path: "{{ dotdir.vimrc }}"
     state: directory
 
+- name: "create vim tmp place"
+  tags: [setup, nvim-setup]
+  file:
+    path: "{{ dotdir.vimrc }}/tmp"
+    state: directory
