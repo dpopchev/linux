@@ -15,6 +15,6 @@ plugins_dotfiles:
   - name: telescope
     src: "{{ role_resource.plugins }}/telescope.lua"
     dest: "{{ dotdir.plugins }}/telescope.lua"
-  - name: lsp
-    src: "{{ role_resource.plugins }}/lsp.lua"
-    dest: "{{ dotdir.plugins }}/lsp.lua"
+  - name: colorscheme
+    src: "{{ role_resource.plugins }}/sonokai.lua"
+    dest: "{{ dotdir.plugins }}/sonokai.lua"
