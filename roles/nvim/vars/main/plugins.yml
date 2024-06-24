@@ -30,3 +30,6 @@ plugins_dotfiles:
   - name: nvim_surround
     src: "{{ role_resource.plugins }}/nvim_surround.lua"
     dest: "{{ dotdir.plugins }}/nvim_surround.lua"
+  - name: hardline
+    src: "{{ role_resource.plugins }}/hardline.lua"
+    dest: "{{ dotdir.plugins }}/hardline.lua"
