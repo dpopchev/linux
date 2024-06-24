@@ -18,3 +18,6 @@ plugins_dotfiles:
   - name: colorscheme
     src: "{{ role_resource.plugins }}/sonokai.lua"
     dest: "{{ dotdir.plugins }}/sonokai.lua"
+  - name: mini_nvim
+    src: "{{ role_resource.plugins }}/mini_nvim.lua"
+    dest: "{{ dotdir.plugins }}/mini_nvim.lua"
