@@ -9,6 +9,9 @@ plugins_dotfiles:
   - name: gitsigns
     src: "{{ role_resource.plugins }}/gitsigns.lua"
     dest: "{{ dotdir.plugins }}/gitsigns.lua"
+  - name: git_conflict
+    src: "{{ role_resource.plugins }}/git_conflict.lua"
+    dest: "{{ dotdir.plugins }}/git_conflict.lua"
   - name: which_key
     src: "{{ role_resource.plugins }}/which_key.lua"
     dest: "{{ dotdir.plugins }}/which_key.lua"
