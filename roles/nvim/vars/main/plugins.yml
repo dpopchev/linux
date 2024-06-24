@@ -21,3 +21,9 @@ plugins_dotfiles:
   - name: mini_nvim
     src: "{{ role_resource.plugins }}/mini_nvim.lua"
     dest: "{{ dotdir.plugins }}/mini_nvim.lua"
+  - name: nvim_autopairs
+    src: "{{ role_resource.plugins }}/nvim_autopairs.lua"
+    dest: "{{ dotdir.plugins }}/nvim_autopairs.lua"
+  - name: nvim_surround
+    src: "{{ role_resource.plugins }}/nvim_surround.lua"
+    dest: "{{ dotdir.plugins }}/nvim_surround.lua"
