@@ -33,3 +33,6 @@ plugins_dotfiles:
   - name: hardline
     src: "{{ role_resource.plugins }}/hardline.lua"
     dest: "{{ dotdir.plugins }}/hardline.lua"
+  - name: treesitter
+    src: "{{ role_resource.plugins }}/treesitter.lua"
+    dest: "{{ dotdir.plugins }}/treesitter.lua"
