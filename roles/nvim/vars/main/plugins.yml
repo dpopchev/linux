@@ -36,3 +36,6 @@ plugins_dotfiles:
   - name: treesitter
     src: "{{ role_resource.plugins }}/treesitter.lua"
     dest: "{{ dotdir.plugins }}/treesitter.lua"
+  - name: targets
+    src: "{{ role_resource.plugins }}/targets.lua"
+    dest: "{{ dotdir.plugins }}/targets.lua"
