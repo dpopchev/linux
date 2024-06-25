@@ -1,3 +1,15 @@
+local function set_python3_host_prog()
+    local python = '.venv/bin/python'
+    local is_present = os.execute('test -e ' .. python)
+    if (is_present == 0) then
+        vim.g.python3_host_prog = python
+    else
+        vim.g.python3_host_prog = 'python3'
+    end
+end
+
+set_python3_host_prog()
+
 vim.cmd('source ~/.vimrc')
 
 -- Highlight when yanking (copying) text
