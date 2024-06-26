@@ -40,5 +40,5 @@ plugins_dotfiles:
     src: "{{ role_resource.plugins }}/targets.lua"
     dest: "{{ dotdir.plugins }}/targets.lua"
   - name: lsp
-    src: "{{ role_resource.plugins }}/lsp"
-    dest: "{{ dotdir.plugins }}/lsp"
+    src: "{{ role_resource.plugins }}/lsp.lua"
+    dest: "{{ dotdir.plugins }}/lsp.lua"
