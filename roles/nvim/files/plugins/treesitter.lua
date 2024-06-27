@@ -1,35 +1,59 @@
-local TREESITTER_CONFIGS = {
-    highlight = { enable = true },
-    indent = { enable = true },
-    ensure_installed = {
-        'bash', 'c', 'json', 'lua', 'make',
-        'perl', 'python', 'vimdoc',
-        'diff', 'markdown', 'markdown_inline', 'yaml'
-    },
-    auto_install = false,
-    sync_install = false,
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = "gnn",
-            node_incremental = "gn]",
-            node_decremental = "gn[",
-            scope_incremental = false,
-        },
+local ensure_installed = {
+    'bash',
+    'json',
+    'make',
+    'python',
+    'vim', 'vimdoc',
+    'lua', 'luadoc',
+    'diff',
+    'yaml',
+    'diff',
+    'markdown', 'markdown_inline',
+}
+
+local highlight ={
+    enable = true,
+    -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
+    --  If you are experiencing weird indenting issues, add the language to
+    --  the list of additional_vim_regex_highlighting and disabled languages for indent.
+    -- additional_vim_regex_highlighting = { 'ruby' },
+}
+
+local indent ={
+    enable = true,
+    -- disable = { 'ruby' }
+}
+
+local incremental_selection ={
+    enable = true,
+    keymaps = {
+        init_selection = "gnn",
+        node_incremental = "gn]",
+        node_decremental = "gn[",
+        scope_incremental = false,
     },
 }
 
-local function make_treesitter_config(_, opts)
+local opts = {
+    ensure_installed = ensure_installed,
+    auto_install = true,
+    highlight = highlight ,
+    indent = indent,
+    sync_install = false,
+    incremental_selection = incremental_selection,
+}
+
+local function config_factory(_, opts)
     -- Prefer git instead of curl in order to improve connectivity in some environments
     require('nvim-treesitter.install').prefer_git = true
-    require('nvim-treesitter.configs').setup(TREESITTER_CONFIGS)
+    require('nvim-treesitter.configs').setup(opts)
 end
 
-local TREESITTER = {
+return {
     "nvim-treesitter/nvim-treesitter",
-    config = make_treesitter_config
+    build = ":TSUpdate",
+    opts = opts,
+    config = config_factory,
 }
 
-return {
-    {'nvim-treesitter/nvim-treesitter-context', dependencies = {TREESITTER} },
-}
+-- {'nvim-treesitter/nvim-treesitter-context', }
