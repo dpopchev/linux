@@ -11,8 +11,8 @@ local dependencies ={
     -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
     -- used for completion, annotations and signatures of Neovim apis
     { 'folke/neodev.nvim', opts = {} },
-    { 'hrsh7th/cmp-nvim-lsp'},
-    { 'hrsh7th/nvim-cmp' },
+     'hrsh7th/cmp-nvim-lsp',
+     'hrsh7th/nvim-cmp' ,
 }
 
 local function event_handler(event)
