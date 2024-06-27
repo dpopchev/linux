@@ -45,3 +45,6 @@ plugins_dotfiles:
   - name: autoformat
     src: "{{ role_resource.plugins }}/autoformat.lua"
     dest: "{{ dotdir.plugins }}/autoformat.lua"
+  - name: autocompletion
+    src: "{{ role_resource.plugins }}/autocompletion.lua"
+    dest: "{{ dotdir.plugins }}/autocompletion.lua"
