@@ -42,3 +42,6 @@ plugins_dotfiles:
   - name: lsp
     src: "{{ role_resource.plugins }}/lsp.lua"
     dest: "{{ dotdir.plugins }}/lsp.lua"
+  - name: autoformat
+    src: "{{ role_resource.plugins }}/autoformat.lua"
+    dest: "{{ dotdir.plugins }}/autoformat.lua"

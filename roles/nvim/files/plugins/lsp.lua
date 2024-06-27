@@ -1,4 +1,4 @@
-local dependencies ={
+local dependencies = {
     -- Automatically install LSPs and related tools to stdpath for Neovim
     { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
     'williamboman/mason-lspconfig.nvim',
@@ -6,13 +6,13 @@ local dependencies ={
 
     -- Useful status updates for LSP.
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-    { 'j-hui/fidget.nvim', opts = {} },
+    { 'j-hui/fidget.nvim',       opts = {} },
 
     -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
     -- used for completion, annotations and signatures of Neovim apis
-    { 'folke/neodev.nvim', opts = {} },
-     'hrsh7th/cmp-nvim-lsp',
-     'hrsh7th/nvim-cmp' ,
+    { 'folke/neodev.nvim',       opts = {} },
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/nvim-cmp',
 }
 
 local function event_handler(event)
@@ -102,11 +102,12 @@ local function event_handler(event)
 
     map("<leader>lp", vim.diagnostic.open_float, 'Line Diagnostics')
     map("[d", vim.diagnostic.goto_prev, "Goto previous LSP diagnostic message")
-    map("[D", function() vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR}) end, 'Goto previous LSP error')
+    map("[D", function() vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR }) end,
+        'Goto previous LSP error')
     map("]d", vim.diagnostic.goto_next, "Goto next LSP diagnostic message")
-    map("]D", function() vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR}) end, 'Goto next LSP error')
+    map("]D", function() vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR }) end,
+        'Goto next LSP error')
     map("<leader>lq", vim.diagnostic.setloclist, 'Diagnostic local list')
-
 end
 
 -- Enable the following language servers
@@ -130,9 +131,9 @@ end
 -- But for many setups, the LSP (`tsserver`) will work just fine
 -- tsserver = {},
 --
-local servers = { }
+local servers = {}
 
-servers.lua_ls ={
+servers.lua_ls = {
     -- cmd = {...},
     -- filetypes = { ...},
     -- capabilities = {},
@@ -165,26 +166,26 @@ vim.list_extend(
 )
 
 local VIM_DIAGNOSTIC_CONFIG = {
-        virtual_text = true,
-        signs = false,
-        update_in_insert = false,
-        underline = true,
-        severity_sort = true,
-        float = {
-            focusable = false,
-            style = 'minimal',
-            border = 'rounded',
-            source = 'always',
-            header = '',
-            prefix = '',
-        },
+    virtual_text = true,
+    signs = false,
+    update_in_insert = false,
+    underline = true,
+    severity_sort = true,
+    float = {
+        focusable = false,
+        style = 'minimal',
+        border = 'rounded',
+        source = 'always',
+        header = '',
+        prefix = '',
+    },
 }
 
 local DIAGNOSTIC_SINGS = {
-    DiagnosticSignError= 'X',
-    DiagnosticSignWarn= 'W',
-    DiagnosticSignHint= 'H',
-    DiagnosticSignInfo= 'I',
+    DiagnosticSignError = 'X',
+    DiagnosticSignWarn = 'W',
+    DiagnosticSignHint = 'H',
+    DiagnosticSignInfo = 'I',
 }
 
 local function setup_diagnostic_sign(name, text, numhl)
