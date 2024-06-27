@@ -164,6 +164,44 @@ vim.list_extend(
     {}
 )
 
+local VIM_DIAGNOSTIC_CONFIG = {
+        virtual_text = true,
+        signs = false,
+        update_in_insert = false,
+        underline = true,
+        severity_sort = true,
+        float = {
+            focusable = false,
+            style = 'minimal',
+            border = 'rounded',
+            source = 'always',
+            header = '',
+            prefix = '',
+        },
+}
+
+local DIAGNOSTIC_SINGS = {
+    DiagnosticSignError= 'X',
+    DiagnosticSignWarn= 'W',
+    DiagnosticSignHint= 'H',
+    DiagnosticSignInfo= 'I',
+}
+
+local function setup_diagnostic_sign(name, text, numhl)
+    numhl = numhl or ''
+    vim.fn.sign_define(name, {
+        texthl = name,
+        text = text,
+        numhl = numhl
+    })
+end
+
+local function set_diagnostic_sings()
+    for name, text in pairs(DIAGNOSTIC_SINGS) do
+        setup_diagnostic_sign(name, text)
+    end
+end
+
 local function config_factory()
     -- Brief aside: **What is LSP?**
     --
@@ -230,6 +268,10 @@ local function config_factory()
             end,
         },
     }
+
+    -- vim.lsp.set_log_level('warn')
+    set_diagnostic_sings()
+    vim.diagnostic.config(VIM_DIAGNOSTIC_CONFIG)
 end
 
 -- LSP Configuration & Plugins
