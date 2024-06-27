@@ -99,6 +99,14 @@ local function event_handler(event)
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
         end, '[T]oggle Inlay [H]ints')
     end
+
+    map("<leader>lp", vim.diagnostic.open_float, 'Line Diagnostics')
+    map("[d", vim.diagnostic.goto_prev, "Goto previous LSP diagnostic message")
+    map("[D", function() vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR}) end, 'Goto previous LSP error')
+    map("]d", vim.diagnostic.goto_next, "Goto next LSP diagnostic message")
+    map("]D", function() vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR}) end, 'Goto next LSP error')
+    map("<leader>lq", vim.diagnostic.setloclist, 'Diagnostic local list')
+
 end
 
 -- Enable the following language servers
@@ -199,7 +207,7 @@ local function config_factory()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-    local servers = servers
+    local _servers = servers
     -- Ensure the servers and tools above are installed
     --  To check the current status of installed tools and/or manually install
     --  other tools, you can run
@@ -213,7 +221,7 @@ local function config_factory()
     require('mason-lspconfig').setup {
         handlers = {
             function(server_name)
-                local server = servers[server_name] or {}
+                local server = _servers[server_name] or {}
                 -- This handles overriding only values explicitly passed
                 -- by the server configuration above. Useful when disabling
                 -- certain features of an LSP (for example, turning off formatting for tsserver)
