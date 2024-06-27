@@ -47,6 +47,10 @@ environment with variables such as `EDITOR`, or user-specific ones like
 `~/.bashrc.private` will source `~/.config/dpopchev/bashrc/*` for interactive
 shells and populate environment with user defined functions, aliases and such.
 
+#### nvim
+
+Configuration is partially based on [kickstart](https://github.com/nvim-lua/kickstart.nvim/tree/master).
+
 ### Tags
 
 See available tags
