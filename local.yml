@@ -17,3 +17,6 @@
 
     - role: redshift
       tags: [redshift, never]
+
+    - role: linux
+      tags: linux

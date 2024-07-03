@@ -1,0 +1,10 @@
+- name: "install linux packages aplicable to any distro"
+  tags: [packages, linux-packages]
+  package:
+    state: latest
+    name: "{{ item.name }}"
+  become: true
+  loop: "{{ linux_packages }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: item.distro == "any"
