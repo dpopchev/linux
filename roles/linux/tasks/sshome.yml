@@ -1,0 +1,26 @@
+- name: Create user ssh home
+  tags: [setup, linux-setup]
+  file:
+    path: "{{ dotdir.sshome }}"
+    mode: '0700'
+
+- name: "ensure not overwritting existing ssh config"
+  tags: [setup, linux-setup]
+  include_role:
+    name: backup
+  vars:
+    target: "{{ sshconfig.dest }}"
+
+- name: "copy empty ssh config with example structure"
+  tags: [setup, linux-setup]
+  copy:
+    src: "{{ sshconfig.src }}"
+    dest: "{{ sshconfig.dest }}"
+    mode: "600"
+
+- name: "make example key with recommended permissions"
+  tags: [setup, linux-setup]
+  file:
+    path: "{{ dotdir.sshome }}/example_permission_key_file"
+    mode: '600'
+    state: touch
