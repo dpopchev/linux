@@ -1,0 +1,7 @@
+role_files: "{{ role_path }}/files"
+
+role_resource:
+  sshome: "{{ role_files }}/sshome"
+
+dotdir:
+  sshome: ~/.ssh
