@@ -1,0 +1,7 @@
+role_files: "{{ role_path }}/files"
+
+role_resource:
+  i3config: "{{ role_files }}/i3config"
+
+dotdir:
+  i3config: ~/.config/i3
