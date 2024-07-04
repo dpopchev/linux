@@ -1,0 +1,3 @@
+i3config:
+  src: "{{ role_resource.i3config }}/config"
+  dest: "{{ dotdir.i3config }}/config"

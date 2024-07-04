@@ -1,0 +1,9 @@
+- name: install i3 window manager
+  tags: [packages, i3wm-packages]
+  package:
+    state: latest
+    name: i3-wm
+  become: true
+
+- block:
+  - import_tasks: i3config.yml
