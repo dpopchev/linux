@@ -6,4 +6,5 @@
   become: true
 
 - block:
+  - import_tasks: packages.yml
   - import_tasks: i3config.yml

@@ -1,0 +1,3 @@
+i3wm_packages:
+  - name: dex
+    distro: any
