@@ -23,3 +23,6 @@
 
     - role: i3wm
       tags: i3wm
+
+    - role: touchpad
+      tags: [touchpad, never]

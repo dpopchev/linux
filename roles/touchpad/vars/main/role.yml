@@ -1,0 +1,9 @@
+role_files: "{{ role_path }}/files"
+role_templates: "{{ role_path }}/templates"
+
+role_resource:
+  touchapd_files: "{{ role_fiels }}/touchpad"
+  touchpad_templates: "{{ role_tempaltes }}/touchpad"
+
+dotdir:
+  touchpad: ~/.config/autostart
