@@ -1,0 +1,5 @@
+- name: install touchpad configuration script
+  tags: [packages, touchpad-packages]
+  template:
+    src:
+    dest:

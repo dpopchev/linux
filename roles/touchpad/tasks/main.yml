@@ -1,0 +1,9 @@
+- name: install latest package
+  tags: [packages, touchpad-packages]
+  package:
+    state: latest
+    name: xorg-xinput
+  become: true
+
+- block:
+  - import_task: touchpad.yml
