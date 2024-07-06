@@ -51,6 +51,15 @@ shells and populate environment with user defined functions, aliases and such.
 
 Configuration is partially based on [kickstart](https://github.com/nvim-lua/kickstart.nvim/tree/master).
 
+#### touchpad
+
+Touchpad is disabled by default using a application entry. Use `xinput list` to
+check the device name and then pass it as CLI argument, e.g.
+
+```
+ansible-playbook ... --extra-vars 'xinput_touchpad_name="Synaptics TM3381-002"'
+```
+
 ### Tags
 
 See available tags

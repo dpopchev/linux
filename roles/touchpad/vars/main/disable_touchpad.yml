@@ -1,3 +1,0 @@
-desktop_entry:
-  - src: "{{ role_templates.touchpad }}/configuration"
-  - dst: "{{ dotdir.touchpad }}/"

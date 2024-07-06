@@ -6,4 +6,4 @@
   become: true
 
 - block:
-  - import_task: touchpad.yml
+  - import_tasks: touchpad.yml

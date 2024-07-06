@@ -1,1 +1,3 @@
+#!/usr/bin/env bash
+
 xinput disable "{{ xinput_touchpad_name }}"
