@@ -1,5 +1,12 @@
-- name: install touchpad configuration script
+- name: "ensure touchpad application entry script path {{ touchpad_setup.dest }} exists"
+  tags: [setup, touchpad-setup]
+  include_role:
+    name: mkparents
+  vars:
+    target: "{{ touchpad_setup.dest }}"
+
+- name: "install touchpad setup {{ touchpad_setup.dest }}"
   tags: [packages, touchpad-packages]
   template:
-    src:
-    dest:
+    src: "{{ touchpad_setup.src }}"
+    dest: "{{ touchpad_setup.dest }}"
