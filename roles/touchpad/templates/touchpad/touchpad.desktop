@@ -1,0 +1,7 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Type=Application
+Exec={{ touchpad_setup.dest }}
+Hidden=true
+Name=Setup touchpad

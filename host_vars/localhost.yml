@@ -1,4 +1,4 @@
 ansible_connection: local
 bksuffix: dpopchevbk
-dphome: ~/.config/dpopchev
+dphome: "{{ lookup('env', 'HOME') }}/.config/dpopchev"
 dpbin: "{{ dphome }}/bin"
