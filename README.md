@@ -60,6 +60,14 @@ check the device name and then pass it as CLI argument, e.g.
 ansible-playbook ... --extra-vars 'xinput_touchpad_name="Synaptics TM3381-002"'
 ```
 
+#### i3wm
+
+Will autostart destop entries using. See what will be ran with
+
+```
+dex -ad --environment i3
+```
+
 ### Tags
 
 See available tags
