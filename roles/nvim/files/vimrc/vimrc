@@ -257,9 +257,10 @@ nnoremap gmu :make! unittest module=%<bar>redraw!<bar>copen<cr>
 nnoremap gmU :make! unittest args='-vv' module=%<bar>redraw!<bar>copen<cr>
 nnoremap gml :make! lint module=%<bar>redraw!<bar>copen<cr>
 nnoremap gmf :make! format module=%<bar>redraw!<bar>copen<cr>
-nnoremap gmo :cclose<cr>
-nnoremap gmO :copen<cr>
-autocmd! FileType qf wincmd L
+nnoremap <expr> gmo empty(filter(getwininfo(), 'v:val.quickfix')) ? ':copen<CR>' : ':cclose<CR>'
+nnoremap gmg :cnfile<cr>
+nnoremap gm] :cnext<cr>
+nnoremap gm[ :cprevious<cr>
 
 " ==> terminal
 "if has('nvim')
