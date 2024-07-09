@@ -133,29 +133,48 @@ end
 --
 local servers = {}
 
-servers.lua_ls = {
-    -- cmd = {...},
-    -- filetypes = { ...},
-    -- capabilities = {},
-    settings = {
-        Lua = {
-            diagnostics = {
-                -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-                disable = { 'missing-fields' },
-                -- Get the language server to recognize the `vim` global
-                globals = { 'vim' },
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-                checkThirdParty = false,
-            },
-            completion = {
-                callSnippet = 'Replace',
+servers.lua_ls = function(_)
+    return {
+        -- cmd = {...},
+        -- filetypes = { ...},
+        -- capabilities = {},
+        settings = {
+            Lua = {
+                diagnostics = {
+                    -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+                    disable = { 'missing-fields' },
+                    -- Get the language server to recognize the `vim` global
+                    globals = { 'vim' },
+                },
+                workspace = {
+                    -- Make the server aware of Neovim runtime files
+                    library = vim.api.nvim_get_runtime_file("", true),
+                    checkThirdParty = false,
+                },
+                completion = {
+                    callSnippet = 'Replace',
+                },
             },
         },
-    },
-}
+    }
+end
+
+servers.ansiblels = function(util)
+    return {
+        filetypes = { 'yaml', 'yml', 'ansible', 'yaml.ansible' },
+        settings = {
+            ansibleLint = {
+                enabled = true,
+                path = "ansible-lint"
+            },
+            completion = {
+                provideRedirectModules = true,
+                provideModuleOptionAliases = true
+            },
+        },
+        root_dir = util.root_pattern('.git', 'ansible.cfg', 'roles')
+    }
+end
 
 -- You can add other tools here that you want Mason to install
 -- for you, so that they are available from within Neovim.
@@ -260,7 +279,7 @@ local function config_factory()
     require('mason-lspconfig').setup {
         handlers = {
             function(server_name)
-                local server = _servers[server_name] or {}
+                local server = _servers[server_name](require('lspconfig.util')) or {}
                 -- This handles overriding only values explicitly passed
                 -- by the server configuration above. Useful when disabling
                 -- certain features of an LSP (for example, turning off formatting for tsserver)
