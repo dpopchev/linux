@@ -7,3 +7,4 @@
 
 - block:
   - import_tasks: touchpad.yml
+  - import_tasks: tools.yml

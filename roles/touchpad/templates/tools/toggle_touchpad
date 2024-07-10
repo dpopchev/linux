@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+DEVNAME="{{ xinput_touchpad_name }}"
+
+get_state() {
+    local devname="$1"
+    xinput list-props "$devname" \
+        | grep "Device Enabled" \
+        | grep -o "[01]$"
+}
+
+change_state() {
+    local -r devname="$1"
+    local -r state=$(get_state "$devname")
+
+    case $state in
+        0) xinput enable "$devname"\
+            && notify-send "Enable $devname"
+            ;;
+        1) xinput disable "$devname"\
+            && notify-send "Disable $devname"
+            ;;
+        *) notify-send "Toggle touchpad {{ xinput_touchpad_name }} failed"
+            ;;
+    esac
+}
+
+change_state "$DEVNAME"
