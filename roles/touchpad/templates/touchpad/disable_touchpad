@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-xinput disable "{{ xinput_touchpad_name }}"
+xinput disable "{{ xinput_touchpad_name }}" \
+    && notify-send "Disable {{ xinput_touchpad_name }}"
