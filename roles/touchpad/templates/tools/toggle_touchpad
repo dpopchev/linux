@@ -9,19 +9,22 @@ get_state() {
         | grep -o "[01]$"
 }
 
+apply_state() {
+    local -r action="$1"
+    local -r devname="$2"
+    local -r notify="$3"
+
+    xinput "$action" "$devname" && $notify "$action touchapd $devname"
+}
+
 change_state() {
     local -r devname="$1"
     local -r state=$(get_state "$devname")
 
     case $state in
-        0) xinput enable "$devname"\
-            && notify-send "Enable $devname"
-            ;;
-        1) xinput disable "$devname"\
-            && notify-send "Disable $devname"
-            ;;
-        *) notify-send "Toggle touchpad {{ xinput_touchpad_name }} failed"
-            ;;
+        0) apply_state enable "$devname" notify-send ;;
+        1) apply_state disable "$devname" notify-send ;;
+        *) notify-send "Touchapd $devname state change failed";;
     esac
 }
 
