@@ -57,7 +57,8 @@ Touchpad is disabled by default using a application entry. Use `xinput list` to
 check the device name and then pass it as CLI argument, e.g.
 
 ```
-ansible-playbook ... --extra-vars 'xinput_touchpad_name="Synaptics TM3381-002"'
+ansible-playbook... -t touchpad \
+    --extra-vars '{"touchpad_devnames": {"pad": "Synaptics TM3381-002", "padkeys": "TPPS/2 Elan TrackPoint"}}'
 ```
 
 #### i3wm
