@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DEVNAME="{{ xinput_touchpad_name }}"
+DEVNAME="{{ touchpad_devnames.pad }}"
 
 get_state() {
     local devname="$1"
