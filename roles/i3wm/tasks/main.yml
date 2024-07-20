@@ -8,3 +8,4 @@
 - block:
   - import_tasks: packages.yml
   - import_tasks: i3config.yml
+  - import_tasks: locker.yml
