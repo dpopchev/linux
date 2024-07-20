@@ -1,0 +1,21 @@
+- name: "Ensure locker utils path exists {{ i3wm_locker.dest }}"
+  tags: [setup, i3wm-setup]
+  ansible.builtin.include_role:
+    name: mkparents
+  vars:
+    target: "{{ i3wm_locker.dest }}"
+
+- name: "Ensure locker is executable {{ i3wm_locker.dest }}"
+  tags: [setup, i3wm-setup]
+  ansible.builtin.file:
+    path: "{{ i3wm_locker.src }}"
+    mode: '751'
+
+- name: "Install locker {{ i3wm_locker.dest }}"
+  tags: [setup, i3wm-setup]
+  ansible.builtin.file:
+    src: "{{ i3wm_locker.src }}"
+    dest: "{{ i3wm_locker.dest }}"
+    state: link
+    force: true
+    follow: false
