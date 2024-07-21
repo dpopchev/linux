@@ -1,12 +1,12 @@
-- name: "Check for existing {{ target }}"
+- name: "Check for existing {{ backup_target }}"
   ansible.builtin.stat:
-    path: "{{ target }}"
+    path: "{{ backup_target }}"
   register: check_result
 
-- name: "Backup when exists {{ target }}"
+- name: "Backup when exists {{ backup_target }}"
   ansible.builtin.copy:
-    src: "{{ target }}"
-    dest: "{{ target }}.{{ bksuffix }}"
+    src: "{{ backup_target }}"
+    dest: "{{ backup_target }}.{{ bksuffix }}"
     follow: true
-    mode: '0644'
+    mode: '755'
   when: check_result.stat.exists
