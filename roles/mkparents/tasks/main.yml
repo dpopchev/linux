@@ -1,5 +1,5 @@
-- name: "make directory structure for {{ target }}"
-  tags: always
-  file:
+- name: "Make directory structure for {{ target }}"
+  ansible.builtin.file:
     path: "{{ target | dirname }}"
     state: directory
+    mode: '0644'
