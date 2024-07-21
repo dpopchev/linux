@@ -1,0 +1,25 @@
+- name: "Ensure existing dotdirs"
+  tags: [setup, alacritty-setup]
+  ansible.builtin.file:
+    path: "{{ item.value }}"
+    state: directory
+    mode: '755'
+  loop: "{{ alacritty_dotdir | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+- name: "Preserve existing {{ alacritty_config.dest }}"
+  tags: [setup, alacritty-setup]
+  ansible.builtin.include_role:
+    name: backup
+  vars:
+    backup_target: "{{ alacritty_config.dest }}"
+
+- name: "Symlink towards {{ alacritty_config.dest }}"
+  tags: [setup, alacritty-setup]
+  ansible.builtin.file:
+    src: "{{ alacritty_config.src }}"
+    dest: "{{ alacritty_config.dest }}"
+    state: link
+    force: true
+    follow: false

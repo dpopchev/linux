@@ -1,11 +1,15 @@
-- name: install latest package
+- name: Install latest package
   tags: [packages, alacritty-packages]
-  package:
-    state: latest
+  ansible.builtin.package:
+    state: present
     name: alacritty
   become: true
 
-- block:
-  - import_tasks: configuration.yml
-  - import_tasks: themes.yml
-  - import_tasks: terminal.yml
+- name: Setup
+  block:
+    - name: Config
+      ansible.builtin.import_tasks: config.yml
+    - name: Themes
+      ansible.builtin.import_tasks: themes.yml
+    - name: Terminal env variable
+      ansible.builtin.import_tasks: terminal.yml
