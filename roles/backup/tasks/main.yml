@@ -1,12 +1,12 @@
-- name: "check for existing {{ target }}"
-  tags: always
-  stat: path="{{ target }}"
+- name: "Check for existing {{ target }}"
+  ansible.builtin.stat:
+    path: "{{ target }}"
   register: check_result
 
-- name: "backup {{ target }} if exists"
-  tags: always
-  copy:
+- name: "Backup when exists {{ target }}"
+  ansible.builtin.copy:
     src: "{{ target }}"
     dest: "{{ target }}.{{ bksuffix }}"
     follow: true
+    mode: '0644'
   when: check_result.stat.exists
