@@ -1,0 +1,17 @@
+alacritty_files: "{{ role_path }}/files"
+
+alacritty_resource:
+  config: "{{ alacritty_files }}/config"
+  terminal: "{{ alacritty_files }}/terminal"
+
+alacritty_dotdir:
+  config: "~/.config/alacritty"
+  terminal: "{{ dphome }}/profile"
+
+alacritty_config:
+  src: "{{ alacritty_resource.config }}/alacritty.toml"
+  dest: "{{ alacritty_dotdir.config }}/alacritty.toml"
+
+alacritty_terminal:
+  src: "{{ alacritty_resource.terminal }}/terminal"
+  dest: "{{ alacritty_dotdir.terminal }}/terminal"

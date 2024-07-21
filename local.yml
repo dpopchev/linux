@@ -1,5 +1,5 @@
 ---
-- name: Setting up Linux OS localhost per my liking
+- name: Setting up Linux localhost per my liking
   hosts: local
   pre_tasks:
     - name: "Make dpopchev home: {{ dphome }}"
@@ -19,9 +19,9 @@
       loop_control:
         label: "{{ item.key }}"
 
-  # roles:
-  #   - role: alacritty
-  #     tags: alacritty
+  roles:
+    - role: alacritty
+      tags: alacritty
 
     # - role: git
     #   tags: git
