@@ -1,28 +1,48 @@
-- hosts: local
-  roles:
-    - role: git
-      tags: git
+---
+- name: Setting up Linux OS localhost per my liking
+  hosts: local
+  pre_tasks:
+    - name: "Make dpopchev home: {{ dphome }}"
+      tags: always
+      ansible.builtin.file:
+        path: "{{ dphome }}"
+        state: directory
+        mode: '755'
 
-    - role: bash
-      tags: bash
+    - name: "Make dpopchev structure"
+      tags: always
+      ansible.builtin.file:
+        path: "{{ item.value }}"
+        state: directory
+        mode: '755'
+      loop: "{{ dpdir | dict2items }}"
+      loop_control:
+        label: "{{ item.key }}"
 
-    - role: alacritty
-      tags: alacritty
+  # roles:
+  #   - role: alacritty
+  #     tags: alacritty
 
-    - role: nvim
-      tags: nvim
-
-    - role: readline
-      tags: [readline, never]
-
-    - role: redshift
-      tags: [redshift, never]
-
-    - role: linux
-      tags: linux
-
-    - role: i3wm
-      tags: i3wm
-
-    - role: touchpad
-      tags: [touchpad, never]
+    # - role: git
+    #   tags: git
+    #
+    # - role: bash
+    #   tags: bash
+    #
+    # - role: nvim
+    #   tags: nvim
+    #
+    # - role: readline
+    #   tags: [readline, never]
+    #
+    # - role: redshift
+    #   tags: [redshift, never]
+    #
+    # - role: linux
+    #   tags: linux
+    #
+    # - role: i3wm
+    #   tags: i3wm
+    #
+    # - role: touchpad
+    #   tags: [touchpad, never]
