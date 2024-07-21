@@ -1,5 +1,6 @@
 ansible_connection: local
 bksuffix: dpopchevbk
 dphome: "{{ lookup('env', 'HOME') }}/.dpopchev"
-dpbin: "{{ dphome }}/bin"
-dptools: "{{ dphome }}/tools"
+dpdir:
+  dpbin: "{{ dphome }}/bin"
+  dptools: "{{ dphome }}/tools"
