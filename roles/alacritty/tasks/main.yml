@@ -5,6 +5,16 @@
     name: alacritty
   become: true
 
+- name: Ensure dotdirs exist
+  tags: [setup, alacritty-setup]
+  ansible.builtin.file:
+    path: "{{ item.value }}"
+    state: directory
+    mode: '755'
+  loop: "{{ alacritty_dotdir | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+
 - name: Setup
   block:
     - name: Config
