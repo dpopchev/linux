@@ -1,0 +1,83 @@
+bash_files: "{{ role_path }}/files"
+bash_templates: "{{ role_path }}/templates"
+
+bash_resource:
+  profile_files: "{{ bash_files }}/profile"
+  profile_templates: "{{ bash_templates }}/profile"
+  bashrc_files: "{{ bash_files }}/bashrc"
+  bashrc_templates: "{{ bash_templates }}/bashrc"
+
+bash_dotdir:
+  config: "~"
+  profile: "{{ dphome }}/profile"
+  bashrc: "{{ dphome }}/bashrc"
+
+bash_bashrc:
+  src: "{{ bash_resource.bashrc_templates }}/bashrc.private.j2"
+  dest: "{{ bash_dotdir.config }}/.bashrc.private"
+
+bash_ps1profile:
+  src: "{{ bash_resource.bashrc_files }}/ps1profile"
+  dest: "{{ bash_dotdir.profile }}/ps1profile"
+
+bash_profile:
+  src: "{{ bash_resource.profile_templates }}/bash_profile.j2"
+  dest: "{{ bash_dotdir.config }}/.bash_profile"
+
+bash_bashrc_dotfiles:
+  - name: bash_completion
+    src: "{{ bash_resource.bashrc_files }}/bash_completion"
+    dest: "{{ bash_dotdir.bashrc }}/bash_completion"
+  - name: history
+    src: "{{ bash_resource.bashrc_files }}/history_config"
+    dest: "{{ bash_dotdir.bashrc }}/history_config"
+  - name: features
+    src: "{{ bash_resource.bashrc_files }}/features"
+    dest: "{{ bash_dotdir.bashrc }}/features"
+  - name: aliases
+    src: "{{ bash_resource.bashrc_files }}/aliases.private"
+    dest: "{{ bash_dotdir.bashrc }}/aliases.private"
+  - name: pathlike_utils
+    src: "{{ bash_resource.bashrc_files }}/pathlike_utils"
+    dest: "{{ bash_dotdir.bashrc }}/pathlike_utils"
+  - name: termcolors_util
+    src: "{{ bash_resource.bashrc_files }}/termcolors_util"
+    dest: "{{ bash_dotdir.bashrc }}/termcolors_util"
+  - name: archive_utils
+    src: "{{ bash_resource.bashrc_files }}/archive_utils"
+    dest: "{{ bash_dotdir.bashrc }}/archive_utils"
+  - name: joinby_util
+    src: "{{ bash_resource.bashrc_files }}/joinby_util"
+    dest: "{{ bash_dotdir.bashrc }}/joinby_util"
+  - name: scaleby_util
+    src: "{{ bash_resource.bashrc_files }}/scaleby_util"
+    dest: "{{ bash_dotdir.bashrc }}/scaleby_util"
+  - name: jumpcd_util
+    src: "{{ bash_resource.bashrc_files }}/jumpcd_util"
+    dest: "{{ bash_dotdir.bashrc }}/jumpcd_util"
+  - name: mkpassfile_util
+    src: "{{ bash_resource.bashrc_files }}/mkpassfile_util"
+    dest: "{{ bash_dotdir.bashrc }}/mkpassfile_util"
+  - name: ps1
+    src: "{{ bash_resource.bashrc_files }}/riced_ps1"
+    dest: "{{ bash_dotdir.bashrc }}/riced_ps1"
+
+bash_profile_dotfiles:
+  - name: path
+    src: "{{ bash_resource.profile_files }}/path"
+    dest: "{{ bash_dotdir.profile }}/path"
+  - name: pager
+    src: "{{ bash_resource.profile_files }}/pager"
+    dest: "{{ bash_dotdir.profile }}/pager"
+  - name: editor
+    src: "{{ bash_resource.profile_files }}/editor"
+    dest: "{{ bash_dotdir.profile }}/editor"
+  - name: visual
+    src: "{{ bash_resource.profile_files }}/visual"
+    dest: "{{ bash_dotdir.profile }}/visual"
+  - name: browser
+    src: "{{ bash_resource.profile_files }}/browser"
+    dest: "{{ bash_dotdir.profile }}/browser"
+  - name: terminal
+    src: "{{ bash_resource.profile_files }}/terminal"
+    dest: "{{ bash_dotdir.profile }}/terminal"

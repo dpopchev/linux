@@ -1,32 +1,27 @@
-- name: "ensure not overwriting existing {{ profile.dest }}"
+- name: "Preserve existing {{ bash_profile.dest }}"
   tags: [setup, bash-setup]
-  include_role:
+  ansible.builtin.include_role:
     name: backup
   vars:
-    target: "{{ profile.dest }}"
+    backup_target: "{{ bash_profile.dest }}"
 
-- name: "symlink {{ profile.dest }}"
+- name: "Copy profile template into dest: {{ bash_profile.dest }}"
   tags: [setup, bash-setup]
-  file:
-    src: "{{ profile.src }}"
-    dest: "{{ profile.dest }}"
-    state: link
+  ansible.builtin.template:
+    src: "{{ bash_profile.src }}"
+    dest: "{{ bash_profile.dest }}"
     force: true
     follow: false
+    mode: '751'
 
-- name: "create {{ dotdir.profile }}"
+- name: Copy profile dotfiles
   tags: [setup, bash-setup]
-  file:
-    path: "{{ dotdir.profile }}"
-    state: directory
-
-- name: install profile dotfiles
-  tags: [setup, bash-setup]
-  copy:
+  ansible.builtin.copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     force: true
     follow: false
-  loop: "{{ profile_dotfiles }}"
+    mode: '751'
+  loop: "{{ bash_profile_dotfiles }}"
   loop_control:
     label: "{{ item.dest }}"

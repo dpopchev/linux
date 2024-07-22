@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Template file installed by Ansible; not subject of version control
+# Please extend scripts and such using the sourced directories
+
 if [[ $- != *i* ]] ; then
     # Shell is non-interactive.  Be done now!
     return
@@ -10,7 +13,7 @@ for rcfile in /etc/bash/bashrc.d/* ; do
     [[ -r ${rcfile} ]] && source "${rcfile}"
 done
 
-for rcfile in ~/.config/dpopchev/bashrc/* ; do
+for rcfile in {{ bash_dotdir.bashrc }}/* ; do
     [[ -r ${rcfile} ]] && source "${rcfile}"
 done
 

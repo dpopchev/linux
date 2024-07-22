@@ -20,15 +20,14 @@
         label: "{{ item.key }}"
 
   roles:
-    - role: alacritty
-      tags: alacritty
-
     - role: git
       tags: git
 
-    #
-    # - role: bash
-    #   tags: bash
+    - role: bash
+      tags: bash
+
+    - role: alacritty
+      tags: alacritty
     #
     # - role: nvim
     #   tags: nvim
