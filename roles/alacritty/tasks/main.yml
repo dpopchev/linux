@@ -10,7 +10,7 @@
   ansible.builtin.file:
     path: "{{ item.value }}"
     state: directory
-    mode: '755'
+    mode: '751'
   loop: "{{ alacritty_dotdir | dict2items }}"
   loop_control:
     label: "{{ item.key }}"
