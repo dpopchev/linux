@@ -1,3 +1,0 @@
-gitattributes:
-  src: "{{ role_resource.gitattributes }}/gitattributes"
-  dest: ~/.gitattributes
