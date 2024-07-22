@@ -8,5 +8,5 @@
     src: "{{ backup_target }}"
     dest: "{{ backup_target }}.{{ bksuffix }}"
     follow: true
-    mode: '755'
+    mode: '751'
   when: check_result.stat.exists

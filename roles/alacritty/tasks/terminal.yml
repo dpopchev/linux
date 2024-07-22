@@ -5,4 +5,4 @@
     dest: "{{ alacritty_terminal.dest }}"
     force: true
     follow: false
-    mode: '755'
+    mode: '751'
