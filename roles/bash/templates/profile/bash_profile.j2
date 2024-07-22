@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
+# Template file installed by Ansible; not subject of version control
+# Please extend scripts and such using the sourced directories
+
 [[ -r ~/.profile ]] && source ~/.profile
 
 rcfile=
-for rcfile in ~/.config/dpopchev/profile/*; do
+for rcfile in {{ bash_dotdir.profile }}/*; do
     [[ -r ${rcfile} ]] && source "${rcfile}"
 done
 

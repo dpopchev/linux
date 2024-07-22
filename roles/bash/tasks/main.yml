@@ -1,10 +1,23 @@
-- name: install latest package
+- name: Install latest package
   tags: [packages, bash-packages]
-  package:
-    state: latest
+  ansible.builtin.package:
+    state: present
     name: bash
   become: true
 
-- block:
-  - import_tasks: profile.yml
-  - import_tasks: bashrc.yml
+- name: Ensure dotdirs exist
+  tags: [setup, bash-setup]
+  ansible.builtin.file:
+    path: "{{ item.value }}"
+    state: directory
+    mode: '751'
+  loop: "{{ bash_dotdir | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+- name: Setup
+  block:
+    - name: Profile
+      ansible.builtin.import_tasks: profile.yml
+    - name: Bashrc
+      ansible.builtin.import_tasks: bashrc.yml
