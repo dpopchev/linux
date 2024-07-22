@@ -1,11 +1,25 @@
-- name: install latest package
+- name: Install latest package
   tags: [packages, git-packages]
-  package:
-    state: latest
+  ansible.builtin.package:
+    state: present
     name: git
   become: true
 
-- block:
-  - import_tasks: gitconfig.yml
-  - import_tasks: gitattributes.yml
-  - import_tasks: aliases.yml
+- name: Ensure dotdirs exist
+  tags: [setup, git-setup]
+  ansible.builtin.file:
+    path: "{{ item.value }}"
+    state: directory
+    mode: '755'
+  loop: "{{ git_dotdir | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+- name: Setup
+  block:
+    - name: Gitconfig
+      ansible.builtin.import_tasks: gitconfig.yml
+    - name: Gitattributes
+      ansible.builtin.import_tasks: gitattributes.yml
+    - name: Terminal env variable
+      ansible.builtin.import_tasks: aliases.yml

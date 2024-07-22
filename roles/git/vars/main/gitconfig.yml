@@ -1,3 +1,0 @@
-gitconfig:
-  src: "{{ role_resource.gitconfig }}/gitconfig"
-  dest: ~/.gitconfig

@@ -1,0 +1,23 @@
+git_files: "{{ role_path }}/files"
+
+git_resource:
+  gitconfig: "{{ git_files }}"
+  gitattributes: "{{ git_files }}"
+  aliases: "{{ git_files }}/aliases"
+
+git_dotdir:
+  config: "~"
+  bash_aliases: "{{ dphome }}/bashrc"
+
+git_gitconfig:
+  src: "{{ git_resource.gitconfig }}/gitconfig"
+  dest: "{{ git_dotdir.config }}/.gitconfig"
+
+git_gitattributes:
+  src: "{{ git_resource.gitattributes }}/gitattributes"
+  dest: "{{ git_dotdir.config }}/.gitattributes"
+
+git_aliases:
+  - name: bash
+    src: "{{ git_resource.aliases }}/aliases.sh"
+    dest: "{{ git_dotdir.bash_aliases }}/git.aliases"

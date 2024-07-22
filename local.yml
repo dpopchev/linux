@@ -23,8 +23,9 @@
     - role: alacritty
       tags: alacritty
 
-    # - role: git
-    #   tags: git
+    - role: git
+      tags: git
+
     #
     # - role: bash
     #   tags: bash

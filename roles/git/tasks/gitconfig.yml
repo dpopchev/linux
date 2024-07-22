@@ -1,15 +1,15 @@
-- name: "ensure not overwriting existing {{ gitconfig.dest }}"
+- name: "Preserve existing {{ git_gitconfig.dest }}"
   tags: [setup, git-setup]
-  include_role:
+  ansible.builtin.include_role:
     name: backup
   vars:
-    target: "{{ gitconfig.dest }}"
+    backup_target: "{{ git_gitconfig.dest }}"
 
-- name: "symlink {{ gitconfig.dest }}"
+- name: "Symlink towards {{ git_gitconfig.dest }}"
   tags: [setup, git-setup]
-  file:
-    src: "{{ gitconfig.src }}"
-    dest: "{{ gitconfig.dest }}"
+  ansible.builtin.file:
+    src: "{{ git_gitconfig.src }}"
+    dest: "{{ git_gitconfig.dest }}"
     state: link
     force: true
     follow: false

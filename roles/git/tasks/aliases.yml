@@ -1,21 +1,11 @@
-- name: "ensure destination path {{ item.dest }} exists"
+- name: "Symlink aliases per shell type"
   tags: [setup, git-setup]
-  include_role:
-    name: mkparents
-  vars:
-    target: "{{ item.dest }}"
-  loop: "{{ aliases }}"
-  loop_control:
-    label: "{{ item.dest }}"
-
-- name: symlink aliases
-  tags: [setup, git-setup]
-  file:
+  ansible.builtin.file:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
     force: true
     follow: false
-  loop: "{{ aliases }}"
+  loop: "{{ git_aliases }}"
   loop_control:
-    label: "{{ item.dest }}"
+    label: "{{ item.dest }} "
