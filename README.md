@@ -27,7 +27,27 @@ Roles follow a general structure:
 - `vars/main/TASK_NAME.yml` variables associated with the tasks
 - `files/TASK_NAME/*` files the task would copy or symlink
 
+
 ### Roles
+
+Each role is associated with same tag. Some roles need to be called explicitly.
+
+See below for variables you can fine tune the roles. In general the syntax is
+
+```
+ansible-playbook... -t <ROLE_TAG> \
+    --extra-vars '{"<ROLE_VAR>": "<VAR_VALUE>"}'
+```
+
+For up to date default values see the file under `.../role/defaults/`.
+
+#### alacritty
+
+- `alacritty_themes_path`: where to store alacritty-themes repository
+- `alacritty_theme_choice`: theme choice found under repo `themes`, add with extension
+- `alacritty_font_family`: font family name, e.g. "DejaVu Sans Mono"
+- `alacritty_font_style`: style, e.g. "Regular"
+- `alacritty_font_size`: font size, e.g. 8
 
 #### bash
 
@@ -56,10 +76,6 @@ Configuration is partially based on [kickstart](https://github.com/nvim-lua/kick
 Touchpad is disabled by default using a application entry. Use `xinput list` to
 check the device name and then pass it as CLI argument, e.g.
 
-```
-ansible-playbook... -t touchpad \
-    --extra-vars '{"touchpad_devnames": {"pad": "Synaptics TM3381-002", "padkeys": "TPPS/2 Elan TrackPoint"}}'
-```
 
 #### i3wm
 
