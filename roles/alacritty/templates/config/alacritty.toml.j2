@@ -1,0 +1,15 @@
+# Ansible template, not subject to revision control!
+
+import = [
+    "{{ alacritty_themes_path }}/themes/{{ alacritty_theme_choice }}"
+]
+
+[font]
+normal = { family = '{{ alacritty_font_family }}', style='{{ alacritty_font_style }}'}
+size = {{ alacritty_font_size }}
+offset = { x=0, y=0 }
+
+[keyboard]
+bindings = [
+    { key = "Return", mods = "Super|Shift", action = "SpawnNewInstance"}
+]

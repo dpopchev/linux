@@ -1,7 +1,7 @@
-- name: Get themes
+- name: "Sub | Get themes"
   tags: [packages, alacritty-packages]
   ansible.builtin.git:
     repo: https://github.com/alacritty/alacritty-theme.git
-    dest: "~/.config/alacritty-themes"
+    dest: "{{ alacritty_themes_path }}"
     depth: 1
   ignore_errors: true
