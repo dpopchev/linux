@@ -1,7 +1,8 @@
 alacritty_files: "{{ role_path }}/files"
+alacritty_templates: "{{ role_path }}/templates"
 
 alacritty_resource:
-  config: "{{ alacritty_files }}/config"
+  config_templates: "{{ alacritty_templates }}/config"
   terminal: "{{ alacritty_files }}/terminal"
 
 alacritty_dotdir:
@@ -9,7 +10,7 @@ alacritty_dotdir:
   terminal: "{{ dphome }}/profile"
 
 alacritty_config:
-  src: "{{ alacritty_resource.config }}/alacritty.toml"
+  src: "{{ alacritty_resource.config_templates }}/alacritty.toml.j2"
   dest: "{{ alacritty_dotdir.config }}/alacritty.toml"
 
 alacritty_terminal:

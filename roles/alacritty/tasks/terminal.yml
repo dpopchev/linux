@@ -1,4 +1,4 @@
-- name: "Make alacritty an i3-sensible-treminal trough"
+- name: "Sub | Make alacritty an i3-sensible-treminal trough"
   tags: [setup, alacritty-setup]
   ansible.builtin.copy:
     src: "{{ alacritty_terminal.src }}"
