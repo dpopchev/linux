@@ -1,11 +1,11 @@
-- name: "Preserve existing {{ git_gitattributes.dest }}"
+- name: "Sub | Preserve existing {{ git_gitattributes.dest }}"
   tags: [setup, git-setup]
   ansible.builtin.include_role:
     name: backup
   vars:
     backup_target: "{{ git_gitattributes.dest }}"
 
-- name: "Symlink towards {{ git_gitattributes.dest }}"
+- name: "Sub | Symlink towards {{ git_gitattributes.dest }}"
   tags: [setup, git-setup]
   ansible.builtin.file:
     src: "{{ git_gitattributes.src }}"
