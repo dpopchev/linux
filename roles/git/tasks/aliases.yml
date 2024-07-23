@@ -1,4 +1,4 @@
-- name: "Symlink aliases per shell type"
+- name: "Sub | Symlink aliases per shell type"
   tags: [setup, git-setup]
   ansible.builtin.file:
     src: "{{ item.src }}"
