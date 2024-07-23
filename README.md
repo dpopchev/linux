@@ -44,7 +44,7 @@ For up to date default values see the file under `.../role/defaults/`.
 #### alacritty
 
 - `alacritty_themes_path`: where to store alacritty-themes repository
-- `alacritty_theme_choice`: theme choice found under repo `themes`, add with extension
+- `alacritty_theme_choice`: theme choice found under repo `themes`, add the extension
 - `alacritty_font_family`: font family name, e.g. "DejaVu Sans Mono"
 - `alacritty_font_style`: style, e.g. "Regular"
 - `alacritty_font_size`: font size, e.g. 8
@@ -75,7 +75,6 @@ Configuration is partially based on [kickstart](https://github.com/nvim-lua/kick
 
 Touchpad is disabled by default using a application entry. Use `xinput list` to
 check the device name and then pass it as CLI argument, e.g.
-
 
 #### i3wm
 
