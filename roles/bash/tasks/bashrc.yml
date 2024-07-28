@@ -1,20 +1,41 @@
-- name: "Sub | Preserve existing {{ bash_bashrc.dest }}"
+- name: "Sub | Preserve selected bashrc configs"
   tags: [setup, bash-setup]
   ansible.builtin.include_role:
     name: backup
   vars:
-    backup_target: "{{ bash_bashrc.dest }}"
+    backup_target: "{{ item.dest }}"
+  loop: "{{ bash_bashrc_dotfiles }}"
+  loop_control:
+    label: "{{ item.dest }}"
+  when: item.should_backup
 
-- name: "Sub | Copy bashrc template into dest: {{ bash_bashrc.dest }}"
+- name: "Sub | Copy bashrc templates"
   tags: [setup, bash-setup]
   ansible.builtin.template:
-    src: "{{ bash_bashrc.src }}"
-    dest: "{{ bash_bashrc.dest }}"
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
     force: true
     follow: false
     mode: '751'
+  loop: "{{ bash_bashrc_dotfiles }}"
+  loop_control:
+    label: "{{ item.dest }}"
+  when: item.kind == "template"
 
-- name: "Sub | Copy bashrc dotfiles"
+- name: "Sub | Copy bashrc files"
+  tags: [setup, bash-setup]
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    force: true
+    follow: false
+    mode: '751'
+  loop: "{{ bash_bashrc_dotfiles }}"
+  loop_control:
+    label: "{{ item.dest }}"
+  when: item.kind == "file"
+
+- name: "Sub | Link bashrc files"
   tags: [setup, bash-setup]
   ansible.builtin.file:
     src: "{{ item.src }}"
@@ -22,19 +43,10 @@
     state: link
     force: true
     follow: false
-    mode: '751'
   loop: "{{ bash_bashrc_dotfiles }}"
   loop_control:
     label: "{{ item.dest }}"
-
-- name: "Set PS1PROFILE via {{ bash_ps1profile.dest }}"
-  tags: [setup, bash-setup]
-  ansible.builtin.copy:
-    src: "{{ bash_ps1profile.src }}"
-    dest: "{{ bash_ps1profile.dest }}"
-    force: true
-    follow: false
-    mode: '751'
+  when: item.kind == "link"
 
 - name: Install bash completion package
   tags: [packages, bash-packages]
