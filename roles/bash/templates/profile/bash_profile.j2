@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# Template file installed by Ansible; not subject of version control
-# Please extend scripts and such using the sourced directories
+{{ version_control_warn.hashsymb }}
 
 [[ -r ~/.profile ]] && source ~/.profile
 
@@ -12,6 +11,6 @@ done
 
 [[ -r ~/.bashrc ]] && source ~/.bashrc
 
-[[ -r ~/.bashrc.private ]] && source {{ bash_bashrc.dest }}
+[[ -r {{ bash_bashrc_private.dest }} ]] && source {{ bash_bashrc_private.dest }}
 
 unset rcfile

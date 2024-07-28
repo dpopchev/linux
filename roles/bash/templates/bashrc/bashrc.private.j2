@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# Template file installed by Ansible; not subject of version control
-# Please extend scripts and such using the sourced directories
+{{ version_control_warn.hashsymb }}
 
 if [[ $- != *i* ]] ; then
     # Shell is non-interactive.  Be done now!
@@ -17,5 +16,4 @@ for rcfile in {{ bash_dotdir.bashrc }}/* ; do
     [[ -r ${rcfile} ]] && source "${rcfile}"
 done
 
-# Try to keep environment pollution down, EPA loves us.
 unset rcfile

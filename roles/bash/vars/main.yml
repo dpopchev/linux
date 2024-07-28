@@ -12,85 +12,135 @@ bash_dotdir:
   profile: "{{ dphome }}/profile"
   bashrc: "{{ dphome }}/bashrc"
 
-bash_bashrc:
+# TODO: workaround for using in templates
+bash_bashrc_private:
   src: "{{ bash_resource.bashrc_templates }}/bashrc.private.j2"
   dest: "{{ bash_dotdir.config }}/.bashrc.private"
 
-bash_ps1profile:
-  src: "{{ bash_resource.bashrc_files }}/ps1profile"
-  dest: "{{ bash_dotdir.profile }}/ps1profile"
+bash_profile_dotfiles:
+  - name: bash profile
+    kind: template
+    should_backup: true
+    src: "{{ bash_resource.profile_templates }}/bash_profile.j2"
+    dest: "{{ bash_dotdir.config }}/.bash_profile"
+
+  - name: browser
+    kind: template
+    should_backup: false
+    src: "{{ bash_resource.profile_templates }}/browser.j2"
+    dest: "{{ bash_dotdir.profile }}/browser"
+
+  - name: editor
+    kind: template
+    should_backup: false
+    src: "{{ bash_resource.profile_templates }}/editor.j2"
+    dest: "{{ bash_dotdir.profile }}/editor"
+
+  - name: pager
+    kind: template
+    should_backup: false
+    src: "{{ bash_resource.profile_templates }}/pager.j2"
+    dest: "{{ bash_dotdir.profile }}/pager"
+
+  - name: terminal
+    kind: template
+    should_backup: false
+    src: "{{ bash_resource.profile_templates }}/terminal.j2"
+    dest: "{{ bash_dotdir.profile }}/terminal"
+
+  - name: visual
+    kind: template
+    should_backup: false
+    src: "{{ bash_resource.profile_templates }}/visual.j2"
+    dest: "{{ bash_dotdir.profile }}/visual"
+
+  - name: path
+    kind: template
+    should_backup: false
+    src: "{{ bash_resource.profile_templates }}/path.j2"
+    dest: "{{ bash_dotdir.profile }}/path"
 
 bash_bashrc_dotfiles:
-  - name: bash_completion
-    src: "{{ bash_resource.bashrc_files }}/bash_completion"
-    dest: "{{ bash_dotdir.bashrc }}/bash_completion"
-  - name: history
-    src: "{{ bash_resource.bashrc_files }}/history_config"
-    dest: "{{ bash_dotdir.bashrc }}/history_config"
-  - name: features
-    src: "{{ bash_resource.bashrc_files }}/features"
-    dest: "{{ bash_dotdir.bashrc }}/features"
+  - name: bashrc private
+    kind: template
+    should_backup: true
+    src: "{{ bash_bashrc_private.src }}"
+    dest: "{{ bash_bashrc_private.dest }}"
+
+  - name: ps1profile
+    kind: template
+    should_backup: false
+    src: "{{ bash_resource.bashrc_templates }}/ps1profile.j2"
+    dest: "{{ bash_dotdir.profile }}/ps1profile"
+
   - name: aliases
+    kind: link
+    should_backup: false
     src: "{{ bash_resource.bashrc_files }}/aliases.private"
     dest: "{{ bash_dotdir.bashrc }}/aliases.private"
-  - name: pathlike_utils
-    src: "{{ bash_resource.bashrc_files }}/pathlike_utils"
-    dest: "{{ bash_dotdir.bashrc }}/pathlike_utils"
-  - name: termcolors_util
-    src: "{{ bash_resource.bashrc_files }}/termcolors_util"
-    dest: "{{ bash_dotdir.bashrc }}/termcolors_util"
-  - name: archive_utils
+
+  - name: archive utils
+    kind: link
+    should_backup: false
     src: "{{ bash_resource.bashrc_files }}/archive_utils"
     dest: "{{ bash_dotdir.bashrc }}/archive_utils"
-  - name: joinby_util
+
+  - name: bash auto completion
+    kind: template
+    should_backup: false
+    src: "{{ bash_resource.bashrc_templates }}/bash_completion.j2"
+    dest: "{{ bash_dotdir.bashrc }}/bash_completion"
+
+  - name: features
+    kind: link
+    should_backup: false
+    src: "{{ bash_resource.bashrc_files }}/features"
+    dest: "{{ bash_dotdir.bashrc }}/features"
+
+  - name: history config
+    kind: link
+    should_backup: false
+    src: "{{ bash_resource.bashrc_files }}/history_config"
+    dest: "{{ bash_dotdir.bashrc }}/history_config"
+
+  - name: joinby util
+    kind: link
+    should_backup: false
     src: "{{ bash_resource.bashrc_files }}/joinby_util"
     dest: "{{ bash_dotdir.bashrc }}/joinby_util"
-  - name: scaleby_util
-    src: "{{ bash_resource.bashrc_files }}/scaleby_util"
-    dest: "{{ bash_dotdir.bashrc }}/scaleby_util"
-  - name: jumpcd_util
+
+  - name: jumpcd util
+    kind: link
+    should_backup: false
     src: "{{ bash_resource.bashrc_files }}/jumpcd_util"
     dest: "{{ bash_dotdir.bashrc }}/jumpcd_util"
-  - name: mkpassfile_util
+
+  - name: mkpassfile util
+    kind: link
+    should_backup: false
     src: "{{ bash_resource.bashrc_files }}/mkpassfile_util"
     dest: "{{ bash_dotdir.bashrc }}/mkpassfile_util"
-  - name: ps1
+
+  - name: pathlike utils
+    kind: link
+    should_backup: false
+    src: "{{ bash_resource.bashrc_files }}/pathlike_utils"
+    dest: "{{ bash_dotdir.bashrc }}/pathlike_utils"
+
+  - name: ps1 config and rice
+    kind: link
+    should_backup: false
     src: "{{ bash_resource.bashrc_files }}/riced_ps1"
     dest: "{{ bash_dotdir.bashrc }}/riced_ps1"
 
-bash_profile_dotfiles:
-  - name: bash_profile
-    kind: template
-    src: "{{ bash_resource.profile_templates }}/bash_profile.j2"
-    dest: "{{ bash_dotdir.config }}/.bash_profile"
-    should_backup: true
-  - name: path
-    kind: file
-    src: "{{ bash_resource.profile_files }}/path"
-    dest: "{{ bash_dotdir.profile }}/path"
+  - name: scaleby_util
+    kind: link
     should_backup: false
-  - name: pager
-    kind: template
-    src: "{{ bash_resource.profile_templates }}/pager.j2"
-    dest: "{{ bash_dotdir.profile }}/pager"
+    src: "{{ bash_resource.bashrc_files }}/scaleby_util"
+    dest: "{{ bash_dotdir.bashrc }}/scaleby_util"
+
+  - name: termcolors_util
+    kind: link
     should_backup: false
-  - name: editor
-    kind: template
-    src: "{{ bash_resource.profile_templates }}/editor.j2"
-    dest: "{{ bash_dotdir.profile }}/editor"
-    should_backup: false
-  - name: visual
-    kind: template
-    src: "{{ bash_resource.profile_templates }}/visual.j2"
-    dest: "{{ bash_dotdir.profile }}/visual"
-    should_backup: false
-  - name: browser
-    kind: template
-    src: "{{ bash_resource.profile_templates }}/browser.j2"
-    dest: "{{ bash_dotdir.profile }}/browser"
-    should_backup: false
-  - name: terminal
-    kind: template
-    src: "{{ bash_resource.profile_templates }}/terminal.j2"
-    dest: "{{ bash_dotdir.profile }}/terminal"
-    should_backup: false
+    src: "{{ bash_resource.bashrc_files }}/termcolors_util"
+    dest: "{{ bash_dotdir.bashrc }}/termcolors_util"

@@ -76,6 +76,7 @@ shells and populate environment with user defined functions, aliases and such.
 - `bash_profile_terminal`: default terminal, used by i3 window manager
 - `bash_profile_visual`: default editor used when lacking advanced terminal functionality
 - `bash_profile_editor`: default editor used by all modern apps and terminals
+- `bash_bashrc_profile`: default PS1 profile
 
 #### nvim
 
