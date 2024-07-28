@@ -4,7 +4,7 @@ TMPFILE=/tmp/lockbg_XXXXXX.png
 BGEFFECT=pixelate
 
 make_screenshot() {
-    import -window root "$1"
+    import -silent -window root "$1"
 }
 
 pixelate() {
