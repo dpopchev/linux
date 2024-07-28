@@ -63,27 +63,34 @@ bash_profile_dotfiles:
     kind: template
     src: "{{ bash_resource.profile_templates }}/bash_profile.j2"
     dest: "{{ bash_dotdir.config }}/.bash_profile"
+    should_backup: true
   - name: path
     kind: file
     src: "{{ bash_resource.profile_files }}/path"
     dest: "{{ bash_dotdir.profile }}/path"
+    should_backup: false
   - name: pager
     kind: template
-    src: "{{ bash_resource.profile_templates }}/pager"
+    src: "{{ bash_resource.profile_templates }}/pager.j2"
     dest: "{{ bash_dotdir.profile }}/pager"
+    should_backup: false
   - name: editor
     kind: template
-    src: "{{ bash_resource.profile_templates }}/editor"
+    src: "{{ bash_resource.profile_templates }}/editor.j2"
     dest: "{{ bash_dotdir.profile }}/editor"
+    should_backup: false
   - name: visual
     kind: template
-    src: "{{ bash_resource.profile_templates }}/visual"
+    src: "{{ bash_resource.profile_templates }}/visual.j2"
     dest: "{{ bash_dotdir.profile }}/visual"
+    should_backup: false
   - name: browser
     kind: template
-    src: "{{ bash_resource.profile_templates }}/browser"
+    src: "{{ bash_resource.profile_templates }}/browser.j2"
     dest: "{{ bash_dotdir.profile }}/browser"
+    should_backup: false
   - name: terminal
     kind: template
-    src: "{{ bash_resource.profile_templates }}/terminal"
+    src: "{{ bash_resource.profile_templates }}/terminal.j2"
     dest: "{{ bash_dotdir.profile }}/terminal"
+    should_backup: false

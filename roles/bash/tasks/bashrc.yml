@@ -1,11 +1,11 @@
-- name: "Preserve existing {{ bash_bashrc.dest }}"
+- name: "Sub | Preserve existing {{ bash_bashrc.dest }}"
   tags: [setup, bash-setup]
   ansible.builtin.include_role:
     name: backup
   vars:
     backup_target: "{{ bash_bashrc.dest }}"
 
-- name: "Copy bashrc template into dest: {{ bash_bashrc.dest }}"
+- name: "Sub | Copy bashrc template into dest: {{ bash_bashrc.dest }}"
   tags: [setup, bash-setup]
   ansible.builtin.template:
     src: "{{ bash_bashrc.src }}"
@@ -14,7 +14,7 @@
     follow: false
     mode: '751'
 
-- name: Copy bashrc dotfiles
+- name: "Sub | Copy bashrc dotfiles"
   tags: [setup, bash-setup]
   ansible.builtin.file:
     src: "{{ item.src }}"

@@ -1,20 +1,28 @@
-- name: "Sub | Preserve existing {{ bash_profile.dest }}"
+- name: "Sub | Preserve existing profile configs"
   tags: [setup, bash-setup]
   ansible.builtin.include_role:
     name: backup
   vars:
-    backup_target: "{{ bash_profile.dest }}"
+    backup_target: "{{ item.dest }}"
+  loop: "{{ bash_profile_dotfiles }}"
+  loop_control:
+    label: "{{ item.dest }}"
+  when: item.should_backup
 
-- name: "Sub | Copy profile templates into dest: {{ bash_profile.dest }}"
+- name: "Sub | Copy profile templates into dest"
   tags: [setup, bash-setup]
   ansible.builtin.template:
-    src: "{{ bash_profile.src }}"
-    dest: "{{ bash_profile.dest }}"
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
     force: true
     follow: false
     mode: '751'
+  loop: "{{ bash_profile_dotfiles }}"
+  loop_control:
+    label: "{{ item.dest }}"
+  when: item.kind == "template"
 
-- name: "Sub | Copy profile dotfiles"
+- name: "Sub | Copy profile files into dest"
   tags: [setup, bash-setup]
   ansible.builtin.copy:
     src: "{{ item.src }}"
@@ -25,3 +33,4 @@
   loop: "{{ bash_profile_dotfiles }}"
   loop_control:
     label: "{{ item.dest }}"
+  when: item.kind == "file"
