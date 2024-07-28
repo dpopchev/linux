@@ -20,10 +20,6 @@ bash_ps1profile:
   src: "{{ bash_resource.bashrc_files }}/ps1profile"
   dest: "{{ bash_dotdir.profile }}/ps1profile"
 
-bash_profile:
-  src: "{{ bash_resource.profile_templates }}/bash_profile.j2"
-  dest: "{{ bash_dotdir.config }}/.bash_profile"
-
 bash_bashrc_dotfiles:
   - name: bash_completion
     src: "{{ bash_resource.bashrc_files }}/bash_completion"
@@ -63,21 +59,31 @@ bash_bashrc_dotfiles:
     dest: "{{ bash_dotdir.bashrc }}/riced_ps1"
 
 bash_profile_dotfiles:
+  - name: bash_profile
+    kind: template
+    src: "{{ bash_resource.profile_templates }}/bash_profile.j2"
+    dest: "{{ bash_dotdir.config }}/.bash_profile"
   - name: path
+    kind: file
     src: "{{ bash_resource.profile_files }}/path"
     dest: "{{ bash_dotdir.profile }}/path"
   - name: pager
-    src: "{{ bash_resource.profile_files }}/pager"
+    kind: template
+    src: "{{ bash_resource.profile_templates }}/pager"
     dest: "{{ bash_dotdir.profile }}/pager"
   - name: editor
-    src: "{{ bash_resource.profile_files }}/editor"
+    kind: template
+    src: "{{ bash_resource.profile_templates }}/editor"
     dest: "{{ bash_dotdir.profile }}/editor"
   - name: visual
-    src: "{{ bash_resource.profile_files }}/visual"
+    kind: template
+    src: "{{ bash_resource.profile_templates }}/visual"
     dest: "{{ bash_dotdir.profile }}/visual"
   - name: browser
-    src: "{{ bash_resource.profile_files }}/browser"
+    kind: template
+    src: "{{ bash_resource.profile_templates }}/browser"
     dest: "{{ bash_dotdir.profile }}/browser"
   - name: terminal
-    src: "{{ bash_resource.profile_files }}/terminal"
+    kind: template
+    src: "{{ bash_resource.profile_templates }}/terminal"
     dest: "{{ bash_dotdir.profile }}/terminal"

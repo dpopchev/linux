@@ -51,6 +51,8 @@ For up to date default values see the file under `.../role/defaults/`.
 
 #### bash
 
+##### strategy
+
 `bash` shell setup starts dogmatically with `~/.bash_profile` sourcing in order:
 
 1. `~/.profile`
@@ -66,6 +68,14 @@ environment with variables such as `EDITOR`, or user-specific ones like
 
 `~/.bashrc.private` will source `~/.config/dpopchev/bashrc/*` for interactive
 shells and populate environment with user defined functions, aliases and such.
+
+##### role variables
+
+- `bash_profile_browser`: default browser
+- `bash_profile_pager`: man page browser
+- `bash_profile_terminal`: default terminal, used by i3 window manager
+- `bash_profile_visual`: default editor used when lacking advanced terminal functionality
+- `bash_profile_editor`: default editor used by all modern apps and terminals
 
 #### nvim
 

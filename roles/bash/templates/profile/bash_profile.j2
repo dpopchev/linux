@@ -12,6 +12,6 @@ done
 
 [[ -r ~/.bashrc ]] && source ~/.bashrc
 
-[[ -r ~/.bashrc.private ]] && source ~/.bashrc.private
+[[ -r ~/.bashrc.private ]] && source {{ bash_bashrc.dest }}
 
 unset rcfile

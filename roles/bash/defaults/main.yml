@@ -1,0 +1,5 @@
+bash_profile_browser: "firefox"
+bash_profile_editor: "nvim"
+bash_profile_pager: "less"
+bash_profile_terminal: "alacritty"
+bash_profile_visual: "nvim"
