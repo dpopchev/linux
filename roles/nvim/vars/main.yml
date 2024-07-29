@@ -1,0 +1,124 @@
+nvim_files: "{{ role_path }}/files"
+nvim_templates: "{{ role_path }}/templates"
+
+nvim_resource:
+  vimrc: "{{ nvim_files }}/vimrc"
+  nvim: "{{ nvim_files }}/nvim"
+  plugins: "{{ nvim_files }}/plugins"
+
+nvim_dotdir:
+  vimrc_config: "~"
+  vimrc_home: "~/.vim"
+  nvim: ~/.config/nvim
+  lua: ~/.config/nvim/lua
+  plugins: ~/.config/nvim/lua/plugins
+
+nvim_dotfiles:
+  - name: vimrc
+    kind: link
+    should_backup: true
+    src: "{{ nvim_resource.vimrc }}/vimrc"
+    dest: "{{ nvim_dotdir.vimrc_config }}/.vimrc"
+
+  - name: nvim config
+    kind: link
+    should_backup: true
+    src: "{{ nvim_resource.nvim }}/init.lua"
+    dest: "{{ nvim_dotdir.nvim }}/init.lua"
+
+  - name: nvim plugins setup
+    kind: link
+    should_backup: true
+    src: "{{ nvim_resource.plugins }}/plugins_setup.lua"
+    dest: "{{ nvim_dotdir.lua }}/plugins_setup.lua"
+
+nvim_plugins_dotfiles:
+  - name: comment
+    kind: link
+    should_backup: false
+    src: "{{ nvim_resource.plugins }}/comment.lua"
+    dest: "{{ nvim_dotdir.plugins }}/comment.lua"
+
+  - name: gitsigns
+    kind: link
+    should_backup: false
+    src: "{{ nvim_resource.plugins }}/gitsigns.lua"
+    dest: "{{ nvim_dotdir.plugins }}/gitsigns.lua"
+
+  - name: git_conflict
+    kind: link
+    should_backup: false
+    src: "{{ nvim_resource.plugins }}/git_conflict.lua"
+    dest: "{{ nvim_dotdir.plugins }}/git_conflict.lua"
+
+  - name: which_key
+    kind: link
+    should_backup: false
+    src: "{{ nvim_resource.plugins }}/which_key.lua"
+    dest: "{{ nvim_dotdir.plugins }}/which_key.lua"
+
+  - name: telescope
+    kind: link
+    should_backup: false
+    src: "{{ nvim_resource.plugins }}/telescope.lua"
+    dest: "{{ nvim_dotdir.plugins }}/telescope.lua"
+
+  - name: colorscheme
+    kind: link
+    should_backup: false
+    src: "{{ nvim_resource.plugins }}/sonokai.lua"
+    dest: "{{ nvim_dotdir.plugins }}/sonokai.lua"
+
+  - name: mini_nvim
+    kind: link
+    should_backup: false
+    src: "{{ nvim_resource.plugins }}/mini_nvim.lua"
+    dest: "{{ nvim_dotdir.plugins }}/mini_nvim.lua"
+
+  - name: nvim_autopairs
+    kind: link
+    should_backup: false
+    src: "{{ nvim_resource.plugins }}/nvim_autopairs.lua"
+    dest: "{{ nvim_dotdir.plugins }}/nvim_autopairs.lua"
+
+  - name: nvim_surround
+    kind: link
+    should_backup: false
+    src: "{{ nvim_resource.plugins }}/nvim_surround.lua"
+    dest: "{{ nvim_dotdir.plugins }}/nvim_surround.lua"
+
+  - name: hardline
+    kind: link
+    should_backup: false
+    src: "{{ nvim_resource.plugins }}/hardline.lua"
+    dest: "{{ nvim_dotdir.plugins }}/hardline.lua"
+
+  - name: treesitter
+    kind: link
+    should_backup: false
+    src: "{{ nvim_resource.plugins }}/treesitter.lua"
+    dest: "{{ nvim_dotdir.plugins }}/treesitter.lua"
+
+  - name: targets
+    kind: link
+    should_backup: false
+    src: "{{ nvim_resource.plugins }}/targets.lua"
+    dest: "{{ nvim_dotdir.plugins }}/targets.lua"
+
+  - name: lsp
+    kind: link
+    should_backup: false
+    src: "{{ nvim_resource.plugins }}/lsp.lua"
+    dest: "{{ nvim_dotdir.plugins }}/lsp.lua"
+
+  - name: autoformat
+    kind: link
+    should_backup: false
+    src: "{{ nvim_resource.plugins }}/autoformat.lua"
+    dest: "{{ nvim_dotdir.plugins }}/autoformat.lua"
+
+  - name: autocompletion
+    kind: link
+    should_backup: false
+    src: "{{ nvim_resource.plugins }}/autocompletion.lua"
+    dest: "{{ nvim_dotdir.plugins }}/autocompletion.lua"
