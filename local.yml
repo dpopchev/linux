@@ -28,10 +28,9 @@
 
     - role: alacritty
       tags: alacritty
-    #
-    # - role: nvim
-    #   tags: nvim
-    #
+
+    - role: nvim
+      tags: nvim
     # - role: readline
     #   tags: [readline, never]
     #
