@@ -1,3 +1,0 @@
-vimrc:
-  src: "{{ role_resource.vimrc }}/vimrc"
-  dest: ~/.vimrc
