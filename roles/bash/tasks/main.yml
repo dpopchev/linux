@@ -15,9 +15,23 @@
   loop_control:
     label: "{{ item.key }}"
 
-- name: Setup
-  block:
-    - name: Profile
-      ansible.builtin.import_tasks: profile.yml
-    - name: Bashrc
-      ansible.builtin.import_tasks: bashrc.yml
+- name: "Handle profile dotfiles"
+  tags: [setup, bash-setup]
+  ansible.builtin.include_role:
+    name: dotfiles_handler
+  vars:
+    dotfiles_handler_target: "{{ bash_profile_dotfiles }}"
+
+- name: "Handle bashrc dotfiles"
+  tags: [setup, bash-setup]
+  ansible.builtin.include_role:
+    name: dotfiles_handler
+  vars:
+    dotfiles_handler_target: "{{ bash_bashrc_dotfiles }}"
+
+- name: Install bash completion package
+  tags: [packages, bash-packages]
+  ansible.builtin.package:
+    state: present
+    name: bash-completion
+  become: true
