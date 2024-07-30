@@ -1,8 +1,0 @@
-- name: "Sub | Make alacritty an i3-sensible-treminal trough"
-  tags: [setup, alacritty-setup]
-  ansible.builtin.copy:
-    src: "{{ alacritty_terminal.src }}"
-    dest: "{{ alacritty_terminal.dest }}"
-    force: true
-    follow: false
-    mode: '751'

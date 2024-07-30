@@ -1,3 +1,9 @@
+- name: Set up the role resource facts
+  tags: [setup, alacritty-setup]
+  ansible.builtin.set_fact:
+    alacritty_files: "{{ role_path }}/files"
+    alacritty_templates: "{{ role_path }}/templates"
+
 - name: Install latest package
   tags: [packages, alacritty-packages]
   ansible.builtin.package:
@@ -15,11 +21,17 @@
   loop_control:
     label: "{{ item.key }}"
 
-- name: Setup
-  block:
-    - name: Config
-      ansible.builtin.import_tasks: config.yml
-    - name: Themes
-      ansible.builtin.import_tasks: themes.yml
-    - name: Terminal env variable
-      ansible.builtin.import_tasks: terminal.yml
+- name: "Handle alacritty dotfiles"
+  tags: [setup, alacritty-setup]
+  ansible.builtin.import_role:
+    name: dotfiles_handler
+  vars:
+    dotfiles_handler_target: "{{ alacritty_dotfiles }}"
+
+- name: "Get themes"
+  tags: [packages, alacritty-packages]
+  ansible.builtin.git:
+    repo: https://github.com/alacritty/alacritty-theme.git
+    dest: "{{ alacritty_themes_path }}"
+    depth: 1
+  ignore_errors: true

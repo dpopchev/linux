@@ -1,6 +1,3 @@
-nvim_files: "{{ role_path }}/files"
-nvim_templates: "{{ role_path }}/templates"
-
 nvim_resource:
   vimrc: "{{ nvim_files }}/vimrc"
   nvim: "{{ nvim_files }}/nvim"
