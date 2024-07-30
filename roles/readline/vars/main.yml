@@ -6,7 +6,7 @@ readline_dotdir:
 
 readline_dotfiles:
   - name: inputrc
-    kind: file
+    kind: link
     should_backup: true
     src: "{{ readline_resource.readline_files }}/inputrc"
     dest: "{{ readline_dotdir.config }}/.inputrc"
