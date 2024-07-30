@@ -1,3 +1,8 @@
+- name: Set up the role resources facts
+  tags: [setup, git-setup]
+  ansible.builtin.set_fact:
+    git_files: "{{ role_path }}/files"
+
 - name: Install latest package
   tags: [packages, git-packages]
   ansible.builtin.package:
@@ -15,11 +20,9 @@
   loop_control:
     label: "{{ item.key }}"
 
-- name: Setup
-  block:
-    - name: Gitconfig
-      ansible.builtin.import_tasks: gitconfig.yml
-    - name: Gitattributes
-      ansible.builtin.import_tasks: gitattributes.yml
-    - name: Terminal env variable
-      ansible.builtin.import_tasks: aliases.yml
+- name: "Handle git dotfiles"
+  tags: [setup, git-setup]
+  ansible.builtin.import_role:
+    name: dotfiles_handler
+  vars:
+    dotfiles_handler_target: "{{ git_dotfiles }}"
