@@ -1,2 +1,21 @@
-- block:
-  - import_tasks: inputrc.yml
+- name: Set up the role resources facts
+  tags: [setup, readline-setup]
+  ansible.builtin.set_fact:
+    readline_files: "{{ role_path }}/files"
+
+- name: Ensure dotdirs exist
+  tags: [setup, readline-setup]
+  ansible.builtin.file:
+    path: "{{ item.value }}"
+    state: directory
+    mode: '751'
+  loop: "{{ readline_dotdir | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}"
+
+- name: "Handle readline dotfiles"
+  tags: [setup, readline-setup]
+  ansible.builtin.import_role:
+    name: dotfiles_handler
+  vars:
+    dotfiles_handler_target: "{{ readline_dotfiles }}"

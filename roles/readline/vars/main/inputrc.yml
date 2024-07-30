@@ -1,3 +1,0 @@
-inputrc:
-  src: "{{ role_resource.inputrc }}/inputrc"
-  dest: ~/.inputrc

@@ -31,8 +31,9 @@
 
     - role: nvim
       tags: nvim
-    # - role: readline
-    #   tags: [readline, never]
+
+    - role: readline
+      tags: [readline, never]
     #
     # - role: redshift
     #   tags: [redshift, never]

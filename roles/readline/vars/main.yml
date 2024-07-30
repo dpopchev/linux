@@ -1,0 +1,12 @@
+readline_resource:
+  readline_files: "{{ readline_files }}"
+
+readline_dotdir:
+  config: "~"
+
+readline_dotfiles:
+  - name: inputrc
+    kind: file
+    should_backup: true
+    src: "{{ readline_resource.readline_files }}/inputrc"
+    dest: "{{ readline_dotdir.config }}/.inputrc"
