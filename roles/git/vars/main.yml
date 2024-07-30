@@ -1,5 +1,3 @@
-git_files: "{{ role_path }}/files"
-
 git_resource:
   gitconfig: "{{ git_files }}"
   gitattributes: "{{ git_files }}"
@@ -9,15 +7,21 @@ git_dotdir:
   config: "~"
   bash_aliases: "{{ dphome }}/bashrc"
 
-git_gitconfig:
-  src: "{{ git_resource.gitconfig }}/gitconfig"
-  dest: "{{ git_dotdir.config }}/.gitconfig"
+git_dotfiles:
+  - name: gitconfig
+    kind: link
+    should_backup: true
+    src: "{{ git_resource.gitconfig }}/gitconfig"
+    dest: "{{ git_dotdir.config }}/.gitconfig"
 
-git_gitattributes:
-  src: "{{ git_resource.gitattributes }}/gitattributes"
-  dest: "{{ git_dotdir.config }}/.gitattributes"
+  - name: gitattributes
+    kind: link
+    should_backup: true
+    src: "{{ git_resource.gitattributes }}/gitattributes"
+    dest: "{{ git_dotdir.config }}/.gitattributes"
 
-git_aliases:
-  - name: bash
+  - name: bash aliases
+    kind: file
+    should_backup: false
     src: "{{ git_resource.aliases }}/aliases.sh"
     dest: "{{ git_dotdir.bash_aliases }}/git.aliases"
