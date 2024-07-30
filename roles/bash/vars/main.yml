@@ -1,6 +1,3 @@
-bash_files: "{{ role_path }}/files"
-bash_templates: "{{ role_path }}/templates"
-
 bash_resource:
   profile_files: "{{ bash_files }}/profile"
   profile_templates: "{{ bash_templates }}/profile"
