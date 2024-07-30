@@ -1,3 +1,8 @@
+- name: Set up the role resources facts
+  ansible.builtin.set_fact:
+    bash_files: "{{ role_path }}/files"
+    bash_templates: "{{ role_path }}/templates"
+
 - name: Install latest package
   tags: [packages, bash-packages]
   ansible.builtin.package:
@@ -17,14 +22,14 @@
 
 - name: "Handle profile dotfiles"
   tags: [setup, bash-setup]
-  ansible.builtin.include_role:
+  ansible.builtin.import_role:
     name: dotfiles_handler
   vars:
     dotfiles_handler_target: "{{ bash_profile_dotfiles }}"
 
 - name: "Handle bashrc dotfiles"
   tags: [setup, bash-setup]
-  ansible.builtin.include_role:
+  ansible.builtin.import_role:
     name: dotfiles_handler
   vars:
     dotfiles_handler_target: "{{ bash_bashrc_dotfiles }}"
