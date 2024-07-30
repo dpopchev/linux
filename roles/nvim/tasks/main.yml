@@ -1,3 +1,9 @@
+- name: Set up the role resources facts
+  tags: [setup, nvim-setup]
+  ansible.builtin.set_fact:
+    nvim_files: "{{ role_path }}/files"
+    nvim_templates: "{{ role_path }}/templates }}"
+
 - name: Install latest package
   tags: [packages, nvim-packages]
   ansible.builtin.package:
@@ -17,14 +23,14 @@
 
 - name: "Handle nvim dotfiles"
   tags: [setup, nvim-setup]
-  ansible.builtin.include_role:
+  ansible.builtin.import_role:
     name: dotfiles_handler
   vars:
     dotfiles_handler_target: "{{ nvim_dotfiles }}"
 
 - name: "Handle nvim plugins dotfiles"
   tags: [setup, nvim-setup]
-  ansible.builtin.include_role:
+  ansible.builtin.import_role:
     name: dotfiles_handler
   vars:
     dotfiles_handler_target: "{{ nvim_plugins_dotfiles }}"

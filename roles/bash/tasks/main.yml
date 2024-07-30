@@ -1,4 +1,5 @@
 - name: Set up the role resources facts
+  tags: [setup, bash-setup]
   ansible.builtin.set_fact:
     bash_files: "{{ role_path }}/files"
     bash_templates: "{{ role_path }}/templates"
