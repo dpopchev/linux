@@ -1,5 +1,0 @@
-- name: "Make directory structure for {{ mkparents_target }}"
-  ansible.builtin.file:
-    path: "{{ mkparents_target | dirname }}"
-    state: directory
-    mode: '655'
