@@ -34,15 +34,16 @@
 
     - role: readline
       tags: [readline, never]
-    #
-    # - role: redshift
-    #   tags: [redshift, never]
-    #
+
     # - role: linux
     #   tags: linux
     #
     # - role: i3wm
     #   tags: i3wm
     #
+
+    - role: redshift
+      tags: [redshift, never]
+
     # - role: touchpad
     #   tags: [touchpad, never]

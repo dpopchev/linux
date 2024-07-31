@@ -66,11 +66,11 @@ nvim_plugins_dotfiles:
     src: "{{ nvim_resource.plugins }}/sonokai.lua"
     dest: "{{ nvim_dotdir.plugins }}/sonokai.lua"
 
-  - name: mini_nvim
+  - name: indent blanklines
     kind: link
     should_backup: false
-    src: "{{ nvim_resource.plugins }}/mini_nvim.lua"
-    dest: "{{ nvim_dotdir.plugins }}/mini_nvim.lua"
+    src: "{{ nvim_resource.plugins }}/indent_blankline.lua"
+    dest: "{{ nvim_dotdir.plugins }}/indent_blankline.lua"
 
   - name: nvim_autopairs
     kind: link
