@@ -10,36 +10,60 @@ Get `ansible` or just copy as you see fit.
 
 ### Install
 
-```
+```bash
 git clone https://github.com/dpopchev/linux.git
 ansible-playbook local.yml -K
 ```
 
 ## Usage
 
-Each has associated tag. Some roles need to be run explicitly, i.e. they have
-additional `never` tag attached to them.
+### Tags
+
+Each role has associated tag.
+
+```bash
+ansible-playbook... --list-tags
+```
+
+Some need to be run explicitly, i.e. they have additional `never` tag attached
+to them.
+
+Roles also provide the tag categories
+
+- `setup` for installation of configurations files and such
+- `packages` for installation of packages
+
+### Roles
 
 Roles follow a general structure:
 
 - `tasks/main.yml` governs task execution order
-- `tasks/TASK_NAME.yml` particular step to achieve a state
-- `vars/main/TASK_NAME.yml` variables associated with the tasks
+- `tasks/TASK_NAME.yml` particular step to achieve a state, if needed
+- `vars/main.yml` variables associated with the tasks
 - `files/TASK_NAME/*` files the task would copy or symlink
+- `templates/TASK_NAME/*.j2` jinja templates the task would use
+- `defaults/main.yml` default values of parameters to be pass by the CLI `extra-vars`
 
+In general fine tune roles using parameters:
 
-### Roles
-
-Each role is associated with same tag. Some roles need to be called explicitly.
-
-See below for variables you can fine tune the roles. In general the syntax is
-
-```
+```bash
 ansible-playbook... -t <ROLE_TAG> \
     --extra-vars '{"<ROLE_VAR>": "<VAR_VALUE>"}'
 ```
 
-For up to date default values see the file under `.../role/defaults/`.
+#### dotfiles_handler
+
+General purpose role handling dotfiles. It is expecting a list of file metadata
+using the `dotfiles_handler_target` variable.
+
+Each entry should have one of the following fields for the cited purpose:
+
+- `name` is the name of the file or general description
+- `kind` is one of `(link, file, template)` setting the strategy for the file,
+   namely create a link or copy the file or use a template
+- `should_backup` governs whether to backup existing destination file
+- `src` full path to the source file
+- `dest` full path to the destination
 
 #### alacritty
 
