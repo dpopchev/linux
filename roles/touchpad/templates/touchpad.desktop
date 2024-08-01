@@ -1,7 +1,9 @@
 #!/usr/bin/env xdg-open
 
+{{ version_control_warn.hashsymb }}
+
 [Desktop Entry]
 Type=Application
-Exec={{ touchpad_setup.dest }}
+Exec={{ touchpad_initial_setup_script.dest }}
 Name=Setup touchpad
 OnlyShowIn=i3;Xfce

@@ -1,0 +1,31 @@
+touchpad_resource:
+  touchpad_files: "{{ touchpad_files }}"
+  touchpad_templates: "{{ touchpad_templates }}"
+
+touchpad_dotdir:
+  autostart: "~/.config/autostart"
+  setup: "{{ dpdir.dpbin }}"
+  tools: "{{ dpdir.dptools }}"
+
+touchpad_initial_setup_script:
+  src: "{{ touchpad_resource.touchpad_templates }}/setup_touchpad"
+  dest: "{{ touchpad_dotdir.setup }}/setup_touchpad"
+
+touchpad_dotfiles:
+  - name: initial setup script
+    kind: template
+    should_backup: false
+    src: "{{ touchpad_initial_setup_script.src }}"
+    dest: "{{ touchpad_initial_setup_script.dest }}"
+
+  - name: setup desktop entry
+    kind: template
+    should_backup: false
+    src: "{{ touchpad_resource.touchpad_templates }}/touchpad.desktop"
+    dest: "{{ touchpad_dotdir.autostart }}/touchpad.desktop"
+
+  - name: add dptool
+    kind: template
+    should_backup: false
+    src: "{{ touchpad_resource.touchpad_templates }}/toggle_touchpad"
+    dest: "{{ touchpad_dotdir.tools }}/toggle_touchpad"

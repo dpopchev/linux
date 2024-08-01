@@ -111,6 +111,11 @@ Configuration is partially based on [kickstart](https://github.com/nvim-lua/kick
 Touchpad is disabled by default using a application entry. Use `xinput list` to
 check the device name and then pass it as CLI argument, e.g.
 
+##### role variables
+
+- `touchpad_xinput_devname_pad`: is the touchpad device name
+- `touchpad_xinput_devname_padkeys`: are the physical keys on the touchpad
+
 #### i3wm
 
 Will autostart destop entries using. See what will be ran with

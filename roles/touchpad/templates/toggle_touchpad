@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-DEVNAME="{{ touchpad_devnames.pad }}"
+{{ version_control_warn.hashsymb }}
+
+DEVNAME="{{ touchpad_xinput_devname_pad }}"
 
 get_state() {
     local devname="$1"

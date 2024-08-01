@@ -1,10 +1,29 @@
-- name: install latest package
+- name: Set up the role resources facts
+  tags: [setup, touchpad-setup]
+  ansible.builtin.set_fact:
+    touchpad_files: "{{ role_path }}/files"
+    touchpad_templates: "{{ role_path }}/templates"
+
+- name: Install packages
   tags: [packages, touchpad-packages]
-  package:
-    state: latest
+  ansible.builtin.package:
+    state: present
     name: xorg-xinput
   become: true
 
-- block:
-  - import_tasks: touchpad.yml
-  - import_tasks: tools.yml
+- name: Ensure dotdirs exist
+  tags: [setup, touchpad-setup]
+  ansible.builtin.file:
+    path: "{{ item.value }}"
+    state: directory
+    mode: '751'
+  loop: "{{ touchpad_dotdir | dict2items }}"
+  loop_control:
+    label: "{{ item.value }}"
+
+- name: "Handle dotfiles"
+  tags: [setup, touchpad-setup]
+  ansible.builtin.import_role:
+    name: dotfiles_handler
+  vars:
+    dotfiles_handler_target: "{{ touchpad_dotfiles }}"

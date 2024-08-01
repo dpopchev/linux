@@ -35,15 +35,14 @@
     - role: readline
       tags: [readline, never]
 
+    - role: gammastep
+      tags: [gammastep, never]
+
+    - role: touchpad
+      tags: [touchpad, never]
+
     # - role: linux
     #   tags: linux
     #
     # - role: i3wm
     #   tags: i3wm
-    #
-
-    - role: gammastep
-      tags: [gammastep, never]
-
-    # - role: touchpad
-    #   tags: [touchpad, never]

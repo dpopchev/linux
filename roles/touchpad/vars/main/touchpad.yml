@@ -1,7 +1,0 @@
-touchpad_setup:
-  src: "{{ role_resource.touchpad_templates }}/disable_touchpad"
-  dest: "{{ dpbin }}/disable_touchpad"
-
-touchpad_entry:
-  src: "{{ role_resource.touchpad_templates }}/touchpad.desktop"
-  dest: "{{ dotdir.touchpad }}/touchpad.desktop"
