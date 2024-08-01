@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+
+{{ version_control_warn.hashsymb }}
+
+[Desktop Entry]
+Type=Application
+Exec={{ gammastep_starter.dest }}
+Name=gammastep
+OnlyShowIn=i3;Xfce

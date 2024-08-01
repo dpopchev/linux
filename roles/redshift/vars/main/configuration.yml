@@ -1,3 +1,0 @@
-configuration:
-  src: "{{ role_resource.configuration }}/redshift.conf"
-  dest: ~/.config/redshift.conf

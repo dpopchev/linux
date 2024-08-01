@@ -1,4 +1,0 @@
-role_files: "{{ role_path }}/files"
-
-role_resource:
-  configuration: "{{ role_files }}/configuration"

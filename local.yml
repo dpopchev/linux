@@ -42,8 +42,8 @@
     #   tags: i3wm
     #
 
-    - role: redshift
-      tags: [redshift, never]
+    - role: gammastep
+      tags: [gammastep, never]
 
     # - role: touchpad
     #   tags: [touchpad, never]
