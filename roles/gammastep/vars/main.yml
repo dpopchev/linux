@@ -1,0 +1,32 @@
+gammastep_resource:
+  config: "{{ gammastep_files }}"
+  autostart_files: "{{ gammastep_files }}"
+  autostart_templates: "{{ gammastep_templates }}"
+
+gammastep_dotdir:
+  config: "~/.config/gammastep"
+  starter: "{{ dpdir.dpbin }}"
+  desktop_entry: "~/.config/autostart"
+
+gammastep_starter:
+  src: "{{ gammastep_resource.autostart_templates }}/start_gammastep"
+  dest: "{{ gammastep_dotdir.starter }}/start_gammastep"
+
+gammastep_dotfiles:
+  - name: config
+    kind: template
+    should_backup: true
+    src: "{{ gammastep_resource.config }}/config.ini"
+    dest: "{{ gammastep_dotdir.config }}/config.ini"
+
+  - name: start single instance as a desktop entry
+    kind: template
+    should_backup: false
+    src: "{{ gammastep_starter.src }}"
+    dest: "{{ gammastep_starter.dest }}"
+
+  - name: desktop entry
+    kind: template
+    should_backup: false
+    src: "{{ gammastep_resource.autostart_templates }}/gammastep.desktop"
+    dest: "{{ gammastep_dotdir.desktop_entry }}/gammastep.desktop"
