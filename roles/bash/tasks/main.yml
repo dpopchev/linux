@@ -19,7 +19,7 @@
     mode: '751'
   loop: "{{ bash_dotdir | dict2items }}"
   loop_control:
-    label: "{{ item.key }}"
+    label: "{{ item.value }}"
 
 - name: "Handle profile dotfiles"
   tags: [setup, bash-setup]
