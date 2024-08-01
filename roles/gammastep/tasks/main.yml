@@ -1,5 +1,5 @@
 - name: Set up the role resources facts
-  tags: [setup, gammaste-setup]
+  tags: [setup, gammastep-setup]
   ansible.builtin.set_fact:
     gammastep_files: "{{ role_path }}/files"
     gammastep_templates: "{{ role_path }}/templates"
@@ -12,7 +12,7 @@
   become: true
 
 - name: Ensure dotdirs exist
-  tags: [setup, gammaste-setup]
+  tags: [setup, gammastep-setup]
   ansible.builtin.file:
     path: "{{ item.value }}"
     state: directory
@@ -22,7 +22,7 @@
     label: "{{ item.value }}"
 
 - name: "Handle gammastep dotfiles"
-  tags: [setup, gammaste-setup]
+  tags: [setup, gammastep-setup]
   ansible.builtin.import_role:
     name: dotfiles_handler
   vars:
