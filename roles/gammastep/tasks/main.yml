@@ -1,28 +1,29 @@
 - name: Set up the role resources facts
-  tags: [setup, git-setup]
+  tags: [setup, gammaste-setup]
   ansible.builtin.set_fact:
-    git_files: "{{ role_path }}/files"
+    gammastep_files: "{{ role_path }}/files"
+    gammastep_templates: "{{ role_path }}/templates"
 
 - name: Install latest package
-  tags: [packages, git-packages]
+  tags: [packages, gammastep-packages]
   ansible.builtin.package:
     state: present
-    name: git
+    name: gammastep
   become: true
 
 - name: Ensure dotdirs exist
-  tags: [setup, git-setup]
+  tags: [setup, gammaste-setup]
   ansible.builtin.file:
     path: "{{ item.value }}"
     state: directory
     mode: '751'
-  loop: "{{ git_dotdir | dict2items }}"
+  loop: "{{ gammastep_dotdir | dict2items }}"
   loop_control:
     label: "{{ item.value }}"
 
-- name: "Handle git dotfiles"
-  tags: [setup, git-setup]
+- name: "Handle gammastep dotfiles"
+  tags: [setup, gammaste-setup]
   ansible.builtin.import_role:
     name: dotfiles_handler
   vars:
-    dotfiles_handler_target: "{{ git_dotfiles }}"
+    dotfiles_handler_target: "{{ gammastep_dotfiles }}"

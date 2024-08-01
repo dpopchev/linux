@@ -19,7 +19,7 @@
     mode: '751'
   loop: "{{ nvim_dotdir | dict2items }}"
   loop_control:
-    label: "{{ item.key }}"
+    label: "{{ item.value }}"
 
 - name: "Handle nvim dotfiles"
   tags: [setup, nvim-setup]

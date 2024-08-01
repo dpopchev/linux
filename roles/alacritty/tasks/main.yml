@@ -19,7 +19,7 @@
     mode: '751'
   loop: "{{ alacritty_dotdir | dict2items }}"
   loop_control:
-    label: "{{ item.key }}"
+    label: "{{ item.value }}"
 
 - name: "Handle alacritty dotfiles"
   tags: [setup, alacritty-setup]
