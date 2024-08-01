@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-PADNAME="{{ touchpad_devnames.pad }}"
-KEYSNAME="{{ touchpad_devnames.padkeys }}"
+{{ version_control_warn.hashsymb }}
+
+PADNAME="{{ touchpad_xinput_devname_pad }}"
+KEYSNAME="{{ touchpad_xinput_devname_padkeys }}"
 
 disable_pad(){
     local -r padname="$1"

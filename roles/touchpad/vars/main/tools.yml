@@ -1,3 +1,0 @@
-touchpad_tools:
-  src: "{{ role_resource.tools_templates }}/toggle_touchpad"
-  dest: "{{ dotdir.tools }}/toggle_touchpad"
