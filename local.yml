@@ -41,6 +41,9 @@
     - role: touchpad
       tags: [touchpad, never]
 
+    - role: sshome
+      tags: [sshome, never]
+
     # - role: linux
     #   tags: linux
     #

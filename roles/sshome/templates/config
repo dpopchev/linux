@@ -1,0 +1,10 @@
+{{ version_control_warn.hashsymb }}
+
+# Host HOSTNAME
+#     HostName ADDRESS
+#     User USERNAME
+#     PreferredAuthentications publickey,password
+#     IdentityFile PRIVATE_KEY_ABS_PATH
+#     AddKeysToAgent yes
+#     ProxyCommand PROXY_CMD
+#     Port PORT
