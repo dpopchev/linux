@@ -15,15 +15,12 @@ font pango:DejaVu Sans Mono 8
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
 
-# global variables
+# constants
 set $UTILS ~/.config/i3/utils
+set $MAIN_MONITOR eDP-1
 
 exec --no-startup-id xss-lock --transfer-sleep-lock -- $UTILS/lock
 bindsym $mod+BackSpace exec --no-startup-id xset s activate
-
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-# exec --no-startup-id connman-gtk
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
