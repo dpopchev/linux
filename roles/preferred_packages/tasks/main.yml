@@ -1,0 +1,10 @@
+- name: "Install Linux packages applicable for {{ ansible_distribution }}"
+  tags: [packages, preferred-packages]
+  ansible.builtin.package:
+    state: present
+    name: "{{ item.name }}"
+  become: true
+  loop: "{{ preferred_packages_list }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: "ansible_distribution in item.distros"

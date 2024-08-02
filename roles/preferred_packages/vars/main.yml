@@ -1,0 +1,3 @@
+preferred_packages_list:
+  - name: tree
+    distros: ['Archlinux']
