@@ -1,0 +1,39 @@
+- name: Set up the role resources facts
+  tags: [setup, sshome-setup]
+  ansible.builtin.set_fact:
+    sshome_templates: "{{ role_path }}/templates"
+
+- name: Create user ssh home
+  tags: [setup, sshome-setup]
+  ansible.builtin.file:
+    path: "{{ sshome_dotdir.config }}"
+    mode: '700'
+    state: directory
+
+- name: Preserve ssh configuration
+  tags: [setup, sshome-setup]
+  ansible.builtin.include_role:
+    name: backup
+  vars:
+    backup_target: "{{ sshome_config.dest }}"
+
+- name: Copy template ssh config
+  tags: [setup, sshome-setup]
+  ansible.builtin.template:
+    src: "{{ sshome_config.src }}"
+    dest: "{{ sshome_config.dest }}"
+    mode: "600"
+
+- name: Make example with recommended permissions for private key
+  tags: [setup, sshome-setup]
+  ansible.builtin.file:
+    path: "{{ sshome_dotdir.config }}/example_permissions_for_private_key_file"
+    mode: '600'
+    state: touch
+
+- name: Make example with recommended permissions for public key
+  tags: [setup, sshome-setup]
+  ansible.builtin.file:
+    path: "{{ sshome_dotdir.config }}/example_permissions_for_public_key_file"
+    mode: '644'
+    state: touch
