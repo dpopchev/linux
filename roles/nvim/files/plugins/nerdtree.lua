@@ -3,8 +3,9 @@ local function vim_options_factory(desc)
 end
 
 local function config_factory()
-    vim.keymap.set('n', '<leader>enN', ':NERDTree<CR>', vim_options_factory('[E]xplore using [nN]erdtree pane'))
-    vim.keymap.set('n', '<leader>enn', ':NERDTreeToggle<CR>', vim_options_factory('[E]xplore [nn]erdtree toggle'))
+    vim.keymap.set('n', '<leader>eT', ':NERDTreeFind<CR>',
+        vim_options_factory('[E]xplore active buffer path with Nerd[T]ree '))
+    vim.keymap.set('n', '<leader>et', ':NERDTreeToggle<CR>', vim_options_factory('[E]xplore using Nerd[t]ree pane'))
 end
 
 return {
