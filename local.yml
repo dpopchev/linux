@@ -44,8 +44,8 @@
     - role: sshome
       tags: [sshome, never]
 
-    # - role: linux
-    #   tags: linux
+    - role: preferred_packages
+      tags: preferred-packages
     #
     # - role: i3wm
     #   tags: i3wm
