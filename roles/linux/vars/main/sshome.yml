@@ -1,3 +1,0 @@
-sshconfig:
-  src: "{{ role_resource.sshome }}/config"
-  dest: "{{ dotdir.sshome }}/config"
