@@ -1,7 +1,0 @@
-i3wm_packages:
-  - name: imagemagick
-    distro: any
-  - name: xss-lock
-    distro: any
-  - name: i3lock
-    distro: any

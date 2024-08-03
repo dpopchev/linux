@@ -46,6 +46,6 @@
 
     - role: preferred_packages
       tags: preferred-packages
-    #
-    # - role: i3wm
-    #   tags: i3wm
+
+    - role: i3wm
+      tags: i3wm

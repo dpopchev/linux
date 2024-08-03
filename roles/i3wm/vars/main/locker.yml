@@ -1,3 +1,0 @@
-i3wm_locker:
-  src: "{{ role_resource.locker }}/lock"
-  dest: "{{ dotdir.utils }}/lock"

@@ -1,3 +1,9 @@
+- name: Set up the role resource facts
+  tags: [setup, i3wm-setup]
+  ansible.builtin.set_fact:
+    i3wm_files: "{{ role_path }}/files"
+    i3wm_templates: "{{ role_path }}/templates"
+
 - name: Install i3 window manager
   tags: [packages, i3wm-packages]
   ansible.builtin.package:
@@ -5,19 +11,20 @@
     name: i3-wm
   become: true
 
-- name: Install dekstop entry execution util
-  tags: [packages, i3wm-packages]
-  ansible.builtin.package:
-    state: present
-    name: dex
-  become: true
-
-- name: Set up the role resource facts
+- name: Ensure dotdirs exist
   tags: [setup, i3wm-setup]
-  ansible.builtin.set_fact:
-    i3wm_files: "{{ role_path }}/files"
-    i3wm_templates: "{{ role_path }}/templates"
+  ansible.builtin.file:
+    path: "{{ item.value }}"
+    state: directory
+    mode: '751'
+  loop: "{{ i3wm_dotdir | dict2items }}"
+  loop_control:
+    label: "{{ item.value }}"
 
-- block:
-  - import_tasks: i3config.yml
-  - import_tasks: locker.yml
+- name: Set up configuration file
+  ansible.builtin.import_tasks:
+    file: config.yml
+
+- name: Set up locker utility
+  ansible.builtin.import_tasks:
+    file: locker.yml
