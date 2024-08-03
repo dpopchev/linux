@@ -1,10 +1,10 @@
-- name: Install locker package dependencies
+- name: Install configuration package dependencies
   tags: [packages, i3wm-packages]
   ansible.builtin.package:
     state: present
     name: "{{ item.name }}"
   become: true
-  loop: "{{ i3wm_packages.locker }}"
+  loop: "{{ i3wm_packages.config }}"
   loop_control:
     label: "{{ item.name }}"
   when: "ansible_distribution in item.distros"
@@ -14,4 +14,4 @@
   ansible.builtin.import_role:
     name: dotfiles_handler
   vars:
-    dotfiles_handler_target: "{{ i3wm_dotfiles.locker }}"
+    dotfiles_handler_target: "{{ i3wm_dotfiles.config }}"

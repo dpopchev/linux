@@ -1,0 +1,34 @@
+i3wm_resource:
+  config: "{{ i3wm_files }}"
+  locker: "{{ i3wm_files }}"
+
+i3wm_dotdir:
+  config: "~/.config/i3"
+  utils: "~/.config/i3/utils"
+
+i3wm_packages:
+  config:
+    - name: dex
+      distros: ['Archlinux']
+  locker:
+    - name: imagemagick
+      distros: ['Archlinux']
+    - name: xss-lock
+      distros: ['Archlinux']
+    - name: i3lock
+      distros: ['Archlinux']
+
+i3wm_dotfiles:
+  config:
+    - name: configuration file
+      kind: link
+      should_backup: true
+      src: "{{ i3wm_resource.config }}/config"
+      dest: "{{ i3wm_dotdir.config }}/config"
+
+  locker:
+    - name: lock utility
+      kind: link
+      should_backup: true
+      src: "{{ i3wm_resource.locker }}/lock"
+      dest: "{{ i3wm_dotdir.utils }}/lock"
