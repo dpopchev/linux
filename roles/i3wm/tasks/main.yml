@@ -5,7 +5,19 @@
     name: i3-wm
   become: true
 
+- name: Install dekstop entry execution util
+  tags: [packages, i3wm-packages]
+  ansible.builtin.package:
+    state: present
+    name: dex
+  become: true
+
+- name: Set up the role resource facts
+  tags: [setup, i3wm-setup]
+  ansible.builtin.set_fact:
+    i3wm_files: "{{ role_path }}/files"
+    i3wm_templates: "{{ role_path }}/templates"
+
 - block:
-  - import_tasks: packages.yml
   - import_tasks: i3config.yml
   - import_tasks: locker.yml

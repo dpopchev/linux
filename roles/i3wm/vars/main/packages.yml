@@ -1,6 +1,4 @@
 i3wm_packages:
-  - name: dex
-    distro: any
   - name: imagemagick
     distro: any
   - name: xss-lock

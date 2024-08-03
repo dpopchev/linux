@@ -1,3 +1,0 @@
-linux_packages:
-  - name: tree
-    distro: any
