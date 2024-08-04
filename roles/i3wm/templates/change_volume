@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+{{ version_control_warn.hashsymb }}
+
+MAX_LIMIT=100
+NOTIFICATION_ID=${XDG_RUNTIME_DIR:-~/.local/share}/volume.id
+
+get_volume() {
+    local volume=$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\d+\%' | sort -u)
+    echo "${volume%\%}"
+}
+
+make_delta() {
+    local action=$1
+    local delta=$2
+
+    if [[ $action == 'set' ]]; then
+        echo "$delta%"
+        return
+    fi
+
+    if [[ $action == 'dec' ]]; then
+        echo "-$delta%"
+        return
+    fi
+
+    if [[ $(get_volume) -ge $MAX_LIMIT ]]; then
+        echo "+0%"
+        return
+    fi
+
+    echo "+$delta%"
+    return
+}
+
+make_action() {
+    case $1 in
+        set) echo set;;
+        inc) echo increase;;
+        dec) echo decrease;;
+        *) echo 'unknown';;
+    esac
+}
+
+get_notification_id() {
+    [[ ! -f $NOTIFICATION_ID ]] && echo $RANDOM > $NOTIFICATION_ID
+    echo $(cat $NOTIFICATION_ID)
+}
+
+main() {
+    local -r action="$1"
+    local -r delta="$2"
+
+    local -r normalized_delta=$(make_delta $action $delta)
+
+    pactl set-sink-volume @DEFAULT_SINK@ $normalized_delta
+    pactl set-sink-mute @DEFAULT_SINK@ 0
+
+    local -r volume=$(get_volume)
+    local -r notification_id=$(get_notification_id)
+
+    notify-send -r $notification_id "Volume: $volume%" -h int:value:$volume -h string:synchronous:volume
+}
+
+main "$@"

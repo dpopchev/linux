@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+{{ version_control_warn.hashsymb }}
+
+NOTIFICATION_ID=${XDG_RUNTIME_DIR:-~/.local/share}/mic.id
+
+get_notification_id() {
+    [[ ! -f $NOTIFICATION_ID ]] && echo $RANDOM > $NOTIFICATION_ID
+    cat $NOTIFICATION_ID
+}
+
+main() {
+    local -r action=${1:-toggle}
+
+    pactl set-source-mute @DEFAULT_SOURCE@ $action
+
+    local -r source_mute_status=$(pactl get-source-mute @DEFAULT_SOURCE@)
+    local -r notification_id=$(get_notification_id)
+
+    notify-send -r $notification_id "Mic $source_mute_status"
+}
+
+main "$@"

@@ -1,6 +1,7 @@
 i3wm_resource:
   config: "{{ i3wm_files }}"
-  locker: "{{ i3wm_files }}"
+  locker: "{{ i3wm_templates }}"
+  volumectl: "{{ i3wm_templates }}"
 
 i3wm_dotdir:
   config: "~/.config/i3"
@@ -10,12 +11,17 @@ i3wm_packages:
   config:
     - name: dex
       distros: ['Archlinux']
+
   locker:
     - name: imagemagick
       distros: ['Archlinux']
     - name: xss-lock
       distros: ['Archlinux']
     - name: i3lock
+      distros: ['Archlinux']
+
+  volumectl:
+    - name: libpulse
       distros: ['Archlinux']
 
 i3wm_dotfiles:
@@ -28,7 +34,26 @@ i3wm_dotfiles:
 
   locker:
     - name: lock utility
-      kind: link
+      kind: template
       should_backup: true
       src: "{{ i3wm_resource.locker }}/lock"
       dest: "{{ i3wm_dotdir.utils }}/lock"
+
+  volumectl:
+    - name: volume control utility
+      kind: template
+      should_backup: true
+      src: "{{ i3wm_resource.volumectl }}/change_volume"
+      dest: "{{ i3wm_dotdir.utils }}/change_volume"
+
+    - name: volume control utility
+      kind: template
+      should_backup: true
+      src: "{{ i3wm_resource.volumectl }}/mute_volume"
+      dest: "{{ i3wm_dotdir.utils }}/mute_volume"
+
+    - name: volume control utility
+      kind: template
+      should_backup: true
+      src: "{{ i3wm_resource.volumectl }}/mute_mic"
+      dest: "{{ i3wm_dotdir.utils }}/mute_mic"

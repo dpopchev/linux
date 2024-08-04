@@ -28,3 +28,7 @@
 - name: Set up locker utility
   ansible.builtin.import_tasks:
     file: locker.yml
+
+- name: Set up volume control utility
+  ansible.builtin.import_tasks:
+    file: volumectl.yml

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+{{ version_control_warn.hashsymb }}
+
 TMPFILE=/tmp/lockbg_XXXXXX.png
 BGEFFECT=pixelate
 
