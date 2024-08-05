@@ -2,6 +2,7 @@ i3wm_resource:
   config: "{{ i3wm_files }}"
   locker: "{{ i3wm_templates }}"
   volumectl: "{{ i3wm_templates }}"
+  brightnessctl: "{{ i3wm_templates }}"
 
 i3wm_dotdir:
   config: "~/.config/i3"
@@ -22,6 +23,10 @@ i3wm_packages:
 
   volumectl:
     - name: libpulse
+      distros: ['Archlinux']
+
+  brightnessctl:
+    - name: xorg-xbacklight
       distros: ['Archlinux']
 
 i3wm_dotfiles:
@@ -57,3 +62,10 @@ i3wm_dotfiles:
       should_backup: true
       src: "{{ i3wm_resource.volumectl }}/mute_mic"
       dest: "{{ i3wm_dotdir.utils }}/mute_mic"
+
+  brightnessctl:
+    - name: brightness control utility
+      kind: template
+      should_backup: true
+      src: "{{ i3wm_resource.brightnessctl }}/change_brightness"
+      dest: "{{ i3wm_dotdir.utils }}/change_brightness"

@@ -1,0 +1,17 @@
+- name: Install brightness control package dependencies
+  tags: [packages, i3wm-packages]
+  ansible.builtin.package:
+    state: present
+    name: "{{ item.name }}"
+  become: true
+  loop: "{{ i3wm_packages.brightnessctl }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when: "ansible_distribution in item.distros"
+
+- name: "Handle i3wm configuration dotfiles"
+  tags: [setup, i3wm-setup]
+  ansible.builtin.import_role:
+    name: dotfiles_handler
+  vars:
+    dotfiles_handler_target: "{{ i3wm_dotfiles.brightnessctl }}"

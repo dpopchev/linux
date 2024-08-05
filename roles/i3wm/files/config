@@ -23,6 +23,11 @@ set $VOLUME_STEP 5
 set $VOLUME_QUICK_INCREASE 100
 set $VOLUME_QUICK_DECREASE 50
 
+# brightness constants
+set $BRIGHTNESS_STEP 5
+set $BRIGHTNESS_QUICK_INCREASE 100
+set $BRIGHTNESS_QUICK_DECREASE 50
+
 # monitor constants
 set $MAIN_MONITOR eDP-1
 
@@ -41,6 +46,12 @@ bindsym XF86AudioMute exec --no-startup-id $UTILS/mute_volume toggle
 bindsym Shift+XF86AudioMute exec --no-startup-id $UTILS/mute_volume yes
 bindsym XF86AudioMicMute exec --no-startup-id $UTILS/mute_mic toggle
 bindsym Shift+XF86AudioMicMute exec --no-startup-id $UTILS/mute_mic yes
+
+# brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id $UTILS/change_brightness inc $BRIGHTNESS_STEP
+bindsym XF86MonBrightnessDown exec --no-startup-id $UTILS/change_brightness dec $BRIGHTNESS_STEP
+bindsym Shift+XF86MonBrightnessUp exec --no-startup-id $UTILS/change_brightness set $BRIGHTNESS_QUICK_INCREASE
+bindsym Shift+XF86MonBrightnessDown exec --no-startup-id $UTILS/change_brightness set $BRIGHTNESS_QUICK_DECREASE
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod

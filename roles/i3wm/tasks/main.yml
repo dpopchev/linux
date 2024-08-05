@@ -32,3 +32,7 @@
 - name: Set up volume control utility
   ansible.builtin.import_tasks:
     file: volumectl.yml
+
+- name: Set up brightness control utility
+  ansible.builtin.import_tasks:
+    file: brightnessctl.yml

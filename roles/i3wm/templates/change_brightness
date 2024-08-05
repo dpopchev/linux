@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+{{ version_control_warn.hashsymb }}
+
+MAX_LIMIT=100
+NOTIFICATION_ID=${XDG_RUNTIME_DIR:-~/.local/share}/brightness.id
+
+get_brightness() {
+    xbacklight -get
+}
+
+make_delta() {
+    local -r action="$1"
+    local -r delta="$2"
+
+    if [[ $(get_brightness) -ge $MAX_LIMIT ]]; then
+        echo 0
+        return
+    fi
+
+    echo $delta
+    return
+}
+
+make_action() {
+    local -r action="$1"
+    case "$action" in
+        set) echo -set;;
+        inc) echo -inc;;
+        dec) echo -dec;;
+        *) echo 'unknown';;
+    esac
+}
+
+get_notification_id() {
+    [[ ! -f $NOTIFICATION_ID ]] && echo $RANDOM > $NOTIFICATION_ID
+    cat $NOTIFICATION_ID
+}
+
+main() {
+    local -r action="$1"
+    local -r delta="$2"
+
+    local -r normalized_delta=$(make_delta $action $delta)
+
+    xbacklight $(make_action $action) $(make_delta $action $delta)
+
+    local -r brightness=$(get_brightness)
+    local -r notification_id=$(get_notification_id)
+
+    notify-send -r $notification_id "Brightness: $brightness%" -h int:value:$brightness -h string:synchronous:brightness
+}
+
+main "$@"
