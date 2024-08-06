@@ -9,11 +9,11 @@ dmenu_tools:
   - name: dmenu tools selector
     kind: template
     should_backup: false
-    src: "{{ dmenu_resource.tools }}/dmenu_selector"
+    src: "{{ dmenu_resource.tools }}/dmenu_selector.j2"
     dest: "{{ dmenu_dotdir.bin }}/dmenu_selector"
 
   - name: use dmenu to choose wifi network
     kind: template
     should_backup: false
-    src: "{{ dmenu_resource.tools }}/choose_wifi"
+    src: "{{ dmenu_resource.tools }}/choose_wifi.j2"
     dest: "{{ dmenu_dotdir.tools }}/choose_wifi"

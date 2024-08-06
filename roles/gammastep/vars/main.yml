@@ -9,12 +9,12 @@ gammastep_dotdir:
   desktop_entry: "~/.config/autostart"
 
 gammastep_starter:
-  src: "{{ gammastep_resource.autostart_templates }}/start_gammastep"
+  src: "{{ gammastep_resource.autostart_templates }}/start_gammastep.j2"
   dest: "{{ gammastep_dotdir.starter }}/start_gammastep"
 
 gammastep_dotfiles:
   - name: config
-    kind: template
+    kind: file
     should_backup: true
     src: "{{ gammastep_resource.config }}/config.ini"
     dest: "{{ gammastep_dotdir.config }}/config.ini"
@@ -28,5 +28,5 @@ gammastep_dotfiles:
   - name: desktop entry
     kind: template
     should_backup: false
-    src: "{{ gammastep_resource.autostart_templates }}/gammastep.desktop"
+    src: "{{ gammastep_resource.autostart_templates }}/gammastep.desktop.j2"
     dest: "{{ gammastep_dotdir.desktop_entry }}/gammastep.desktop"

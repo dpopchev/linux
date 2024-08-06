@@ -41,31 +41,31 @@ i3wm_dotfiles:
     - name: lock utility
       kind: template
       should_backup: true
-      src: "{{ i3wm_resource.locker }}/lock"
+      src: "{{ i3wm_resource.locker }}/lock.j2"
       dest: "{{ i3wm_dotdir.utils }}/lock"
 
   volumectl:
     - name: volume control utility
       kind: template
       should_backup: true
-      src: "{{ i3wm_resource.volumectl }}/change_volume"
+      src: "{{ i3wm_resource.volumectl }}/change_volume.j2"
       dest: "{{ i3wm_dotdir.utils }}/change_volume"
 
     - name: volume control utility
       kind: template
       should_backup: true
-      src: "{{ i3wm_resource.volumectl }}/mute_volume"
+      src: "{{ i3wm_resource.volumectl }}/mute_volume.j2"
       dest: "{{ i3wm_dotdir.utils }}/mute_volume"
 
     - name: volume control utility
       kind: template
       should_backup: true
-      src: "{{ i3wm_resource.volumectl }}/mute_mic"
+      src: "{{ i3wm_resource.volumectl }}/mute_mic.j2"
       dest: "{{ i3wm_dotdir.utils }}/mute_mic"
 
   brightnessctl:
     - name: brightness control utility
       kind: template
       should_backup: true
-      src: "{{ i3wm_resource.brightnessctl }}/change_brightness"
+      src: "{{ i3wm_resource.brightnessctl }}/change_brightness.j2"
       dest: "{{ i3wm_dotdir.utils }}/change_brightness"

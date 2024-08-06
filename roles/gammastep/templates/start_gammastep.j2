@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+{{ version_control_warn.hashsymb }}
+
+GAMMA_CORRECTION_SERVICE=gammastep
+
+killall $GAMMA_CORRECTION_SERVICE
+$GAMMA_CORRECTION_SERVICE &
+notify-send "Started gamma corection service: $GAMMA_CORRECTION_SERVICE"

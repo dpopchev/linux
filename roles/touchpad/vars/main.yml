@@ -8,7 +8,7 @@ touchpad_dotdir:
   tools: "{{ dpdir.dptools }}"
 
 touchpad_initial_setup_script:
-  src: "{{ touchpad_resource.touchpad_templates }}/setup_touchpad"
+  src: "{{ touchpad_resource.touchpad_templates }}/setup_touchpad.j2"
   dest: "{{ touchpad_dotdir.setup }}/setup_touchpad"
 
 touchpad_dotfiles:
@@ -21,11 +21,11 @@ touchpad_dotfiles:
   - name: setup desktop entry
     kind: template
     should_backup: false
-    src: "{{ touchpad_resource.touchpad_templates }}/touchpad.desktop"
+    src: "{{ touchpad_resource.touchpad_templates }}/touchpad.desktop.j2"
     dest: "{{ touchpad_dotdir.autostart }}/touchpad.desktop"
 
   - name: add dptool
     kind: template
     should_backup: false
-    src: "{{ touchpad_resource.touchpad_templates }}/toggle_touchpad"
+    src: "{{ touchpad_resource.touchpad_templates }}/toggle_touchpad.j2"
     dest: "{{ touchpad_dotdir.tools }}/toggle_touchpad"
