@@ -1,0 +1,29 @@
+- name: Set up the role resource facts
+  tags: [setup, dmenu-setup]
+  ansible.builtin.set_fact:
+    dmenu_files: "{{ role_path }}/files"
+    dmenu_templates: "{{ role_path }}/templates"
+
+- name: Install dmenu window manager
+  tags: [packages, dmenu-packages]
+  ansible.builtin.package:
+    state: present
+    name: dmenu
+  become: true
+
+- name: Ensure dotdirs exist
+  tags: [setup, dmenu-setup]
+  ansible.builtin.file:
+    path: "{{ item.value }}"
+    state: directory
+    mode: '751'
+  loop: "{{ dmenu_dotdir | dict2items }}"
+  loop_control:
+    label: "{{ item.value }}"
+
+- name: "Handle dmenu tools"
+  tags: [setup, dmenu-setup]
+  ansible.builtin.import_role:
+    name: dotfiles_handler
+  vars:
+    dotfiles_handler_target: "{{ dmenu_tools }}"

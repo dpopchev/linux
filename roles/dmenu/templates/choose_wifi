@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+{{ version_control_warn.hashsymb }}
+
+should_rescan=$(echo -e "No\nYes" | dmenu -i -p "Do you want wifi rescan?")
+
+[[ $should_rescan == 'Yes' ]] && connmanctl scan wifi
+
+connmanctl services | dmenu -i -l 10 | grep -Po 'wifi_[^\s]+' | xargs connmanctl connect

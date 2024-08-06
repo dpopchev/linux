@@ -1,0 +1,19 @@
+dmenu_resource:
+  tools: "{{ dmenu_templates }}"
+
+dmenu_dotdir:
+  bin: "{{ dpdir.dpbin }}"
+  tools: "{{ dpdir.dptools }}"
+
+dmenu_tools:
+  - name: dmenu tools selector
+    kind: template
+    should_backup: false
+    src: "{{ dmenu_resource.tools }}/dmenu_selector"
+    dest: "{{ dmenu_dotdir.bin }}/dmenu_selector"
+
+  - name: use dmenu to choose wifi network
+    kind: template
+    should_backup: false
+    src: "{{ dmenu_resource.tools }}/choose_wifi"
+    dest: "{{ dmenu_dotdir.tools }}/choose_wifi"

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+{{ version_control_warn.hashsymb }}
+
+TOOLS="{{ dmenu_dotdir.tools }}"
+
+entries=()
+for entry in $TOOLS/*; do
+    entry=$(basename ${entry})
+    entries+=($entry)
+done
+
+printf '%s\n' "${entries[@]}" | dmenu -l 10 | xargs -i bash "${TOOLS}/{}"

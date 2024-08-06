@@ -49,3 +49,6 @@
 
     - role: i3wm
       tags: i3wm
+
+    - role: dmenu
+      tags: dmenu
