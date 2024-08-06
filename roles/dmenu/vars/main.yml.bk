@@ -3,7 +3,7 @@ dmenu_resource:
 
 dmenu_dotdir:
   bin: "{{ dpdir.bin }}"
-  tools: "{{ dpdir.tools }}"
+  tools: "{{ dpdir.dptools }}"
 
 dmenu_tools:
   - name: dmenu tools selector

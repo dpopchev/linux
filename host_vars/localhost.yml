@@ -5,4 +5,4 @@ version_control_warn:
 dphome: "{{ lookup('env', 'HOME') }}/.dpopchev"
 dpdir:
   bin: "{{ dphome }}/bin"
-  dptools: "{{ dphome }}/tools"
+  tools: "{{ dphome }}/tools"
