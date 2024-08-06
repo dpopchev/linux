@@ -2,7 +2,7 @@ dmenu_resource:
   tools: "{{ dmenu_templates }}"
 
 dmenu_dotdir:
-  bin: "{{ dpdir.dpbin }}"
+  bin: "{{ dpdir.bin }}"
   tools: "{{ dpdir.dptools }}"
 
 dmenu_tools:

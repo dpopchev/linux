@@ -5,7 +5,7 @@ gammastep_resource:
 
 gammastep_dotdir:
   config: "~/.config/gammastep"
-  starter: "{{ dpdir.dpbin }}"
+  starter: "{{ dpdir.bin }}"
   desktop_entry: "~/.config/autostart"
 
 gammastep_starter:

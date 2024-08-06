@@ -4,5 +4,5 @@ version_control_warn:
   hashsymb: '# Installed by Ansible dpopchev setup, changes might be overridden.'
 dphome: "{{ lookup('env', 'HOME') }}/.dpopchev"
 dpdir:
-  dpbin: "{{ dphome }}/bin"
+  bin: "{{ dphome }}/bin"
   dptools: "{{ dphome }}/tools"

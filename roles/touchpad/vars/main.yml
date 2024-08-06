@@ -4,7 +4,7 @@ touchpad_resource:
 
 touchpad_dotdir:
   autostart: "~/.config/autostart"
-  setup: "{{ dpdir.dpbin }}"
+  setup: "{{ dpdir.bin }}"
   tools: "{{ dpdir.dptools }}"
 
 touchpad_initial_setup_script:
