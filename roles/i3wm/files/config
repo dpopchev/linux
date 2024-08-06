@@ -79,7 +79,7 @@ bindsym $mod+Shift+d exec --no-startup-id dmenu_selector
 for_window [title="Picture-in-Picture"] sticky enable
 for_window [title="Picture-in-Picture"] border pixel 0
 
-default_border pixel 7
+default_border pixel 6
 smart_borders on
 
 # change focus
