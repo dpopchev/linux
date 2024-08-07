@@ -2,8 +2,36 @@
 
 {{ version_control_warn.hashsymb }}
 
-should_rescan=$(echo -e "No\nYes" | dmenu -i -p "Do you want wifi rescan?")
+ask_for_ap_scan(){
+    echo -e "No\nYes" | dmenu -i -p "Do you want to make a AP scan?"
+}
 
-[[ $should_rescan == 'Yes' ]] && connmanctl scan wifi
+scan_for_aps(){
+    connmanctl scan wifi
+}
 
-connmanctl services | dmenu -i -l 10 | grep -Po 'wifi_[^\s]+' | xargs connmanctl connect
+list_aps(){
+    connmanctl services
+}
+
+select_col(){
+    local -r row="$1"
+    grep -Po 'wifi_[^\s]+'
+}
+
+connect_ap(){
+    local -r name=$1
+
+    connmanctl connect $name
+}
+
+main(){
+    local -r should_rescan=$(ask_for_ap_scan)
+
+    [[ $should_rescan == 'Yes' ]] && scan_for_aps
+
+    local -r apname=$(list_aps | dmenu -i -l 10)
+    connect_ap $apname
+}
+
+main
