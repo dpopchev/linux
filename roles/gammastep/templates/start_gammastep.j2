@@ -4,6 +4,30 @@
 
 GAMMA_CORRECTION_SERVICE=gammastep
 
-killall $GAMMA_CORRECTION_SERVICE
-$GAMMA_CORRECTION_SERVICE &
-notify-send "Started gamma corection service: $GAMMA_CORRECTION_SERVICE"
+start_service(){
+    # star a single instance of service and return its PID
+
+    local -r service_name="$1"
+
+    killall "$service_name" &> /dev/null
+
+    "$service_name" > /dev/null &
+
+    echo $!
+}
+
+main(){
+    local -r gamma_service_name="$1"
+
+    local -r gamma_service_pid=$(start_service "$gamma_service_name")
+
+    if ps -p "$gamma_service_pid" > /dev/null; then
+        notify-send "Started gamma corection service: $gamma_service_name"
+        return 0
+    fi
+
+    notify-send "NOT started gamma corection service: $gamma_service_name"
+    return 1
+}
+
+main "$GAMMA_CORRECTION_SERVICE"
