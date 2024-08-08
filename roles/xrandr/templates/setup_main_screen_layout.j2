@@ -26,7 +26,7 @@ main(){
 
     [[ $? -ne 0 ]] && xrandr --output "$main_monitor" --primary --auto
 
-    notify-send "Disabled all monitors but the primary: $main_monitor"
+    notify-send "Make active only primary monitor: $main_monitor"
 }
 
 main "$MAIN_MONITOR"
