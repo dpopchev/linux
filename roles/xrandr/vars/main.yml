@@ -1,0 +1,23 @@
+xrandr_resource:
+  layouts: "{{ xrandr_templates }}"
+
+xrandr_dotdir:
+  autostart: "~/.config/autostart"
+  tools: "{{ dpdir.tools }}"
+
+xrandr_setup_main_screen_layout:
+  src: "{{ xrandr_resource.layouts }}/setup_main_screen_layout.j2"
+  dest: "{{ xrandr_dotdir.tools }}/setup_main_screen_layout"
+
+xrandr_dotfiles:
+  - name: disable monitors but the main one
+    kind: template
+    should_backup: false
+    src: "{{ xrandr_setup_main_screen_layout.src }}"
+    dest: "{{ xrandr_setup_main_screen_layout.dest }}"
+
+  - name: only appointed monitor is working at X start; make it as dmenu tool
+    kind: template
+    should_backup: false
+    src: "{{ xrandr_resource.layouts }}/setup_screen_layout.desktop.j2"
+    dest: "{{ xrandr_dotdir.autostart }}/setup_screen_layout.desktop"

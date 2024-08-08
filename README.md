@@ -17,6 +17,14 @@ ansible-playbook local.yml -K
 
 ## Usage
 
+Roles use the `localhost` variables:
+
+- `dphome` is under `~/.dpopchev` the home of most `roles` artefacts
+- `dpdir.bin` stores executables and when installing bash is set to be the
+  leading search path, e.g. `~/.dpopchev/bin:$PATH`
+- `dpdir.tools` stores `dmenu_selector` search path for quick and convenient
+  access (after `dmenu` role is used)
+
 ### Tags
 
 Each role has associated tag.
@@ -123,6 +131,17 @@ Will autostart destop entries using. See what will be ran with
 ```
 dex -ad --environment i3
 ```
+
+#### dmenu
+
+Installs a `dmenu_selector` entry in ``
+
+#### xrandr
+
+Pre-defined screen layouts, makes a configuration on startup using a desktop
+entry.
+
+- `xrandr_main_monitor_name`: `xrandr` monitor name to be primary and active only on startup
 
 ### Tags
 

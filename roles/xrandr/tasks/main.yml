@@ -1,0 +1,29 @@
+- name: Set up the role resource facts
+  tags: [setup, xrandr-setup]
+  ansible.builtin.set_fact:
+    xrandr_files: "{{ role_path }}/files"
+    xrandr_templates: "{{ role_path }}/templates"
+
+- name: Install xrandr utility
+  tags: [packages, xrandr-packages]
+  ansible.builtin.package:
+    state: present
+    name: xorg-xrandr
+  become: true
+
+- name: Ensure dotdirs exist
+  tags: [setup, xrandr-setup]
+  ansible.builtin.file:
+    path: "{{ item.value }}"
+    state: directory
+    mode: '751'
+  loop: "{{ xrandr_dotdir | dict2items }}"
+  loop_control:
+    label: "{{ item.value }}"
+
+- name: "Handle dotfiles"
+  tags: [setup, xrandr-setup]
+  ansible.builtin.import_role:
+    name: dotfiles_handler
+  vars:
+    dotfiles_handler_target: "{{ xrandr_dotfiles }}"

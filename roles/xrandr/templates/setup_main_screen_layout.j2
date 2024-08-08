@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+{{ version_control_warn.hashsymb }}
+
+MAIN_MONITOR="{{ xrandr_main_monitor_name }}"
+
+disable_monitors_but(){
+    local -r main_monitor="$1"
+
+    while IFS= read -r monitor; do
+        [[ $monitor != "$main_monitor" ]] && xrandr --output "$monitor" --off
+    done < <(xrandr --listactivemonitors | grep -oP '\b\w+-\d$')
+}
+
+verify_monitor_is_primary(){
+    local -r monitor="$1"
+    xrandr | grep "$monitor" | grep primary &> /dev/null
+    return $?
+}
+
+main(){
+    local -r main_monitor="$1"
+
+    disable_monitors_but "$main_monitor"
+    verify_monitor_is_primary "$main_monitor"
+
+    [[ $? -ne 0 ]] && xrandr --output "$main_monitor" --primary --auto
+
+    notify-send "Disabled all monitors but the primary: $main_monitor"
+}
+
+main "$MAIN_MONITOR"

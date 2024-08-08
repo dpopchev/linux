@@ -52,3 +52,6 @@
 
     - role: dmenu
       tags: dmenu
+
+    - role: xrandr
+      tags: [xrandr, never]
