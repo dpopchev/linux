@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+{{ version_control_warn.hashsymb }}
+
+SCREENSHOT_STORAGE_PATH="{{ screenshot_dotdir.storage }}"
+
+ask_for_mode(){
+    echo -e "Selection\nFocused window\nScreen" | dmenu -i -p "Select screenshot mode"
+}
+
+ask_for_delay(){
+    echo -e "0\n1\n2\n3\n5\n8\n13" | dmenu -i -p "Select delay in seconds"
+}
+
+main() {
+    [[ ! -d $SCREENSHOT_STORAGE_PATH ]] && mkdir --parents $SCREENSHOT_STORAGE_PATH
+
+    local -r selected_mode=$(ask_for_mode)
+    local -r selected_delay=$(ask_for_delay)
+
+    local mode=""
+    case $selected_mode in
+        "Selection") mode="-s";;
+        "Focused window") mode="-u";;
+        "Screen") mode=;;
+        *) mode="";;
+    esac
+
+    scrot $SCREENSHOT_STORAGE_PATH/'%F_%T_$wx$h.png' \
+        -f -z "$mode" \
+        -e 'xclip -selection clipboard -target image/png -i $f'
+
+    local -r exitcode=$?
+
+    case $exitcode in
+        0) notify-send "Screenshot saved at $SCREENSHOT_STORAGE_PATH";;
+        *) notify-send "Screenshot failed with code $exitcode"
+    esac
+}
+
+main

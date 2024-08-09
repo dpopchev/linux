@@ -1,0 +1,36 @@
+- name: Set up the role resource facts
+  tags: [setup, screenshot-setup]
+  ansible.builtin.set_fact:
+    screenshot_files: "{{ role_path }}/files"
+    screenshot_templates: "{{ role_path }}/templates"
+
+- name: Install screenshot utility
+  tags: [packages, screenshot-packages]
+  ansible.builtin.package:
+    state: present
+    name: scrot
+  become: true
+
+- name: Install utility to save to clipboard
+  tags: [packages, screenshot-packages]
+  ansible.builtin.package:
+    state: present
+    name: xclip
+  become: true
+
+- name: Ensure dotdirs exist
+  tags: [setup, screenshot-setup]
+  ansible.builtin.file:
+    path: "{{ item.value }}"
+    state: directory
+    mode: '751'
+  loop: "{{ screenshot_dotdir | dict2items }}"
+  loop_control:
+    label: "{{ item.value }}"
+
+- name: "Handle dotfiles"
+  tags: [setup, screenshot-setup]
+  ansible.builtin.import_role:
+    name: dotfiles_handler
+  vars:
+    dotfiles_handler_target: "{{ screenshot_dotfiles }}"

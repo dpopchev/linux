@@ -55,3 +55,6 @@
 
     - role: xrandr
       tags: [xrandr, never]
+
+    - role: screenshot
+      tags: [screenshot, never]

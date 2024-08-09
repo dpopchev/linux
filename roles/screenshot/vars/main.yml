@@ -1,0 +1,13 @@
+screenshot_resource:
+  scripts: "{{ screenshot_templates }}"
+
+screenshot_dotdir:
+  tools: "{{ dpdir.tools }}"
+  storage: "{{ screenshot_storage_path }}"
+
+screenshot_dotfiles:
+  - name: screenshot utility as dmenu tool
+    kind: template
+    should_backup: false
+    src: "{{ screenshot_resource.scripts }}/take_screenshot.j2"
+    dest: "{{ screenshot_dotdir.tools }}/take_screenshot"

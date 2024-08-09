@@ -141,7 +141,17 @@ Installs a `dmenu_selector` entry in ``
 Pre-defined screen layouts, makes a configuration on startup using a desktop
 entry.
 
+##### role variables
+
 - `xrandr_main_monitor_name`: `xrandr` monitor name to be primary and active only on startup
+
+#### screenshot
+
+`dmenu` tool to take screenshots.
+
+##### role variables
+
+- `screenshot_storage_path`: use to save screenshots
 
 ### Tags
 
