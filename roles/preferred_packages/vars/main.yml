@@ -5,3 +5,6 @@ preferred_packages_list:
 
   - name: xclip
     distros: ['Archlinux']
+
+  - name: feh
+    distros: ['Archlinux']
