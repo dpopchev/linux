@@ -8,3 +8,6 @@ preferred_packages_list:
 
   - name: feh
     distros: ['Archlinux']
+
+  - name: mupdf
+    distros: ['Archlinux']
