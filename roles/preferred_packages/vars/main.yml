@@ -1,3 +1,7 @@
 preferred_packages_list:
+
   - name: tree
+    distros: ['Archlinux']
+
+  - name: xclip
     distros: ['Archlinux']
