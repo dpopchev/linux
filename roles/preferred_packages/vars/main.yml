@@ -11,3 +11,12 @@ preferred_packages_list:
 
   - name: mupdf
     distros: ['Archlinux']
+
+  - name: powertop
+    distros: ['Archlinux']
+
+  - name: tlp
+    distros: ['Archlinux']
+
+  - name: tlp-openrc
+    distros: ['Archlinux']
