@@ -17,7 +17,8 @@ list_aps(){
 connect_ap(){
     local -r name=$1
 
-    nmcli device wifi connect $name
+    nmcli device wifi connect $name &> /dev/null
+    return $?
 }
 
 main(){
@@ -26,7 +27,15 @@ main(){
     [[ $should_rescan == 'Yes' ]] && scan_for_aps
 
     local -r apname=$(list_aps | dmenu -i -l 10)
+
     connect_ap $apname
+    if [[ $? -eq 0 ]]; then
+        notify-send "Connected to SSID: $apname"
+        return
+    fi
+
+    notify-send "Connection to SSID FAILED: $apname"
+    return $connection_status
 }
 
 main
