@@ -15,5 +15,5 @@ dmenu_tools:
   - name: use dmenu to choose wifi network
     kind: template
     should_backup: false
-    src: "{{ dmenu_resource.tools }}/choose_wifi.j2"
+    src: "{{ dmenu_resource.tools }}/choose_wifi.{{ dmenu_network_provider }}.j2"
     dest: "{{ dmenu_dotdir.tools }}/choose_wifi"

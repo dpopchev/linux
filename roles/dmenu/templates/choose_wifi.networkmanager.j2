@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+{{ version_control_warn.hashsymb }}
+
+ask_for_ap_scan(){
+    echo -e "No\nYes" | dmenu -i -p "Do you want to make a AP scan?"
+}
+
+scan_for_aps(){
+    nmcli device wifi rescan
+}
+
+list_aps(){
+    nmcli -g SSID device wifi list
+}
+
+connect_ap(){
+    local -r name=$1
+
+    nmcli device wifi connect $name
+}
+
+main(){
+    local -r should_rescan=$(ask_for_ap_scan)
+
+    [[ $should_rescan == 'Yes' ]] && scan_for_aps
+
+    local -r apname=$(list_aps | dmenu -i -l 10)
+    connect_ap $apname
+}
+
+main
