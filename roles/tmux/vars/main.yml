@@ -4,6 +4,7 @@ tmux_resource:
 tmux_dotdir:
   config: "~/.config/tmux"
   plugins: "~/.tmux/plugins/tpm"
+  bash_completion: "~/.local/share/bash-completion/completions"
 
 tmux_dotfiles:
   - name: config

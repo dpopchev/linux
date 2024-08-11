@@ -28,10 +28,18 @@
   vars:
     dotfiles_handler_target: "{{ tmux_dotfiles }}"
 
-- name: "Get themes"
+- name: "Get plugin manager"
   tags: [packages, tmux-packages]
   ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm
     dest: "{{ tmux_dotdir.plugins }}"
     depth: 1
   ignore_errors: true
+
+- name: "Get bash completions"
+  tags: [packages, tmux-packages]
+  ansible.builtin.uri:
+    url: 'https://raw.githubusercontent.com/imomaliev/tmux-bash-completion/master/completions/tmux'
+    method: GET
+    follow_redirects: safe
+    dest: "{{ tmux_dotdir.bash_completion }}/tmux"
