@@ -1,0 +1,37 @@
+- name: Set up the role resources facts
+  tags: [setup, tmux-setup]
+  ansible.builtin.set_fact:
+    tmux_files: "{{ role_path }}/files"
+    tmux_tempaltes: "{{ role_path }}/templates"
+
+- name: Install package
+  tags: [packages, tmux-packages]
+  ansible.builtin.package:
+    state: present
+    name: tmux
+  become: true
+
+- name: Ensure dotdirs exist
+  tags: [setup, tmux-setup]
+  ansible.builtin.file:
+    path: "{{ item.value }}"
+    state: directory
+    mode: '751'
+  loop: "{{ tmux_dotdir | dict2items }}"
+  loop_control:
+    label: "{{ item.value }}"
+
+- name: "Handle tmux dotfiles"
+  tags: [setup, tmux-setup]
+  ansible.builtin.import_role:
+    name: dotfiles_handler
+  vars:
+    dotfiles_handler_target: "{{ tmux_dotfiles }}"
+
+- name: "Get themes"
+  tags: [packages, tmux-packages]
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "{{ tmux_dotdir.plugins }}"
+    depth: 1
+  ignore_errors: true

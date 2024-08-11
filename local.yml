@@ -58,3 +58,6 @@
 
     - role: screenshot
       tags: [screenshot, never]
+
+    - role: tmux
+      tags: tmux

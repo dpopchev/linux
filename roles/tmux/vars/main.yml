@@ -1,0 +1,13 @@
+tmux_resource:
+  config: "{{ tmux_files }}"
+
+tmux_dotdir:
+  config: "~/.config/tmux"
+  plugins: "~/.tmux/plugins/tpm"
+
+tmux_dotfiles:
+  - name: config
+    kind: link
+    should_backup: true
+    src: "{{ tmux_resource.config }}/tmux.conf"
+    dest: "{{ tmux_dotdir.config }}/tmux.conf"
