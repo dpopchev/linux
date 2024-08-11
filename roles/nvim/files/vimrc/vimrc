@@ -81,7 +81,7 @@ let &colorcolumn = textThreshold
 
 " ==> access system clipboard
 if has("unnamedplus")
-set clipboard=unnamedplus
+    set clipboard=unnamedplus
 else
     set clipboard=unnamed
 endif
