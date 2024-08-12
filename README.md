@@ -175,8 +175,4 @@ ansible-playbook local.yml --tags 'all,never'
 
 ## Related repos
 
-- [linux-i3](https://github.com/dpopchev/linux-i3)
-- [linux-tmux](https://github.com/dpopchev/linux-tmux)
-- [linux-vim](https://github.com/dpopchev/linux-vim)
-- [linux-qtile](https://github.com/dpopchev/linux-qtile)
-- [linux-xmonad](https://github.com/dpopchev/linux-xmonad)
+- [linux-gentoo](https://github.com/dpopchev/linux-gentoo)
