@@ -36,3 +36,7 @@
 - name: Set up brightness control utility
   ansible.builtin.import_tasks:
     file: brightnessctl.yml
+
+- name: Set up status bar
+  ansible.builtin.import_tasks:
+    file: statusbar.yml

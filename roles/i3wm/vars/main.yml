@@ -3,10 +3,12 @@ i3wm_resource:
   locker: "{{ i3wm_templates }}"
   volumectl: "{{ i3wm_templates }}"
   brightnessctl: "{{ i3wm_templates }}"
+  statusbar: "{{ i3wm_files }}"
 
 i3wm_dotdir:
   config: "~/.config/i3"
   utils: "~/.config/i3/utils"
+  statusbar: "~/.config/i3status"
 
 i3wm_packages:
   config:
@@ -27,6 +29,10 @@ i3wm_packages:
 
   brightnessctl:
     - name: xorg-xbacklight
+      distros: ['Archlinux']
+
+  statusbar:
+    - name: i3status
       distros: ['Archlinux']
 
 i3wm_dotfiles:
@@ -69,3 +75,10 @@ i3wm_dotfiles:
       should_backup: true
       src: "{{ i3wm_resource.brightnessctl }}/change_brightness.j2"
       dest: "{{ i3wm_dotdir.utils }}/change_brightness"
+
+  statusbar:
+    - name: brightness control utility
+      kind: link
+      should_backup: true
+      src: "{{ i3wm_resource.statusbar }}/i3statusbar.conf"
+      dest: "{{ i3wm_dotdir.statusbar }}/config"
