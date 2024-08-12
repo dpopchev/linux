@@ -176,6 +176,12 @@ servers.ansiblels = function(util)
     }
 end
 
+servers.pyright = function(_)
+    return {
+        settings = { python = { pythonPath = vim.g.python3_host_prog } }
+    }
+end
+
 -- You can add other tools here that you want Mason to install
 -- for you, so that they are available from within Neovim.
 local ensure_installed = vim.tbl_keys(servers or {})
@@ -283,7 +289,12 @@ local function config_factory()
                 -- This handles overriding only values explicitly passed
                 -- by the server configuration above. Useful when disabling
                 -- certain features of an LSP (for example, turning off formatting for tsserver)
-                server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+                server.capabilities = vim.tbl_deep_extend(
+                    'force',
+                    {},
+                    capabilities,
+                    server.capabilities or {}
+                )
                 require('lspconfig')[server_name].setup(server)
             end,
         },

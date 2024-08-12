@@ -1,4 +1,4 @@
-local keys ={
+local keys = {
     {
         '<leader>f',
         function()
@@ -9,7 +9,12 @@ local keys ={
     },
 }
 
-local opts ={
+local function get_under_venv(command)
+    local venv_path = vim.g.python3_host_prog:gsub("[^/\\]*$", "")
+    return venv_path .. command
+end
+
+local opts = {
     notify_on_error = false,
     format_on_save = function(bufnr)
         -- Disable "format_on_save lsp_fallback" for languages that don't
@@ -23,6 +28,9 @@ local opts ={
     end,
     formatters_by_ft = {
         lua = { 'stylua' },
+        python = { 'autopep8', 'isort', },
+        bash = { 'shfmt' },
+        sh = { 'shfmt' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -30,10 +38,14 @@ local opts ={
         -- is found.
         -- javascript = { { "prettierd", "prettier" } },
     },
+    formatters = {
+        autopep8 = { command = get_under_venv('autopep8') },
+        isort = { command = get_under_venv('isort') }
+    }
 }
 
 -- Autoformat
-return  {
+return {
     'stevearc/conform.nvim',
     lazy = false,
     keys = keys,
