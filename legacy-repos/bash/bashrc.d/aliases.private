@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+alias vim='nvim'
+alias v='nvim'
+
+alias g="git"
+alias groot='cd $(git rev-parse --show-toplevel)'
+alias gr='cd $(git rev-parse --show-toplevel)'
+
+alias edit='${EDITOR}'
+
+alias ealiases='${EDITOR} ~/.config/bashrc.d/aliases.private'
+alias sourcealiases='source ~/.config/bashrc.d/aliases.private'
+
+alias ebashrc='${EDITOR} ~/.bashrc.private'
+alias sourcebashrc='source ~/.bashrc.private'
+
+alias evimrc='${EDITOR} ~/.vimrc'
+alias envimrc='${EDITOR} ~/.config/nvim/init.lua'
+
+alias grep='grep --color=auto'
+alias ls='ls --color=auto'
+
+alias rm='rm --interactive=always'
+alias cp='cp --interactive'
+alias mv='mv --interactive'
+
+alias df='df --human-readable'
+alias free='free -m'
+
+alias less='less -R'
+alias more='less'
+
+alias treepython="tree -I '__init__.py|__pycache__|*egg-info'"
+
+alias hgrep='history | grep -i'
+
+alias diffpatch="diff -u"
+alias patch="patch -u -b"

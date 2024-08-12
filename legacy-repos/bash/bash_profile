@@ -1,0 +1,10 @@
+export PAGER=less
+export EDITOR=nvim
+export VISUAL=nvim
+export TERMINAL=alacritty
+
+rcfiles=(~/.bashrc ~/.bashrc.private)
+rcfiles+=(~/.pyenvrc)
+for rcfile in ${rcfiles[@]}; do
+    [[ -f $rcfile ]] && source $rcfile
+done
