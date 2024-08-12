@@ -35,3 +35,6 @@ preferred_packages_list:
 
   - name: ttf-dejavu
     distros: ['Archlinux']
+
+  - name: make
+    distros: ['Archlinux']
