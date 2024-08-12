@@ -125,3 +125,9 @@ nvim_plugins_dotfiles:
     should_backup: false
     src: "{{ nvim_resource.plugins }}/nerdtree.lua"
     dest: "{{ nvim_dotdir.plugins }}/nerdtree.lua"
+
+  - name: neotest
+    kind: link
+    should_backup: false
+    src: "{{ nvim_resource.plugins }}/neotest.lua"
+    dest: "{{ nvim_dotdir.plugins }}/neotest.lua"
