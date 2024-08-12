@@ -172,7 +172,3 @@ ansible-playbook local.yml
 ```
 ansible-playbook local.yml --tags 'all,never'
 ```
-
-## Related repos
-
-- [linux-gentoo](https://github.com/dpopchev/linux-gentoo)
