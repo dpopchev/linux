@@ -29,3 +29,9 @@ preferred_packages_list:
 
   - name: network-manager-applet
     distros: ['Archlinux']
+
+  - name: ttf-dejavu-nerd
+    distros: ['Archlinux']
+
+  - name: ttf-dejavu
+    distros: ['Archlinux']

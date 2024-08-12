@@ -1,5 +1,5 @@
 alacritty_themes_path: "{{ dphome }}/alacritty-themes"
 alacritty_theme_choice: "monokai_pro.toml"
-alacritty_font_family: "DejaVu Sans Mono"
+alacritty_font_family: "DejaVu SansM Nerd"
 alacritty_font_style: "Regular"
 alacritty_font_size: 8
