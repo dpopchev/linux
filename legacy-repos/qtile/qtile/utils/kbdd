@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+killall kbdd
+$TERMINAL &
+sleep 1 && kbdd

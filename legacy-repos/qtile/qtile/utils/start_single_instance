@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [ $# -eq 0 ]; then
+    echo 'missing app name to start'
+fi
+
+killall -9 $1; $1

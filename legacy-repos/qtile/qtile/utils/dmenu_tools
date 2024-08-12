@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+TOOLS_HOME=$(readlink -f $(dirname $0))/tools
+
+printf '%s\n' "$(ls $TOOLS_HOME)" | dmenu -l 10 | xargs -i bash "${TOOLS_HOME}/{}"

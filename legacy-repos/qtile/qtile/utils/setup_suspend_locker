@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+locker=${1-i3lock}
+
+xss-lock --transfer-sleep-lock -- bash $locker
