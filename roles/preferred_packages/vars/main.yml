@@ -38,3 +38,6 @@ preferred_packages_list:
 
   - name: make
     distros: ['Archlinux']
+
+  - name: shfmt
+    distros: ['Archlinux']
