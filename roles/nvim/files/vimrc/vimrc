@@ -94,7 +94,7 @@ set breakindent
 
 " ==> highlight current line number via colorscheme
 set cursorline
-set cursorlineopt=number
+set cursorlineopt=both
 
 " ==> toggle insert mode
 nnoremap ++ :set invpaste<cr>
