@@ -28,9 +28,6 @@ set $BRIGHTNESS_STEP 5
 set $BRIGHTNESS_QUICK_INCREASE 100
 set $BRIGHTNESS_QUICK_DECREASE 50
 
-# monitor constants
-set $MAIN_MONITOR eDP-1
-
 # locker and screen saver
 exec --no-startup-id xss-lock --transfer-sleep-lock -- $UTILS/lock
 bindsym $mod+BackSpace exec --no-startup-id xset s activate
