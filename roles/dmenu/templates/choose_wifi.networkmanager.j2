@@ -2,33 +2,33 @@
 
 {{ version_control_warn.hashsymb }}
 
-ask_for_ap_scan(){
+ask_for_ap_scan() {
     echo -e "No\nYes" | dmenu -i -p "Do you want to make a AP scan?"
 }
 
-scan_for_aps(){
+scan_for_aps() {
     nmcli device wifi rescan
 }
 
-list_aps(){
+list_aps() {
     nmcli -g SSID device wifi list
 }
 
-connect_ap(){
-    local -r name=$1
+connect_ap() {
+    local -r name="$1"
 
-    nmcli device wifi connect $name &> /dev/null
+    nmcli device wifi connect "$name" &>/dev/null
     return $?
 }
 
-main(){
+main() {
     local -r should_rescan=$(ask_for_ap_scan)
 
     [[ $should_rescan == 'Yes' ]] && scan_for_aps
 
-    local -r apname=$(list_aps | dmenu -i -l 10)
+    local -r apname="$(list_aps | dmenu -i -l 10)"
 
-    connect_ap $apname
+    connect_ap "$apname"
     if [[ $? -eq 0 ]]; then
         notify-send "Connected to SSID: $apname"
         return
