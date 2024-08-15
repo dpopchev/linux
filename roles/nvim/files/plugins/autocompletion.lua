@@ -6,15 +6,18 @@ local dependencies = {
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-nvim-lsp-signature-help',
     "hrsh7th/cmp-buffer",
-    "hrsh7th/cmp-nvim-lua"
+    "hrsh7th/cmp-nvim-lua",
+    "lukas-reineke/cmp-under-comparator",
+    { "hrsh7th/nvim-cmp", dependencies = { "jc-doyle/cmp-pandoc-references" } }
 }
 
 local sources = {
-    { name = 'nvim_lsp',               keyword_length = 3 },
+    { name = 'nvim_lsp', },
     { name = 'nvim_lsp_signature_help' },
-    { name = 'buffer',                 keyword_length = 3 },
+    { name = 'buffer', },
     { name = 'path' },
-    { name = 'nvim_lua',               keyword_length = 3 },
+    { name = 'nvim_lua', },
+    { name = 'pandoc_references' }
 }
 
 local function config_factory()
@@ -77,6 +80,18 @@ local function config_factory()
             --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
         },
         sources = sources,
+        sorting = {
+            comparators = {
+                cmp.config.compare.offset,
+                cmp.config.compare.exact,
+                cmp.config.compare.score,
+                require "cmp-under-comparator".under,
+                cmp.config.compare.kind,
+                cmp.config.compare.sort_text,
+                cmp.config.compare.length,
+                cmp.config.compare.order,
+            }
+        }
     }
 end
 
