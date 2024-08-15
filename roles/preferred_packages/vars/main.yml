@@ -42,5 +42,8 @@ preferred_packages_list:
   - name: shfmt
     distros: ['Archlinux']
 
-  - name: blueman-applet
+  - name: blueman
+    distros: ['Archlinux']
+
+  - name: keepassxc
     distros: ['Archlinux']
