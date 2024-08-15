@@ -130,7 +130,7 @@ bindsym $mod+Shift+a focus child
 #bindsym $mod+d focus child
 
 # jump to urgent window
-# bindsym $mod+x [urgent=latest] focus
+bindsym $mod+Shift+u [urgent=latest] focus
 
 # control focus follows mouse
 focus_follows_mouse no
