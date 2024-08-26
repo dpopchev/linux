@@ -18,13 +18,7 @@ preferred_packages_list:
   - name: tlp
     distros: ['Archlinux']
 
-  - name: tlp-openrc
-    distros: ['Archlinux']
-
   - name: networkmanager
-    distros: ['Archlinux']
-
-  - name: networkmanager-openrc
     distros: ['Archlinux']
 
   - name: network-manager-applet
