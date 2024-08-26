@@ -182,3 +182,6 @@ bar {
     font pango:DejaVu SansM Nerd Font 10
     status_command i3status
 }
+
+# quick screenshot
+bindsym --release $mod+Shift+s exec scrot ~/screenshots/'quick-%F_%T_$wx$h.png' -f -z -s -e 'xclip -selection clipboard -target image/png -i $f'
