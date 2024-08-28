@@ -259,8 +259,8 @@ nnoremap gml :make! lint module=%<bar>redraw!<bar>copen<cr>
 nnoremap gmf :make! format module=%<bar>redraw!<bar>copen<cr>
 nnoremap <expr> gmo empty(filter(getwininfo(), 'v:val.quickfix')) ? ':copen<CR>' : ':cclose<CR>'
 nnoremap gmg :cnfile<cr>
-nnoremap ]q :cnext<cr>
-nnoremap [q :cprevious<cr>
+nnoremap gmn :cnext<cr>
+nnoremap gmp :cprevious<cr>
 
 " ==> terminal
 "if has('nvim')
