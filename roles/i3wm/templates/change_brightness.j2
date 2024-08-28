@@ -13,7 +13,7 @@ make_delta() {
     local -r action="$1"
     local -r delta="$2"
 
-    if [[ $(get_brightness) -ge $MAX_LIMIT ]]; then
+    if [[ $(echo "$(get_brightness) > $MAX_LIMIT" | bc) -eq 1 ]]; then
         echo 0
         return
     fi
@@ -25,15 +25,15 @@ make_delta() {
 make_action() {
     local -r action="$1"
     case "$action" in
-        set) echo -set;;
-        inc) echo -inc;;
-        dec) echo -dec;;
-        *) echo 'unknown';;
+    set) echo -set ;;
+    inc) echo -inc ;;
+    dec) echo -dec ;;
+    *) echo 'unknown' ;;
     esac
 }
 
 get_notification_id() {
-    [[ ! -f $NOTIFICATION_ID ]] && echo $RANDOM > $NOTIFICATION_ID
+    [[ ! -f $NOTIFICATION_ID ]] && echo $RANDOM >$NOTIFICATION_ID
     cat $NOTIFICATION_ID
 }
 
