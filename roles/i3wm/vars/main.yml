@@ -38,6 +38,9 @@ i3wm_packages:
     - name: xorg-xbacklight
       distros: ['Archlinux']
 
+    - name: bc
+      distros: ['Archlinux']
+
   statusbar:
     - name: i3status
       distros: ['Archlinux']
