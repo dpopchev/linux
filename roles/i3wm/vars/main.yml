@@ -9,17 +9,13 @@ i3wm_dotdir:
   config: "~/.config/i3"
   utils: "~/.config/i3/utils"
   statusbar: "~/.config/i3status"
-  screenshot: "~/screenshots"
 
 i3wm_packages:
   config:
     - name: dex
       distros: ['Archlinux']
 
-    - name: scrot
-      distros: ['Archlinux']
-
-    - name: xclip
+    - name: flameshot
       distros: ['Archlinux']
 
   locker:

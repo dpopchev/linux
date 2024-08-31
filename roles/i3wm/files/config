@@ -186,4 +186,4 @@ bar {
 }
 
 # quick screenshot
-bindsym --release $mod+Shift+s exec scrot ~/screenshots/'quick-%F_%T_$wx$h.png' -f -z -s -e 'xclip -selection clipboard -target image/png -i $f'
+bindsym $mod+Shift+s exec flameshot gui
