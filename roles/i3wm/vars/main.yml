@@ -18,6 +18,9 @@ i3wm_packages:
     - name: flameshot
       distros: ['Archlinux']
 
+    - name: parcellite
+      distros: ['Archlinux']
+
   locker:
     - name: imagemagick
       distros: ['Archlinux']
