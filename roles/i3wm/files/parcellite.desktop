@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Parcellite
+Exec=parcellite
+OnlyShowIn=i3
+Terminal=false
+Hidden=true
