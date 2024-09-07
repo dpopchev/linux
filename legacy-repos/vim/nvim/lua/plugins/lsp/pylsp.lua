@@ -18,7 +18,7 @@ function M.setup(lspconfig, capabilities)
                     -- type checker
                     pylsp_mypy = {
                         enabled = true,
-                        overrides = { "--python-executable", py_path, true },
+                        overrides = { "--python-executable", vim.g.python3_host_prog, true },
                         report_progress = true,
                         live_mode = false
                     },
@@ -33,7 +33,6 @@ function M.setup(lspconfig, capabilities)
             debounce_text_changes = 200,
         },
     })
-
 end
 
 return M
