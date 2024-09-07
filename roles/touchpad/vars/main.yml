@@ -24,8 +24,14 @@ touchpad_dotfiles:
     src: "{{ touchpad_resource.touchpad_templates }}/touchpad.desktop.j2"
     dest: "{{ touchpad_dotdir.autostart }}/touchpad.desktop"
 
-  - name: add dptool
+  - name: add dptool for toggling touchpad
     kind: template
     should_backup: false
     src: "{{ touchpad_resource.touchpad_templates }}/toggle_touchpad.j2"
     dest: "{{ touchpad_dotdir.tools }}/toggle_touchpad"
+
+  - name: add dptool for disabling middle click on touchpad
+    kind: template
+    should_backup: false
+    src: "{{ touchpad_resource.touchpad_templates }}/disable_pad_middle_click_button.j2"
+    dest: "{{ touchpad_dotdir.tools }}/disable_pad_middle_click_button"
