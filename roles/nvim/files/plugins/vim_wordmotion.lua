@@ -1,5 +1,4 @@
 return {
-    'numToStr/Comment.nvim',
-    opts = { },
-    lazy = false,
+    'chaoren/vim-wordmotion',
+    lazy = false
 }
