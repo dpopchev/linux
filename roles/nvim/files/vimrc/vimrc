@@ -252,7 +252,7 @@ nnoremap L :bnext<cr>
 " ==> makefile
 nnoremap gmm :make! run module=%<bar>redraw!<bar>copen<cr>
 nnoremap gmM :terminal make run module=%<cr>
-nnoremap gmd :make! doctest module=%<bar>redraw!<bar>copen<cr>
+nnoremap gms :make! doctest module=%<bar>redraw!<bar>copen<cr>
 nnoremap gmu :make! unittest module=%<bar>redraw!<bar>copen<cr>
 nnoremap gmU :make! unittest args='-vv' module=%<bar>redraw!<bar>copen<cr>
 nnoremap gml :make! lint module=%<bar>redraw!<bar>copen<cr>
