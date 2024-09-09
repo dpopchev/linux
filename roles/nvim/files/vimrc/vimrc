@@ -261,6 +261,9 @@ nnoremap <expr> gmo empty(filter(getwininfo(), 'v:val.quickfix')) ? ':copen<CR>'
 nnoremap gmg :cnfile<cr>
 nnoremap gmn :cnext<cr>
 nnoremap gmp :cprevious<cr>
+nnoremap gmh :chistory<cr>
+nnoremap gm[ :colder<cr>
+nnoremap gm] :cnewer<cr>
 
 " ==> terminal
 "if has('nvim')

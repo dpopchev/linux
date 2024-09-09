@@ -137,3 +137,9 @@ nvim_plugins_dotfiles:
     should_backup: false
     src: "{{ nvim_resource.plugins }}/vim_wordmotion.lua"
     dest: "{{ nvim_dotdir.plugins }}/vim_wordmotion.lua"
+
+  - name: quickfix helpers
+    kind: link
+    should_backup: false
+    src: "{{ nvim_resource.plugins }}/qf_helper.lua"
+    dest: "{{ nvim_dotdir.plugins }}/qf_helper.lua"
