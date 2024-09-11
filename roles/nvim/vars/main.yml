@@ -120,11 +120,11 @@ nvim_plugins_dotfiles:
     src: "{{ nvim_resource.plugins }}/autocompletion.lua"
     dest: "{{ nvim_dotdir.plugins }}/autocompletion.lua"
 
-  - name: nerdtree and plugins
+  - name: file explorer
     kind: link
     should_backup: false
-    src: "{{ nvim_resource.plugins }}/nerdtree.lua"
-    dest: "{{ nvim_dotdir.plugins }}/nerdtree.lua"
+    src: "{{ nvim_resource.plugins }}/nvim_tree.lua"
+    dest: "{{ nvim_dotdir.plugins }}/nvim_tree.lua"
 
   - name: neotest
     kind: link
