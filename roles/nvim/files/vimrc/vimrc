@@ -341,8 +341,7 @@ cnoremap <M-f> <S-Right>
 "endif
 
 " ==> quick cell separation when editing python notebook
-nnoremap <leader>o o# %%<esc>o<esc>
-nnoremap <leader>O O# %%<esc>o<esc>
+autocmd FileType python nnoremap <leader>3 o# %%<esc>:put =repeat([''], 2)<cr>
 
 "Preview substitutions live, as you type!
 set inccommand=split
