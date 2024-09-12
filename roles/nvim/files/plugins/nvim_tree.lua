@@ -22,10 +22,10 @@ local function config_factory()
     local conf = { on_attach = on_attach }
 
     local api = require "nvim-tree.api"
+    vim.keymap.set('n', '<leader>eo', function() api.tree.find_file({ open = true, focus = true }) end,
+        opts('[t]oggle'))
     vim.keymap.set('n', '<leader>et', function() api.tree.toggle({ find_file = false, focus = true }) end,
         opts('[t]oggle'))
-    vim.keymap.set('n', '<leader>eT', function() api.tree.toggle({ find_file = true, focus = true }) end,
-        opts('[T]raverse cursor to current buffer'))
     vim.keymap.set('n', '<leader>ec', function() api.tree.collapse_all(true) end,
         opts('[C]ollapse recursively tree keeping open buffers'))
     vim.keymap.set('n', '<leader>eC', function() api.tree.collapse_all(false) end,
