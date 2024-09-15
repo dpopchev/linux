@@ -5,19 +5,26 @@
 PADNAME="{{ touchpad_xinput_devname_pad }}"
 KEYSNAME="{{ touchpad_xinput_devname_padkeys }}"
 
-disable_pad(){
+disable_pad() {
     local -r padname="$1"
-    xinput disable "$padname" \
-        && notify-send "Disable $padname"
+    xinput disable "$padname" &&
+        notify-send "Disable $padname"
 }
 
-disable_middle_click_on_pad_keys(){
+disable_pad_left_clic_on_tap() {
+    local -r padname="$1"
+    xinput set-prop "$padname" "libinput Tapping Enabled" 0 &&
+        notify-send "Disable $padname"
+}
+
+disable_middle_click_on_pad_keys() {
     local -r keysname="$1"
     local -r button_map=$(xinput get-button-map "$keysname" | sed -rn 's/([0-9]) ([0-9]) ([0-9 ]+)/\1 0 \3/p')
 
-    xinput set-button-map "$keysname" $button_map \
-        && notify-send "Disable middle click on pad keys $keysname"
+    xinput set-button-map "$keysname" $button_map &&
+        notify-send "Disable middle click on pad keys $keysname"
 }
 
-disable_pad "$PADNAME"
+# disable_pad "$PADNAME"
+disable_pad_left_clic_on_tap "$PADNAME"
 disable_middle_click_on_pad_keys "$KEYSNAME"
