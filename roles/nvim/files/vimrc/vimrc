@@ -193,13 +193,13 @@ set incsearch   " incremental search that shows partial matches
 set ignorecase  " ignore case when searching
 set smartcase   " automatically switch to case-sensitive when search
 set magic       " for regular expressions turn magic on
-nnoremap <C-l> :nohlsearch<CR><esc>
+nnoremap <C-l> :nohlsearch<CR>
 "nnoremap n n
 "nnoremap N N
 
 " Use <C-L> to clear the highlighting of :set hlsearch.
-if maparg('<C-L>', 'n') ==# ''
-    nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+if maparg('<C-l>', 'n') ==# ''
+    nnoremap <C-l> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 endif
 
 " ==> encoding
