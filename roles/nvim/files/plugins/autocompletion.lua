@@ -55,7 +55,7 @@ local function config_factory()
             -- Manually trigger a completion from nvim-cmp.
             --  Generally you don't need this, because nvim-cmp will display
             --  completions whenever it has completion options available.
-            ['<leader><tab>'] = cmp.mapping.complete()
+            ['<S-Tab>'] = cmp.mapping.complete()
 
             -- Think of <c-l> as moving to the right of your snippet expansion.
             --  So if you have a snippet that's like:
