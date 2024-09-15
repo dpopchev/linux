@@ -34,7 +34,9 @@ nnoremap <leader>ev :Ex<cr>
 " Close the current buffer, quit vim if it's the last buffer
 " Pass argument '!" to do so without asking to save
 function! CloseBufferOrVim(force='')
-    if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+    if &buftype == 'help'
+        exec ("bdelete" . a:force)
+    elseif len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
         exec ("quit" . a:force)
         quit
     else
