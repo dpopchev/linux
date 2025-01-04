@@ -101,6 +101,8 @@ environment with variables such as `EDITOR`, or user-specific ones like
 `~/.bashrc.private` will source `~/.config/dpopchev/bashrc/*` for interactive
 shells and populate environment with user defined functions, aliases and such.
 
+Do not forget to see whether `bashrc.private` is sourced by `bashrc`.
+
 ##### role variables
 
 - `bash_profile_browser`: default browser
