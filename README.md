@@ -114,6 +114,20 @@ shells and populate environment with user defined functions, aliases and such.
 
 Configuration is partially based on [kickstart](https://github.com/nvim-lua/kickstart.nvim/tree/master).
 
+When using a `flatpak` do, assuming `bash` is installed:
+
+```bash
+# create alias file to run vim
+# ~/.dpopchev/bashrc/flatpak_nvim.aliases
+alias vim="flatpak run io.neovim.nvim"
+alias nvim="flatpak run io.neovim.nvim"
+```
+
+```bash
+# link the configuration
+ln -s ~/.config/nvim/ ~/.var/app/io.neovim.nvim/config/nvim
+```
+
 #### touchpad
 
 Touchpad is disabled by default using a application entry. Use `xinput list` to
