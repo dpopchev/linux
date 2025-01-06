@@ -17,3 +17,20 @@ for rcfile in {{ bash_dotdir.bashrc }}/* ; do
 done
 
 unset rcfile
+
+# deduplicate PATH while preserving the order
+# Original PATH
+original_path="$PATH"
+new_path=""
+
+IFS=':' read -r -a path_array <<< "$original_path"
+for entry in "${path_array[@]}"; do
+  case ":$new_path:" in
+    *":$entry:"*) :;;
+    *) new_path="$new_path:$entry";;
+  esac
+done
+
+export PATH="${new_path#:}"
+
+unset original_path new_path
