@@ -169,6 +169,15 @@ entry.
 
 - `screenshot_storage_path`: use to save screenshots
 
+#### popos24
+
+Configuration of Pop OS 24.
+
+- Use `dconf reset -f /org/gnome/` to force reset settings.
+- Use `dconf dump /org/gnome/ > gnome-settings-backup.dconf` to backup.
+- Use `dconf load /org/gnome/ < gnome-settings-backup.dconf` to restore.
+- Use `dconf watch /` to see changes while clicking around.
+
 ### Tags
 
 See available tags
