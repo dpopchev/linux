@@ -1,0 +1,18 @@
+- name: Set dim display when inactive
+  ansible.builtin.command:
+    cmd: gsettings set org.gnome.settings-daemon.plugins.power idle-dim false
+
+- name: Power saver on low battery
+  ansible.builtin.command:
+    cmd: gsettings set org.gnome.settings-daemon.plugins.power power-saver-profile-on-low-battery true
+
+- name: Power saver profile on AC
+  ansible.builtin.shell:
+    cmd: |
+      gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type nothing
+
+- name: Power saver profile on battery
+  ansible.builtin.shell:
+    cmd: |
+      gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type suspend
+      gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout 900

@@ -1,11 +1,18 @@
 - name: Download the latest Neovim AppImage into "{{ dpdir.bin }}"
   ansible.builtin.import_tasks:
     file: nvim.yml
+  when: false
 
 - name: Desktop setup
   ansible.builtin.import_tasks:
     file: desktop.yml
+  when: false
 
 - name: Screen setup
   ansible.builtin.import_tasks:
     file: screen.yml
+  when: false
+
+- name: Power setup
+  ansible.builtin.import_tasks:
+    file: power.yml
