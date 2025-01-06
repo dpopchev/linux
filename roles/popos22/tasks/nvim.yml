@@ -29,3 +29,18 @@
     dest: "{{ dpdir.bin }}/nvim"
     state: link
     force: yes
+
+- name: Install dependencies
+  ansible.builtin.package:
+    name:
+      - python3-pip
+      - python3-venv
+      - python3-autopep8
+      - python3-isort
+      - shfmt
+      - luarocks
+      - npm
+      - perl
+      - ripgrep
+    state: present
+  become: true
