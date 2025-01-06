@@ -1,0 +1,3 @@
+- name: Download the latest Neovim AppImage into "{{ dpdir.bin }}"
+  ansible.builtin.import_tasks:
+    file: nvim.yml

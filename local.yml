@@ -61,3 +61,6 @@
 
     - role: tmux
       tags: tmux
+
+    - role: popos_22_04
+      tags: popos-22-04

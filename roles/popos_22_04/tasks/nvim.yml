@@ -1,0 +1,31 @@
+- name: Get the latest Neovim release information
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/neovim/neovim/releases/latest
+    return_content: yes
+    body_format: json
+  register: release_info
+
+- name: Set the download URL for the AppImage
+  set_fact:
+    appimage_url: "{{ release_info.json.assets | selectattr('name', 'match', 'nvim.appimage') | map(attribute='browser_download_url') | first }}"
+
+- name: Extract the version number from the release tag
+  set_fact:
+    nvim_version: "{{ release_info.json.tag_name }}"
+
+- name: Construct the filename with the version number
+  set_fact:
+    appimage_filename: "nvim-{{ nvim_version }}.appimage"
+
+- name: Download the Neovim AppImage
+  ansible.builtin.get_url:
+    url: "{{ appimage_url }}"
+    dest: "{{ dpdir.bin }}/{{ appimage_filename }}"
+    mode: '0755'
+
+- name: Make nvim point to the latest appimage
+  ansible.builtin.file:
+    src: "{{ dpdir.bin }}/{{ appimage_filename }}"
+    dest: "{{ dpdir.bin }}/nvim"
+    state: link
+    force: yes
