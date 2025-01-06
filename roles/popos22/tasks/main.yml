@@ -5,3 +5,7 @@
 - name: Desktop setup
   ansible.builtin.import_tasks:
     file: desktop.yml
+
+- name: Screen setup
+  ansible.builtin.import_tasks:
+    file: screen.yml

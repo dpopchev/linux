@@ -1,0 +1,11 @@
+- name: Blank screen delay in seconds
+  ansible.builtin.command:
+    cmd: gsettings set org.gnome.desktop.session idle-delay 'uint32 300'
+
+- name: Setup screensaver
+  ansible.builtin.shell:
+    cmd: |
+      gsettings set org.gnome.desktop.screensaver lock-enabled true
+      gsettings set org.gnome.desktop.screensaver lock-delay 'uint32 30'
+      gsettings set org.gnome.desktop.screensaver ubuntu-lock-on-suspend true
+      gsettings set org.gnome.desktop.notifications show-in-lock-screen true
