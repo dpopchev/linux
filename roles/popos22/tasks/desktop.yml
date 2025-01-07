@@ -42,3 +42,12 @@
       gsettings set org.gnome.desktop.interface monospace-font-name 'Ubuntu Mono 10'
       gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Ubuntu Bold 10'
       gsettings set org.gnome.desktop.interface font-antialiasing 'rgba'
+
+- name: Night light
+  ansible.builtin.shell:
+    cmd: |
+      gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
+      gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-automatic false
+      gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-from 21.0
+      gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-to 7.0
+      gsettings set org.gnome.settings-daemon.plugins.color night-light-temperature 3700
