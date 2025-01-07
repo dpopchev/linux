@@ -1,0 +1,32 @@
+- name: Remove Keybindings
+  ansible.builtin.shell:
+    cmd: |
+      gsettings set org.gnome.settings-daemon.plugins.media-keys home '[]'
+      gsettings set org.gnome.settings-daemon.plugins.media-keys email '[]'
+      gsettings set org.gnome.settings-daemon.plugins.media-keys help '[]'
+      gsettings set org.gnome.settings-daemon.plugins.media-keys www '[]'
+      gsettings set org.gnome.shell.extensions.pop-shell tile-enter '[]'
+
+- name: Terminal
+  ansible.builtin.shell:
+    cmd: |
+      gsettings set org.gnome.settings-daemon.plugins.media-keys terminal '[]'
+      gsettings set org.gnome.settings-daemon.plugins.media-keys terminal "['<Super>Return']"
+
+- name: Navigate applications and windows and workspaces
+  ansible.builtin.shell:
+    cmd: |
+      gsettings set org.gnome.shell.extensions.pop-shell activate-launcher "['<Super>d']"
+      gsettings set org.gnome.shell.extensions.pop-shell focus-down "['<Super>j']"
+      gsettings set org.gnome.shell.extensions.pop-shell focus-left "['<Super>h']"
+      gsettings set org.gnome.shell.extensions.pop-shell focus-right "['<Super>l']"
+      gsettings set org.gnome.shell.extensions.pop-shell focus-up "['<Super>k']"
+      gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-up "['<Super><Shift>p']"
+      gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-down "['<Super><Shift>n']"
+
+- name: Move applications and windows and worksapces
+  ansible.builtin.shell:
+    cmd: |
+      gsettings set org.gnome.shell.extensions.pop-shell pop-workspace-up "['<Super><Shift>k']"
+      gsettings set org.gnome.shell.extensions.pop-shell pop-workspace-down "['<Super><Shift>j']"
+      gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-last "['<Super><Shift>0']"
