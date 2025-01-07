@@ -178,6 +178,8 @@ Configuration of Pop OS 24.
 - Use `dconf load /org/gnome/ < gnome-settings-backup.dconf` to restore.
 - Use `dconf watch /` to see changes while clicking around.
 
+Good have `gnome-tweaks` and `dconf-editor`
+
 ### Tags
 
 See available tags
