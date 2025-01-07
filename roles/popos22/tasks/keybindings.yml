@@ -49,3 +49,11 @@
     cmd: |
       gsettings set org.gnome.shell.keybindings toggle-application-view "[]"
       gsettings set org.gnome.shell.keybindings toggle-message-tray "['<Super>Home']"
+
+- name: Left right tilling by removing fuplicates manually
+  ansible.builtin.shell:
+    cmd: |
+      gsettings set org.gnome.shell.extensions.pop-shell pop-monitor-left "[]"
+      gsettings set org.gnome.mutter.keybindings toggle-tiled-left "['<Super><Shift>h']"
+      gsettings set org.gnome.shell.extensions.pop-shell pop-monitor-right "[]"
+      gsettings set org.gnome.mutter.keybindings toggle-tiled-right "['<Super><Shift>l']"
