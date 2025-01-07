@@ -1,0 +1,9 @@
+- name: Keyboard layout
+  ansible.builtin.shell:
+    cmd: |
+      gsettings set org.gnome.desktop.input-sources sources '[("xkb", "us"), ("xkb", "bg")]'
+      gsettings set org.gnome.desktop.input-sources per-window true
+
+- name: Set keyboard layout switch combination
+  ansible.builtin.command:
+    cmd: gsettings set org.gnome.desktop.input-sources xkb-options "['grp:lalt_lshift_toggle']"

@@ -6,15 +6,24 @@
 - name: Desktop setup
   ansible.builtin.import_tasks:
     file: desktop.yml
+  when: false
 
 - name: Screen setup
   ansible.builtin.import_tasks:
     file: screen.yml
+  when: false
 
 - name: Power setup
   ansible.builtin.import_tasks:
     file: power.yml
+  when: false
 
 - name: Mouse setup
   ansible.builtin.import_tasks:
     file: mouse.yml
+  when: false
+
+- name: Keyboard layout setup
+  ansible.builtin.import_tasks:
+    file: kblayout.yml
+  when: false
