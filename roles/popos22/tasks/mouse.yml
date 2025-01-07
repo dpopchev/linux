@@ -12,3 +12,7 @@
     cmd: |
       gsettings set org.gnome.desktop.peripherals.mouse speed 0.35
       gsettings set org.gnome.desktop.peripherals.mouse accel-profile adaptive
+
+- name: Middle click paste
+  ansible.builtin.shell:
+    cmd: gsettings set org.gnome.desktop.interface gtk-enable-primary-paste false

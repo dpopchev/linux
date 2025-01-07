@@ -33,3 +33,12 @@
     cmd: |
       gsettings set org.gnome.mutter dynamic-workspaces true
       gsettings set org.gnome.mutter workspaces-only-on-primary false
+
+- name: Setup fonts
+  ansible.builtin.shell:
+    cmd: |
+      gsettings set org.gnome.desktop.interface font-name 'Ubuntu Medium 10'
+      gsettings set org.gnome.desktop.interface document-font-name 'Ubuntu 10'
+      gsettings set org.gnome.desktop.interface monospace-font-name 'Ubuntu Mono 10'
+      gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Ubuntu Bold 10'
+      gsettings set org.gnome.desktop.interface font-antialiasing 'rgba'
