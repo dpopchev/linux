@@ -27,3 +27,7 @@
   ansible.builtin.import_tasks:
     file: kblayout.yml
   when: false
+
+- name: Keybindings
+  ansible.builtin.import_tasks:
+    file: keybindings.yml
