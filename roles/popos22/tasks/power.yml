@@ -12,7 +12,6 @@
   ansible.builtin.shell:
     cmd: |
       gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type nothing
-      gsettings set org.gnome.settings-daemon.plugins.power lid-close-ac-action nothing
 
 - name: Power saver profile on battery
   ansible.builtin.shell:
