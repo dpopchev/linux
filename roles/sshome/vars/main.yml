@@ -6,4 +6,4 @@ sshome_dotdir:
 
 sshome_config:
   src: "{{ sshome_resource.config }}/config.j2"
-  dest: "{{ sshome_dotdir.config }}/config"
+  dest: "{{ sshome_dotdir.config }}/config.template"
