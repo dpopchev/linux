@@ -19,7 +19,7 @@ local function config_factory()
     -- disable netrw at the very start of your init.lua
     vim.g.loaded_netrw = 1
     vim.g.loaded_netrwPlugin = 1
-    local conf = { on_attach = on_attach }
+    local conf = { on_attach = on_attach, view = { side = 'right' } }
 
     local api = require "nvim-tree.api"
     vim.keymap.set('n', '<leader>eo', function() api.tree.find_file({ open = true, focus = true }) end,
