@@ -1,8 +1,10 @@
 return {
-  'sainnhe/sonokai', priority=1000,
-  config = function()
-    vim.g.sonokai_style = 'shusia'
-    vim.g.sonokai_better_performance = 1
-    vim.cmd([[colorscheme sonokai]])
-  end,
+    'sainnhe/sonokai',
+    lazy = false,
+    priority = 1000,
+    config = function()
+        vim.g.sonokai_style = 'shusia'
+        vim.g.sonokai_better_performance = 1
+        vim.cmd([[colorscheme sonokai]])
+    end,
 }
