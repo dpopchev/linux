@@ -208,8 +208,8 @@ if &encoding ==# 'latin1' && has('gui_running')
 endif
 
 " ==> search and replace word under curssor
-nnoremap g/ :%s/<C-r><C-W>//c<left><left><left>
-nnoremap G/ :%s/<C-r><C-W>//g<left><left><left>
+nnoremap g/ :%s/<C-r><C-W>//c<left><left>
+nnoremap G/ :%s/<C-r><C-W>//g<left><left>
 
 " ==> completation
 set complete+=kspell
