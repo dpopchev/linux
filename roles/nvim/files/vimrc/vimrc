@@ -210,6 +210,8 @@ endif
 " ==> search and replace word under curssor
 nnoremap g/ :%s/<C-r><C-W>//c<left><left>
 nnoremap G/ :%s/<C-r><C-W>//g<left><left>
+vnoremap g/ y:%s/<C-r>0//c<left><left>
+vnoremap G/ y:%s/<C-r>0//g<left><left>
 
 " ==> completation
 set complete+=kspell
