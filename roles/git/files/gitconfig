@@ -31,8 +31,8 @@
         # commit corrects unwanted behavior, e.g.
         # YES fix: #ticketid, division with 0 returns infinity instead of exception
         # NO fix: typo in the README
-        cmb = "!f(){ git commit -m \"fix: $1\";}; f"
-        cmbb = "!f(){ git commit -m \"fix!: $1\";}; f"
+        cml = "!f(){ git commit -m \"fix: $1\";}; f"
+        cmlb = "!f(){ git commit -m \"fix!: $1\";}; f"
         # maintenance changes that do not relate to a fix, feat or modify any src or test file, e.g.
         # YES chore: clean up deprecated moduleXXX
         # NO chore: raise deprecation warning for moduleXXX function YYY
@@ -54,13 +54,13 @@
         cmt = "!f(){ git commit -m \"test: $1\";}; f"
         cmtb = "!f(){ git commit -m \"test!: $1\";}; f"
         # continuous integration and deployment changes, might overlap with `build`
-        cmpi = "!f(){ git commit -m \"ci: $1\";}; f"
-        cmpib = "!f(){ git commit -m \"ci!: $1\";}; f"
+        cmi = "!f(){ git commit -m \"ci: $1\";}; f"
+        cmib = "!f(){ git commit -m \"ci!: $1\";}; f"
         # commit affects the packaging system or related configurations
         # YES build: prevent build if lint score is less then threshold
         # NO build: change initialisation values of module
-        cmpb = "!f(){ git commit -m \"build: $1\";}; f"
-        cmpbb = "!f(){ git commit -m \"build!: $1\";}; f"
+        cmo = "!f(){ git commit -m \"build: $1\";}; f"
+        cmob = "!f(){ git commit -m \"build!: $1\";}; f"
         # initializing files into work tree
         cmi = "!f(){ git commit -m \"init: $1\";}; f"
         p = push
@@ -71,7 +71,7 @@
         sweep = !git master && git fetch --prune && git branch -v --merged | sed -rn 's/^[[:blank:]]*([[:alnum:]\\/-]+)[[:blank:]]+\\w{7}[[:blank:]]+\\[gone\\][[:graph:][:blank:]]*/\\1/p' | xargs git branch -d
         f = !git fetch && git checkout
         gl = config --global --list
-        cl = config --get-regexp '^alias.c[cm]'
+        cl = config --get-regexp '^alias.c(c|m\\w)\\b'
         r = rev-parse --show-toplevel
         undo = reset --soft HEAD~
         who = !git config --get user.name && git config --get user.email
