@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+DOTSOURCE=tmux
+
+declare -rA DOTMAPPING=(
+    [tmux.conf]=${HOME}/.config/tmux/tmux.conf
+)
+
+setup_tmuxconf() {
+    make_path_to ${DOTMAPPING[tmux.conf]}
+    link_dotfile ${DOTSOURCE}/tmux.conf ${DOTMAPPING[tmux.conf]}
+}
+
+setup_plugin_manager() {
+    local -r plugins=${HOMEK}/.tmux/plugins/tpm
+    if [[ ! -d $plugins ]]; then
+        mkdir -p $plugins
+        git clone --depth 1 https://github.com/tmux-plugins/tpm $plugins
+    fi
+}
+
+setup_dotfiles() {
+    # arguments are fixed by interface shared between all setups
+    local -r install_package="$1"
+    local -n dpdirs=$2
+    # do whatever needs to be done, e.g.
+    # install a package
+    $install_package tmux
+    # or execute step for setup
+    setup_tmuxconf
+    setup_plugin_manager
+}
+
+restore_dotfiles() {
+    # arguments are fixed by interface shared between all setups
+    local -n dpdirs=$1
+    # do whatever needs to be done, e.g.
+    # restore to previous state
+    restore ${DOTMAPPING[tmux.conf]}
+}

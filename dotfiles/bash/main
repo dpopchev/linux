@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+
+DOTSOURCE=bash
+
+# adotfile is existing next to this file;
+# it is not alias unless specifically used as one within here
+# e.g. .../DOTSOURCE/adotfile
+declare -rA DOTMAPPING=(
+    [bash_profile]=${HOME}/.bash_profile
+    [bashrc.private]=${HOME}/.bashrc.private
+    [archives.bashrc]=archives.bashrc
+    [common_sense.aliases]=common_sense.aliases
+    [history.bashrc]=history.bashrc
+    [joinby.bashrc]=joinby.bashrc
+    [jumpcd.bashrc]=jumpcd.bashrc
+    [mkpassfile.bashrc]=mkpassfile.bashrc
+    [pathlike.bashrc]=pathlike.bashrc
+    [ps1.bashrc]=ps1.bashrc
+    [readline.bashrc]=readline.bashrc
+    [termcolors.bashrc]=termcolors.bashrc
+)
+
+setup_bash_profile() {
+    local -r target=bash_profile
+    link_dotfile ${DOTSOURCE}/$target ${DOTMAPPING[$target]}
+}
+
+setup_bashrc_private() {
+    local -r target=bashrc.private
+    link_dotfile ${DOTSOURCE}/$target ${DOTMAPPING[$target]}
+}
+
+setup_bashrc_sourcing() {
+    if ! grep -qE 'source ~/.bashrc.private|\. ~/.bashrc.private' ~/.bashrc; then
+        echo '[[ -e ~/.bashrc.private ]] && source ~/.bashrc.private' >>~/.bashrc
+    fi
+}
+
+setup_aliases() {
+    local -r home="$1"
+    for alias in ${!DOTMAPPING[@]}; do
+        [[ $alias != *.aliases ]] && continue
+        link_dotfile ${DOTSOURCE}/$alias ${home}/${DOTMAPPING[$alias]}
+    done
+}
+
+setup_bashrc() {
+    local -r home="$1"
+    for rcfile in ${!DOTMAPPING[@]}; do
+        [[ $rcfile != *.bashrc ]] && continue
+        link_dotfile ${DOTSOURCE}/$rcfile ${home}/${DOTMAPPING[$rcfile]}
+    done
+}
+
+setup_dotfiles() {
+    # arguments are fixed by interface shared between all setups
+    local -r install_package="$1"
+    local -n dpdirs=$2
+    # do whatever needs to be done, e.g.
+    # install a package
+    $install_package bash
+    $install_package firefox
+    $install_package neovim
+    $install_package less
+    $install_package alacritty
+    # or execute step for setup
+    setup_bash_profile
+    setup_bashrc_sourcing
+    setup_bashrc_private
+    setup_aliases ${dpdirs[bash]}
+    setup_bashrc ${dpdirs[bash]}
+}
+
+restore_dotfiles() {
+    # arguments are fixed by interface shared between all setups
+    local -n dpdirs=$1
+    # do whatever needs to be done, e.g.
+    # restore to previous state
+    for key in ${!DOTMAPPING[@]}; do
+        if [[ $key == *.aliases ]]; then
+            restore ${dpdirs[bash]}/$key
+            continue
+        fi
+        if [[ $key == *.bashrc ]]; then
+            restore ${dpdirs[bash]}/$key
+            continue
+        fi
+        restore ${DOTMAPPING[key]}
+    done
+}

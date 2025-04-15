@@ -1,0 +1,15 @@
+import:
+  - ~/.dpopchev/alacritty-themes/themes/monokai_pro.yml
+font:
+  normal:
+    family: DejaVu SansM Nerd Font
+    style: Regular
+  size: 12
+  offset:
+    x: 0
+    y: 0
+keyboard:
+  bindings:
+    - key: Return
+      mods: Super|Shift
+      action: SpawnNewInstance

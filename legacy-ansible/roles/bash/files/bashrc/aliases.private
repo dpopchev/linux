@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+alias grep='grep --color=auto'
+alias ls='ls --color=auto'
+alias rm='rm --interactive=always'
+alias cp='cp --interactive'
+alias mv='mv --interactive'
+alias df='df --human-readable'
+alias free='free -m'
+alias less='less -R'
+alias more='less'
+
+alias treepython="tree -I '__init__.py|__pycache__|*egg-info'"
+
+alias hgrep='history | grep -i'
+
+alias diffpatch="diff -u"
+alias patch="patch -u -b"
+
+alias info='info --vi-keys'

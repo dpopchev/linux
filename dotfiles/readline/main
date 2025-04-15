@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+DOTSOURCE=readline
+
+# adotfile is existing next to this file;
+# it is not alias unless specifically used as one within here
+# e.g. .../DOTSOURCE/adotfile
+declare -rA DOTMAPPING=(
+    [inputrc]=${HOME}/.inputrc
+)
+
+setup_readline() {
+    local -r target=inputrc
+    make_path_to ${DOTMAPPING[$target]}
+    link_dotfile ${DOTSOURCE}/$target ${DOTMAPPING[$target]}
+}
+
+setup_dotfiles() {
+    # arguments are fixed by interface shared between all setups
+    local -r install_package="$1"
+    local -n dpdirs=$2
+    setup_readline
+}
+
+restore_dotfiles() {
+    # arguments are fixed by interface shared between all setups
+    local -n dpdirs=$1
+    # do whatever needs to be done, e.g.
+    # restore to previous state
+    for key in; do
+        restore ${DOTMAPPING[key]}
+    done
+}

@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+DOTSOURCE=alacritty-kaktux280
+
+declare -rA DOTMAPPING=(
+    [alacritty.yml]=${HOME}/.config/alacritty/alacritty.yml
+)
+
+setup_alacritty() {
+    local -r target=alacritty.yml
+    make_path_to ${DOTMAPPING[$target]}
+    link_dotfile ${DOTSOURCE}/$target ${DOTMAPPING[$target]}
+}
+
+setup_font() {
+    local -r nerd_font=DejaVuSansMono
+    (
+        cd ~/.local/share/fonts &&
+            wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/${nerd_font}.zip &&
+            unzip ${nerd_font}.zip &&
+            rm ${nerd_font}.zip &&
+            fc-cache -fv
+    )
+}
+
+setup_dotfiles() {
+    # arguments are fixed by interface shared between all setups
+    local -r install_package="$1"
+    local -n dpdirs=$2
+    # do whatever needs to be done, e.g.
+    # install a package
+    $install_package alacritty
+    # or execute step for setup
+    setup_alacritty
+    (cd ${dpdirs[home]} && git clone --depth 1 https://github.com/alacritty/alacritty-theme)
+}
+
+restore_dotfiles() {
+    # arguments are fixed by interface shared between all setups
+    local -n dpdirs=$1
+    # do whatever needs to be done, e.g.
+    # restore to previous state
+    for key in; do
+        restore ${DOTMAPPING[key]}
+    done
+}

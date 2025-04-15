@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+DOTSOURCE=git
+
+declare -rA DOTMAPPING=(
+    [gitconfig]=${HOME}/.gitconfig
+    [gitattributes]=${HOME}/.gitattributes
+    [aliases.sh]=git.aliases
+)
+
+setup_gitconfig() {
+    link_dotfile ${DOTSOURCE}/gitconfig "${DOTMAPPING[gitconfig]}"
+}
+
+setup_gitattributes() {
+    link_dotfile ${DOTSOURCE}/gitattributes "${DOTMAPPING[gitattributes]}"
+}
+
+setup_aliases() {
+    local -r bash_aliases=$1
+    link_dotfile $DOTSOURCE/aliases.sh "${bash_aliases}/${DOTMAPPING[aliases.sh]}"
+}
+
+setup_dotfiles() {
+    local -r install_package="$1"
+    local -n dpdirs=$2
+    $install_package git
+    setup_gitconfig
+    setup_gitattributes
+    setup_aliases ${dpdirs[bash]}
+}
+
+restore_dotfiles() {
+    local -n dpdirs=$1
+    restore ${DOTMAPPING[gitconfig]}
+    restore ${DOTMAPPING[gitattributes]}
+    rm -f ${dpdirs[bash]}/${DOTMAPPING[aliases.sh]} && emit_status "dropped bash git aliases" $?
+}

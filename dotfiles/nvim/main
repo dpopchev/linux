@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+DOTSOURCE=nvim
+
+LUA_PLUGINS=${HOME}/.config/nvim/lua
+
+declare -rA DOTMAPPING=(
+    [vimrc]=${HOME}/.vimrc
+    [nvim.lua]=${HOME}/.config/nvim/init.lua
+    [plugins_setup.lua]=${LUA_PLUGINS}/plugins_setup.lua
+    [gitsigns.lua]=${LUA_PLUGINS}/plugins/gitsigns.lua
+    [which_key.lua]=${LUA_PLUGINS}/plugins/which_key.lua
+    [telescope.lua]=${LUA_PLUGINS}/plugins/telescope.lua
+    [lazydev.lua]=${LUA_PLUGINS}/plugins/lazydev.lua
+    [lsp.lua]=${LUA_PLUGINS}/plugins/lsp.lua
+    [autoformat.lua]=${LUA_PLUGINS}/plugins/autoformat.lua
+    [autocompletion.lua]=${LUA_PLUGINS}/plugins/autocompletion.lua
+    [vim_wordmotion.lua]=${LUA_PLUGINS}/plugins/vim_wordmotion.lua
+    [targets.lua]=${LUA_PLUGINS}/plugins/targets.lua
+    [todo_comments.lua]=${LUA_PLUGINS}/plugins/todo_comments.lua
+    [nvim_treesitter.lua]=${LUA_PLUGINS}/plugins/nvim_treesitter.lua
+    [comment.lua]=${LUA_PLUGINS}/plugins/comment.lua
+    [git_conflict.lua]=${LUA_PLUGINS}/plugins/git_conflict.lua
+    [hardline.lua]=${LUA_PLUGINS}/plugins/hardline.lua
+    [indent_blankline.lua]=${LUA_PLUGINS}/plugins/indent_blankline.lua
+    [neotest.lua]=${LUA_PLUGINS}/plugins/neotest.lua
+    [nvim_autopairs.lua]=${LUA_PLUGINS}/plugins/nvim_autopairs.lua
+    [nvim_surround.lua]=${LUA_PLUGINS}/plugins/nvim_surround.lua
+    [nvim_tree.lua]=${LUA_PLUGINS}/plugins/nvim_tree.lua
+    [sonokai.lua]=${LUA_PLUGINS}/plugins/sonokai.lua
+)
+
+setup_vimrc() {
+    local -r dotfile=vimrc
+    link_dotfile ${DOTSOURCE}/${dotfile} ${DOTMAPPING[$dotfile]}
+}
+
+setup_luas() {
+    for key in "${!DOTMAPPING[@]}"; do
+        [[ $key != *.lua ]] && continue
+        link_dotfile ${DOTSOURCE}/$key ${DOTMAPPING[$key]}
+    done
+}
+
+setup_dotfiles() {
+    # arguments are fixed by interface shared between all setups
+    local -r install_package="$1"
+    local -n dpdirs=$2
+    # do whatever needs to be done, e.g.
+    # install a package
+    $install_package neovim
+    # or execute step for setup
+    setup_vimrc
+    make_path ${LUA_PLUGINS}/plugins
+    setup_luas
+}
+
+restore_dotfiles() {
+    # arguments are fixed by interface shared between all setups
+    local -n dpdirs=$1
+    # do whatever needs to be done, e.g.
+    # restore to previous state
+    restore ${DOTMAPPING[vimrc]}
+    for key in "${!DOTMAPPING[@]}"; do
+        [[ $key != *.lua ]] && continue
+        restore ${DOTMAPPING[$key]}
+    done
+}

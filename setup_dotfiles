@@ -1,0 +1,272 @@
+#!/usr/bin/env bash
+
+ROOTDIR="$(dirname $(realpath "$0"))"
+
+BACKUP_SUFFIX=dpopchevbackup
+CLEANUP_SUFFIX=dpopchevcleanup
+
+DOTFILES=dotfiles
+
+DEFAULT_PACKAGE_MANAGER=${DPOPCHEV_PACKAGE_MANAGER:-apt}
+
+declare -rA VERSION_CONTROL_WARN=(
+    ['#']="# Installed by Ansible dpopchev setup, changes might be overridden."
+)
+
+DPHOME="${HOME}/.dpopchev"
+
+declare -rA DPDIRS=(
+    ["home"]=${DPHOME}
+    ["bin"]="${DPHOME}/bin"
+    ["bash"]="${DPHOME}/bash"
+)
+
+declare -rA STATUSES=(
+    [0]="done"
+    [1]="fail"
+    [-99]="dry"
+    [-88]="skip"
+)
+
+setup_option=
+should_restore=false
+is_dryrun=false
+package_manager=
+should_initialize=false
+initialize_name=
+
+apt_install() {
+    local -r package="$1"
+    if ! apt list $package --installed 2>/dev/null | grep $package >/dev/null; then
+        [[ $is_dryrun == true ]] && (sudo apt install -f $package)
+        emit_status "install $package" $?
+    fi
+
+    emit_status "package already installed: $package" -88
+}
+
+declare -rA INSTALL_PACKAGE=(
+    ["apt"]=apt_install
+)
+
+emit_status() {
+    local msg="$1"
+    local -r exit_code="$2"
+    local -r max_length=$(tput cols)
+    local -r msg_length=${#msg}
+    local -r code_length=4
+
+    [[ $msg_length -gt $max_length ]] && msg="${msg:0:$((max_length - $code_length - 6))}..."
+
+    printf "%-$((max_length - $code_length - 3))s [%-${code_length}s]\n" "$msg" "${STATUSES[$exit_code]}"
+}
+
+select_source() {
+    local -r src="$1"
+
+    local -r selected_file=$(
+        find ${DOTFILES}/ -mindepth 2 -type f -not -name "main" |
+            grep $src |
+            head -n1
+    )
+
+    if [[ ! -n $selected_file ]]; then
+        echo "NO FILE SELECTED: $src" >&2
+        exit 1
+    fi
+
+    echo $selected_file
+}
+
+link_together() {
+    local -r src=$(readlink -f $(select_source "$1"))
+    local -r dst="$2"
+    local exit_code=-99
+
+    if [[ $is_dryrun == false ]]; then
+        ln -s $src $dst
+        exit_code=$?
+    fi
+
+    emit_status "linking $(basename $src) into $(dirname $dst)" $exit_code
+
+    return $exit_code
+}
+
+make_path() {
+    local -r target="$1"
+    local exit_code=-99
+
+    if [[ $is_dryrun == false ]]; then
+        mkdir -p $target
+        exit_code=$?
+    fi
+
+    emit_status "making path $target" $exit_code
+
+    return $exit_code
+}
+
+make_path_to() {
+    local -r target="$1"
+
+    make_path $(dirname $target)
+    return $?
+}
+
+backup() {
+    local -r target="$1"
+    local exit_code=-99
+
+    if [[ ! -f $target ]]; then
+        emit_status "backup $target" -88
+        return 0
+    fi
+
+    if [[ $is_dryrun == false ]]; then
+        mv -f $target "${target}.${BACKUP_SUFFIX}"
+        exit_code=$?
+    fi
+
+    emit_status "backup $target" $exit_code
+
+    return $exit_code
+}
+
+restore() {
+    local -r target="$1"
+    local exit_code=-99
+
+    if [[ $is_dryrun == true ]]; then
+        emit_status "restore state $target" $exit_code
+        return $exit_code
+    fi
+
+    if [[ -e ${target}.${BACKUP_SUFFIX} ]]; then
+        mv -f ${target}.${BACKUP_SUFFIX} ${target}
+        exit_code=$?
+    elif [[ -e $target ]]; then
+        mv -f --backup=t $target ${target}.${CLEANUP_SUFFIX}
+        exit_code=$?
+    else
+        exit_code=-88
+    fi
+
+    emit_status "restore state $target" $exit_code
+
+    return $exit_code
+}
+
+link_dotfile() {
+    local -r src="${1}"
+    local -r dst="${2}"
+
+    backup $dst
+    link_together $src $dst
+}
+
+prepare() {
+    make_path $DPHOME
+    for dppath in "${!DPDIRS[@]}"; do
+        make_path "${DPDIRS[$dppath]}"
+    done
+}
+
+usage() {
+    cat <<EOUSAGE
+$(basename $0) flags:
+    -n makes a dry run
+    -o <option> selects dotfiles option
+    -r makes a restore state run
+    -p <package manager> command for managing packages; must have
+        supported: apt
+    -i <name> initialize a dotfile target using template; all above flags are ignored
+
+Costume dotfiles and tools are saved at ${DPHOME}
+EOUSAGE
+}
+
+if [[ $# -eq 0 ]]; then
+    usage
+    exit 0
+fi
+
+while getopts "no:hrp:i:" opt; do
+    case "$opt" in
+    n) is_dryrun=true ;;
+    h)
+        usage
+        exit 1
+        ;;
+    o) setup_option="$OPTARG" ;;
+    r) should_restore=true ;;
+    p) package_manager="$OPTARG" ;;
+    i)
+        should_initialize=true
+        initialize_name="$OPTARG"
+        ;;
+    esac
+done
+
+if [[ $should_initialize == true ]]; then
+    destination=./dotfiles/${initialize_name}
+    mkdir -p ${destination}
+    cat <<EOTEMPLATE >${destination}/main
+#!/usr/bin/env bash
+
+DOTSOURCE=${initialize_name}
+
+# adotfile is existing next to this file;
+# it is not alias unless specifically used as one within here
+# e.g. .../DOTSOURCE/adotfile
+declare -rA DOTMAPPING=(
+    [adotfile]=adestination/adotfile
+)
+
+setup_adotfile() {
+    local -r target=adotfile
+    make_path_to \${DOTMAPPING[\$target]}
+    link_dotfile \${DOTSOURCE}/\$target \${DOTMAPPING[\$target]}
+}
+
+setup_dotfiles() {
+    # arguments are fixed by interface shared between all setups
+    local -r install_package="\$1"
+    local -n dpdirs=\$2
+    # do whatever needs to be done, e.g.
+    # install a package
+    \$install_package adependecy_package
+    # or execute step for setup
+    setup_adotfile
+}
+
+restore_dotfiles() {
+    # arguments are fixed by interface shared between all setups
+    local -n dpdirs=\$1
+    # do whatever needs to be done, e.g.
+    # restore to previous state
+    for key in ${!DOTMAPPING[@]}; do
+        restore \${DOTMAPPING[key]}
+    done
+}
+EOTEMPLATE
+    exit 0
+fi
+
+if [[ -z $package_manager ]]; then
+    echo "missing -p, fallback to: ${DEFAULT_PACKAGE_MANAGER}" >&2
+    package_manager=${DEFAULT_PACKAGE_MANAGER}
+fi
+
+prepare
+
+while IFS= read -r -d '' dothome; do
+    dotarget=$(basename $dothome)
+    emit_status "found dotfiles for $dotarget" $?
+    source $dothome/main
+    case $should_restore in
+    true) restore_dotfiles DPDIRS ;;
+    false) setup_dotfiles ${INSTALL_PACKAGE[$package_manager]} DPDIRS ;;
+    esac
+    emit_status "finish processing of $dotarget" $?
+done < <(find $DOTFILES -maxdepth 1 -mindepth 1 -type d -name "${setup_option:-*}" -print0)

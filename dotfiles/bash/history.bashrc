@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# C+r and type to search lines with string in history
+# C+s would freeze the terminal unless the below feature is set
+# having it C+s will move forward
+# C+j or ESC will terminate a search
+# RET will execute the command
+# C+g will abort the search and return to the original line
+set -x
+stty -ixon
+set +x
+
+# history size
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+
+# ignore commands or pattern matches, i.e. `*`
+export HISTIGNORE="exit:clear:bg:fg:history*"
+
+# don't put duplicate lines or lines starting with space
+# in the history. See bash(1) for more options
+export HISTCONTROL=erasedups:ignoredups:ignorespace
+
+# timestamp of each command in its history
+export HISTTIMEFORMAT='%F %T '
+
+# Causes bash to append and write to history instead of overwriting it so if you
+# start a new terminal, you have old session history
+# add `history -n` to force reload it from the fail at every command, e.g.
+# PROMPT_COMMAND='history -a; history -n'
+shopt -s histappend
+export PROMPT_COMMAND='history -a'
+
+# Write a multi line command in a single line
+shopt -s cmdhist

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+export BROWSER=firefox
+export EDITOR=nvim
+export PAGER=less
+export PATH="${HOME}/.dpopchev/bin${PATH:+:${PATH}}"
+export TERMINAL=alacritty
+export VISUAL=nvim
+
+export DPOPCHEV_PS1PROFILE=dp1
+export DPOPCHEV_PACKAGE_MANAGER=apt

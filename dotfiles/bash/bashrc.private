@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+if [[ $- != *i* ]]; then
+    # Shell is non-interactive.  Be done now!
+    return
+fi
+
+rcfile=
+while IFS= read -r -d '' rcfile; do
+    source $rcfile
+done < <(find ~/.dpopchev/bash -name "*.bashrc" -print0)
+
+aliasfile=
+while IFS= read -r -d '' aliasfile; do
+    source $aliasfile
+done < <(find ~/.dpopchev/bash -name "*.aliases" -print0)
+
+unset rcfile aliasfile
+
+# deduplicate PATH while preserving the order
+# Original PATH
+original_path="$PATH"
+new_path=""
+
+IFS=':' read -r -a path_array <<<"$original_path"
+for entry in "${path_array[@]}"; do
+    case ":$new_path:" in
+    *":$entry:"*) : ;;
+    *) new_path="$new_path:$entry" ;;
+    esac
+done
+
+export PATH="${new_path#:}"
+
+unset original_path new_path
+
+source ~/.bash_profile

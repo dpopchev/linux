@@ -1,0 +1,80 @@
+[alias]
+        co = checkout
+        br = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
+        s = status --short --branch
+        ss = status
+        a = add
+        u = add -u
+        d = diff
+        cm = commit --message
+        ca = commit --amend --no-edit
+        # code base changes improving its readability, maintainability, without
+        # regression or adding new behaviour
+        # YES refactor:
+        # NO refactor:
+        cc = "!f(){ git commit -m \"refactor: $1\";}; f"
+        ccb = "!f(){ git commit -m \"refactor!: $1\";}; f"
+        # implement new behavior, e.g.
+        # YES feat: add division
+        # NO feat: extend dependencies with libXXX
+        cmf = "!f(){ git commit -m \"feat: $1\";}; f"
+        cmfb = "!f(){ git commit -m \"feat!: $1\";}; f"
+        # commit corrects unwanted behavior, e.g.
+        # YES fix: #ticketid, division with 0 returns infinity instead of exception
+        # NO fix: typo in the README
+        cml = "!f(){ git commit -m \"fix: $1\";}; f"
+        cmlb = "!f(){ git commit -m \"fix!: $1\";}; f"
+        # maintenance changes that do not relate to a fix, feat or modify any src or test file, e.g.
+        # YES chore: clean up deprecated moduleXXX
+        # NO chore: raise deprecation warning for moduleXXX function YYY
+        cmc = "!f(){ git commit -m \"chore: $1\";}; f"
+        cmcb = "!f(){ git commit -m \"chore!: $1\";}; f"
+        # changes impact documentation, e.g. README
+        # YES docs: change the function doc string to match new return type
+        # NO docs: add new function parameter to match requirements
+        cmd = "!f(){ git commit -m \"docs: $1\";}; f"
+        cmdb = "!f(){ git commit -m \"docs!: $1\";}; f"
+        # changes do not affect the meaning of code, nor add new functionality
+        # YES style: clean up trailing white spaces
+        # NO style:
+        cms = "!f(){ git commit -m \"style: $1\";}; f"
+        cmsb = "!f(){ git commit -m \"style!: $1\";}; f"
+        # adding new or correcting previous tests
+        # YES test:
+        # NO test:
+        cmt = "!f(){ git commit -m \"test: $1\";}; f"
+        cmtb = "!f(){ git commit -m \"test!: $1\";}; f"
+        # continuous integration and deployment changes, might overlap with `build`
+        cmi = "!f(){ git commit -m \"ci: $1\";}; f"
+        cmib = "!f(){ git commit -m \"ci!: $1\";}; f"
+        # commit affects the packaging system or related configurations
+        # YES build: prevent build if lint score is less then threshold
+        # NO build: change initialisation values of module
+        cmo = "!f(){ git commit -m \"build: $1\";}; f"
+        cmob = "!f(){ git commit -m \"build!: $1\";}; f"
+        # initializing files into work tree
+        cmi = "!f(){ git commit -m \"init: $1\";}; f"
+        p = push
+        ll = log --oneline
+        last = log -1 HEAD --stat
+        lg = log --pretty=pretty-log --abbrev-commit -30
+        master = !git checkout $(git remote show origin | sed -nr 's/HEAD branch: (\\w+)/\\1/p')
+        sweep = !git master && git fetch --prune && git branch -v --merged | sed -rn 's/^[[:blank:]]*([[:alnum:]\\/-]+)[[:blank:]]+\\w{7}[[:blank:]]+\\[gone\\][[:graph:][:blank:]]*/\\1/p' | xargs git branch -d
+        f = !git fetch && git checkout
+        gl = config --global --list
+        cl = config --get-regexp '^alias.c(c|m\\w)\\b'
+        r = rev-parse --show-toplevel
+        undo = reset --soft HEAD~
+        who = !git config --get user.name && git config --get user.email
+        # NOTE: user-* is a class of aliases that are environment dependant
+        # NOTE: recommend ignore line from tracking with gitattribute filter
+        # user-* = !git config user.name && git config user.email
+[pretty]
+        pretty-log = format:%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]
+[filter "gitignore"]
+        clean = "sed '/#[[:blank:]]*gitignore[[:blank:]]*$/d'"
+        smudge = cat
+[core]
+        attributesFile = /home/dimitar/.gitattributes
+[pull]
+        ff = only
