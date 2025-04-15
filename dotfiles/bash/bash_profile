@@ -9,3 +9,5 @@ export VISUAL=nvim
 
 export DPOPCHEV_PS1PROFILE=dp1
 export DPOPCHEV_PACKAGE_MANAGER=apt
+
+source ~/.bashrc
