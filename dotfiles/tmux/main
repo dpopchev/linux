@@ -3,7 +3,7 @@
 DOTSOURCE=tmux
 
 declare -rA DOTMAPPING=(
-    [tmux.conf]=${HOME}/.config/tmux/tmux.conf
+    [tmux.conf]=${HOME}/.tmux.conf
 )
 
 setup_tmuxconf() {
@@ -12,7 +12,7 @@ setup_tmuxconf() {
 }
 
 setup_plugin_manager() {
-    local -r plugins=${HOMEK}/.tmux/plugins/tpm
+    local -r plugins=${HOME}/.tmux/plugins/tpm
     if [[ ! -d $plugins ]]; then
         mkdir -p $plugins
         git clone --depth 1 https://github.com/tmux-plugins/tpm $plugins

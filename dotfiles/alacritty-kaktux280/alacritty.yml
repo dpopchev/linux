@@ -1,5 +1,5 @@
 import:
-  - ~/.dpopchev/alacritty-themes/themes/monokai_pro.yml
+  - ~/.dpopchev/alacritty-theme/themes/monokai_pro.yml
 font:
   normal:
     family: DejaVu SansM Nerd Font

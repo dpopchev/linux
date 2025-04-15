@@ -84,7 +84,7 @@ link_together() {
     local exit_code=-99
 
     if [[ $is_dryrun == false ]]; then
-        ln -s $src $dst
+        ln -fs $src $dst
         exit_code=$?
     fi
 

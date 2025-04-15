@@ -5,6 +5,14 @@ if [[ $- != *i* ]]; then
     return
 fi
 
+# C+r and type to search lines with string in history
+# C+s would freeze the terminal unless the below feature is set
+# having it C+s will move forward
+# C+j or ESC will terminate a search
+# RET will execute the command
+# C+g will abort the search and return to the original line
+stty -ixon
+
 rcfile=
 while IFS= read -r -d '' rcfile; do
     source $rcfile
@@ -33,5 +41,3 @@ done
 export PATH="${new_path#:}"
 
 unset original_path new_path
-
-source ~/.bash_profile

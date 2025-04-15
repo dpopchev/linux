@@ -9,29 +9,30 @@ apply_foreground() {
     # name is first argument
     # text is second
 
-    local -r name="$1"; shift;
+    local -r name="$1"
+    shift
     local -r text="$*"
 
     local default='0;39'
     local code=
     case "${name,,}" in
-        black) code='0;30' ;;
-        red) code='0;31' ;;
-        green) code='0;32' ;;
-        yellow) code='0;33' ;;
-        blue) code='0;34' ;;
-        magenta) code='0;35' ;;
-        cyan) code='0;36' ;;
-        light_grey) code='0;37' ;;
-        dark_grey) code='0;90' ;;
-        light_red) code='0;91' ;;
-        light_green) code='0;92' ;;
-        light_yellow) code='0;93' ;;
-        light_blue) code='0;94' ;;
-        light_magenta) code='0;95' ;;
-        light_cyan) code='0;96' ;;
-        white) code='0;97' ;;
-        *) code=${default};;
+    black) code='0;30' ;;
+    red) code='0;31' ;;
+    green) code='0;32' ;;
+    yellow) code='0;33' ;;
+    blue) code='0;34' ;;
+    magenta) code='0;35' ;;
+    cyan) code='0;36' ;;
+    light_grey) code='0;37' ;;
+    dark_grey) code='0;90' ;;
+    light_red) code='0;91' ;;
+    light_green) code='0;92' ;;
+    light_yellow) code='0;93' ;;
+    light_blue) code='0;94' ;;
+    light_magenta) code='0;95' ;;
+    light_cyan) code='0;96' ;;
+    white) code='0;97' ;;
+    *) code=${default} ;;
     esac
 
     echo -n "\033[${code}m${text}\033[0m"
@@ -43,40 +44,41 @@ apply_background() {
     # name is first argument
     # text is second
 
-    local -r name="$1"; shift;
+    local -r name="$1"
+    shift
     local -r text="$*"
 
     local default='0;49'
     local code=
     case "${name,,}" in
-        black) code='0;40' ;;
-        red) code='0;41' ;;
-        green) code='0;42' ;;
-        yellow) code='0;43' ;;
-        blue) code='0;44' ;;
-        magenta) code='0;45' ;;
-        cyan) code='0;46' ;;
-        light_grey) code='0;47' ;;
-        dark_grey) code='0;100' ;;
-        light_red) code='0;101' ;;
-        light_green) code='0;102' ;;
-        light_yellow) code='0;103' ;;
-        light_blue) code='0;104' ;;
-        light_magenta) code='0;105' ;;
-        light_cyan) code='0;106' ;;
-        white) code='0;107' ;;
-        *) code=${default};;
+    black) code='0;40' ;;
+    red) code='0;41' ;;
+    green) code='0;42' ;;
+    yellow) code='0;43' ;;
+    blue) code='0;44' ;;
+    magenta) code='0;45' ;;
+    cyan) code='0;46' ;;
+    light_grey) code='0;47' ;;
+    dark_grey) code='0;100' ;;
+    light_red) code='0;101' ;;
+    light_green) code='0;102' ;;
+    light_yellow) code='0;103' ;;
+    light_blue) code='0;104' ;;
+    light_magenta) code='0;105' ;;
+    light_cyan) code='0;106' ;;
+    white) code='0;107' ;;
+    *) code=${default} ;;
     esac
 
     echo -n "\033[${code}m${text}\033[0m"
     return 0
 }
 
-get_loadavg(){
+get_loadavg() {
     cat /proc/loadavg | grep -Po '(\d+\.\d+\ )+' | sed -rn 's/\s+$//p'
 }
 
-get_suspended_jobs_count(){
+get_suspended_jobs_count() {
     jobs -s | wc -l
 }
 
@@ -90,7 +92,7 @@ get_jobs_statuses() {
 }
 
 print_jobs_status() {
-    IFS=',' read -r -a statuses <<< $(get_jobs_statuses)
+    IFS=',' read -r -a statuses <<<$(get_jobs_statuses)
 
     local -a status
     if [[ ! -z ${statuses[1]} ]]; then
@@ -121,7 +123,7 @@ get_git_status() {
 
 git_status() {
     # echo git status if branch located
-    IFS=',' read -ra statuses <<< $(get_git_status)
+    IFS=',' read -ra statuses <<<$(get_git_status)
 
     local -a status
     if [[ -z ${statuses[0]} ]]; then
@@ -163,7 +165,7 @@ git_status() {
     return 0
 }
 
-print_exitcode(){
+print_exitcode() {
     local -r exitcode=$1
 
     if [[ $exitcode -eq 0 ]]; then
@@ -175,7 +177,7 @@ print_exitcode(){
     return 0
 }
 
-print_suspended_jobs_count(){
+print_suspended_jobs_count() {
     local -r count=$(get_suspended_jobs_count)
 
     if [[ $count -eq 0 ]]; then
@@ -187,7 +189,7 @@ print_suspended_jobs_count(){
     return 0
 }
 
-rightalign_git_exitcode(){
+rightalign_git_exitcode() {
     local -r exitcode="$1"
     local -a statuses
     statuses+=("$(print_suspended_jobs_count)")
@@ -197,7 +199,7 @@ rightalign_git_exitcode(){
     # when using colors we need to compensate https://superuser.com/a/517110
     local -r len_string=$(echo -en ${statuses[*]} | sed 's/\x1b\[[0-9;]*m//g' | wc -c)
     local -r len_colored_string=$(echo -en ${statuses[*]} | wc -c)
-    IFS=' ' printf '%*b' $(($COLUMNS+$len_colored_string-$len_string)) "${statuses[*]}"
+    IFS=' ' printf '%*b' $(($COLUMNS + $len_colored_string - $len_string)) "${statuses[*]}"
 }
 
 lower_rightprompt() {
@@ -211,15 +213,15 @@ upper_rightprompt() {
 
 # Change the window title of X terminals
 case ${TERM} in
-    [aEkx]term*|rxvt*|gnome*|konsole*|interix|tmux*)
-        PS1='\[\033]0;\u@\h:\w\007\]'
-        ;;
-    screen*)
-        PS1='\[\033_\u@\h:\w\033\\\]'
-        ;;
-    *)
-        unset PS1
-        ;;
+[aEkx]term* | rxvt* | gnome* | konsole* | interix | tmux*)
+    PS1='\[\033]0;\u@\h:\w\007\]'
+    ;;
+screen*)
+    PS1='\[\033_\u@\h:\w\033\\\]'
+    ;;
+*)
+    unset PS1
+    ;;
 esac
 
 # Set colorful PS1 only on colorful terminals.
@@ -227,12 +229,12 @@ esac
 # We run dircolors directly due to its changes in file syntax and
 # terminal name patching.
 use_color=false
-if type -P dircolors >/dev/null ; then
+if type -P dircolors >/dev/null; then
     # Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
     LS_COLORS=
-    if [[ -f ~/.dir_colors ]] ; then
+    if [[ -f ~/.dir_colors ]]; then
         eval "$(dircolors -b ~/.dir_colors)"
-    elif [[ -f /etc/DIR_COLORS ]] ; then
+    elif [[ -f /etc/DIR_COLORS ]]; then
         eval "$(dircolors -b /etc/DIR_COLORS)"
     else
         eval "$(dircolors -b)"
@@ -241,7 +243,7 @@ if type -P dircolors >/dev/null ; then
     # default.  If it isn't set, then `ls` will only colorize by default
     # based on file attributes and ignore extensions (even the compiled
     # in defaults of dircolors). #583814
-    if [[ -n ${LS_COLORS:+set} ]] ; then
+    if [[ -n ${LS_COLORS:+set} ]]; then
         use_color=true
     else
         # Delete it if it's empty as it's useless in that case.
@@ -251,36 +253,36 @@ else
     # Some systems (e.g. BSD & embedded) don't typically come with
     # dircolors so we need to hardcode some terminals in here.
     case ${TERM} in
-        [aEkx]term*|rxvt*|gnome*|konsole*|screen|tmux*|cons25|*color) use_color=true;;
+    [aEkx]term* | rxvt* | gnome* | konsole* | screen | tmux* | cons25 | *color) use_color=true ;;
     esac
 fi
 
-if ${use_color} ; then
-    if [[ ${EUID} == 0 ]] ; then
+if ${use_color}; then
+    if [[ ${EUID} == 0 ]]; then
         # user is root
         PS1+='\[\033[01;31m\]\h\[\033[01;34m\] \w \$\[\033[00m\] '
     else
         # user is NOT root
         [[ -n $TMUX ]] && hostname='tmux'
         case $PS1PROFILE in
-            dp1)
-                PROMPT_COMMAND='last_exitcode=$?'
-                PROMPT_DIRTRIM=2
-                [[ -n $TMUX ]] && hostname='tmux'
-                PS1='\[$(tput sc; rightalign_git_exitcode $last_exitcode; tput rc)\]\[\033[01;32m\]'${hostname:-"\\h"}'\[\033[01;34m\]\[\033[00m\] \w \[\033[01;34m\]\$\[\033[00m\] '
-                ;;
-            dp2)
-                PROMPT_COMMAND='last_exitcode=$?'
-                PROMPT_DIRTRIM=2
-                PS1='\[$(tput sc; upper_rightprompt; tput rc)\]${hostname:-\h}:\w\n'
-                PS1+='\[$(tput sc; lower_rightprompt $last_exitcode; tput rc)\]\u \$ '
-                ;;
-            gentoo)
-                PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
-                ;;
-            *)
-                [[ -z $PS1 ]] && PS1='\u@\h \w \$ '
-                ;;
+        dp1)
+            PROMPT_COMMAND='last_exitcode=$?'
+            PROMPT_DIRTRIM=2
+            [[ -n $TMUX ]] && hostname='tmux'
+            PS1='\[$(tput sc; rightalign_git_exitcode $last_exitcode; tput rc)\]\[\033[01;32m\]'${hostname:-"\\h"}'\[\033[01;34m\]\[\033[00m\] \w \[\033[01;34m\]\$\[\033[00m\] '
+            ;;
+        dp2)
+            PROMPT_COMMAND='last_exitcode=$?'
+            PROMPT_DIRTRIM=2
+            PS1='\[$(tput sc; upper_rightprompt; tput rc)\]${hostname:-\h}:\w\n'
+            PS1+='\[$(tput sc; lower_rightprompt $last_exitcode; tput rc)\]\u \$ '
+            ;;
+        gentoo)
+            PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
+            ;;
+        *)
+            [[ -z $PS1 ]] && PS1='\u@\h \w \$ '
+            ;;
         esac
     fi
 else

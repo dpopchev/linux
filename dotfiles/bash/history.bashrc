@@ -1,15 +1,5 @@
 #!/usr/bin/env bash
 
-# C+r and type to search lines with string in history
-# C+s would freeze the terminal unless the below feature is set
-# having it C+s will move forward
-# C+j or ESC will terminate a search
-# RET will execute the command
-# C+g will abort the search and return to the original line
-set -x
-stty -ixon
-set +x
-
 # history size
 export HISTSIZE=10000
 export HISTFILESIZE=10000

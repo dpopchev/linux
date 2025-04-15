@@ -17,7 +17,7 @@ setup_font() {
     (
         cd ~/.local/share/fonts &&
             wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/${nerd_font}.zip &&
-            unzip ${nerd_font}.zip &&
+	    unzip -o ${nerd_font}.zip &&
             rm ${nerd_font}.zip &&
             fc-cache -fv
     )
@@ -33,6 +33,7 @@ setup_dotfiles() {
     # or execute step for setup
     setup_alacritty
     (cd ${dpdirs[home]} && git clone --depth 1 https://github.com/alacritty/alacritty-theme)
+    setup_font
 }
 
 restore_dotfiles() {
