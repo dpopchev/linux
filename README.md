@@ -1,31 +1,38 @@
-# linux configuration
+# linux dotfiles
 
 Linux setup per my linking.
 
 ## Install
 
 ```bash
-git clone --depth 1 <URL>
-cd <project-name>
-# make check
+git clone --depth 1 https://github.com/dpopchev/linux
+cd linux
+bash setup_dotfiles # usage
 ```
-
-If more context is needed:
-
-1. rename section to `Installation`
-1. add `Requirements` and `Install` or any other relevant subsections
 
 ## Usage
 
-Place examples with expected output.
+`setup_dotfiles` is a bash script that defines basic actions for linking
+dotfiles. See usage by running without flags
 
-Start with `Setup` subsection for configuration.
+### Make dotfile entry
 
-Break intu sub-...subsections using scenario/feature names.
+Use `bash setup_dotfiles -i DOTFILENAME`, which will:
 
-## Acknowledgment
+- create directory with same name, e.g. `dotfiles/DOTFILENAME`
+- will create template `dotfiles/DOTFILENAME/main`
 
-- [makeareadme](https://www.makeareadme.com/)
+Edit the `main` by **not** altering the names of existing functions -- those are
+the interface `setup_dotfiles` needs to create the links. Add other local
+variables and such, or any other of the following:
+
+- `link_together` links symbolically config file with target
+- `make_path` ensures directory path exists
+- `make_path_to` ensures path to file exists
+- `backup` makes in place backup of existing file with appended suffix `${BACKUP_SUFFIX}`
+- `restore` reverts action by renaming target with appending suffix
+`${CLEANUP_SUFFIX}` and restoring the local `${BACKUP_SUFFIX}` file or doing
+- `link_dotfile` backups exiting target and links it with this repo dotfile
 
 ## License
 
