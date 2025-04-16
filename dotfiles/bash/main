@@ -18,6 +18,7 @@ declare -rA DOTMAPPING=(
     [ps1.bashrc]=ps1.bashrc
     [readline.bashrc]=readline.bashrc
     [termcolors.bashrc]=termcolors.bashrc
+    [completion.bashrc]=completion.bashrc
 )
 
 setup_bash_profile() {
@@ -63,6 +64,7 @@ setup_dotfiles() {
     $install_package neovim
     $install_package less
     $install_package alacritty
+    $install_package bash-completion
     # or execute step for setup
     setup_bash_profile
     setup_bashrc_sourcing
