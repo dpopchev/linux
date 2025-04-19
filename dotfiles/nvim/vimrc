@@ -308,3 +308,13 @@ cnoremap <M-f> <S-Right>
 
 "Preview substitutions live, as you type!
 set inccommand=split
+
+" ==> quickfix
+" nnoremap <expr> gmo empty(filter(getwininfo(), 'v:val.quickfix')) ? ':copen<CR>' : ':cclose<CR>'
+nnoremap <expr> gmo "<cmd>".(get(getqflist({"winid": 1}), "winid") != 0? "cclose" : "botright copen")."<cr>"
+nnoremap gmg :cnfile<cr>
+nnoremap gmn :cnext<cr>
+nnoremap gmp :cprevious<cr>
+nnoremap gmh :chistory<cr>
+nnoremap gm[ :colder<cr>
+nnoremap gm] :cnewer<cr>
