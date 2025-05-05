@@ -55,6 +55,7 @@
         # initializing files into work tree
         cmi = "!f(){ git commit -m \"init: $1\";}; f"
         p = push
+        pr = pull --rebase
         ll = log --oneline
         last = log -1 HEAD --stat
         lg = log --pretty=pretty-log --abbrev-commit -30
