@@ -175,7 +175,7 @@ set showmatch
 
 " ==> remap esc key
 inoremap kj <esc>l
-inoremap jk <esc>l
+" inoremap jk <esc>l
 " inoremap jw <esc>l
 " inoremap wj <esc>l
 " gV is to prevent automatic reselection
