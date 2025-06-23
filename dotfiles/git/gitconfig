@@ -8,6 +8,8 @@
         d = diff
         cm = commit --message
         ca = commit --amend --no-edit
+        # code commit as checkpoint, likely with breaking regressions
+        ccw = "!f(){ git commit -m \"wip: $1\";}; f"
         # code base changes improving its readability, maintainability, without
         # regression or adding new behaviour
         # YES refactor:
