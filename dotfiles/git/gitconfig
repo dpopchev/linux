@@ -8,53 +8,25 @@
         d = diff
         cm = commit --message
         ca = commit --amend --no-edit
-        # code commit as checkpoint, likely with breaking regressions
-        ccw = "!f(){ git commit -m \"wip: $1\";}; f"
-        # code base changes improving its readability, maintainability, without
-        # regression or adding new behaviour
-        # YES refactor:
-        # NO refactor:
-        cc = "!f(){ git commit -m \"refactor: $1\";}; f"
-        ccb = "!f(){ git commit -m \"refactor!: $1\";}; f"
-        # implement new behavior, e.g.
-        # YES feat: add division
-        # NO feat: extend dependencies with libXXX
+        # code changes under `src` that either break or not covered by tests
         cmf = "!f(){ git commit -m \"feat: $1\";}; f"
-        cmfb = "!f(){ git commit -m \"feat!: $1\";}; f"
-        # commit corrects unwanted behavior, e.g.
-        # YES fix: #ticketid, division with 0 returns infinity instead of exception
-        # NO fix: typo in the README
-        cml = "!f(){ git commit -m \"fix: $1\";}; f"
-        cmlb = "!f(){ git commit -m \"fix!: $1\";}; f"
-        # maintenance changes that do not relate to a fix, feat or modify any src or test file, e.g.
-        # YES chore: clean up deprecated moduleXXX
-        # NO chore: raise deprecation warning for moduleXXX function YYY
-        cmc = "!f(){ git commit -m \"chore: $1\";}; f"
-        cmcb = "!f(){ git commit -m \"chore!: $1\";}; f"
-        # changes impact documentation, e.g. README
-        # YES docs: change the function doc string to match new return type
-        # NO docs: add new function parameter to match requirements
-        cmd = "!f(){ git commit -m \"docs: $1\";}; f"
-        cmdb = "!f(){ git commit -m \"docs!: $1\";}; f"
-        # changes do not affect the meaning of code, nor add new functionality
-        # YES style: clean up trailing white spaces
-        # NO style:
-        cms = "!f(){ git commit -m \"style: $1\";}; f"
-        cmsb = "!f(){ git commit -m \"style!: $1\";}; f"
-        # adding new or correcting previous tests
-        # YES test:
-        # NO test:
+        # code changes under `src` fixing a bug; maybe it makes a failing test pass
+        cmb = "!f(){ git commit -m \"fix: $1\";}; f"
+        # code changes under `tests`; any of add, remove or modify test files
         cmt = "!f(){ git commit -m \"test: $1\";}; f"
-        cmtb = "!f(){ git commit -m \"test!: $1\";}; f"
-        # continuous integration and deployment changes, might overlap with `build`
-        cmi = "!f(){ git commit -m \"ci: $1\";}; f"
-        cmib = "!f(){ git commit -m \"ci!: $1\";}; f"
-        # commit affects the packaging system or related configurations
-        # YES build: prevent build if lint score is less then threshold
-        # NO build: change initialisation values of module
-        cmo = "!f(){ git commit -m \"build: $1\";}; f"
-        cmob = "!f(){ git commit -m \"build!: $1\";}; f"
-        # initializing files into work tree
+        # code changes under `src` that do not break tests; preserving functionality
+        cmr = "!f(){ git commit -m \"refactor: $1\";}; f"
+        # code changes under `src` that alter style, likely by formatter or fix lint errors
+        cms = "!f(){ git commit -m \"style: $1\";}; f"
+        # changes in the documentation, either the docstrings or `docs` dir
+        cmd = "!f(){ git commit -m \"docs: $1\";}; f"
+        # changes in the build system, maybe under `build`
+        cml = "!f(){ git commit -m \"build: $1\";}; f"
+        # changes in the continuous integration system, configuration files
+        cmk = "!f(){ git commit -m \"ci: $1\";}; f"
+        # changes in project not fitting anything else, nor dedicated dirs
+        cmj = "!f(){ git commit -m \"chore: $1\";}; f"
+        # initializing files into work tree, maybe as copy of another file
         cmi = "!f(){ git commit -m \"init: $1\";}; f"
         p = push
         pr = pull --rebase
@@ -65,7 +37,7 @@
         sweep = !git master && git fetch --prune && git branch -v --merged | sed -rn 's/^[[:blank:]]*([[:alnum:]\\/-]+)[[:blank:]]+\\w{7}[[:blank:]]+\\[gone\\][[:graph:][:blank:]]*/\\1/p' | xargs git branch -d
         f = !git fetch && git checkout
         gl = config --global --list
-        cl = config --get-regexp '^alias.c(c|m\\w)\\b'
+        cl = config --get-regexp '^alias.cm\\w\\b'
         r = rev-parse --show-toplevel
         undo = reset --soft HEAD~
         who = !git config --get user.name && git config --get user.email
