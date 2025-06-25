@@ -8,9 +8,12 @@
         d = diff
         cm = commit --message
         ca = commit --amend --no-edit
+        # NOTE commit with footer BREAKING CHANGE correlates with MAJOR in semantic versioning
         # code changes under `src` that either break or not covered by tests
+        # correlates with MINOR in semantic versioning
         cmf = "!f(){ git commit -m \"feat: $1\";}; f"
         # code changes under `src` fixing a bug; maybe it makes a failing test pass
+        # correlates with PATCH in semantic versioning
         cmb = "!f(){ git commit -m \"fix: $1\";}; f"
         # code changes under `tests`; any of add, remove or modify test files
         cmt = "!f(){ git commit -m \"test: $1\";}; f"
