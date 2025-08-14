@@ -33,6 +33,7 @@
         cmi = "!f(){ git commit -m \"init: $1\";}; f"
         p = push
         pr = pull --rebase
+        pm = pull
         ll = log --oneline
         last = log -1 HEAD --stat
         lg = log --pretty=pretty-log --abbrev-commit -30
